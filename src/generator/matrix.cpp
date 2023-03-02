@@ -1,8 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <tuple>
+#include "matrix.h"
 using namespace std;
-
 
 
 int matrix_mult(float* return_matrix[], float* matrix_1[], float* matrix_2[], int Row_1, int Col_1, int Row_2, int Col_2)
@@ -33,7 +33,7 @@ int matrix_mult(float* return_matrix[], float* matrix_1[], float* matrix_2[], in
 }
 
 
-tuple<float, float, float> matrix_mult_tuple(float* return_matrix[], float* matrix_1[], tuple<float, float, float> point, int Col_1)
+tuple<float, float, float> matrix_mult_tuple( float* matrix_1[], tuple<float, float, float> point)
 {
 
     return make_tuple( matrix_1[0][0]+get<0>(point) + matrix_1[0][1]+get<1>(point) + matrix_1[0][2]+get<2>(point),
