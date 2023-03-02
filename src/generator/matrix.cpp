@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <tuple>
 using namespace std;
 
 
@@ -32,6 +33,13 @@ int matrix_mult(float* return_matrix[], float* matrix_1[], float* matrix_2[], in
 }
 
 
+tuple<float, float, float> matrix_mult_tuple(float* return_matrix[], float* matrix_1[], tuple<float, float, float> point, int Col_1)
+{
+
+    return make_tuple( matrix_1[0][0]+get<0>(point) + matrix_1[0][1]+get<1>(point) + matrix_1[0][2]+get<2>(point),
+                matrix_1[1][0]+get<0>(point) + matrix_1[1][1]+get<1>(point) + matrix_1[1][2]+get<2>(point),
+                matrix_1[2][0]+get<0>(point) + matrix_1[2][1]+get<1>(point) + matrix_1[2][2]+get<2>(point));
+}
 
 
 
