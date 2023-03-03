@@ -112,36 +112,30 @@ float* generate_box(float length,  int grid_slices)
             point_array[++index] = make_tuple(referential_x, referential_y-delta, referential_z);
             point_array[++index] = make_tuple(referential_x+delta, referential_y-delta, referential_z);
             point_array[++index] = make_tuple(referential_x+delta, referential_y, referential_z);
-            //(x,y),(x,y+delta),(x+delta,y)
-            //(x,y+delta),(x+delta,y+delta),(x+delta,y)
-            point_array[++index] = make_tuple(referential_x, referential_y, -referential_z);
-            point_array[++index] = make_tuple(referential_x, referential_y+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, referential_y, -referential_z);
-
-            point_array[++index] = make_tuple(referential_x, referential_y+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, referential_y+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, referential_y, -referential_z);
-
             referential_x += delta;
-             
         }
         referential_y += delta;
+    }
+
+    float rotation_matrix_back[3][3] = {{-1,0,0},
+                                        {0,1,0},
+                                        {0,0,-1}};
+    for (int i = 0; i < points_total/6; i++) {
+        //back face
+        point_array[++index] = matrix_mult_tuple(rotation_matrix_back, point_array[i]);
     }
 
     float rotation_matrix_y[3][3] = {{0,0,1},
                                    {0,1,0},
                                    {-1,0,0}};
 
-    for(int i=0; points_total/6; i++)
+    float rotation_matrix_x[3][3] = {{1,0,0},
+                                    {0,0,-1},
+                                    {0,1,0}};
+
+    for(int i=0; points_total/3; i++)
     {
         point_array[++index] = matrix_mult_tuple(rotation_matrix_y, point_array[i]);
-    }
-    float rotation_matrix_x[3][3] = {{1,0,0},
-                                     {0,0,-1},
-                                     {0,1,0}};
-
-    for(int i=0; points_total/6; i++)
-    {
         point_array[++index] = matrix_mult_tuple(rotation_matrix_x, point_array[i]);
     }
 }
