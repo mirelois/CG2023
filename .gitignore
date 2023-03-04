@@ -1,0 +1,7 @@
+.idea/
+html/
+*.exe
+*.out
+latex/
+Doxyfile
+.vscode
