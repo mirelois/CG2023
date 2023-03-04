@@ -91,42 +91,7 @@ float* generate_box(float length,  int grid_slices)
 }
 */
 
-void drawCone(float bottom_radius, float height, int slices, int stacks) {
-	int i, j;
-	double alfa = 2 * M_PI / slices;
-	double division_height_step = height / stacks;
-	double division_radius_step = bottom_radius / stacks;
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glBegin(GL_TRIANGLES);
-	// Parte de baixo
-	for (i = 0; i < slices; i++) {
-		glVertex3f(bottom_radius * sin(alfa * (i + 1)), 0.0f, bottom_radius * cos(alfa * (i + 1)));
-		glVertex3f(bottom_radius * sin(alfa * i), 0.0f, bottom_radius * cos(alfa * i));
-		glVertex3f(0.0f, 0.0f, 0.0f);
-	}
-
-	for (i = 0; i < stacks; i++) {
-		for (j = 0; j < slices; j++) {
-			double bot_height = division_height_step * i;
-			double top_height = division_height_step * (i + 1);
-			double bot_radius = bottom_radius - division_radius_step * i;
-			double top_radius = bottom_radius - division_radius_step * (i + 1);
-
-
-			// lados
-			glVertex3f(bot_radius * sin(alfa * j), bot_height, bot_radius * cos(alfa * j));
-			glVertex3f(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1)));
-			glVertex3f(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j));
-
-			glVertex3f(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j));
-			glVertex3f(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1)));
-			glVertex3f(top_radius * sin(alfa * (j + 1)), top_height, top_radius * cos(alfa * (j + 1)));
-		}
-	}
-	glEnd();
-}
-
-void generate_cone(flaot* point_array, float bottom_radius, float height, int slices, int stacks){
+void generate_cone(float* point_array, float bottom_radius, float height, int slices, int stacks){
     int i, j, index = 0;
 	double alfa = 2 * M_PI / slices;
 	double division_height_step = height / stacks;
