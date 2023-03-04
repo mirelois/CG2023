@@ -37,22 +37,22 @@ float* generate_box(float length,  int grid_slices)
     for(int i; i < grid_slices; i++){
         for (int j; j < grid_slices; j++)
         {
-            point_array[++index] = make_tuple(referential_x, 0, referential_z);
-            point_array[++index] = make_tuple(referential_x, 0-delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x, 0-delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
 
-            point_array[++index] = make_tuple(referential_x, 0-delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0-delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x, 0-delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0-delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
             //(x,y),(x,y+delta),(x+delta,y)
             //(x,y+delta),(x+delta,y+delta),(x+delta,y)
-            point_array[++index] = make_tuple(referential_x, 0, -referential_z);
-            point_array[++index] = make_tuple(referential_x, 0+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, -referential_z);
+            point_array[index++] = make_tuple(referential_x, 0, -referential_z);
+            point_array[index++] = make_tuple(referential_x, 0+delta, -referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, -referential_z);
 
-            point_array[++index] = make_tuple(referential_x, 0+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, -referential_z);
+            point_array[index++] = make_tuple(referential_x, 0+delta, -referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0+delta, -referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, -referential_z);
 
             referential_x += delta;
              
@@ -65,22 +65,22 @@ float* generate_box(float length,  int grid_slices)
     for(int i; i < grid_slices; i++){
         for (int j; j < grid_slices; j++)
         {
-            point_array[++index] = make_tuple(referential_x, 0, referential_z);
-            point_array[++index] = make_tuple(referential_x, 0+delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x, 0+delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
 
-            point_array[++index] = make_tuple(referential_x, 0+delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0+delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x, 0+delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0+delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
             //(x,y),(x,y+delta),(x+delta,y)
             //(x,y+delta),(x+delta,y+delta),(x+delta,y)
-            point_array[++index] = make_tuple(referential_x, 0, -referential_z);
-            point_array[++index] = make_tuple(referential_x, 0+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, -referential_z);
+            point_array[index++] = make_tuple(referential_x, 0, -referential_z);
+            point_array[index++] = make_tuple(referential_x, 0+delta, -referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, -referential_z);
 
-            point_array[++index] = make_tuple(referential_x, 0+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0+delta, -referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, -referential_z);
+            point_array[index++] = make_tuple(referential_x, 0+delta, -referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0+delta, -referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, -referential_z);
 
             referential_x += delta;
              
@@ -155,13 +155,13 @@ float* generate_box(float length,  int grid_slices)
     for(int i; i < grid_slices; i++){
         for (int j; j < grid_slices; j++)
         {
-            point_array[++index] = make_tuple(referential_x, referential_y, referential_z);
-            point_array[++index] = make_tuple(referential_x, referential_y-delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, referential_y, referential_z);
+            point_array[index++] = make_tuple(referential_x, referential_y, referential_z);
+            point_array[index++] = make_tuple(referential_x, referential_y-delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, referential_y, referential_z);
 
-            point_array[++index] = make_tuple(referential_x, referential_y-delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, referential_y-delta, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, referential_y, referential_z);
+            point_array[index++] = make_tuple(referential_x, referential_y-delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, referential_y-delta, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, referential_y, referential_z);
             referential_x += delta;
         }
 
@@ -173,7 +173,7 @@ float* generate_box(float length,  int grid_slices)
                                         {0,0,-1}};
     for (int i = 0; i < points_total/6; i++) {
         //back face
-        point_array[++index] = matrix_mult_tuple(rotation_matrix_back, point_array[i]);
+        point_array[index++] = matrix_mult_tuple(rotation_matrix_back, point_array[i]);
     }
 
     float rotation_matrix_y[3][3] = {{0,0,1},
@@ -186,8 +186,8 @@ float* generate_box(float length,  int grid_slices)
 
     for(int i=0; points_total/3; i++)
     {
-        point_array[++index] = matrix_mult_tuple(rotation_matrix_y, point_array[i]);
-        point_array[++index] = matrix_mult_tuple(rotation_matrix_x, point_array[i]);
+        point_array[index++] = matrix_mult_tuple(rotation_matrix_y, point_array[i]);
+        point_array[index++] = matrix_mult_tuple(rotation_matrix_x, point_array[i]);
     }
 }
 
@@ -209,13 +209,13 @@ float* generate_plane(float length, int grid_slices){
     for(int i; i < grid_slices; i++){
         for (int j; j < grid_slices; j++)
         {
-            point_array[++index] = make_tuple(referential_x, 0, referential_z);
-            point_array[++index] = make_tuple(referential_x, 0, referential_z+delta);
-            point_array[++index] = make_tuple(referential_x+delta, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x, 0, referential_z+delta);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
 
-            point_array[++index] = make_tuple(referential_x, 0, referential_z+delta);
-            point_array[++index] = make_tuple(referential_x+delta, 0, referential_z);
-            point_array[++index] = make_tuple(referential_x+delta, 0, referential_z+delta);
+            point_array[index++] = make_tuple(referential_x, 0, referential_z+delta);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z+delta);
 
             referential_x += delta;
         }
@@ -233,13 +233,13 @@ float* generate_sphere(float radius, int slices, int stacks){
 
     float pivot_x = 0;
 
-    float pivot_y = 0;
+    float pivot_y = radius;
 
     float pivot_z = 0;
 
     float alfa_x = -2*M_PI/stacks;
 
-    float alfa_y = 2*M_PI/slices;
+    float alfa_y = -2*M_PI/slices;
 
     //inicialmente gera-se uma slice da esfera
     //
@@ -249,15 +249,15 @@ float* generate_sphere(float radius, int slices, int stacks){
 
     for (int i = 0; i < stacks-1; i++) {
 
-        point_array[++index] = make_tuple(pivot_x, pivot_y, pivot_z);
+        point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_z);
 
         //pivot_x = pivot_x;
         pivot_y = pivot_y*cos(alfa_x)-pivot_z*sin(alfa_x);
         pivot_z = pivot_y*sin(alfa_x)-pivot_z*cos(alfa_x);
 
-        point_array[++index] = make_tuple(pivot_x, pivot_y, pivot_y);
+        point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_y);
 
-        point_array[++index] = make_tuple(
+        point_array[index++] = make_tuple(
                 pivot_x*cos(alfa_y) + pivot_z*sin(alfa_y),
                 pivot_y,
                 -pivot_x*sin(alfa_y) + pivot_z*cos(alfa_y)
@@ -266,9 +266,9 @@ float* generate_sphere(float radius, int slices, int stacks){
 
     //aqui é preciso desenhar o triangulo de baixo
 
-    point_array[++index] = make_tuple(pivot_x, pivot_y, pivot_z);
+    point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_z);
 
-    point_array[++index] = make_tuple(
+    point_array[index++] = make_tuple(
             pivot_x,
             pivot_y*cos(alfa_x)-pivot_z*sin(alfa_x),
             pivot_y*sin(alfa_x)-pivot_z*cos(alfa_x)
@@ -278,7 +278,7 @@ float* generate_sphere(float radius, int slices, int stacks){
     //pivot_y = pivot_y;
     pivot_z = -pivot_x*sin(alfa_y) + pivot_z*cos(alfa_y);
 
-    point_array[++index] = make_tuple(pivot_x, pivot_y, pivot_z);
+    point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_z);
 
     //aqui desenha se os triangulos do lado direito
     alfa_y = -alfa_y;
@@ -286,15 +286,15 @@ float* generate_sphere(float radius, int slices, int stacks){
 
     for (int i = 0; i < stacks-2; i++){
 
-        point_array[++index] = make_tuple(pivot_x, pivot_y, pivot_z);
+        point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_z);
 
         //pivot_x = pivot_x;
         pivot_y = pivot_y*cos(alfa_x)-pivot_z*sin(alfa_x);
         pivot_z = pivot_y*sin(alfa_x)-pivot_z*cos(alfa_x);
 
-        point_array[++index] = make_tuple(pivot_x, pivot_y, pivot_y);
+        point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_y);
 
-        point_array[++index] = make_tuple(
+        point_array[index++] = make_tuple(
                 pivot_x*cos(alfa_y) + pivot_z*sin(alfa_y),
                 pivot_y,
                 -pivot_x*sin(alfa_y) + pivot_z*cos(alfa_y)
@@ -309,7 +309,7 @@ float* generate_sphere(float radius, int slices, int stacks){
 
         for (int j = 0; j < 6*(stacks-1); j++) {
 
-            point_array[++index] = make_tuple(
+            point_array[index++] = make_tuple(
                     get<0>(point_array[j])*cos(alfa_y) + get<2>(point_array[j])*sin(alfa_y),
                     get<1>(point_array[j]),
                     -get<0>(point_array[j])*sin(alfa_y) + get<2>(point_array[j])*cos(alfa_y)
