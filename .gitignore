@@ -3,5 +3,7 @@ html/
 *.exe
 *.out
 latex/
+out
 Doxyfile
 .vscode
+.vs
