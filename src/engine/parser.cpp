@@ -34,9 +34,8 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 // Esta função será muito provavelmente recursiva nos próximos guiões
 void parse_group(xml_node<> *group_node, Group* group){
-    int numberOfModels = 0;
-    for(xml_node<> *models = group_node->first_node()->first_node();models; models = models->next_sibling()){
-        
+    for(xml_node<> *node_models = group_node->first_node()->first_node();node_models; node_models = node_models->next_sibling()){
+        //group->models.push_back();
     }
 }
 
