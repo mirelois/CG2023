@@ -3,6 +3,9 @@ if(POLICY CMP0079 )
   cmake_policy(SET CMP0079 NEW)
 endif()
 
+# Project Name
+PROJECT(engine)
+
 add_executable(engine
 	main.cpp
 	engine.cpp
