@@ -55,13 +55,18 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group)
    
     // Encontrar o nodo raiz aka world
     root_node = doc.first_node("world");
-   
+    
     // Janela
     xml_node<> *window_node = root_node->first_node();
-    parse_window(window_node, window);
+    xml_node<> *camera_node;
+    if(strcmp(window_node->name(),"window")){
+        parse_window(window_node, window);
+        camera_node = window_node->next_sibling();
+    }
+    else
+        camera_node = root_node->first_node();
 
     // Camara
-    xml_node<> *camera_node = window_node->next_sibling();
     parse_camera(camera_node, camera);
 
     // Luzes: No futuro
@@ -70,5 +75,4 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group)
     // Grupo
     xml_node<> *group_node = camera_node->next_sibling();
     parse_group(group_node, group);
-    
 }

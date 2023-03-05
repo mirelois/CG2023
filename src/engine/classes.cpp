@@ -14,8 +14,9 @@ public:
 
 class Window{
 public:
-    float width;
-    float height;
+    // Valores por Omissão
+    float width = 512;
+    float height = 512; 
 };
 
 class Model{
