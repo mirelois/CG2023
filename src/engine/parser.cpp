@@ -21,7 +21,7 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
             camera->options[i++] = atof(attr->value());
         }
     }
-
+    
     if(i==7){ // Default Options
         camera->options[7] = 0;
         camera->options[8] = 1;
@@ -34,9 +34,20 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 // Esta função será muito provavelmente recursiva nos próximos guiões
 void parse_group(xml_node<> *group_node, Group* group){
+    
     for(xml_node<> *node_models = group_node->first_node()->first_node();node_models; node_models = node_models->next_sibling()){
-        //group->models.push_back();
+        Model* model = new Model;
+        ifstream file;
+        file.open(node_models->first_attribute()->value(), ios::in|ios::binary);
+        int size;
+        file >> size;
+        tuple<float,float,float> points;
+        while(file >> points){
+            
+        }
+        group->models.push_back(model);
     }
+    
 }
 
 void parser(char* fileName, Window* window, Camera* camera, Group* group)
@@ -59,7 +70,10 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group)
     // Janela
     xml_node<> *window_node = root_node->first_node();
     xml_node<> *camera_node;
-    if(strcmp(window_node->name(),"window")){
+    
+    
+    if(!strcmp(window_node->name(),"window")){
+        printf("%s\n", window_node->name());
         parse_window(window_node, window);
         camera_node = window_node->next_sibling();
     }

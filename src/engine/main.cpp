@@ -2,11 +2,14 @@
 
 int main(int argc, char  *argv[]){
 
-    Window window;
-    Camera camera;
-    Group group;
-
-    parser("phase1.xml", &window, &camera, &group);
+    Window* window = new Window;
+    Camera* camera = new Camera;
+    Group* group = new Group;
     
+    char file[] = "phase1.xml";
+    parser(file, window, camera, group);
+    delete(window);
+    delete(camera);
+    delete(group);
     return 0;
 }

@@ -9,6 +9,7 @@ PROJECT(engine)
 add_executable(engine
 	main.cpp
 	engine.cpp
+	classes.cpp
 	parser.cpp
 	rapidxml.hpp
 	rapidxml_iterators.hpp

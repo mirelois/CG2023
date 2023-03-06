@@ -1,4 +1,4 @@
- // Breaking POO like a real dude
+
 
 class Camera{
 public:
@@ -19,14 +19,16 @@ public:
     float height = 512; 
 };
 
+
 class Model{
 public:
-    tuple<float, float, float>* model;
+    std::tuple<float, float, float>* figure;
 };
+
 
 class Group{
 public:
-    vector<Model> models;
+    std::vector<Model*> models;
     // Futuramente: Transformations
     Group *group = NULL; // Por agora não há aninhamento de grupos
 };
