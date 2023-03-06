@@ -213,103 +213,90 @@ float* generate_plane(float length, int grid_slices){
     }
 }
 
-float* generate_sphere(float radius, int slices, int stacks){
+void generate_sphere(float radius, int slices, int stacks) {
 
-    int points_total = 6*(stacks-1)*slices;
-    
+    int points_total = slices*6*(stacks-1);
     tuple <float, float, float> point_array[points_total];
+    int index = 0; 
 
-    int index = 0;
+	float alfa_x = 0;
+	float delta_x = M_PI / stacks;
 
-    float pivot_x = 0;
+	float alfa_y = 0;
+	float delta_y = 2 * M_PI / slices;
 
-    float pivot_y = radius;
+	float pivot_x = 0;
+	float pivot_y = radius;
+	float pivot_z = 0;
+	
+	tuple<float, float, float> master_line[stacks+1];
 
-    float pivot_z = 0;
 
-    float alfa_x = -2*M_PI/stacks;
+	//generate master line
+	int master_line_index = 0;
+	for (int i = 0; i < stacks + 1; i++) {
 
-    float alfa_y = -2*M_PI/slices;
+		master_line[master_line_index++] = make_tuple(
+			pivot_x,
+			pivot_y * cos(alfa_x) - pivot_z * sin(alfa_x),
+			pivot_y * sin(alfa_x) + pivot_z * cos(alfa_x)
+		);
 
-    //inicialmente gera-se uma slice da esfera
-    //
-    //este ciclo gera os triangulos do lado esquerdo por rotaçoes nos eixos x e y
-    //
-    //o pivot ´e o ponto à volta do qual se faz a rotaçao
+		alfa_x += delta_x;
+	}
 
-    for (int i = 0; i < stacks-1; i++) {
+	for (int j = 0; j < slices; j++) {
+		for (int i = 0; i < stacks - 1; i++) {
 
-        point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_z);
+			point_array[index++] = make_tuple(
+				get<0>(master_line[i]) * cos(alfa_y) + get<2>(master_line[i]) * sin(alfa_y),
+				get<1>(master_line[i]),
+				-get<0>(master_line[i]) * sin(alfa_y) + get<2>(master_line[i]) * cos(alfa_y)
+			);
 
-        //pivot_x = pivot_x;
-        pivot_y = pivot_y*cos(alfa_x)-pivot_z*sin(alfa_x);
-        pivot_z = pivot_y*sin(alfa_x)-pivot_z*cos(alfa_x);
+			point_array[index++] = make_tuple(
+				get<0>(master_line[i + 1]) * cos(alfa_y) + get<2>(master_line[i + 1]) * sin(alfa_y),
+				get<1>(master_line[i + 1]),
+				-get<0>(master_line[i + 1]) * sin(alfa_y) + get<2>(master_line[i + 1]) * cos(alfa_y)
+			);
 
-        point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_y);
+			point_array[index++] = make_tuple(
+				get<0>(master_line[i + 1]) * cos(alfa_y + delta_y) + get<2>(master_line[i + 1]) * sin(alfa_y + delta_y),
+				get<1>(master_line[i + 1]),
+				-get<0>(master_line[i + 1]) * sin(alfa_y + delta_y) + get<2>(master_line[i + 1]) * cos(alfa_y + delta_y)
+			);
+		}
+		alfa_y += delta_y;
+	}
 
-        point_array[index++] = make_tuple(
-                pivot_x*cos(alfa_y) + pivot_z*sin(alfa_y),
-                pivot_y,
-                -pivot_x*sin(alfa_y) + pivot_z*cos(alfa_y)
-                );
-    }
+	alfa_y = 0;
 
-    //aqui é preciso desenhar o triangulo de baixo
+	delta_y = -delta_y;
 
-    point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_z);
+	for (int j = 0; j < slices; j++) {
+		for (int i = stacks ; i > 0; i--) {
 
-    point_array[index++] = make_tuple(
-            pivot_x,
-            pivot_y*cos(alfa_x)-pivot_z*sin(alfa_x),
-            pivot_y*sin(alfa_x)-pivot_z*cos(alfa_x)
-            );
+			point_array[index++] = make_tuple(
+				get<0>(master_line[i]) * cos(alfa_y) + get<2>(master_line[i]) * sin(alfa_y),
+				get<1>(master_line[i]),
+				-get<0>(master_line[i]) * sin(alfa_y) + get<2>(master_line[i]) * cos(alfa_y)
+			);
 
-    pivot_x = pivot_x*cos(alfa_y) + pivot_z*sin(alfa_y);
-    //pivot_y = pivot_y;
-    pivot_z = -pivot_x*sin(alfa_y) + pivot_z*cos(alfa_y);
+			point_array[index++] = make_tuple(
+				get<0>(master_line[i - 1]) * cos(alfa_y) + get<2>(master_line[i - 1]) * sin(alfa_y),
+				get<1>(master_line[i - 1]),
+				-get<0>(master_line[i - 1]) * sin(alfa_y) + get<2>(master_line[i - 1]) * cos(alfa_y)
+			);
 
-    point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_z);
-
-    //aqui desenha se os triangulos do lado direito
-    alfa_y = -alfa_y;
-    alfa_x = -alfa_x;
-
-    for (int i = 0; i < stacks-2; i++){
-
-        point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_z);
-
-        //pivot_x = pivot_x;
-        pivot_y = pivot_y*cos(alfa_x)-pivot_z*sin(alfa_x);
-        pivot_z = pivot_y*sin(alfa_x)-pivot_z*cos(alfa_x);
-
-        point_array[index++] = make_tuple(pivot_x, pivot_y, pivot_y);
-
-        point_array[index++] = make_tuple(
-                pivot_x*cos(alfa_y) + pivot_z*sin(alfa_y),
-                pivot_y,
-                -pivot_x*sin(alfa_y) + pivot_z*cos(alfa_y)
-                );
-    }
-
-    //a esfera é constuida rodando a slice criada slices vezes
-
-    alfa_y = -alfa_y;
-
-    for (int i = 0; i < slices; i++) {
-
-        for (int j = 0; j < 6*(stacks-1); j++) {
-
-            point_array[index++] = make_tuple(
-                    get<0>(point_array[j])*cos(alfa_y) + get<2>(point_array[j])*sin(alfa_y),
-                    get<1>(point_array[j]),
-                    -get<0>(point_array[j])*sin(alfa_y) + get<2>(point_array[j])*cos(alfa_y)
-                    );
-            
-        }
-        
-    }
-}
-    
+			point_array[index++] = make_tuple(
+				get<0>(master_line[i - 1]) * cos(alfa_y + delta_y) + get<2>(master_line[i - 1]) * sin(alfa_y + delta_y),
+				get<1>(master_line[i - 1]),
+				-get<0>(master_line[i - 1]) * sin(alfa_y + delta_y) + get<2>(master_line[i - 1]) * cos(alfa_y + delta_y)
+			);
+		}
+		alfa_y += delta_y;
+	}
+} 
 
 
 
