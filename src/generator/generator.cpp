@@ -91,7 +91,7 @@ float* generate_box(float length,  int grid_slices)
 }
 */
 
-void generate_cone(float* point_array, float bottom_radius, float height, int slices, int stacks){
+void generate_cone(tuple<float,float,float>* point_array, float bottom_radius, float height, int slices, int stacks){
     int i, j, index = 0;
 	double alfa = 2 * M_PI / slices;
 	double division_height_step = height / stacks;
