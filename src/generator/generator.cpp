@@ -1,101 +1,27 @@
 #include <cstdlib>
-
+#include <stdio.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
-
+#include <string.h>
 #include<tuple>
 #include "matrix.h"
 
 using namespace std;
 
-
-
-
-
-/*
-float* generate_box(float length,  int grid_slices)
-{
-    //a quantidade de pontos ´e definida pelo grid;
-    //grid**2 * 2 * 3 * 6 (nr quadrados * nr triangulos * nr pontos no triangulo * nr faces)    
-
-    tuple <float, float, float> point_array[grid_slices^2 *36];
-
-    float delta = length/grid_slices;
-
-    int index = 0;
-
-    float referential_x = length/2;
-    float 0 = -length/2;
-
-    float referential_z = length/2;
-
-    for(int i; i < grid_slices; i++){
-        for (int j; j < grid_slices; j++)
-        {
-            point_array[index++] = make_tuple(referential_x, 0, referential_z);
-            point_array[index++] = make_tuple(referential_x, 0-delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
-
-            point_array[index++] = make_tuple(referential_x, 0-delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0-delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
-            //(x,y),(x,y+delta),(x+delta,y)
-            //(x,y+delta),(x+delta,y+delta),(x+delta,y)
-            point_array[index++] = make_tuple(referential_x, 0, -referential_z);
-            point_array[index++] = make_tuple(referential_x, 0+delta, -referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, -referential_z);
-
-            point_array[index++] = make_tuple(referential_x, 0+delta, -referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0+delta, -referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, -referential_z);
-
-            referential_x += delta;
-             
-        }
-        0 += delta;
-    }
-
-    referential_x = length/2;
-
-    for(int i; i < grid_slices; i++){
-        for (int j; j < grid_slices; j++)
-        {
-            point_array[index++] = make_tuple(referential_x, 0, referential_z);
-            point_array[index++] = make_tuple(referential_x, 0+delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
-
-            point_array[index++] = make_tuple(referential_x, 0+delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0+delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
-            //(x,y),(x,y+delta),(x+delta,y)
-            //(x,y+delta),(x+delta,y+delta),(x+delta,y)
-            point_array[index++] = make_tuple(referential_x, 0, -referential_z);
-            point_array[index++] = make_tuple(referential_x, 0+delta, -referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, -referential_z);
-
-            point_array[index++] = make_tuple(referential_x, 0+delta, -referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0+delta, -referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, -referential_z);
-
-            referential_x += delta;
-             
-        }
-        0 += delta;
-    }
-
-}
-*/
-
-void generate_cone(tuple<float,float,float>* point_array, float bottom_radius, float height, int slices, int stacks){
+tuple<float,float,float>* generate_cone(float bottom_radius, float height, int slices, int stacks, int* total_points){
+    
+    //*total_points = ;
+    tuple<float,float, float>* point_array = new tuple<float,float,float>[*total_points];
     int i, j, index = 0;
 	double alfa = 2 * M_PI / slices;
 	double division_height_step = height / stacks;
 	double division_radius_step = bottom_radius / stacks;
 	// Parte de baixo
 	for (i = 0; i < slices; i++) {
-		point_array[index++] = make_tuple(bottom_radius * sin(alfa * (i + 1)), 0.0f, bottom_radius * cos(alfa * (i + 1)));
-		point_array[index++] = make_tuple(bottom_radius * sin(alfa * i), 0.0f, bottom_radius * cos(alfa * i));
-		point_array[index++] = make_tuple(0.0f, 0.0f, 0.0f);
+		point_array[index++] = std::make_tuple(bottom_radius * sin(alfa * (i + 1)), 0.0f, bottom_radius * cos(alfa * (i + 1)));
+		point_array[index++] = std::make_tuple(bottom_radius * sin(alfa * i), 0.0f, bottom_radius * cos(alfa * i));
+		point_array[index++] = std::make_tuple(0.0f, 0.0f, 0.0f);
+        
 	}
 
 	for (i = 0; i < stacks; i++) {
@@ -115,17 +41,19 @@ void generate_cone(tuple<float,float,float>* point_array, float bottom_radius, f
 			point_array[index++] = make_tuple(top_radius * sin(alfa * (j + 1)), top_height, top_radius * cos(alfa * (j + 1)));
 		}
 	}
+
+    return point_array;
 }
 
 
-void generate_box(float length,  int grid_slices)
+tuple<float,float,float>* generate_box(float length,  int grid_slices, int* points_total)
 {
     //a quantidade de pontos ´e definida pelo grid;
     //grid**2 * 2 * 3 * 6 (nr quadrados * nr triangulos * nr pontos no triangulo * nr faces)    
     
-    int points_total = grid_slices*grid_slices*36;
+    *points_total = grid_slices*grid_slices*36;
 
-    tuple <float, float, float> point_array[points_total];
+    tuple <float, float, float>* point_array = new tuple <float, float, float>[*points_total];
 
     float delta = length/grid_slices;
 
@@ -157,29 +85,30 @@ void generate_box(float length,  int grid_slices)
         referential_x = -length/2;
     }
 
-    for (int i = 0; i < points_total/6; i++) {
+    for (int i = 0; i < *points_total/6; i++) {
         //back face
         point_array[index++] = make_tuple(-get<0>(point_array[i]), get<1>(point_array[i]), -get<2>(point_array[i]));
     }
 
-    for(int i=0;  i < points_total/3; i++)
+    for(int i=0;  i < *points_total/3; i++)
     {
         point_array[index++] = make_tuple(get<2>(point_array[i]), get<1>(point_array[i]), -get<0>(point_array[i]));
     }
-    for(int i=0; i < points_total/3; i++)
+    for(int i=0; i < *points_total/3; i++)
     {
         point_array[index++] = make_tuple(get<0>(point_array[i]), -get<2>(point_array[i]), get<1>(point_array[i]));
     }
 
 
+    return point_array;
 }
 
 
-void generate_plane(float length, int grid_slices){
+tuple <float, float, float>* generate_plane(float length, int grid_slices, int* points_total){
 
-    int points_total = grid_slices*grid_slices*6;
+    *points_total = grid_slices*grid_slices*6;
 
-    tuple <float, float, float> point_array[points_total];
+    tuple <float, float, float>* point_array = new tuple <float, float, float>[*points_total];
 
     float delta = length/grid_slices;
 
@@ -205,13 +134,15 @@ void generate_plane(float length, int grid_slices){
         referential_z += delta;
         referential_x = -length/2;
     }
+
+    return point_array;
 }
 
 
-void generate_sphere(float radius, int slices, int stacks) {
+tuple <float, float, float>* generate_sphere(float radius, int slices, int stacks, int* points_total) {
 
-    int points_total = slices*6*(stacks-1);
-    tuple <float, float, float> point_array[points_total];
+    *points_total = slices*6*(stacks-1);
+    std::tuple <float, float, float>* point_array = new tuple<float,float,float>[*points_total];
     int index = 0; 
 
 	float alfa_x = 0;
@@ -224,14 +155,14 @@ void generate_sphere(float radius, int slices, int stacks) {
 	float pivot_y = radius;
 	float pivot_z = 0;
 	
-	tuple<float, float, float> master_line[stacks+1];
+	std::tuple<float, float, float>* master_line = new std::tuple<float,float,float>[stacks+1];
 
 
 	//generate master line
 	int master_line_index = 0;
 	for (int i = 0; i < stacks + 1; i++) {
 
-		master_line[master_line_index++] = make_tuple(
+		master_line[master_line_index++] = std::make_tuple(
 			pivot_x,
 			pivot_y * cos(alfa_x) - pivot_z * sin(alfa_x),
 			pivot_y * sin(alfa_x) + pivot_z * cos(alfa_x)
@@ -243,8 +174,8 @@ void generate_sphere(float radius, int slices, int stacks) {
 	for (int j = 0; j < slices; j++) {
 		for (int i = 0; i < stacks - 1; i++) {
 
-			point_array[index++] = make_tuple(
-				get<0>(master_line[i]) * cos(alfa_y) + get<2>(master_line[i]) * sin(alfa_y),
+			point_array[index++] = std::make_tuple(
+				std::get<0>(master_line[i]) * cos(alfa_y) + std::get<2>(master_line[i]) * sin(alfa_y),
 				get<1>(master_line[i]),
 				-get<0>(master_line[i]) * sin(alfa_y) + get<2>(master_line[i]) * cos(alfa_y)
 			);
@@ -272,7 +203,7 @@ void generate_sphere(float radius, int slices, int stacks) {
 		for (int i = stacks ; i > 0; i--) {
 
 			point_array[index++] = make_tuple(
-				get<0>(master_line[i]) * cos(alfa_y) + get<2>(master_line[i]) * sin(alfa_y),
+				std::get<0>(master_line[i]) * cos(alfa_y) + get<2>(master_line[i]) * sin(alfa_y),
 				get<1>(master_line[i]),
 				-get<0>(master_line[i]) * sin(alfa_y) + get<2>(master_line[i]) * cos(alfa_y)
 			);
@@ -291,14 +222,14 @@ void generate_sphere(float radius, int slices, int stacks) {
 		}
 		alfa_y += delta_y;
 	}
+
+    return point_array;
 } 
 
 
 
-
-
-//i mean fine mas estas a fazer isto muito a C
-void points_write (const char *filename, const unsigned int nVertices, const float points[])
+//i mean fine mas estas a fazer isto muito a C, concordo - assinado carlos
+void points_write (const char *filename, const unsigned int nVertices, tuple<float,float,float> points[]) 
 {
   FILE *fp = fopen (filename, "w");
   if (!fp)
@@ -308,7 +239,31 @@ void points_write (const char *filename, const unsigned int nVertices, const flo
     }
 
   fwrite (&nVertices, sizeof (unsigned int), 1, fp);
-  fwrite (points, 3 * sizeof (float), nVertices, fp);
+  fwrite (points, nVertices * sizeof(tuple<float,float,float>), nVertices, fp);
 
   fclose (fp);
+}
+
+int main(int argc, char* argv){
+    if(strcmp((char *) argv[1], "sphere")){
+        int points_total;
+        tuple<float,float,float>* sphere = generate_sphere(atof((char *) argv[2]), atoi((char *) argv[3]), atoi((char *) argv[4]), &points_total);
+        points_write((const char*) argv[5], points_total, sphere);
+        delete(sphere);
+    } else if(strcmp((char *) argv[1], "box")){
+        int points_total;
+        tuple<float,float,float>* box = generate_box(atof((char *) argv[2]), atoi((char *) argv[3]), &points_total);
+        points_write((const char*) argv[5], points_total, box);
+        delete(box);
+    } else if(strcmp((char *) argv[1], "plane")){
+        int points_total;
+        tuple<float,float,float>* plane = generate_plane(atof((char *) argv[2]), atoi((char *) argv[3]), &points_total);
+        points_write((const char*) argv[5], points_total, plane);
+        delete(plane);
+    } else if(strcmp((char *) argv[1], "cone")){
+        int points_total;
+        tuple<float,float,float>* cone = generate_cone(atof((char *) argv[2]), atof((char *) argv[3]),atoi((char *) argv[4]),atoi((char *) argv[5]), &points_total);
+        points_write((const char*) argv[5], points_total, cone);
+        delete(cone);
+    }
 }

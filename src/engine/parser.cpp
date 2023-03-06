@@ -41,10 +41,10 @@ void parse_group(xml_node<> *group_node, Group* group){
         file.open(node_models->first_attribute()->value(), ios::in|ios::binary);
         int size;
         file >> size;
-        tuple<float,float,float> points;
-        while(file >> points){
-            
-        }
+        //tuple<float,float,float>* points;
+        //while(file >> points){
+        //    
+        //}
         group->models.push_back(model);
     }
     
