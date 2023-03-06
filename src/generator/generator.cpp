@@ -123,7 +123,7 @@ void generate_cone(tuple<float,float,float>* point_array, float bottom_radius, f
 }
 
 
-float* generate_box(float length,  int grid_slices)
+void generate_box(float length,  int grid_slices)
 {
     //a quantidade de pontos ´e definida pelo grid;
     //grid**2 * 2 * 3 * 6 (nr quadrados * nr triangulos * nr pontos no triangulo * nr faces)    
@@ -158,31 +158,20 @@ float* generate_box(float length,  int grid_slices)
         referential_y += delta;
     }
 
-    float rotation_matrix_back[3][3] = {{-1,0,0},
-                                        {0,1,0},
-                                        {0,0,-1}};
     for (int i = 0; i < points_total/6; i++) {
         //back face
-        point_array[index++] = matrix_mult_tuple(rotation_matrix_back, point_array[i]);
+        point_array[index++] = make_tuple(-get<0>(point_array[i]), get<1>(point_array[i]), -get<1>(point_array[i]));
     }
-
-    float rotation_matrix_y[3][3] = {{0,0,1},
-                                   {0,1,0},
-                                   {-1,0,0}};
-
-    float rotation_matrix_x[3][3] = {{1,0,0},
-                                    {0,0,-1},
-                                    {0,1,0}};
 
     for(int i=0; points_total/3; i++)
     {
-        point_array[index++] = matrix_mult_tuple(rotation_matrix_y, point_array[i]);
-        point_array[index++] = matrix_mult_tuple(rotation_matrix_x, point_array[i]);
+        point_array[index++] = make_tuple(get<2>(point_array[i]), get<1>(point_array[i]), -get<0>(point_array[i]));
+        point_array[index++] = make_tuple(get<0>(point_array[i]), -get<2>(point_array[i]), get<1>(point_array[i]));
     }
 }
 
 
-float* generate_plane(float length, int grid_slices){
+void generate_plane(float length, int grid_slices){
 
     int points_total = grid_slices*grid_slices*6;
 
