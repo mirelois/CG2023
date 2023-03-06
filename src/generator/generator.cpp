@@ -136,38 +136,47 @@ void generate_box(float length,  int grid_slices)
 
     int index = 0;
 
-    float referential_x = length/2;
+    float referential_x = -length/2;
 
-    float referential_y = -length/2;
+    float referential_y = length/2;
 
     float referential_z = length/2;
 
-    for(int i; i < grid_slices; i++){
-        for (int j; j < grid_slices; j++)
+    int j;
+
+    for(int i = 0; i < grid_slices; i++){
+        for (j = 0; j < grid_slices; j++)
         {
             point_array[index++] = make_tuple(referential_x, referential_y, referential_z);
             point_array[index++] = make_tuple(referential_x, referential_y-delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, referential_y, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, referential_y-delta, referential_z);
 
-            point_array[index++] = make_tuple(referential_x, referential_y-delta, referential_z);
+            point_array[index++] = make_tuple(referential_x, referential_y, referential_z);
             point_array[index++] = make_tuple(referential_x+delta, referential_y-delta, referential_z);
             point_array[index++] = make_tuple(referential_x+delta, referential_y, referential_z);
+
             referential_x += delta;
         }
 
-        referential_y += delta;
+        referential_y -= delta;
+        referential_x = -length/2;
     }
 
     for (int i = 0; i < points_total/6; i++) {
         //back face
-        point_array[index++] = make_tuple(-get<0>(point_array[i]), get<1>(point_array[i]), -get<1>(point_array[i]));
+        point_array[index++] = make_tuple(-get<0>(point_array[i]), get<1>(point_array[i]), -get<2>(point_array[i]));
     }
 
-    for(int i=0; points_total/3; i++)
+    for(int i=0;  i < points_total/3; i++)
     {
         point_array[index++] = make_tuple(get<2>(point_array[i]), get<1>(point_array[i]), -get<0>(point_array[i]));
+    }
+    for(int i=0; i < points_total/3; i++)
+    {
         point_array[index++] = make_tuple(get<0>(point_array[i]), -get<2>(point_array[i]), get<1>(point_array[i]));
     }
+
+
 }
 
 
@@ -185,22 +194,24 @@ void generate_plane(float length, int grid_slices){
 
     float referential_z = -length/2;
 
-    for(int i; i < grid_slices; i++){
-        for (int j; j < grid_slices; j++)
+    for(int i = 0; i < grid_slices; i++){
+        for (int j = 0; j < grid_slices; j++)
         {
             point_array[index++] = make_tuple(referential_x, 0, referential_z);
             point_array[index++] = make_tuple(referential_x, 0, referential_z+delta);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
-
-            point_array[index++] = make_tuple(referential_x, 0, referential_z+delta);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
             point_array[index++] = make_tuple(referential_x+delta, 0, referential_z+delta);
+
+            point_array[index++] = make_tuple(referential_x, 0, referential_z);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z+delta);
+            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
 
             referential_x += delta;
         }
         referential_z += delta;
+        referential_x = -length/2;
     }
 }
+
 
 void generate_sphere(float radius, int slices, int stacks) {
 
