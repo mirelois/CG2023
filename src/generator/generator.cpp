@@ -65,24 +65,17 @@ tuple<float,float,float>* generate_box(float length,  int grid_slices, int* poin
 
     float referential_z = length/2;
 
-    int j;
-
     for(int i = 0; i < grid_slices; i++){
-        for (j = 0; j < grid_slices; j++)
+        for (int j = 0; j < grid_slices; j++)
         {
-            point_array[index++] = make_tuple(referential_x, referential_y, referential_z);
-            point_array[index++] = make_tuple(referential_x, referential_y-delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, referential_y-delta, referential_z);
+            point_array[index++] = make_tuple(j*delta+referential_x, -i*delta+referential_y, referential_z);
+            point_array[index++] = make_tuple(j*delta+referential_x, -(i+1)*delta+referential_y, referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, -(i+1)*delta+referential_y, referential_z);
 
-            point_array[index++] = make_tuple(referential_x, referential_y, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, referential_y-delta, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, referential_y, referential_z);
-
-            referential_x += delta;
+            point_array[index++] = make_tuple(j*delta+referential_x, -i*delta+referential_y, referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, -(i+1)*delta+referential_y, referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, -i*delta+referential_y, referential_z);
         }
-
-        referential_y -= delta;
-        referential_x = -length/2;
     }
 
     for (int i = 0; i < *points_total/6; i++) {
@@ -121,18 +114,14 @@ tuple <float, float, float>* generate_plane(float length, int grid_slices, int* 
     for(int i = 0; i < grid_slices; i++){
         for (int j = 0; j < grid_slices; j++)
         {
-            point_array[index++] = make_tuple(referential_x, 0, referential_z);
-            point_array[index++] = make_tuple(referential_x, 0, referential_z+delta);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z+delta);
+            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
+            point_array[index++] = make_tuple(j*delta+referential_x, 0, (i+1)*delta+referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, (i+1)*delta+referential_z);
 
-            point_array[index++] = make_tuple(referential_x, 0, referential_z);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z+delta);
-            point_array[index++] = make_tuple(referential_x+delta, 0, referential_z);
-
-            referential_x += delta;
+            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, (i+1)*delta+referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, i*delta+referential_z);
         }
-        referential_z += delta;
-        referential_x = -length/2;
     }
 
     return point_array;
@@ -164,60 +153,53 @@ tuple <float, float, float>* generate_sphere(float radius, int slices, int stack
 
 		master_line[master_line_index++] = std::make_tuple(
 			pivot_x,
-			pivot_y * cos(alfa_x) - pivot_z * sin(alfa_x),
-			pivot_y * sin(alfa_x) + pivot_z * cos(alfa_x)
+			pivot_y * cos(i*alfa_x) - pivot_z * sin(i*alfa_x),
+			pivot_y * sin(i*alfa_x) + pivot_z * cos(i*alfa_x)
 		);
-
-		alfa_x += delta_x;
 	}
 
 	for (int j = 0; j < slices; j++) {
 		for (int i = 0; i < stacks - 1; i++) {
 
 			point_array[index++] = std::make_tuple(
-				std::get<0>(master_line[i]) * cos(alfa_y) + std::get<2>(master_line[i]) * sin(alfa_y),
+				std::get<0>(master_line[i]) * cos(j*alfa_y) + std::get<2>(master_line[i]) * sin(j*alfa_y),
 				get<1>(master_line[i]),
-				-get<0>(master_line[i]) * sin(alfa_y) + get<2>(master_line[i]) * cos(alfa_y)
+				-get<0>(master_line[i]) * sin(j*alfa_y) + get<2>(master_line[i]) * cos(j*alfa_y)
 			);
 
 			point_array[index++] = make_tuple(
-				get<0>(master_line[i + 1]) * cos(alfa_y) + get<2>(master_line[i + 1]) * sin(alfa_y),
+				get<0>(master_line[i + 1]) * cos(j*alfa_y) + get<2>(master_line[i + 1]) * sin(j*alfa_y),
 				get<1>(master_line[i + 1]),
-				-get<0>(master_line[i + 1]) * sin(alfa_y) + get<2>(master_line[i + 1]) * cos(alfa_y)
+				-get<0>(master_line[i + 1]) * sin(j*alfa_y) + get<2>(master_line[i + 1]) * cos(j*alfa_y)
 			);
 
 			point_array[index++] = make_tuple(
-				get<0>(master_line[i + 1]) * cos(alfa_y + delta_y) + get<2>(master_line[i + 1]) * sin(alfa_y + delta_y),
+				get<0>(master_line[i + 1]) * cos((j+1)*alfa_y) + get<2>(master_line[i + 1]) * sin((j+1)*alfa_y),
 				get<1>(master_line[i + 1]),
-				-get<0>(master_line[i + 1]) * sin(alfa_y + delta_y) + get<2>(master_line[i + 1]) * cos(alfa_y + delta_y)
+				-get<0>(master_line[i + 1]) * sin((j+1)*alfa_y) + get<2>(master_line[i + 1]) * cos((j+1)*alfa_y)
 			);
 		}
-		alfa_y += delta_y;
 	}
-
-	alfa_y = 0;
-
-	delta_y = -delta_y;
 
 	for (int j = 0; j < slices; j++) {
 		for (int i = stacks ; i > 0; i--) {
 
 			point_array[index++] = make_tuple(
-				std::get<0>(master_line[i]) * cos(alfa_y) + get<2>(master_line[i]) * sin(alfa_y),
+				std::get<0>(master_line[i]) * cos(-j*alfa_y) + get<2>(master_line[i]) * sin(-j*alfa_y),
 				get<1>(master_line[i]),
-				-get<0>(master_line[i]) * sin(alfa_y) + get<2>(master_line[i]) * cos(alfa_y)
+				-get<0>(master_line[i]) * sin(-j*alfa_y) + get<2>(master_line[i]) * cos(-j*alfa_y)
 			);
 
 			point_array[index++] = make_tuple(
-				get<0>(master_line[i - 1]) * cos(alfa_y) + get<2>(master_line[i - 1]) * sin(alfa_y),
+				get<0>(master_line[i - 1]) * cos(-j*alfa_y) + get<2>(master_line[i - 1]) * sin(-j*alfa_y),
 				get<1>(master_line[i - 1]),
-				-get<0>(master_line[i - 1]) * sin(alfa_y) + get<2>(master_line[i - 1]) * cos(alfa_y)
+				-get<0>(master_line[i - 1]) * sin(-j*alfa_y) + get<2>(master_line[i - 1]) * cos(-j*alfa_y)
 			);
 
 			point_array[index++] = make_tuple(
-				get<0>(master_line[i - 1]) * cos(alfa_y + delta_y) + get<2>(master_line[i - 1]) * sin(alfa_y + delta_y),
+				get<0>(master_line[i - 1]) * cos(-(j+1)*alfa_y) + get<2>(master_line[i - 1]) * sin(-(j+1)*alfa_y),
 				get<1>(master_line[i - 1]),
-				-get<0>(master_line[i - 1]) * sin(alfa_y + delta_y) + get<2>(master_line[i - 1]) * cos(alfa_y + delta_y)
+				-get<0>(master_line[i - 1]) * sin(-(j+1)*alfa_y) + get<2>(master_line[i - 1]) * cos(-(j+1)*alfa_y)
 			);
 		}
 		alfa_y += delta_y;
