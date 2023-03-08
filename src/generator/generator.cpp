@@ -227,13 +227,16 @@ void points_write (const char *filename, const unsigned int nVertices, tuple<flo
   fclose (fp);
 }
 
-int main(int argc, char* argv){
+int main(int argc, char* argv[]){
+    printf("Comecei\n");
+    printf("nome: %s\n", argv[1]);
     if(!strcmp((char *) argv[1], "sphere")){
         int points_total;
         tuple<float,float,float>* sphere = generate_sphere(atof((char *) argv[2]), atoi((char *) argv[3]), atoi((char *) argv[4]), &points_total);
         points_write((const char*) argv[5], points_total, sphere);
         delete(sphere);
     } else if(!strcmp((char *) argv[1], "box")){
+        printf("Dentro da box\n");
         int points_total;
         tuple<float,float,float>* box = generate_box(atof((char *) argv[2]), atoi((char *) argv[3]), &points_total);
         points_write((const char*) argv[5], points_total, box);
@@ -249,4 +252,6 @@ int main(int argc, char* argv){
         points_write((const char*) argv[5], points_total, cone);
         delete(cone);
     }
+
+    return 0;
 }
