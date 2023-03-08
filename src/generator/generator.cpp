@@ -241,12 +241,12 @@ int main(int argc, char* argv[]){
     } else if(!strcmp((char *) argv[1], "plane")){
         int points_total;
         tuple<float,float,float>* plane = generate_plane(atof((char *) argv[2]), atoi((char *) argv[3]), &points_total);
-        points_write((const char*) argv[5], points_total, plane);
+        points_write((const char*) argv[4], points_total, plane);
         delete(plane);
     } else if(!strcmp((char *) argv[1], "cone")){
         int points_total;
         tuple<float,float,float>* cone = generate_cone(atof((char *) argv[2]), atof((char *) argv[3]),atoi((char *) argv[4]),atoi((char *) argv[5]), &points_total);
-        points_write((const char*) argv[5], points_total, cone);
+        points_write((const char*) argv[6], points_total, cone);
         delete(cone);
     }
 
