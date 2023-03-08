@@ -9,7 +9,7 @@
 #include "classes.cpp"
 
 
-void run(Window* window, Camera* camera, Group* group){
+void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
     // init GLUT and the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
