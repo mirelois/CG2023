@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <string.h>
+#include <iterator>
 #include "rapidxml.hpp"
 #include "classes.cpp"
 
@@ -75,7 +76,8 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 void parse_group(xml_node<> *group_node, Group* group){
     for(xml_node<> *node_models = group_node->first_node("models")->first_node();node_models; node_models = node_models->next_sibling()){
         Model* model = new Model;
-        ifstream file(node_models->first_attribute()->value());
+        string path = node_models->first_attribute()->value();
+        ifstream file("generator/" + path); // como ir buscar o model num path different?
         vector<tuple<float,float,float>> tuples;
         if(file){
             copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
