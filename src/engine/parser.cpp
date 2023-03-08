@@ -9,32 +9,70 @@ using namespace std;
 using namespace rapidxml;
 
 void parse_window(xml_node<> *window_node, Window* window){
-    xml_attribute<> *first = window_node->first_attribute();
-    window->width = atof(first->value());
-    window->height = atof(first->next_attribute()->value());
+    xml_attribute<> *temp;
+    
+    if((temp = window_node->first_attribute("width")))
+        window->width = atof(temp->value());
+
+    if((temp = window_node->first_attribute("height")))
+        window->height = atof(temp->value());
 }
 
 void parse_camera(xml_node<> *camera_node, Camera* camera){
-    int i = 0;
-    for(xml_node<> *node = camera_node->first_node(); node; node = node->next_sibling()){
-        for(xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()){
-            camera->options[i++] = atof(attr->value());
-        }
+    xml_node<> *temp;
+
+    if((temp = camera_node->first_node("position"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("x")))
+            camera->position[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            camera->position[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            camera->position[2] = atof(attr->value());
     }
-    
-    if(i==7){ // Default Options
-        camera->options[7] = 0;
-        camera->options[8] = 1;
-        camera->options[9] = 0;
-        camera->options[10] = 60;
-        camera->options[11] = 1;
-        camera->options[12] = 1000;
+
+    if((temp = camera_node->first_node("lookAt"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("x")))
+            camera->lookAt[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            camera->lookAt[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            camera->lookAt[2] = atof(attr->value());
     }
+
+    if((temp = camera_node->first_node("up"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("x")))
+            camera->up[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            camera->up[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            camera->up[2] = atof(attr->value());
+    }
+
+    if((temp = camera_node->first_node("projection"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("fov")))
+            camera->projection[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("near")))
+            camera->projection[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("far")))
+            camera->projection[2] = atof(attr->value());
+    }
+
 }
 
 // Esta função será muito provavelmente recursiva nos próximos guiões
 void parse_group(xml_node<> *group_node, Group* group){
-    
     for(xml_node<> *node_models = group_node->first_node()->first_node();node_models; node_models = node_models->next_sibling()){
         Model* model = new Model;
         ifstream file;
@@ -67,26 +105,17 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group)
     // Encontrar o nodo raiz aka world
     root_node = doc.first_node("world");
     
+    xml_node<> *temp;
+
     // Janela
-    xml_node<> *window_node = root_node->first_node();
-    xml_node<> *camera_node;
+    if((temp = root_node->first_node("window")))
+        parse_window(temp, window);
     
-    
-    if(!strcmp(window_node->name(),"window")){
-        printf("%s\n", window_node->name());
-        parse_window(window_node, window);
-        camera_node = window_node->next_sibling();
-    }
-    else
-        camera_node = root_node->first_node();
-
-    // Camara
-    parse_camera(camera_node, camera);
-
-    // Luzes: No futuro
-    // 
+    // Câmara
+    if((temp = root_node->first_node("camera")))
+        parse_camera(temp, camera);
 
     // Grupo
-    xml_node<> *group_node = camera_node->next_sibling();
-    parse_group(group_node, group);
+    if((temp = root_node->first_node("group")))
+        parse_group(temp, group);
 }
