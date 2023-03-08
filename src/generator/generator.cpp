@@ -245,22 +245,22 @@ void points_write (const char *filename, const unsigned int nVertices, tuple<flo
 }
 
 int main(int argc, char* argv){
-    if(strcmp((char *) argv[1], "sphere")){
+    if(!strcmp((char *) argv[1], "sphere")){
         int points_total;
         tuple<float,float,float>* sphere = generate_sphere(atof((char *) argv[2]), atoi((char *) argv[3]), atoi((char *) argv[4]), &points_total);
         points_write((const char*) argv[5], points_total, sphere);
         delete(sphere);
-    } else if(strcmp((char *) argv[1], "box")){
+    } else if(!strcmp((char *) argv[1], "box")){
         int points_total;
         tuple<float,float,float>* box = generate_box(atof((char *) argv[2]), atoi((char *) argv[3]), &points_total);
         points_write((const char*) argv[5], points_total, box);
         delete(box);
-    } else if(strcmp((char *) argv[1], "plane")){
+    } else if(!strcmp((char *) argv[1], "plane")){
         int points_total;
         tuple<float,float,float>* plane = generate_plane(atof((char *) argv[2]), atoi((char *) argv[3]), &points_total);
         points_write((const char*) argv[5], points_total, plane);
         delete(plane);
-    } else if(strcmp((char *) argv[1], "cone")){
+    } else if(!strcmp((char *) argv[1], "cone")){
         int points_total;
         tuple<float,float,float>* cone = generate_cone(atof((char *) argv[2]), atof((char *) argv[3]),atoi((char *) argv[4]),atoi((char *) argv[5]), &points_total);
         points_write((const char*) argv[5], points_total, cone);
