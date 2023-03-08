@@ -3,24 +3,24 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <string.h>
-#include<tuple>
+#include <tuple>
+#include <vector>
 #include "matrix.h"
 
 using namespace std;
 
 tuple<float,float,float>* generate_cone(float bottom_radius, float height, int slices, int stacks, int* total_points){
     
-    //*total_points = ;
-    tuple<float,float, float>* point_array = new tuple<float,float,float>[*total_points];
-    int i, j, index = 0;
+    vector<tuple<float,float, float>> point_array;
+    int i, j;
 	double alfa = 2 * M_PI / slices;
 	double division_height_step = height / stacks;
 	double division_radius_step = bottom_radius / stacks;
 	// Parte de baixo
 	for (i = 0; i < slices; i++) {
-		point_array[index++] = std::make_tuple(bottom_radius * sin(alfa * (i + 1)), 0.0f, bottom_radius * cos(alfa * (i + 1)));
-		point_array[index++] = std::make_tuple(bottom_radius * sin(alfa * i), 0.0f, bottom_radius * cos(alfa * i));
-		point_array[index++] = std::make_tuple(0.0f, 0.0f, 0.0f);
+		point_array.push_back(make_tuple(bottom_radius * sin(alfa * (i + 1)), 0.0f, bottom_radius * cos(alfa * (i + 1))));
+        point_array.push_back(make_tuple(bottom_radius * sin(alfa * i), 0.0f, bottom_radius * cos(alfa * i)));
+		point_array.push_back(make_tuple(0.0f, 0.0f, 0.0f));
         
 	}
 
@@ -32,17 +32,18 @@ tuple<float,float,float>* generate_cone(float bottom_radius, float height, int s
 			double top_radius = bottom_radius - division_radius_step * (i + 1);
 
 			// lados
-			point_array[index++] = make_tuple(bot_radius * sin(alfa * j), bot_height, bot_radius * cos(alfa * j));
-			point_array[index++] = make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1)));
-			point_array[index++] = make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j));
+			point_array.push_back(make_tuple(bot_radius * sin(alfa * j), bot_height, bot_radius * cos(alfa * j)));
+			point_array.push_back(make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1))));
+			point_array.push_back(make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j)));
 
-			point_array[index++] = make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j));
-			point_array[index++] = make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1)));
-			point_array[index++] = make_tuple(top_radius * sin(alfa * (j + 1)), top_height, top_radius * cos(alfa * (j + 1)));
+			point_array.push_back(make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j)));
+			point_array.push_back(make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1))));
+			point_array.push_back(make_tuple(top_radius * sin(alfa * (j + 1)), top_height, top_radius * cos(alfa * (j + 1))));
 		}
 	}
 
-    return point_array;
+    *total_points = point_array.size();
+    return point_array.data();
 }
 
 
