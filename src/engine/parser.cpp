@@ -75,14 +75,13 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 void parse_group(xml_node<> *group_node, Group* group){
     for(xml_node<> *node_models = group_node->first_node("models")->first_node();node_models; node_models = node_models->next_sibling()){
         Model* model = new Model;
-        ifstream file;
-        file.open(node_models->first_attribute()->value(), ios::in|ios::binary);
-        int size;
-        file >> size;
-        //tuple<float,float,float>* points;
-        //while(file >> points){
-        //    
-        //}
+        ifstream file(node_models->first_attribute()->value());
+        vector<tuple<float,float,float>> tuples;
+        if(file){
+            copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
+            back_inserter(tuples));
+        } // Se não entrar no if, então não conseguiu abrir o ficheiro
+
         group->models.push_back(model);
     }
     
