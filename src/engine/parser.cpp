@@ -73,7 +73,7 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 // Esta função será muito provavelmente recursiva nos próximos guiões
 void parse_group(xml_node<> *group_node, Group* group){
-    for(xml_node<> *node_models = group_node->first_node()->first_node();node_models; node_models = node_models->next_sibling()){
+    for(xml_node<> *node_models = group_node->first_node("models")->first_node();node_models; node_models = node_models->next_sibling()){
         Model* model = new Model;
         ifstream file;
         file.open(node_models->first_attribute()->value(), ios::in|ios::binary);

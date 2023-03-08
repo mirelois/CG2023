@@ -27,5 +27,5 @@ class Group{
 public:
     std::vector<Model*> models;
     // Futuramente: Transformations
-    Group *group = NULL; // Por agora não há aninhamento de grupos
+    //Group *group = NULL; // Por agora não há aninhamento de grupos
 };
