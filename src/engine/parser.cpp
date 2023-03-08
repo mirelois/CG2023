@@ -81,7 +81,11 @@ void parse_group(xml_node<> *group_node, Group* group){
             copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
             back_inserter(tuples));
         } // Se não entrar no if, então não conseguiu abrir o ficheiro
-
+        
+        model->figure = (tuple<float,float,float>*) malloc(sizeof(tuples.size()));
+        for(int i=0; i<tuples.size(); i++){
+            model->figure[i] = tuples[i];
+        }
         group->models.push_back(model);
     }
     

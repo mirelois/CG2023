@@ -43,7 +43,12 @@ tuple<float,float,float>* generate_cone(float bottom_radius, float height, int s
 	}
 
     *total_points = point_array.size();
-    return point_array.data();
+
+    tuple<float,float,float>* temp = (tuple<float,float,float>*) malloc(sizeof(tuple<float,float,float>) * point_array.size());
+    for(int i=0; i< point_array.size(); i++){
+        temp[i] = point_array[i];
+    }
+    return temp;
 }
 
 
@@ -53,7 +58,6 @@ tuple<float,float,float>* generate_box(float length,  int grid_slices, int* poin
     //grid**2 * 2 * 3 * 6 (nr quadrados * nr triangulos * nr pontos no triangulo * nr faces)    
     
     *points_total = grid_slices*grid_slices*36;
-
     tuple <float, float, float>* point_array = new tuple <float, float, float>[*points_total];
 
     float delta = length/grid_slices;
@@ -92,8 +96,7 @@ tuple<float,float,float>* generate_box(float length,  int grid_slices, int* poin
     {
         point_array[index++] = make_tuple(get<0>(point_array[i]), -get<2>(point_array[i]), get<1>(point_array[i]));
     }
-
-
+    
     return point_array;
 }
 
@@ -206,8 +209,86 @@ tuple <float, float, float>* generate_sphere(float radius, int slices, int stack
 		alfa_y += delta_y;
 	}
 
+    for(int i=0; i < *points_total; i++){
+            printf("dentro %d: %f %f %f\n", i, get<0>(point_array[i]), get<1>(point_array[i]), get<2>(point_array[i]));
+    }
+
     return point_array;
-} 
+}
+
+tuple<float,float,float>* generate_sphere2(float radius, int slices, int stacks, int *points_total){
+    *points_total = slices*6*(stacks-1);
+    float alfa_x = M_PI/stacks;
+
+    float alfa_y = 2*M_PI/slices;
+
+    float pivot_x = 0;
+    float pivot_y = radius;
+    float pivot_z = 0;
+
+    tuple<float, float, float>* master_line = new tuple<float,float,float>[stacks+1];
+    tuple<float,float,float>* points_array = new tuple<float,float,float>[*points_total];
+
+    //generate master line
+    int master_line_index = 0;
+    int i;
+    for (i = 0; i < stacks+1; i++) {
+
+        master_line[master_line_index++] = make_tuple(
+                pivot_x,
+                pivot_y*cos(i*alfa_x) - pivot_z*sin(i*alfa_x),
+                pivot_y*sin(i*alfa_x) + pivot_z*cos(i*alfa_x)
+                );
+    }
+    int index = 0;
+    for (int j = 0; j < slices; j++) {
+        for (int i = 0; i < stacks-1; i++) {
+            
+            points_array[index++] = make_tuple(
+                    get<0>(master_line[i])*cos(j*alfa_y) + get<2>(master_line[i])*sin(j*alfa_y),
+                    get<1>(master_line[i]),
+                    -get<0>(master_line[i])*sin(j*alfa_y) + get<2>(master_line[i])*cos(j*alfa_y)
+                    );
+
+            points_array[index++] = make_tuple(
+                    get<0>(master_line[i+1])*cos(j*alfa_y) + get<2>(master_line[i+1])*sin(j*alfa_y),
+                    get<1>(master_line[i+1]),
+                    -get<0>(master_line[i+1])*sin(j*alfa_y) + get<2>(master_line[i+1])*cos(j*alfa_y)
+                    );
+
+            points_array[index++] = make_tuple(
+                    get<0>(master_line[i+1])*cos((j+1)*alfa_y) + get<2>(master_line[i+1])*sin((j+1)*alfa_y),
+                    get<1>(master_line[i+1]),
+                    -get<0>(master_line[i+1])*sin((j+1)*alfa_y) + get<2>(master_line[i+1])*cos((j+1)*alfa_y)
+                    );
+        }
+    }
+
+    for (int j = 0; j < slices; j++) {
+        for (int i = stacks; i > 0; i--) {
+            
+            points_array[index++] = make_tuple(
+                    get<0>(master_line[i])*cos(-j*alfa_y) + get<2>(master_line[i])*sin(-j*alfa_y),
+                    get<1>(master_line[i]),
+                    -get<0>(master_line[i])*sin(-j*alfa_y) + get<2>(master_line[i])*cos(-j*alfa_y)
+                    );
+
+            points_array[index++] = make_tuple(
+                    get<0>(master_line[i-1])*cos(-j*alfa_y) + get<2>(master_line[i-1])*sin(-j*alfa_y),
+                    get<1>(master_line[i-1]),
+                    -get<0>(master_line[i-1])*sin(-j*alfa_y) + get<2>(master_line[i-1])*cos(-j*alfa_y)
+                    );
+
+            points_array[index++] = make_tuple(
+                    get<0>(master_line[i-1])*cos(-(j+1)*alfa_y) + get<2>(master_line[i-1])*sin(-(j+1)*alfa_y),
+                    get<1>(master_line[i-1]),
+                    -get<0>(master_line[i-1])*sin(-(j+1)*alfa_y) + get<2>(master_line[i-1])*cos(-(j+1)*alfa_y)
+                    );
+        }
+    }
+
+    return points_array;
+}
 
 
 
@@ -228,26 +309,27 @@ void points_write (const char *filename, const unsigned int nVertices, tuple<flo
 }
 
 int main(int argc, char* argv[]){
-    if(!strcmp((char *) argv[1], "sphere")){
+    if(!strcmp(argv[1], "sphere")){
         int points_total;
-        tuple<float,float,float>* sphere = generate_sphere(atof((char *) argv[2]), atoi((char *) argv[3]), atoi((char *) argv[4]), &points_total);
-        points_write((const char*) argv[5], points_total, sphere);
+        tuple<float,float,float>* sphere = generate_sphere2(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
+        points_write(argv[5], points_total, sphere);
         delete(sphere);
-    } else if(!strcmp((char *) argv[1], "box")){
+    } else if(!strcmp(argv[1], "box")){
         int points_total;
-        tuple<float,float,float>* box = generate_box(atof((char *) argv[2]), atoi((char *) argv[3]), &points_total);
-        points_write((const char*) argv[4], points_total, box);
+        tuple<float,float,float>* box = generate_box(atof(argv[2]), atoi(argv[3]), &points_total);
+        points_write(argv[4], points_total, box);
         delete(box);
-    } else if(!strcmp((char *) argv[1], "plane")){
+    } else if(!strcmp(argv[1], "plane")){
         int points_total;
-        tuple<float,float,float>* plane = generate_plane(atof((char *) argv[2]), atoi((char *) argv[3]), &points_total);
-        points_write((const char*) argv[4], points_total, plane);
+        tuple<float,float,float>* plane = generate_plane(atof(argv[2]), atoi(argv[3]), &points_total);
+        points_write(argv[4], points_total, plane);
         delete(plane);
-    } else if(!strcmp((char *) argv[1], "cone")){
+    } else if(!strcmp(argv[1], "cone")){
         int points_total;
-        tuple<float,float,float>* cone = generate_cone(atof((char *) argv[2]), atof((char *) argv[3]),atoi((char *) argv[4]),atoi((char *) argv[5]), &points_total);
-        points_write((const char*) argv[6], points_total, cone);
-        delete(cone);
+        printf("wwwwtffff\n");
+        tuple<float,float,float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
+        points_write(argv[6], points_total, cone);
+        free(cone);
     }
 
     return 0;
