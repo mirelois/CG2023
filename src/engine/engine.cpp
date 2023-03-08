@@ -22,8 +22,8 @@ void run(Window* window, Camera* camera, Group* group){
 	glutReshapeFunc(changeSize);
 	
 // Callback registration for keyboard processing
-	glutKeyboardFunc(processKeys);
-	glutSpecialFunc(processSpecialKeys);
+//	glutKeyboardFunc(processKeys);
+//	glutSpecialFunc(processSpecialKeys);
 
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
