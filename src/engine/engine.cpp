@@ -3,8 +3,27 @@
 Camera* camera_global;
 Group* group_global;
 
+void drawAxis(){
+	glBegin(GL_Lines);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-100.0f, 0.0f, 0.0f);
+	glVertex3f( 100.0f, 0.0f, 0.0f);
+
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(0.0f, -100.0f, 0.0f);
+	glVertex3f(0.0f, 100.0f, 0.0f);
+
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, -100.0f);
+	glVertex3f(0.0f, 0.0f, 100.0f,);
+
+	glEnd();
+}
+
 void draw(){
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glBegin(GL_TRIANGLES);
+	glColor3f(1.0f,1.0f,1.0f);
 	for(int i=0; i<group_global->models.size(); i++){
 		for(int j=0; j<group_global->models[i]->size; j++){
 			glVertex3f(get<0>(group_global->models[i]->figure[j]), get<1>(group_global->models[i]->figure[j]), get<2>(group_global->models[i]->figure[j]));
@@ -26,6 +45,7 @@ void renderScene(void) {
 		camera_global->up[0], camera_global->up[1], camera_global->up[2]);
 
 	// Colocar funcoes de desenho aqui
+	drawAxis();
 	draw();
 
 	// End of frame
