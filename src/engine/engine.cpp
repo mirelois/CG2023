@@ -4,7 +4,7 @@ Camera* camera_global;
 Group* group_global;
 
 void drawAxis(){
-	glBegin(GL_Lines);
+	glBegin(GL_LINES);
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(-100.0f, 0.0f, 0.0f);
 	glVertex3f( 100.0f, 0.0f, 0.0f);
@@ -15,7 +15,7 @@ void drawAxis(){
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 	glVertex3f(0.0f, 0.0f, -100.0f);
-	glVertex3f(0.0f, 0.0f, 100.0f,);
+	glVertex3f(0.0f, 0.0f, 100.0f);
 
 	glEnd();
 }

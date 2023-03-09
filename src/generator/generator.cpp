@@ -132,92 +132,7 @@ tuple <float, float, float>* generate_plane(float length, int grid_slices, int* 
     return point_array;
 }
 
-
-tuple <float, float, float>* generate_sphere(float radius, int slices, int stacks, int* points_total) {
-
-    *points_total = slices*6*(stacks-1);
-    std::tuple <float, float, float>* point_array = new tuple<float,float,float>[*points_total];
-    int index = 0; 
-
-	float alfa_x = 0;
-	float delta_x = M_PI / stacks;
-
-	float alfa_y = 0;
-	float delta_y = 2 * M_PI / slices;
-
-	float pivot_x = 0;
-	float pivot_y = radius;
-	float pivot_z = 0;
-	
-	std::tuple<float, float, float>* master_line = new std::tuple<float,float,float>[stacks+1];
-
-
-	//generate master line
-	int master_line_index = 0;
-	for (int i = 0; i < stacks + 1; i++) {
-
-		master_line[master_line_index++] = std::make_tuple(
-			pivot_x,
-			pivot_y * cos(i*alfa_x) - pivot_z * sin(i*alfa_x),
-			pivot_y * sin(i*alfa_x) + pivot_z * cos(i*alfa_x)
-		);
-	}
-
-	for (int j = 0; j < slices; j++) {
-		for (int i = 0; i < stacks - 1; i++) {
-
-			point_array[index++] = std::make_tuple(
-				std::get<0>(master_line[i]) * cos(j*alfa_y) + std::get<2>(master_line[i]) * sin(j*alfa_y),
-				get<1>(master_line[i]),
-				-get<0>(master_line[i]) * sin(j*alfa_y) + get<2>(master_line[i]) * cos(j*alfa_y)
-			);
-
-			point_array[index++] = make_tuple(
-				get<0>(master_line[i + 1]) * cos(j*alfa_y) + get<2>(master_line[i + 1]) * sin(j*alfa_y),
-				get<1>(master_line[i + 1]),
-				-get<0>(master_line[i + 1]) * sin(j*alfa_y) + get<2>(master_line[i + 1]) * cos(j*alfa_y)
-			);
-
-			point_array[index++] = make_tuple(
-				get<0>(master_line[i + 1]) * cos((j+1)*alfa_y) + get<2>(master_line[i + 1]) * sin((j+1)*alfa_y),
-				get<1>(master_line[i + 1]),
-				-get<0>(master_line[i + 1]) * sin((j+1)*alfa_y) + get<2>(master_line[i + 1]) * cos((j+1)*alfa_y)
-			);
-		}
-	}
-
-	for (int j = 0; j < slices; j++) {
-		for (int i = stacks ; i > 1; i--) {
-
-			point_array[index++] = make_tuple(
-				std::get<0>(master_line[i]) * cos(-j*alfa_y) + get<2>(master_line[i]) * sin(-j*alfa_y),
-				get<1>(master_line[i]),
-				-get<0>(master_line[i]) * sin(-j*alfa_y) + get<2>(master_line[i]) * cos(-j*alfa_y)
-			);
-
-			point_array[index++] = make_tuple(
-				get<0>(master_line[i - 1]) * cos(-j*alfa_y) + get<2>(master_line[i - 1]) * sin(-j*alfa_y),
-				get<1>(master_line[i - 1]),
-				-get<0>(master_line[i - 1]) * sin(-j*alfa_y) + get<2>(master_line[i - 1]) * cos(-j*alfa_y)
-			);
-
-			point_array[index++] = make_tuple(
-				get<0>(master_line[i - 1]) * cos(-(j+1)*alfa_y) + get<2>(master_line[i - 1]) * sin(-(j+1)*alfa_y),
-				get<1>(master_line[i - 1]),
-				-get<0>(master_line[i - 1]) * sin(-(j+1)*alfa_y) + get<2>(master_line[i - 1]) * cos(-(j+1)*alfa_y)
-			);
-		}
-		alfa_y += delta_y;
-	}
-
-    for(int i=0; i < *points_total; i++){
-            printf("dentro %d: %f %f %f\n", i, get<0>(point_array[i]), get<1>(point_array[i]), get<2>(point_array[i]));
-    }
-
-    return point_array;
-}
-
-tuple<float,float,float>* generate_sphere2(float radius, int slices, int stacks, int *points_total){
+tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, int *points_total){
     *points_total = slices*6*(stacks-1);
     float alfa_x = M_PI/stacks;
 
@@ -346,7 +261,7 @@ void points_write (const char *filename, int nVertices, tuple<float,float,float>
 int main(int argc, char* argv[]){
     if(!strcmp(argv[1], "sphere")){
         int points_total;
-        tuple<float,float,float>* sphere = generate_sphere2(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
+        tuple<float,float,float>* sphere = generate_sphere(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
         points_write(argv[5], points_total, sphere);
         delete(sphere);
     } else if(!strcmp(argv[1], "box")){
