@@ -8,4 +8,4 @@
 #include <GL/glut.h>
 #endif
 
-void draw();
+void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]);
