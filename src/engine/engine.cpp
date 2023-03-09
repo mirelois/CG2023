@@ -1,12 +1,12 @@
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include "parser.cpp"
+
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
 #endif
-
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include "parser.cpp"
 
 Camera* camera_global;
 Group* group_global;

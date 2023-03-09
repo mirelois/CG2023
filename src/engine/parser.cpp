@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <string.h>
 #include <iterator>
 #include "rapidxml.hpp"
@@ -78,7 +77,7 @@ void parse_group(xml_node<> *group_node, Group* group){
         Model* model = new Model;
         char *path = node_models->first_attribute()->value();
         //ifstream file("../generator/" + path); // como ir buscar o model num path different?
-        char buffer[strlen(path) + 14];
+        char buffer[128];
         strcpy(buffer, "../generator/");
         strcat(buffer, path);
         //FILE *file = fopen(buffer,"r");
