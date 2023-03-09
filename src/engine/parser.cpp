@@ -76,18 +76,34 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 void parse_group(xml_node<> *group_node, Group* group){
     for(xml_node<> *node_models = group_node->first_node("models")->first_node();node_models; node_models = node_models->next_sibling()){
         Model* model = new Model;
-        string path = node_models->first_attribute()->value();
-        ifstream file("generator/" + path); // como ir buscar o model num path different?
-        vector<tuple<float,float,float>> tuples;
+        char *path = node_models->first_attribute()->value();
+        //ifstream file("../generator/" + path); // como ir buscar o model num path different?
+        vector<tuple<float,float,float>> *tuples;
+        char buffer[128/*strlen(path) + 14*/] = "";
+        strcat(buffer, "../generator/");
+        strcat(buffer, path);
+        FILE *file = fopen(buffer,"r");
+        printf("%s %d\n", buffer, file);
+
         if(file){
-            copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
-            back_inserter(tuples));
+            unsigned int x;
+            fread(&x, sizeof(unsigned int), 1, file);
+            tuples = new vector<tuple<float,float,float>>(x);
+            fread(&tuples, sizeof(tuple<float,float,float>), x, file);
+            for (int i = 0; i< x; i++) {
+                printf("Debug %d, %d\n", i, x);
+                printf("%d: %f %f %f\n", i, get<0>(tuples->at(i)), get<1>(tuples->at(i)), get<2>(tuples->at(i)));
+            }
+            /*copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
+            back_inserter(tuples));*/
         } // Se não entrar no if, então não conseguiu abrir o ficheiro
         
-        model->figure = (tuple<float,float,float>*) malloc(sizeof(tuples.size()));
-        for(int i=0; i<tuples.size(); i++){
+        /*model->figure = (tuple<float,float,float>*) malloc(sizeof(tuples->size()));
+        for(int i=0; i<tuples->size(); i++){
             model->figure[i] = tuples[i];
         }
+        group->models.push_back(model);*/
+        model->figure = tuples;
         group->models.push_back(model);
     }
     

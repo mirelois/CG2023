@@ -324,8 +324,6 @@ int main(int argc, char* argv[]){
     if(!strcmp(argv[1], "sphere")){
         int points_total;
         tuple<float,float,float>* sphere = generate_sphere2(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
-        printf("Lmao\n");
-        printf("%s", argv[5]);
         points_write(argv[5], points_total, sphere);
         delete(sphere);
     } else if(!strcmp(argv[1], "box")){
@@ -340,7 +338,6 @@ int main(int argc, char* argv[]){
         delete(plane);
     } else if(!strcmp(argv[1], "cone")){
         int points_total;
-        printf("wwwwtffff\n");
         tuple<float,float,float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
         points_write(argv[6], points_total, cone);
         free(cone);
