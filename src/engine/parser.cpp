@@ -83,7 +83,7 @@ void parse_group(xml_node<> *group_node, Group* group){
         strcat(buffer, path);
         //FILE *file = fopen(buffer,"r");
         //printf("%s %d\n", buffer, file);
-        printf("%s\n", buffer);
+        //printf("%s\n", buffer);
         fstream filestream;
         filestream.open(buffer, ios::in|ios::binary);
         int n;
@@ -92,10 +92,6 @@ void parse_group(xml_node<> *group_node, Group* group){
         //filestream >> n;
         tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
         filestream.read((char*)tuples, sizeof(tuple<float,float,float>) * n);
-        printf("%d\n", n);
-        for(int i=0;i<n;i++){
-            printf("%f %f %f\n", get<0>(tuples[i]),get<1>(tuples[i]),get<2>(tuples[i]));
-        }
         filestream.close();
         /*
         if(file){
@@ -119,8 +115,8 @@ void parse_group(xml_node<> *group_node, Group* group){
         }
         group->models.push_back(model);*/
         
-        //model->figure = tuples;
-        //group->models.push_back(model);
+        model->figure = tuples;
+        group->models.push_back(model);
     }
     
 }
