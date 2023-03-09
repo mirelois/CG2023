@@ -10,7 +10,6 @@ void draw(){
 			glVertex3f(get<0>(group_global->models[i]->figure[j]), get<1>(group_global->models[i]->figure[j]), get<2>(group_global->models[i]->figure[j]));
 			// delete group_global->models[i]->figure[j];
 		}
-		delete group_global->models[i];
 	}
 	glEnd();
 }
