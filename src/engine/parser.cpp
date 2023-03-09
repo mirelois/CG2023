@@ -78,20 +78,25 @@ void parse_group(xml_node<> *group_node, Group* group){
         Model* model = new Model;
         char *path = node_models->first_attribute()->value();
         //ifstream file("../generator/" + path); // como ir buscar o model num path different?
-        tuple<float,float,float> *tuples;
         char buffer[strlen(path) + 14];
-        strcat(buffer, "../generator/");
+        strcpy(buffer, "../generator/");
         strcat(buffer, path);
         //FILE *file = fopen(buffer,"r");
         //printf("%s %d\n", buffer, file);
-
-        ifstream filestream;
+        printf("%s\n", buffer);
+        fstream filestream;
         filestream.open(buffer, ios::in|ios::binary);
         int n;
-        //filestream.read(reinterpret_cast<char*>(&n),sizeof(int));
-        filestream >> n;
+        //filestream.seekg(0);
+        filestream.read((char*)&n,sizeof(int));
+        //filestream >> n;
+        tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
         filestream.read((char*)tuples, sizeof(tuple<float,float,float>) * n);
         printf("%d\n", n);
+        for(int i=0;i<n;i++){
+            printf("%f %f %f\n", get<0>(tuples[i]),get<1>(tuples[i]),get<2>(tuples[i]));
+        }
+        filestream.close();
         /*
         if(file){
             unsigned int x;

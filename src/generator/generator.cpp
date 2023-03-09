@@ -307,16 +307,14 @@ void points_write (const char *filename, int nVertices, tuple<float,float,float>
   //fwrite (points, sizeof(tuple<float,float,float>), nVertices, fp);
 
     fstream file;
-    file.open(filename,ios::out|ios::in);
+    file.open(filename,ios::out|ios::binary|ios::in|ios::trunc);
     printf("%d\n", nVertices);
-    file.write(reinterpret_cast<const char*> (&nVertices), sizeof(int));
-    int n;
-    file.read((char*)&n,sizeof(int));
-    file.seekg(0);
-    printf("%d\n",n);
+    file.write((char*)&nVertices, sizeof(int));
+    //file.read((char*)&n,sizeof(int));
     file.write((char*)points, sizeof(tuple<float,float,float>)*nVertices);
 
     file.close();
+    /*
     FILE *test = fopen("test.txt", "w");
     if (!test) {
         fprintf (stderr, "failed to open file: %s", filename);
@@ -328,6 +326,7 @@ void points_write (const char *filename, int nVertices, tuple<float,float,float>
         sprintf(s, "%d: %f %f %f\n", i, get<0>(points[i]), get<1>(points[i]), get<2>(points[i]));
         fwrite(s,strlen(s),1,test);
     }
+    */
 
   //fclose (fp);
 }
