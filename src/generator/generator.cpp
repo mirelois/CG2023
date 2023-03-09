@@ -186,7 +186,7 @@ tuple <float, float, float>* generate_sphere(float radius, int slices, int stack
 	}
 
 	for (int j = 0; j < slices; j++) {
-		for (int i = stacks ; i > 0; i--) {
+		for (int i = stacks ; i > 1; i--) {
 
 			point_array[index++] = make_tuple(
 				std::get<0>(master_line[i]) * cos(-j*alfa_y) + get<2>(master_line[i]) * sin(-j*alfa_y),
@@ -265,7 +265,7 @@ tuple<float,float,float>* generate_sphere2(float radius, int slices, int stacks,
     }
 
     for (int j = 0; j < slices; j++) {
-        for (int i = stacks; i > 0; i--) {
+        for (int i = stacks; i > 1; i--) {
             
             points_array[index++] = make_tuple(
                     get<0>(master_line[i])*cos(-j*alfa_y) + get<2>(master_line[i])*sin(-j*alfa_y),
@@ -312,6 +312,7 @@ int main(int argc, char* argv[]){
     if(!strcmp(argv[1], "sphere")){
         int points_total;
         tuple<float,float,float>* sphere = generate_sphere2(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
+        printf("%s", argv[5]);
         points_write(argv[5], points_total, sphere);
         delete(sphere);
     } else if(!strcmp(argv[1], "box")){
