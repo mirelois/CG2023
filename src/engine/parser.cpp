@@ -79,12 +79,20 @@ void parse_group(xml_node<> *group_node, Group* group){
         char *path = node_models->first_attribute()->value();
         //ifstream file("../generator/" + path); // como ir buscar o model num path different?
         tuple<float,float,float> *tuples;
-        char buffer[128/*strlen(path) + 14*/] = "";
+        char buffer[strlen(path) + 14];
         strcat(buffer, "../generator/");
         strcat(buffer, path);
-        FILE *file = fopen(buffer,"r");
-        printf("%s %d\n", buffer, file);
+        //FILE *file = fopen(buffer,"r");
+        //printf("%s %d\n", buffer, file);
 
+        ifstream filestream;
+        filestream.open(buffer, ios::in|ios::binary);
+        int n;
+        //filestream.read(reinterpret_cast<char*>(&n),sizeof(int));
+        filestream >> n;
+        filestream.read((char*)tuples, sizeof(tuple<float,float,float>) * n);
+        printf("%d\n", n);
+        /*
         if(file){
             unsigned int x;
             fread(&x, sizeof(unsigned int), 1, file);
@@ -96,17 +104,18 @@ void parse_group(xml_node<> *group_node, Group* group){
                 printf("Debug %d, %d\n", i, x);
                 printf("%d: %f %f %f\n", i, get<0>(tuple), get<1>(tuple), get<2>(tuple));
             }
-            /*copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
-            back_inserter(tuples));*/
+            //copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
+            //back_inserter(tuples));
         } // Se não entrar no if, então não conseguiu abrir o ficheiro
-        
+        */
         /*model->figure = (tuple<float,float,float>*) malloc(sizeof(tuples->size()));
         for(int i=0; i<tuples->size(); i++){
             model->figure[i] = tuples[i];
         }
         group->models.push_back(model);*/
-        model->figure = tuples;
-        group->models.push_back(model);
+        
+        //model->figure = tuples;
+        //group->models.push_back(model);
     }
     
 }

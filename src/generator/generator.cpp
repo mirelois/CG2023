@@ -4,6 +4,7 @@
 #include <math.h>
 #include <string.h>
 #include <tuple>
+#include <fstream>
 #include <vector>
 #include "matrix.h"
 
@@ -293,18 +294,29 @@ tuple<float,float,float>* generate_sphere2(float radius, int slices, int stacks,
 
 
 //i mean fine mas estas a fazer isto muito a C, concordo - assinado carlos
-void points_write (const char *filename, const unsigned int nVertices, tuple<float,float,float> points[]) 
+void points_write (const char *filename, int nVertices, tuple<float,float,float> points[]) 
 {
-  FILE *fp = fopen (filename, "w");
-  if (!fp)
-    {
-      fprintf (stderr, "failed to open file: %s", filename);
-      exit (1);
-    }
+  //FILE *fp = fopen (filename, "w");
+  //if (!fp)
+    //{
+      //fprintf (stderr, "failed to open file: %s", filename);
+      //exit (1);
+    //}
 
-  fwrite (&nVertices, sizeof (unsigned int), 1, fp);
-  fwrite (points, sizeof(tuple<float,float,float>), nVertices, fp);
+  //fwrite (&nVertices, sizeof (unsigned int), 1, fp);
+  //fwrite (points, sizeof(tuple<float,float,float>), nVertices, fp);
 
+    fstream file;
+    file.open(filename,ios::out|ios::in);
+    printf("%d\n", nVertices);
+    file.write(reinterpret_cast<const char*> (&nVertices), sizeof(int));
+    int n;
+    file.read((char*)&n,sizeof(int));
+    file.seekg(0);
+    printf("%d\n",n);
+    file.write((char*)points, sizeof(tuple<float,float,float>)*nVertices);
+
+    file.close();
     FILE *test = fopen("test.txt", "w");
     if (!test) {
         fprintf (stderr, "failed to open file: %s", filename);
@@ -317,7 +329,7 @@ void points_write (const char *filename, const unsigned int nVertices, tuple<flo
         fwrite(s,strlen(s),1,test);
     }
 
-  fclose (fp);
+  //fclose (fp);
 }
 
 int main(int argc, char* argv[]){
