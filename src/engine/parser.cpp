@@ -1,9 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string.h>
-#include <iterator>
-#include "rapidxml.hpp"
-#include "classes.cpp"
+#include "parser.h"
 
 using namespace std;
 using namespace rapidxml;

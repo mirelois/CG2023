@@ -9,9 +9,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(OpenGL_GL_PREFERENCE "GLVND")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -pedantic")
-set(CMAKE_CXX_COMPILER clang++)
-
-add_executable(${PROJECT_NAME} main.cpp)
 
 add_subdirectory(src/generator)
 add_subdirectory(src/engine)

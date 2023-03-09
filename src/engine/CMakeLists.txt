@@ -9,6 +9,11 @@ PROJECT(engine)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_executable(engine
+	main.h
+	engine.h
+	parser.h
+	classes.h
+	classes.cpp
 	main.cpp
 	engine.cpp
 	parser.cpp
