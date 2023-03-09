@@ -78,7 +78,7 @@ void parse_group(xml_node<> *group_node, Group* group){
         Model* model = new Model;
         char *path = node_models->first_attribute()->value();
         //ifstream file("../generator/" + path); // como ir buscar o model num path different?
-        vector<tuple<float,float,float>> *tuples;
+        tuple<float,float,float> *tuples;
         char buffer[128/*strlen(path) + 14*/] = "";
         strcat(buffer, "../generator/");
         strcat(buffer, path);
@@ -88,11 +88,13 @@ void parse_group(xml_node<> *group_node, Group* group){
         if(file){
             unsigned int x;
             fread(&x, sizeof(unsigned int), 1, file);
-            tuples = new vector<tuple<float,float,float>>(x);
+            tuples = new tuple<float,float,float>[x];
             fread(&tuples, sizeof(tuple<float,float,float>), x, file);
-            for (int i = 0; i< x; i++) {
+            printf("%d\n", get<0>(tuples[0]));
+            for (int i = 0; i<x; i++) {
+                tuple<float,float,float> tuple = tuples[i];
                 printf("Debug %d, %d\n", i, x);
-                printf("%d: %f %f %f\n", i, get<0>(tuples->at(i)), get<1>(tuples->at(i)), get<2>(tuples->at(i)));
+                printf("%d: %f %f %f\n", i, get<0>(tuple), get<1>(tuple), get<2>(tuple));
             }
             /*copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
             back_inserter(tuples));*/

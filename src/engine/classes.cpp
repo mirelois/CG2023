@@ -19,7 +19,7 @@ public:
 
 class Model{
 public:
-    std::vector<std::tuple<float, float, float>>* figure;
+    std::tuple<float, float, float>* figure;
 };
 
 
