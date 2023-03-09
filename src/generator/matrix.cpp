@@ -1,4 +1,4 @@
-#include <cstdlib>
+/*#include <cstdlib>
 #include <iostream>
 #include <tuple>
 #include "matrix.h"
@@ -71,5 +71,5 @@ int main()
         if(j == Col_2-1)
             cout << endl;
     }
-}
+}*/
 

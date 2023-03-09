@@ -303,7 +303,19 @@ void points_write (const char *filename, const unsigned int nVertices, tuple<flo
     }
 
   fwrite (&nVertices, sizeof (unsigned int), 1, fp);
-  fwrite (points, nVertices * sizeof(tuple<float,float,float>), nVertices, fp);
+  fwrite (points, sizeof(tuple<float,float,float>), nVertices, fp);
+
+    FILE *test = fopen("test.txt", "w");
+    if (!test) {
+        fprintf (stderr, "failed to open file: %s", filename);
+        exit (1);
+    }
+
+    for (int i = 0; i< nVertices; i++) {
+        char s[128];
+        sprintf(s, "%d: %f %f %f\n", i, get<0>(points[i]), get<1>(points[i]), get<2>(points[i]));
+        fwrite(s,strlen(s),1,test);
+    }
 
   fclose (fp);
 }
@@ -312,6 +324,7 @@ int main(int argc, char* argv[]){
     if(!strcmp(argv[1], "sphere")){
         int points_total;
         tuple<float,float,float>* sphere = generate_sphere2(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
+        printf("Lmao\n");
         printf("%s", argv[5]);
         points_write(argv[5], points_total, sphere);
         delete(sphere);
