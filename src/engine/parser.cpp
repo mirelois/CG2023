@@ -116,6 +116,7 @@ void parse_group(xml_node<> *group_node, Group* group){
         group->models.push_back(model);*/
         
         model->figure = tuples;
+        model->size = n;
         group->models.push_back(model);
     }
     

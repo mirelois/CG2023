@@ -1,5 +1,4 @@
-#include "parser.cpp"
-//#include "engine.cpp"
+#include "engine.cpp"
 
 int main(int argc, char  *argv[]){
 
@@ -9,7 +8,7 @@ int main(int argc, char  *argv[]){
     
     char file[] = "phase1.xml";
     parser(file, window, camera, group);
-    //run(window, camera, group, argc, argv);
+    run(window, camera, group, argc, argv);
     delete(window);
     delete(camera);
     delete(group);

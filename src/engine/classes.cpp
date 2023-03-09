@@ -19,6 +19,7 @@ public:
 
 class Model{
 public:
+    int size;
     std::tuple<float, float, float>* figure;
 };
 
