@@ -19,7 +19,7 @@ tuple<float, float, float>* generate_torus(float iner_radius, float outer_radius
     int index = 0;
 
     
-    tuple<float, float, float> master_circle[vertical_divisions];
+    tuple<float, float, float>* master_circle = new tuple<float, float, float>[vertical_divisions];
     
     int master_circle_index = 0;
 
