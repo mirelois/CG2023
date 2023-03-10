@@ -10,7 +10,7 @@
 
 using namespace std;
 
-tuple<float, float, float>* generate_torus(float iner_radius, float outer_radius, int vertical_divisions, int horizontal_divisions, int* points_total){
+tuple<float, float, float>* generate_torus(float inner_radius, float outer_radius, int vertical_divisions, int horizontal_divisions, int* points_total){
 
     *points_total = 6*vertical_divisions*horizontal_divisions;
 
@@ -30,7 +30,7 @@ tuple<float, float, float>* generate_torus(float iner_radius, float outer_radius
 
     float pivot_x = 0;
 
-    float pivot_y = (outer_radius-iner_radius)/2;
+    float pivot_y = (outer_radius-inner_radius)/2;
 
     float pivot_z = 0;
 
@@ -40,7 +40,7 @@ tuple<float, float, float>* generate_torus(float iner_radius, float outer_radius
         master_circle[master_circle_index++] = make_tuple(
                 pivot_x,
                 pivot_y*cos(i*delta_x) - pivot_z*sin(delta_x),
-                pivot_y*sin(i*delta_x) + pivot_z*cos(delta_x) + (outer_radius+iner_radius)/2
+                pivot_y*sin(i*delta_x) + pivot_z*cos(delta_x) + (outer_radius+inner_radius)/2
                 );
 
     }
