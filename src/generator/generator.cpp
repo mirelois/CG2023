@@ -39,8 +39,8 @@ tuple<float, float, float>* generate_torus(float inner_radius, float outer_radiu
 
         master_circle[master_circle_index++] = make_tuple(
                 pivot_x,
-                pivot_y*cos(i*delta_x) - pivot_z*sin(delta_x),
-                pivot_y*sin(i*delta_x) + pivot_z*cos(delta_x) + (outer_radius+inner_radius)/2
+                pivot_y*cos(i*delta_x),
+                pivot_y*sin(i*delta_x) + (outer_radius+inner_radius)/2
                 );
 
     }
