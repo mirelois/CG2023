@@ -230,8 +230,8 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
 
         master_line[master_line_index++] = make_tuple(
                 pivot_x,
-                pivot_y*cos(i*alfa_x) - pivot_z*sin(i*alfa_x),
-                pivot_y*sin(i*alfa_x) + pivot_z*cos(i*alfa_x)
+                pivot_y*cos(i*alfa_x),
+                pivot_y*sin(i*alfa_x)
                 );
     }
     int index = 0;
