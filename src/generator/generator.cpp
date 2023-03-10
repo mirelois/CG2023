@@ -95,7 +95,7 @@ tuple<float,float,float>* generate_cone(float bottom_radius, float height, int s
 	double alfa = 2 * M_PI / slices;
 	double division_height_step = height / stacks;
 	double division_radius_step = bottom_radius / stacks;
-	// Parte de baixo
+	// Base
 	for (i = 0; i < slices; i++) {
 		point_array.push_back(make_tuple(bottom_radius * sin(alfa * (i + 1)), 0.0f, bottom_radius * cos(alfa * (i + 1))));
         point_array.push_back(make_tuple(bottom_radius * sin(alfa * i), 0.0f, bottom_radius * cos(alfa * i)));
