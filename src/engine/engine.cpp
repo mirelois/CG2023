@@ -86,12 +86,12 @@ void processKeys(unsigned char key, int xx, int yy) {
 
 	switch(key){
 		case 'o':{
-			axis = (axis+1)%2;
+			axis = !axis;
 			break;
 		}
 
 		case 'p':{
-			polygon = (polygon+1)%2;
+			polygon = !polygon;
 			break;
 		}
 
