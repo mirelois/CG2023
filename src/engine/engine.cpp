@@ -25,8 +25,7 @@ void drawAxis(){
 }
 
 void draw(){
-	if(polygon)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f,1.0f,1.0f);
 	for(int i=0; i<group_global->models.size(); i++){
@@ -83,16 +82,16 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void processSpecialKeys(int key, int xx, int yy) {
+void processKeys(unsigned char key, int xx, int yy) {
 
 	switch(key){
-		case GLUT_KEY_F3:{
-			axis = axis * -1;
+		case 'o':{
+			axis = (axis+1)%2;
 			break;
 		}
 
-		case GLUT_KEY_F2:{
-			polygon = polygon * -1;
+		case 'p':{
+			polygon = (polygon+1)%2;
 			break;
 		}
 
@@ -120,8 +119,8 @@ void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
 	glutReshapeFunc(changeSize);
 	
 // Callback registration for keyboard processing
-//	glutKeyboardFunc(processKeys);
-	glutSpecialFunc(processSpecialKeys);
+	glutKeyboardFunc(processKeys);
+	//glutSpecialFunc(processSpecialKeys);
 
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
