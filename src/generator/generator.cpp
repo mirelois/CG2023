@@ -310,7 +310,7 @@ void points_write (const char *filename, int nVertices, tuple<float,float,float>
   //fwrite (points, sizeof(tuple<float,float,float>), nVertices, fp);
 
     fstream file;
-    file.open(filename,ios::out|ios::binary|ios::in|ios::trunc);
+    file.open(path,ios::out|ios::binary|ios::in|ios::trunc);
     //printf("%d\n", nVertices);
     file.write((char*)&nVertices, sizeof(int));
     //file.read((char*)&n,sizeof(int));
@@ -372,6 +372,8 @@ int main(int argc, char* argv[]){
         tuple<float,float,float>* torus = generate_torus(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
         points_write(argv[6], points_total, torus);
         free(torus);
+    } else{
+        printf("Invalid Model\n");
     }
 
     return 0;

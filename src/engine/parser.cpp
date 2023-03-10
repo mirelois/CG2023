@@ -73,7 +73,11 @@ void parse_group(xml_node<> *group_node, Group* group){
         char *path = node_models->first_attribute()->value();
         //ifstream file("../generator/" + path); // como ir buscar o model num path different?
         char buffer[128];
-        strcpy(buffer, "../generator/");
+        #ifdef _WIN32
+            strcpy(buffer, "../generator/");
+        #else
+            strcpy(buffer, "../../models");
+        #endif
         strcat(buffer, path);
         //FILE *file = fopen(buffer,"r");
         //printf("%s %d\n", buffer, file);
