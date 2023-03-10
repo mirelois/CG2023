@@ -3,6 +3,8 @@
 Camera* camera_global;
 Group* group_global;
 
+using namespace std;
+
 void drawAxis(){
 	glBegin(GL_LINES);
 	glColor3f(1.0f, 0.0f, 0.0f);
