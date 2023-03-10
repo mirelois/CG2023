@@ -69,50 +69,23 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 // Esta função será muito provavelmente recursiva nos próximos guiões
 void parse_group(xml_node<> *group_node, Group* group){
     for(xml_node<> *node_models = group_node->first_node("models")->first_node();node_models; node_models = node_models->next_sibling()){
-        Model* model = new Model;
-        char *path = node_models->first_attribute()->value();
-        //ifstream file("../generator/" + path); // como ir buscar o model num path different?
-        char buffer[128];
-        #ifdef _WIN32
-            strcpy(buffer, "../generator/");
-        #else
-            strcpy(buffer, "../../models/");
-        #endif
-        strcat(buffer, path);
-        //FILE *file = fopen(buffer,"r");
-        //printf("%s %d\n", buffer, file);
-        //printf("%s\n", buffer);
+        // Criar fstream e abrir
         fstream filestream;
-        filestream.open(buffer, ios::in|ios::binary);
+        filestream.open(node_models->first_attribute()->value(), ios::in|ios::binary);
+
+        // Ler inteiro para o n
         int n;
-        //filestream.seekg(0);
         filestream.read((char*)&n,sizeof(int));
-        //filestream >> n;
+
+        // Ler array de tuplos
         tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
         filestream.read((char*)tuples, sizeof(tuple<float,float,float>) * n);
+
+        // fechar o ficheiro
         filestream.close();
-        /*
-        if(file){
-            unsigned int x;
-            fread(&x, sizeof(unsigned int), 1, file);
-            tuples = new tuple<float,float,float>[x];
-            fread(&tuples, sizeof(tuple<float,float,float>), x, file);
-            printf("%d\n", get<0>(tuples[0]));
-            for (int i = 0; i<x; i++) {
-                tuple<float,float,float> tuple = tuples[i];
-                printf("Debug %d, %d\n", i, x);
-                printf("%d: %f %f %f\n", i, get<0>(tuple), get<1>(tuple), get<2>(tuple));
-            }
-            //copy(istream_iterator<tuple<float,float,float>>(file), istream_iterator<tuple<float,float,float>>(),
-            //back_inserter(tuples));
-        } // Se não entrar no if, então não conseguiu abrir o ficheiro
-        */
-        /*model->figure = (tuple<float,float,float>*) malloc(sizeof(tuples->size()));
-        for(int i=0; i<tuples->size(); i++){
-            model->figure[i] = tuples[i];
-        }
-        group->models.push_back(model);*/
-        
+
+        // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
+        Model* model = new Model;
         model->figure = tuples;
         model->size = n;
         group->models.push_back(model);

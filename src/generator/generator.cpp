@@ -282,65 +282,15 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
 }
 
 
-
-//i mean fine mas estas a fazer isto muito a C, concordo - assinado carlos
 void points_write (const char *filename, int nVertices, tuple<float,float,float> points[]) 
 {
-
-    char path[128];
-    #ifdef _WIN32
-        strcpy(path,filename);
-    #else
-        strcpy(path, "../../models/");
-        strcat(path,filename);
-    #endif
-    //strcpy(path,)
-    //strcpy(path, filename);
-  //FILE *fp = fopen (filename, "w");
-  //if (!fp)
-    //{
-      //fprintf (stderr, "failed to open file: %s", filename);
-      //exit (1);
-    //}
-
-  //fwrite (&nVertices, sizeof (unsigned int), 1, fp);
-  //fwrite (points, sizeof(tuple<float,float,float>), nVertices, fp);
-
     fstream file;
-    file.open(path,ios::out|ios::binary|ios::in|ios::trunc);
-    //printf("%d\n", nVertices);
+    file.open(filename,ios::out|ios::binary|ios::in|ios::trunc);
+
     file.write((char*)&nVertices, sizeof(int));
-    //file.read((char*)&n,sizeof(int));
     file.write((char*)points, sizeof(tuple<float,float,float>)*nVertices);
 
     file.close();
-    /*
-    fstream f;
-    f.open(filename,ios::binary|ios::in|ios::out);
-    f.seekg(sizeof(int));
-    tuple<float,float,float>* t = new tuple<float,float,float>[nVertices];
-    f.read((char*)t, sizeof(tuple<float,float,float>)*nVertices);
-    printf("\n");
-    for(int i=0; i<nVertices; i++){
-        printf("segundo%d: %f %f %f\n", i, get<0>(t[i]),get<1>(t[i]),get<2>(t[i]));
-    }
-    file.close();
-    */
-    /*
-    FILE *test = fopen("test.txt", "w");
-    if (!test) {
-        fprintf (stderr, "failed to open file: %s", filename);
-        exit (1);
-    }
-
-    for (int i = 0; i< nVertices; i++) {
-        char s[128];
-        sprintf(s, "%d: %f %f %f\n", i, get<0>(points[i]), get<1>(points[i]), get<2>(points[i]));
-        fwrite(s,strlen(s),1,test);
-    }
-    */
-
-  //fclose (fp);
 }
 
 int main(int argc, char* argv[]){
