@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/carlos/Documents/CG2023/build/src/generator",
+  "command": "/usr/bin/c++  -I/home/carlos/Documents/CG2023/include  -Wall -pedantic -std=gnu++20 -o CMakeFiles/generator.dir/matrix.cpp.o -c /home/carlos/Documents/CG2023/src/generator/matrix.cpp",
+  "file": "/home/carlos/Documents/CG2023/src/generator/matrix.cpp"
+},
+{
+  "directory": "/home/carlos/Documents/CG2023/build/src/generator",
+  "command": "/usr/bin/c++  -I/home/carlos/Documents/CG2023/include  -Wall -pedantic -std=gnu++20 -o CMakeFiles/generator.dir/generator.cpp.o -c /home/carlos/Documents/CG2023/src/generator/generator.cpp",
+  "file": "/home/carlos/Documents/CG2023/src/generator/generator.cpp"
+},
+{
+  "directory": "/home/carlos/Documents/CG2023/build/src/engine",
+  "command": "/usr/bin/c++  -I/home/carlos/Documents/CG2023/include  -Wall -pedantic -Wall -pedantic -std=gnu++20 -o CMakeFiles/engine.dir/classes.cpp.o -c /home/carlos/Documents/CG2023/src/engine/classes.cpp",
+  "file": "/home/carlos/Documents/CG2023/src/engine/classes.cpp"
+},
+{
+  "directory": "/home/carlos/Documents/CG2023/build/src/engine",
+  "command": "/usr/bin/c++  -I/home/carlos/Documents/CG2023/include  -Wall -pedantic -Wall -pedantic -std=gnu++20 -o CMakeFiles/engine.dir/main.cpp.o -c /home/carlos/Documents/CG2023/src/engine/main.cpp",
+  "file": "/home/carlos/Documents/CG2023/src/engine/main.cpp"
+},
+{
+  "directory": "/home/carlos/Documents/CG2023/build/src/engine",
+  "command": "/usr/bin/c++  -I/home/carlos/Documents/CG2023/include  -Wall -pedantic -Wall -pedantic -std=gnu++20 -o CMakeFiles/engine.dir/engine.cpp.o -c /home/carlos/Documents/CG2023/src/engine/engine.cpp",
+  "file": "/home/carlos/Documents/CG2023/src/engine/engine.cpp"
+},
+{
+  "directory": "/home/carlos/Documents/CG2023/build/src/engine",
+  "command": "/usr/bin/c++  -I/home/carlos/Documents/CG2023/include  -Wall -pedantic -Wall -pedantic -std=gnu++20 -o CMakeFiles/engine.dir/parser.cpp.o -c /home/carlos/Documents/CG2023/src/engine/parser.cpp",
+  "file": "/home/carlos/Documents/CG2023/src/engine/parser.cpp"
+}
+]
