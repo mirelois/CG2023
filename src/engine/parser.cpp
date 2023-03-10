@@ -76,7 +76,7 @@ void parse_group(xml_node<> *group_node, Group* group){
         #ifdef _WIN32
             strcpy(buffer, "../generator/");
         #else
-            strcpy(buffer, "../../models");
+            strcpy(buffer, "../../models/");
         #endif
         strcat(buffer, path);
         //FILE *file = fopen(buffer,"r");
