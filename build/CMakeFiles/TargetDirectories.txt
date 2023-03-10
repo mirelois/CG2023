@@ -1,8 +1,0 @@
-/home/carlos/Documents/CG2023/build/CMakeFiles/edit_cache.dir
-/home/carlos/Documents/CG2023/build/CMakeFiles/rebuild_cache.dir
-/home/carlos/Documents/CG2023/build/src/generator/CMakeFiles/generator.dir
-/home/carlos/Documents/CG2023/build/src/generator/CMakeFiles/edit_cache.dir
-/home/carlos/Documents/CG2023/build/src/generator/CMakeFiles/rebuild_cache.dir
-/home/carlos/Documents/CG2023/build/src/engine/CMakeFiles/engine.dir
-/home/carlos/Documents/CG2023/build/src/engine/CMakeFiles/edit_cache.dir
-/home/carlos/Documents/CG2023/build/src/engine/CMakeFiles/rebuild_cache.dir
