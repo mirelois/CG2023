@@ -6,8 +6,7 @@ int main(int argc, char  *argv[]){
     Camera* camera = new Camera;
     Group* group = new Group;
     
-    char file[] = "phase1.xml";
-    parser(file, window, camera, group);
+    parser(argv[1], window, camera, group);
     run(window, camera, group, argc, argv);
     delete(window);
     delete(camera);
