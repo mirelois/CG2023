@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -pedantic CMakeFiles/generator.dir/matrix.cpp.o CMakeFiles/generator.dir/generator.cpp.o -o ../../bin/generator 
