@@ -251,9 +251,9 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
                     );
 
             points_array[index++] = make_tuple(
-                    get<0>(master_line[i+1])*cos((j+1)*alfa_y) + get<2>(master_line[i+1])*sin((j+1)*alfa_y),
+                    get<0>(master_line[i+1])*cos(((j+1)%slices)*alfa_y) + get<2>(master_line[i+1])*sin(((j+1)%slices)*alfa_y),
                     get<1>(master_line[i+1]),
-                    -get<0>(master_line[i+1])*sin((j+1)*alfa_y) + get<2>(master_line[i+1])*cos((j+1)*alfa_y)
+                    -get<0>(master_line[i+1])*sin(((j+1)%slices)*alfa_y) + get<2>(master_line[i+1])*cos(((j+1)%slices)*alfa_y)
                     );
         }
         for (int i = stacks; i > 1; i--) {
@@ -271,9 +271,9 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
                     );
 
             points_array[index++] = make_tuple(
-                    get<0>(master_line[i-1])*cos(-(j+1)*alfa_y) + get<2>(master_line[i-1])*sin(-(j+1)*alfa_y),
+                    get<0>(master_line[i-1])*cos(-((j+1)%slices)*alfa_y) + get<2>(master_line[i-1])*sin(-((j+1)%slices)*alfa_y),
                     get<1>(master_line[i-1]),
-                    -get<0>(master_line[i-1])*sin(-(j+1)*alfa_y) + get<2>(master_line[i-1])*cos(-(j+1)*alfa_y)
+                    -get<0>(master_line[i-1])*sin(-((j+1)%slices)*alfa_y) + get<2>(master_line[i-1])*cos(-((j+1)%slices)*alfa_y)
                     );
         }
     }
