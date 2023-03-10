@@ -106,9 +106,9 @@ tuple<float,float,float>* generate_cone(float bottom_radius, float height, int s
 	for (i = 0; i < stacks; i++) {
 		for (j = 0; j < slices; j++) {
 			double bot_height = division_height_step * i;
-			double top_height = division_height_step * (i + 1);
+			double top_height = bot_height + division_height_step;
 			double bot_radius = bottom_radius - division_radius_step * i;
-			double top_radius = bottom_radius - division_radius_step * (i + 1);
+			double top_radius = bot_radius + division_height_step;
 
 			// lados
 			point_array.push_back(make_tuple(bot_radius * sin(alfa * j), bot_height, bot_radius * cos(alfa * j)));
@@ -277,7 +277,7 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
                     );
         }
     }
-    
+
     return points_array;
 }
 
