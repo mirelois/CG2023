@@ -289,6 +289,10 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
 //i mean fine mas estas a fazer isto muito a C, concordo - assinado carlos
 void points_write (const char *filename, int nVertices, tuple<float,float,float> points[]) 
 {
+    
+    char path[128];
+    //strcpy(path,)
+    //strcpy(path, filename);
   //FILE *fp = fopen (filename, "w");
   //if (!fp)
     //{
