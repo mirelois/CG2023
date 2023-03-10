@@ -2,6 +2,8 @@
 
 Camera* camera_global;
 Group* group_global;
+char axis = 1;
+char polygon = 1;
 
 using namespace std;
 
@@ -23,7 +25,8 @@ void drawAxis(){
 }
 
 void draw(){
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	if(polygon)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f,1.0f,1.0f);
 	for(int i=0; i<group_global->models.size(); i++){
@@ -47,7 +50,8 @@ void renderScene(void) {
 		camera_global->up[0], camera_global->up[1], camera_global->up[2]);
 
 	// Colocar funcoes de desenho aqui
-	drawAxis();
+	if(axis)
+		drawAxis();
 	draw();
 
 	// End of frame
@@ -79,6 +83,27 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void processSpecialKeys(int key, int xx, int yy) {
+
+	switch(key){
+		case GLUT_KEY_F3:{
+			axis = axis * -1;
+			break;
+		}
+
+		case GLUT_KEY_F2:{
+			polygon = polygon * -1;
+			break;
+		}
+
+		default:{
+			return;
+		}
+	}
+	glutPostRedisplay();
+
+}
+
 void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
     camera_global = camera;
 	group_global = group;
@@ -96,7 +121,7 @@ void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
 	
 // Callback registration for keyboard processing
 //	glutKeyboardFunc(processKeys);
-//	glutSpecialFunc(processSpecialKeys);
+	glutSpecialFunc(processSpecialKeys);
 
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
