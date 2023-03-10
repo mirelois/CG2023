@@ -256,9 +256,6 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
                     -get<0>(master_line[i+1])*sin((j+1)*alfa_y) + get<2>(master_line[i+1])*cos((j+1)*alfa_y)
                     );
         }
-    }
-
-    for (int j = 0; j < slices; j++) {
         for (int i = stacks; i > 1; i--) {
             
             points_array[index++] = make_tuple(
@@ -280,7 +277,7 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
                     );
         }
     }
-
+    
     return points_array;
 }
 
