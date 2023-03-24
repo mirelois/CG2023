@@ -27,6 +27,12 @@ public:
 class Group{
 public:
     std::vector<Model*> models;
-    // Futuramente: Transformations
-    //Group *group = NULL; // Por agora não há aninhamento de grupos
+
+    float translate[3];
+    float rotate[4];
+    float scale[3];
+
+    char trs[3] = {0,0,0}; // flags
+
+    Group *group = 0; // Por agora não há aninhamento de grupos
 };

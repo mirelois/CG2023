@@ -66,9 +66,8 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-// Esta função será muito provavelmente recursiva nos próximos guiões
-void parse_group(xml_node<> *group_node, Group* group){
-    for(xml_node<> *node_models = group_node->first_node("models")->first_node();node_models; node_models = node_models->next_sibling()){
+void parse_group_models(xml_node<> *node_Models, Group* group){
+    for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
         fstream filestream;
         filestream.open(node_models->first_attribute()->value(), ios::in|ios::binary);
@@ -90,6 +89,68 @@ void parse_group(xml_node<> *group_node, Group* group){
         model->size = n;
         group->models.push_back(model);
     }
+}
+
+void parse_group_transform(xml_node<> *node_transform, Group* group){
+    xml_node<> *temp;
+
+    if((temp = node_transform->first_node("translate"))){
+        group->trs[0] = 1;
+
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("x")))
+            group->translate[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            group->translate[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            group->translate[2] = atof(attr->value());
+    }
+
+    if((temp = node_transform->first_node("rotate"))){
+        group->trs[1] = 1;
+
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("angle")))
+            group->rotate[0] = atof(attr->value());
+
+        if((attr = temp->first_attribute("x")))
+            group->rotate[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            group->rotate[2] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            group->rotate[3] = atof(attr->value());
+    }
+
+    if((temp = node_transform->first_node("scale"))){
+        group->trs[2] = 1;
+
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("x")))
+            group->scale[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            group->scale[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            group->scale[2] = atof(attr->value());
+    }
+}
+
+// Esta função será muito provavelmente recursiva nos próximos guiões
+void parse_group(xml_node<> *group_node, Group* group){
+    xml_node<>* temp;
+    
+    // Transformações
+    if((temp = group_node->first_node("transform")))
+        parse_group_transform(temp, group);
+
+    // Modelos 
+    if((temp = group_node->first_node("models")))
+        parse_group_models(temp, group);
     
 }
 
