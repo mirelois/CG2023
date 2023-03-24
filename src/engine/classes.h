@@ -3,15 +3,15 @@
 
 class Camera {
 public:
-    float position[3] = { 1,2,1 }; // Valor por omissão sugerido por nós
-    float lookAt[3] = { 0,0,0 }; // valor por omissão sugerido por nós
-    float up[3] = { 0,1,0 }; // Valor Padrão segundo o ficheiro de exemplo
-    float projection[3] = { 60,1,1000 }; // Valor Padrão segundo o ficheiro de exemplo
+    float position[3] = { 1,2,1 }; // Valor por omissï¿½o sugerido por nï¿½s
+    float lookAt[3] = { 0,0,0 }; // valor por omissï¿½o sugerido por nï¿½s
+    float up[3] = { 0,1,0 }; // Valor Padrï¿½o segundo o ficheiro de exemplo
+    float projection[3] = { 60,1,1000 }; // Valor Padrï¿½o segundo o ficheiro de exemplo
 };
 
 class Window {
 public:
-    // Valores por Omissão
+    // Valores por Omissï¿½o
     float width = 512;
     float height = 512;
 };
@@ -24,9 +24,15 @@ public:
 };
 
 
-class Group {
+class Group{
 public:
     std::vector<Model*> models;
-    // Futuramente: Transformations
-    //Group *group = NULL; // Por agora não há aninhamento de grupos
+
+    float translate[3];
+    float rotate[4];
+    float scale[3];
+
+    char trs[3] = {0,0,0}; // flags
+
+    Group *group = 0;
 };

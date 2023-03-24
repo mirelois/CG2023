@@ -152,6 +152,12 @@ void parse_group(xml_node<> *group_node, Group* group){
     if((temp = group_node->first_node("models")))
         parse_group_models(temp, group);
     
+    // Recursividade
+    if((temp = group_node->first_node("group"))){
+        Group *groupChild = new Group;
+        group->group = groupChild;
+        parse_group(temp, groupChild);
+    }
 }
 
 void parser(char* fileName, Window* window, Camera* camera, Group* group)

@@ -34,5 +34,5 @@ public:
 
     char trs[3] = {0,0,0}; // flags
 
-    Group *group = 0; // Por agora não há aninhamento de grupos
+    Group *group = 0;
 };
