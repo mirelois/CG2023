@@ -152,10 +152,10 @@ void parse_group(xml_node<> *group_node, Group* group){
     if((temp = group_node->first_node("models")))
         parse_group_models(temp, group);
     
-    // Recursividade
-    if((temp = group_node->first_node("group"))){
+    // Grupos
+    for(temp = group_node->first_node("group"); temp; temp = temp->next_sibling()){
         Group *groupChild = new Group;
-        group->group = groupChild;
+        group->subGroups.push_back(groupChild);
         parse_group(temp, groupChild);
     }
 }

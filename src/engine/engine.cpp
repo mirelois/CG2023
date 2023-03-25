@@ -25,8 +25,8 @@ void drawAxis(){
 }
 
 void drawGroup(Group* group){
-	for(int i=0; i<group->transformations.size(); i++){
-		switch(group->transformations.at(i)){
+	for(char transformation: group->transformations){
+		switch(transformation){
 			case 't': {
 				glTranslatef(group->translate[0], group->translate[1], group->translate[2]);
 			}
@@ -41,8 +41,8 @@ void drawGroup(Group* group){
 
 		}
 	}
-	
-	
+
+		
 	for(int i=0; i<group->models.size(); i++){
 		for(int j=0; j<group->models[i]->size; j++){
 			glVertex3f(get<0>(group->models[i]->figure[j]), get<1>(group->models[i]->figure[j]), get<2>(group->models[i]->figure[j]));
@@ -50,9 +50,9 @@ void drawGroup(Group* group){
 		}
 	}
 	
-	if(group->group != 0){
+	for(Group* groupChild: group->subGroups){
 		glPushMatrix();
-		drawGroup(group->group);
+		drawGroup(groupChild);
 		glPopMatrix();
 	}
 	

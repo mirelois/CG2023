@@ -34,5 +34,6 @@ public:
     float rotate[4];
     float scale[3];
 
-    Group *group = 0;
+    //Group *group = 0;
+    std::vector<Group*> subGroups;
 };
