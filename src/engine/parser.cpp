@@ -92,51 +92,49 @@ void parse_group_models(xml_node<> *node_Models, Group* group){
 }
 
 void parse_group_transform(xml_node<> *node_transform, Group* group){
-    xml_node<> *temp;
-
-    if((temp = node_transform->first_node("translate"))){
-        group->transformations.push_back('t');
-
-        xml_attribute<> *attr;
-        if((attr = temp->first_attribute("x")))
-            group->translate[0] = atof(attr->value());
+    
+    for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
-        if((attr = temp->first_attribute("y")))
-            group->translate[1] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("z")))
-            group->translate[2] = atof(attr->value());
-    }
+        if(!strcmp(node_temp->name(), "translate")){
+            group->transformations.push_back('t');
 
-    if((temp = node_transform->first_node("rotate"))){
-        group->transformations.push_back('r');
-
-        xml_attribute<> *attr;
-        if((attr = temp->first_attribute("angle")))
-            group->rotate[0] = atof(attr->value());
-
-        if((attr = temp->first_attribute("x")))
-            group->rotate[1] = atof(attr->value());
+            xml_attribute<> *attr;
+            if((attr = node_temp->first_attribute("x")))
+                group->translate[0] = atof(attr->value());
         
-        if((attr = temp->first_attribute("y")))
-            group->rotate[2] = atof(attr->value());
+            if((attr = node_temp->first_attribute("y")))
+                group->translate[1] = atof(attr->value());
         
-        if((attr = temp->first_attribute("z")))
-            group->rotate[3] = atof(attr->value());
-    }
+            if((attr = node_temp->first_attribute("z")))
+                group->translate[2] = atof(attr->value());
+        } else if(!strcmp(node_temp->name(), "rotate")){
+            group->transformations.push_back('r');
 
-    if((temp = node_transform->first_node("scale"))){
-        group->transformations.push_back('s');
+            xml_attribute<> *attr;
+            if((attr = node_temp->first_attribute("angle")))
+                group->rotate[0] = atof(attr->value());
 
-        xml_attribute<> *attr;
-        if((attr = temp->first_attribute("x")))
-            group->scale[0] = atof(attr->value());
+            if((attr = node_temp->first_attribute("x")))
+                group->rotate[1] = atof(attr->value());
         
-        if((attr = temp->first_attribute("y")))
-            group->scale[1] = atof(attr->value());
+            if((attr = node_temp->first_attribute("y")))
+                group->rotate[2] = atof(attr->value());
         
-        if((attr = temp->first_attribute("z")))
-            group->scale[2] = atof(attr->value());
+            if((attr = node_temp->first_attribute("z")))
+                group->rotate[3] = atof(attr->value());
+        } else if(!strcmp(node_temp->name(), "scale")){
+            group->transformations.push_back('s');
+
+            xml_attribute<> *attr;
+            if((attr = node_temp->first_attribute("x")))
+                group->scale[0] = atof(attr->value());
+        
+            if((attr = node_temp->first_attribute("y")))
+                group->scale[1] = atof(attr->value());
+        
+            if((attr = node_temp->first_attribute("z")))
+                group->scale[2] = atof(attr->value());
+        }
     }
 }
 
@@ -153,7 +151,7 @@ void parse_group(xml_node<> *group_node, Group* group){
         parse_group_models(temp, group);
     
     // Grupos
-    for(temp = group_node->first_node("group"); temp; temp = temp->next_sibling()){
+    for(temp = group_node->first_node("group"); temp; temp = temp->next_sibling("group")){
         Group *groupChild = new Group;
         group->subGroups.push_back(groupChild);
         parse_group(temp, groupChild);

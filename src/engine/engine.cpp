@@ -33,7 +33,7 @@ void drawGroup(Group* group){
 			}
 
 			case 'r': {
-				glRotatef(group->rotate[0], group->rotate[1], group->rotate[2], group->rotate[3]); 
+				glRotatef(group->rotate[0], group->rotate[1], group->rotate[2], group->rotate[3]);
 				break;
 			}
 
@@ -66,9 +66,9 @@ void draw(){
 	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
 	glColor3f(1.0f,1.0f,1.0f);
 	
-	
+	//glPushMatrix();
 	drawGroup(group_global);
-	
+	//glPopMatrix();
 	
 }
 
