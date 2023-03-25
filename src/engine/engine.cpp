@@ -29,26 +29,30 @@ void drawGroup(Group* group){
 		switch(transformation){
 			case 't': {
 				glTranslatef(group->translate[0], group->translate[1], group->translate[2]);
+				break;
 			}
 
 			case 'r': {
 				glRotatef(group->rotate[0], group->rotate[1], group->rotate[2], group->rotate[3]); 
+				break;
 			}
 
 			case 's':{
 				glScalef(group->scale[0], group->scale[1], group->scale[2]);
+				break;
 			}
 
 		}
 	}
 
-		
+	glBegin(GL_TRIANGLES);
 	for(int i=0; i<group->models.size(); i++){
 		for(int j=0; j<group->models[i]->size; j++){
 			glVertex3f(get<0>(group->models[i]->figure[j]), get<1>(group->models[i]->figure[j]), get<2>(group->models[i]->figure[j]));
 			
 		}
 	}
+	glEnd();
 	
 	for(Group* groupChild: group->subGroups){
 		glPushMatrix();
@@ -63,9 +67,9 @@ void draw(){
 	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
 	glColor3f(1.0f,1.0f,1.0f);
 	
-	glBegin(GL_TRIANGLES);
+	
 	drawGroup(group_global);
-	glEnd();
+	
 	
 }
 
