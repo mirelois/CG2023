@@ -46,10 +46,9 @@ void drawGroup(Group* group){
 	}
 
 	glBegin(GL_TRIANGLES);
-	for(int i=0; i<group->models.size(); i++){
-		for(int j=0; j<group->models[i]->size; j++){
-			glVertex3f(get<0>(group->models[i]->figure[j]), get<1>(group->models[i]->figure[j]), get<2>(group->models[i]->figure[j]));
-			
+	for(Model* groupModel: group->models){
+		for(int i=0; i<groupModel->size; i++){
+			glVertex3f(get<0>(groupModel->figure[i]), get<1>(groupModel->figure[i]), get<2>(groupModel->figure[i]));
 		}
 	}
 	glEnd();
