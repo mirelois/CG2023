@@ -95,7 +95,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
     xml_node<> *temp;
 
     if((temp = node_transform->first_node("translate"))){
-        group->trs[0] = 1;
+        group->transformations.push_back('t');
 
         xml_attribute<> *attr;
         if((attr = temp->first_attribute("x")))
@@ -109,7 +109,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
     }
 
     if((temp = node_transform->first_node("rotate"))){
-        group->trs[1] = 1;
+        group->transformations.push_back('r');
 
         xml_attribute<> *attr;
         if((attr = temp->first_attribute("angle")))
@@ -126,7 +126,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
     }
 
     if((temp = node_transform->first_node("scale"))){
-        group->trs[2] = 1;
+        group->transformations.push_back('s');
 
         xml_attribute<> *attr;
         if((attr = temp->first_attribute("x")))
@@ -140,7 +140,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
     }
 }
 
-// Esta função será muito provavelmente recursiva nos próximos guiões
+
 void parse_group(xml_node<> *group_node, Group* group){
     xml_node<>* temp;
     

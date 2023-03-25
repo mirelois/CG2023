@@ -24,17 +24,49 @@ void drawAxis(){
 	glEnd();
 }
 
-void draw(){
-	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f,1.0f,1.0f);
-	for(int i=0; i<group_global->models.size(); i++){
-		for(int j=0; j<group_global->models[i]->size; j++){
-			glVertex3f(get<0>(group_global->models[i]->figure[j]), get<1>(group_global->models[i]->figure[j]), get<2>(group_global->models[i]->figure[j]));
-			// delete group_global->models[i]->figure[j];
+void drawGroup(Group* group){
+	for(int i=0; i<group->transformations.size(); i++){
+		switch(group->transformations.at(i)){
+			case 't': {
+				glTranslatef(group->translate[0], group->translate[1], group->translate[2]);
+			}
+
+			case 'r': {
+				glRotatef(group->rotate[0], group->rotate[1], group->rotate[2], group->rotate[3]); 
+			}
+
+			case 's':{
+				glScalef(group->scale[0], group->scale[1], group->scale[2]);
+			}
+
 		}
 	}
+	
+	
+	for(int i=0; i<group->models.size(); i++){
+		for(int j=0; j<group->models[i]->size; j++){
+			glVertex3f(get<0>(group->models[i]->figure[j]), get<1>(group->models[i]->figure[j]), get<2>(group->models[i]->figure[j]));
+			
+		}
+	}
+	
+	if(group->group != 0){
+		glPushMatrix();
+		drawGroup(group->group);
+		glPopMatrix();
+	}
+	
+	
+}
+
+void draw(){
+	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
+	glColor3f(1.0f,1.0f,1.0f);
+	
+	glBegin(GL_TRIANGLES);
+	drawGroup(group_global);
 	glEnd();
+	
 }
 
 void renderScene(void) {

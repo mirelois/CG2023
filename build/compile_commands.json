@@ -1,11 +1,6 @@
 [
 {
   "directory": "/home/carlos/Documents/CG2023/build/src/generator",
-  "command": "/usr/bin/c++  -I/home/carlos/Documents/CG2023/include  -Wall -pedantic -std=gnu++20 -o CMakeFiles/generator.dir/matrix.cpp.o -c /home/carlos/Documents/CG2023/src/generator/matrix.cpp",
-  "file": "/home/carlos/Documents/CG2023/src/generator/matrix.cpp"
-},
-{
-  "directory": "/home/carlos/Documents/CG2023/build/src/generator",
   "command": "/usr/bin/c++  -I/home/carlos/Documents/CG2023/include  -Wall -pedantic -std=gnu++20 -o CMakeFiles/generator.dir/generator.cpp.o -c /home/carlos/Documents/CG2023/src/generator/generator.cpp",
   "file": "/home/carlos/Documents/CG2023/src/generator/generator.cpp"
 },

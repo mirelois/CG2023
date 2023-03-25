@@ -154,30 +154,6 @@ generator.cpp.s:
 	cd /home/carlos/Documents/CG2023/build && $(MAKE) $(MAKESILENT) -f src/generator/CMakeFiles/generator.dir/build.make src/generator/CMakeFiles/generator.dir/generator.cpp.s
 .PHONY : generator.cpp.s
 
-matrix.o: matrix.cpp.o
-.PHONY : matrix.o
-
-# target to build an object file
-matrix.cpp.o:
-	cd /home/carlos/Documents/CG2023/build && $(MAKE) $(MAKESILENT) -f src/generator/CMakeFiles/generator.dir/build.make src/generator/CMakeFiles/generator.dir/matrix.cpp.o
-.PHONY : matrix.cpp.o
-
-matrix.i: matrix.cpp.i
-.PHONY : matrix.i
-
-# target to preprocess a source file
-matrix.cpp.i:
-	cd /home/carlos/Documents/CG2023/build && $(MAKE) $(MAKESILENT) -f src/generator/CMakeFiles/generator.dir/build.make src/generator/CMakeFiles/generator.dir/matrix.cpp.i
-.PHONY : matrix.cpp.i
-
-matrix.s: matrix.cpp.s
-.PHONY : matrix.s
-
-# target to generate assembly for a file
-matrix.cpp.s:
-	cd /home/carlos/Documents/CG2023/build && $(MAKE) $(MAKESILENT) -f src/generator/CMakeFiles/generator.dir/build.make src/generator/CMakeFiles/generator.dir/matrix.cpp.s
-.PHONY : matrix.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -190,9 +166,6 @@ help:
 	@echo "... generator.o"
 	@echo "... generator.i"
 	@echo "... generator.s"
-	@echo "... matrix.o"
-	@echo "... matrix.i"
-	@echo "... matrix.s"
 .PHONY : help
 
 

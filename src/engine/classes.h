@@ -28,11 +28,11 @@ class Group{
 public:
     std::vector<Model*> models;
 
+
+    std::vector<char> transformations;
     float translate[3];
     float rotate[4];
     float scale[3];
-
-    char trs[3] = {0,0,0}; // flags
 
     Group *group = 0;
 };

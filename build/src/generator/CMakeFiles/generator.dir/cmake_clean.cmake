@@ -3,8 +3,6 @@ file(REMOVE_RECURSE
   "../../bin/generator.pdb"
   "CMakeFiles/generator.dir/generator.cpp.o"
   "CMakeFiles/generator.dir/generator.cpp.o.d"
-  "CMakeFiles/generator.dir/matrix.cpp.o"
-  "CMakeFiles/generator.dir/matrix.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.
