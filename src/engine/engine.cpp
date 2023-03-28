@@ -25,6 +25,8 @@ void drawAxis(){
 }
 
 void drawGroup(Group* group){
+	glPushMatrix();
+	
 	for(char transformation: group->transformations){
 		switch(transformation){
 			case 't': {
@@ -53,22 +55,17 @@ void drawGroup(Group* group){
 	}
 	glEnd();
 	
-	for(Group* groupChild: group->subGroups){
-		glPushMatrix();
+	for(Group* groupChild: group->subGroups)
 		drawGroup(groupChild);
-		glPopMatrix();
-	}
 	
 	
+	glPopMatrix();
 }
 
 void draw(){
 	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
 	glColor3f(1.0f,1.0f,1.0f);
-	//Por enquanto, nada utiliza o referencial original então não é necessário guardar a matriz
-	//glPushMatrix();
 	drawGroup(group_global);
-	//glPopMatrix();
 	
 }
 
