@@ -2,6 +2,8 @@
 
 Camera* camera_global;
 Group* group_global;
+float camera_right = 0, camera_up = 0, camera_front = 0, camera_delta = 0.5f;
+
 char axis = 1;
 char polygon = 1;
 
@@ -29,6 +31,7 @@ void drawGroup(Group* group){
 	
 	for(char transformation: group->transformations){
 		switch(transformation){
+
 			case 't': {
 				glTranslatef(group->translate[0], group->translate[1], group->translate[2]);
 				break;
@@ -76,9 +79,39 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(camera_global->position[0], camera_global->position[1], camera_global->position[2],
-		camera_global->lookAt[0], camera_global->lookAt[1], camera_global->lookAt[2],
-		camera_global->up[0], camera_global->up[1], camera_global->up[2]);
+
+
+	//os cálculos estão aqui dentro se por ventura nos interessar mudar a direção da câmera (implica recalcular)
+	//se estiver demasiado lento põe-se no início
+	float dx = camera_global->position[0] - camera_global->lookAt[0],
+		dy = camera_global->position[1] - camera_global->lookAt[1],
+		dz = camera_global->position[2] - camera_global->lookAt[2];
+
+	float norm = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2));
+	dx = dx / norm;
+	dy = dy / norm;
+	dz = dz / norm;
+
+	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
+	//trocar o cross
+	float rx = dz * camera_global->up[1] - camera_global->up[2] * dy,
+		ry = dx * camera_global->up[2] - camera_global->up[0] * dz, 
+		rz = dy * camera_global->up[0] - camera_global->up[1] * dx;
+
+	norm = sqrt(pow(rx, 2) + pow(ry, 2) + pow(rz, 2));
+	rx = rx / norm;
+	//ry = ry / norm;
+	rz = rz / norm;
+
+	printf("%f\n", camera_up);
+
+	gluLookAt(	camera_global->position[0] + camera_right * rx + camera_front * dx + camera_up * camera_global->up[0],
+				camera_global->position[1] + camera_up * camera_global->up[1],
+				camera_global->position[2] + camera_right * rz + camera_front * dz + camera_up * camera_global->up[2],
+				camera_global->lookAt[0] + camera_right * rx + camera_front * dx + camera_up * camera_global->up[0],
+				camera_global->lookAt[1] + camera_up * camera_global->up[1],
+				camera_global->lookAt[2] + camera_right * rz + camera_front * dz + camera_up * camera_global->up[2],
+				camera_global->up[0], camera_global->up[1], camera_global->up[2]);
 
 	// Colocar funcoes de desenho aqui
 	if(axis)
@@ -117,6 +150,37 @@ void changeSize(int w, int h) {
 void processKeys(unsigned char key, int xx, int yy) {
 
 	switch(key){
+
+	case 'u': {
+		camera_up += camera_delta;
+		break;
+	}
+
+	case 'j': {
+		camera_up -= camera_delta;
+		break;
+	}
+
+		case 'w': {
+			camera_front -= camera_delta;
+			break;
+		}
+
+		case 'a': {
+			camera_right -= camera_delta;
+			break;
+		}
+
+		case 's': {
+			camera_front += camera_delta;
+			break;
+		}
+
+		case 'd': {
+			camera_right += camera_delta;
+			break;
+		}
+
 		case 'o':{
 			axis = !axis;
 			break;

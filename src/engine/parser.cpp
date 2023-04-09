@@ -71,7 +71,6 @@ void parse_group_models(xml_node<> *node_Models, Group* group){
         // Criar fstream e abrir
         fstream filestream;
         filestream.open(node_models->first_attribute()->value(), ios::in|ios::binary);
-
         // Ler inteiro para o n
         int n;
         filestream.read((char*)&n,sizeof(int));
