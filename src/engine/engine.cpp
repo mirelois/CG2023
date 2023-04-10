@@ -2,7 +2,7 @@
 
 Camera* camera_global;
 Group* group_global;
-float camera_right = 0, camera_up = 0, camera_front = 0, camera_delta = 0.5f;
+float camera_side = 0, camera_up = 0, camera_front = 0, camera_delta = 2;
 
 char axis = 1;
 char polygon = 1;
@@ -92,25 +92,27 @@ void renderScene(void) {
 	dy = dy / norm;
 	dz = dz / norm;
 
+	printf("%f, %f, %f\n", dx, dy, dz);
+
 	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
-	//trocar o cross
+	//por alguma razão tem de ser up x d e não ao contrário shrug
 	float rx = dz * camera_global->up[1] - camera_global->up[2] * dy,
 		ry = dx * camera_global->up[2] - camera_global->up[0] * dz, 
 		rz = dy * camera_global->up[0] - camera_global->up[1] * dx;
 
 	norm = sqrt(pow(rx, 2) + pow(ry, 2) + pow(rz, 2));
 	rx = rx / norm;
-	//ry = ry / norm;
+	ry = ry / norm;
 	rz = rz / norm;
 
-	printf("%f\n", camera_up);
+	printf("%f, %f, %f\n", rx, ry, rz);
 
-	gluLookAt(	camera_global->position[0] + camera_right * rx + camera_front * dx + camera_up * camera_global->up[0],
-				camera_global->position[1] + camera_up * camera_global->up[1],
-				camera_global->position[2] + camera_right * rz + camera_front * dz + camera_up * camera_global->up[2],
-				camera_global->lookAt[0] + camera_right * rx + camera_front * dx + camera_up * camera_global->up[0],
-				camera_global->lookAt[1] + camera_up * camera_global->up[1],
-				camera_global->lookAt[2] + camera_right * rz + camera_front * dz + camera_up * camera_global->up[2],
+	gluLookAt(	camera_global->position[0] + camera_side * rx + camera_front * dx + camera_up * camera_global->up[0],
+				camera_global->position[1] + camera_side * ry + camera_front * dy + camera_up * camera_global->up[1],
+				camera_global->position[2] + camera_side * rz + camera_front * dz + camera_up * camera_global->up[2],
+				camera_global->lookAt[0] + camera_side * rx + camera_front * dx + camera_up * camera_global->up[0],
+				camera_global->lookAt[1] + camera_side * ry + camera_front * dy + camera_up * camera_global->up[1],
+				camera_global->lookAt[2] + camera_side * rz + camera_front * dz + camera_up * camera_global->up[2],
 				camera_global->up[0], camera_global->up[1], camera_global->up[2]);
 
 	// Colocar funcoes de desenho aqui
@@ -167,7 +169,7 @@ void processKeys(unsigned char key, int xx, int yy) {
 		}
 
 		case 'a': {
-			camera_right -= camera_delta;
+			camera_side -= camera_delta;
 			break;
 		}
 
@@ -177,7 +179,7 @@ void processKeys(unsigned char key, int xx, int yy) {
 		}
 
 		case 'd': {
-			camera_right += camera_delta;
+			camera_side += camera_delta;
 			break;
 		}
 
