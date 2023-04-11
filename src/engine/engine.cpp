@@ -92,8 +92,6 @@ void renderScene(void) {
 	dy = dy / norm;
 	dz = dz / norm;
 
-	printf("%f, %f, %f\n", dx, dy, dz);
-
 	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
 	//por alguma razão tem de ser up x d e não ao contrário shrug
 	float rx = dz * camera_global->up[1] - camera_global->up[2] * dy,
@@ -104,8 +102,6 @@ void renderScene(void) {
 	rx = rx / norm;
 	ry = ry / norm;
 	rz = rz / norm;
-
-	printf("%f, %f, %f\n", rx, ry, rz);
 
 	gluLookAt(	camera_global->position[0] + camera_side * rx + camera_front * dx + camera_up * camera_global->up[0],
 				camera_global->position[1] + camera_side * ry + camera_front * dy + camera_up * camera_global->up[1],
@@ -153,12 +149,21 @@ void processKeys(unsigned char key, int xx, int yy) {
 
 	switch(key){
 
-	case 'u': {
-		camera_up += camera_delta;
+	case ' ': {
+		int mod_key = glutGetModifiers();
+		if (GLUT_ACTIVE_SHIFT == mod_key)
+			camera_up -= camera_delta;
+		else 
+			camera_up += camera_delta;
 		break;
 	}
 
-	case 'j': {
+	case 'h': {
+		camera_up -= camera_delta;
+		break;
+	}
+
+	case 'k': {
 		camera_up -= camera_delta;
 		break;
 	}
@@ -196,6 +201,18 @@ void processKeys(unsigned char key, int xx, int yy) {
 		default:{
 			return;
 		}
+	}
+	glutPostRedisplay();
+
+}
+
+void processSpecialKeys(int key, int xx, int yy) {
+
+	switch (key) {
+
+
+	default:
+		return;
 	}
 	glutPostRedisplay();
 
