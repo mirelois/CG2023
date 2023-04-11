@@ -2,7 +2,8 @@
 
 Camera* camera_global;
 Group* group_global;
-float camera_side = 0, camera_up = 0, camera_front = 0, camera_delta = 2;
+float camera_side = 0, camera_up = 0, camera_front = 0, camera_move_delta = 2, 
+	look_rotate_delta_up = M_PI/16, look_rotate_delta_right = M_PI / 16, look_rotate_up = 0, look_rotate_right = 0;
 
 char axis = 1;
 char polygon = 1;
@@ -72,6 +73,22 @@ void draw(){
 	
 }
 
+void rotate_over_vector(float p[3], float v[3], float angle) {
+	//https://en.wikipedia.org/wiki/Rotation_matrix#General_rotations
+	float omc = 1 - cos(angle), s = sin(angle), c = cos(angle);
+	p[0] = p[0] * (pow(v[0], 2) * omc + c) + p[1] * (v[0] * v[1] * omc - v[2] * s) + p[2] * (v[0] * v[2] * omc + v[1] * s);
+	p[1] = p[0] * (v[1] * v[0] * omc + v[2] * s) + p[1] * (pow(v[1], 2) * omc + c) + p[2] * (v[1] * v[2] * omc - v[0] * s);
+	p[2] = p[0] * (v[2] * v[0] * omc - v[1] * s) + p[1] * (v[2] * v[1] * omc + v[0] * s) + p[2] * (pow(v[2], 2) * omc + c);
+}
+
+float normalize_vector(float p[3]) {
+	float norm = sqrt(pow(p[0], 2) + pow(p[1], 2) + pow(p[2], 2));
+	p[0] = p[0] / norm;
+	p[1] = p[1] / norm;
+	p[2] = p[2] / norm;
+	return norm;
+}
+
 void renderScene(void) {
 
 	// clear buffers
@@ -94,21 +111,35 @@ void renderScene(void) {
 
 	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
 	//por alguma razão tem de ser up x d e não ao contrário shrug
-	float rx = dz * camera_global->up[1] - camera_global->up[2] * dy,
-		ry = dx * camera_global->up[2] - camera_global->up[0] * dz, 
-		rz = dy * camera_global->up[0] - camera_global->up[1] * dx;
+	float r[3] = { dz * camera_global->up[1] - camera_global->up[2] * dy,
+		dx * camera_global->up[2] - camera_global->up[0] * dz,
+		dy * camera_global->up[0] - camera_global->up[1] * dx };
 
-	norm = sqrt(pow(rx, 2) + pow(ry, 2) + pow(rz, 2));
-	rx = rx / norm;
-	ry = ry / norm;
-	rz = rz / norm;
+	normalize_vector(r);
 
-	gluLookAt(	camera_global->position[0] + camera_side * rx + camera_front * dx + camera_up * camera_global->up[0],
-				camera_global->position[1] + camera_side * ry + camera_front * dy + camera_up * camera_global->up[1],
-				camera_global->position[2] + camera_side * rz + camera_front * dz + camera_up * camera_global->up[2],
-				camera_global->lookAt[0] + camera_side * rx + camera_front * dx + camera_up * camera_global->up[0],
-				camera_global->lookAt[1] + camera_side * ry + camera_front * dy + camera_up * camera_global->up[1],
-				camera_global->lookAt[2] + camera_side * rz + camera_front * dz + camera_up * camera_global->up[2],
+	//rotação de l sobre o eixo up e sobre o eixo r
+	//na documentação do glut tem a matriz explicitada, ter cuidado que faltam parenteses
+	//https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glRotate.xml
+
+	normalize_vector(camera_global->up);
+	
+	//float l[3] = {camera_global->lookAt[0], camera_global->lookAt[1], camera_global->lookAt[2] };
+
+	//l[0] += camera_side * camera_move_delta * r[0] + camera_front * camera_move_delta * dx + camera_up * camera_move_delta * camera_global->up[0];
+	//l[1] += camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * dy + camera_up * camera_move_delta * camera_global->up[1];
+	//l[2] += camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * dz + camera_up * camera_move_delta * camera_global->up[2];
+
+	rotate_over_vector(camera_global->lookAt, r, look_rotate_up * look_rotate_delta_up);
+	printf("rotate up: %f %f %f\n", camera_global->lookAt[0], camera_global->lookAt[1], camera_global->lookAt[2]);
+	rotate_over_vector(camera_global->lookAt, camera_global->up, look_rotate_right * look_rotate_delta_right);
+	printf("rotate right: %f %f %f\n", camera_global->lookAt[0], camera_global->lookAt[1], camera_global->lookAt[2]);
+
+	gluLookAt(	camera_global->position[0] + camera_side * camera_move_delta * r[0] + camera_front * camera_move_delta * dx + camera_up * camera_move_delta * camera_global->up[0],
+				camera_global->position[1] + camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * dy + camera_up * camera_move_delta * camera_global->up[1],
+				camera_global->position[2] + camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * dz + camera_up * camera_move_delta * camera_global->up[2],
+				camera_global->lookAt[0] + camera_side * camera_move_delta * r[0] + camera_front * camera_move_delta * dx + camera_up * camera_move_delta * camera_global->up[0],
+				camera_global->lookAt[1] + camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * dy + camera_up * camera_move_delta * camera_global->up[1],
+				camera_global->lookAt[2] + camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * dz + camera_up * camera_move_delta * camera_global->up[2],
 				camera_global->up[0], camera_global->up[1], camera_global->up[2]);
 
 	// Colocar funcoes de desenho aqui
@@ -149,42 +180,54 @@ void processKeys(unsigned char key, int xx, int yy) {
 
 	switch(key){
 
-	case ' ': {
-		int mod_key = glutGetModifiers();
-		if (GLUT_ACTIVE_SHIFT == mod_key)
-			camera_up -= camera_delta;
-		else 
-			camera_up += camera_delta;
+	case 'u': {
+		//if (look_rotate_up * look_rotate_delta_up < M_PI/2 - look_rotate_delta_up)
+			look_rotate_up += 1;
+		break;
+	}
+
+	case 'j': {
+		//if (look_rotate_up * look_rotate_delta_up > - M_PI / 2 + look_rotate_delta_up)
+			look_rotate_up -= 1; 
 		break;
 	}
 
 	case 'h': {
-		camera_up -= camera_delta;
+		look_rotate_right -= 1;
 		break;
 	}
 
 	case 'k': {
-		camera_up -= camera_delta;
+		look_rotate_right += 1;
+		break;
+	}
+
+	case ' ': {
+		int mod_key = glutGetModifiers();
+		if (GLUT_ACTIVE_SHIFT == mod_key)
+			camera_up -= 1;
+		else 
+			camera_up += 1;
 		break;
 	}
 
 		case 'w': {
-			camera_front -= camera_delta;
+			camera_front -= 1;
 			break;
 		}
 
 		case 'a': {
-			camera_side -= camera_delta;
+			camera_side -= 1;
 			break;
 		}
 
 		case 's': {
-			camera_front += camera_delta;
+			camera_front += 1;
 			break;
 		}
 
 		case 'd': {
-			camera_side += camera_delta;
+			camera_side += 1;
 			break;
 		}
 
