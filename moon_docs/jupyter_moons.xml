@@ -1,0 +1,961 @@
+<group>
+            <!-- Metis-->
+            <transform>
+                <rotate angle="322" x="1" y="0" z="0"/>
+                <rotate angle="245" x="0" y="1" z="0"/>
+                <translate x="0" y="0.128" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Adrastea-->
+            <transform>
+                <rotate angle="284" x="1" y="0" z="0"/>
+                <rotate angle="271" x="0" y="1" z="0"/>
+                <translate x="0" y="0.129" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Amalthea-->
+            <transform>
+                <rotate angle="313" x="1" y="0" z="0"/>
+                <rotate angle="242" x="0" y="1" z="0"/>
+                <translate x="0" y="0.18" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Thebe-->
+            <transform>
+                <rotate angle="299" x="1" y="0" z="0"/>
+                <rotate angle="339" x="0" y="1" z="0"/>
+                <translate x="0" y="0.22" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Io-->
+            <transform>
+                <rotate angle="207" x="1" y="0" z="0"/>
+                <rotate angle="19" x="0" y="1" z="0"/>
+                <translate x="0" y="0.42" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Europa-->
+            <transform>
+                <rotate angle="324" x="1" y="0" z="0"/>
+                <rotate angle="184" x="0" y="1" z="0"/>
+                <translate x="0" y="0.67" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Ganymede-->
+            <transform>
+                <rotate angle="46" x="1" y="0" z="0"/>
+                <rotate angle="318" x="0" y="1" z="0"/>
+                <translate x="0" y="1.1" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Callisto-->
+            <transform>
+                <rotate angle="180" x="1" y="0" z="0"/>
+                <rotate angle="125" x="0" y="1" z="0"/>
+                <translate x="0" y="1.8" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Themisto-->
+            <transform>
+                <rotate angle="285" x="1" y="0" z="0"/>
+                <rotate angle="313" x="0" y="1" z="0"/>
+                <translate x="0" y="7.3" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Leda-->
+            <transform>
+                <rotate angle="161" x="1" y="0" z="0"/>
+                <rotate angle="7" x="0" y="1" z="0"/>
+                <translate x="0" y="11.2" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Himalia-->
+            <transform>
+                <rotate angle="96" x="1" y="0" z="0"/>
+                <rotate angle="122" x="0" y="1" z="0"/>
+                <translate x="0" y="11.4" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Ersa-->
+            <transform>
+                <rotate angle="295" x="1" y="0" z="0"/>
+                <rotate angle="123" x="0" y="1" z="0"/>
+                <translate x="0" y="11.45" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Pandia-->
+            <transform>
+                <rotate angle="294" x="1" y="0" z="0"/>
+                <rotate angle="328" x="0" y="1" z="0"/>
+                <translate x="0" y="11.49" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Elara-->
+            <transform>
+                <rotate angle="127" x="1" y="0" z="0"/>
+                <rotate angle="102" x="0" y="1" z="0"/>
+                <translate x="0" y="11.69" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Lysithea-->
+            <transform>
+                <rotate angle="317" x="1" y="0" z="0"/>
+                <rotate angle="291" x="0" y="1" z="0"/>
+                <translate x="0" y="11.7" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Dia-->
+            <transform>
+                <rotate angle="40" x="1" y="0" z="0"/>
+                <rotate angle="285" x="0" y="1" z="0"/>
+                <translate x="0" y="12.2" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Carpo-->
+            <transform>
+                <rotate angle="102" x="1" y="0" z="0"/>
+                <rotate angle="250" x="0" y="1" z="0"/>
+                <translate x="0" y="16.7" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 12 -->
+            <transform>
+                <rotate angle="104" x="1" y="0" z="0"/>
+                <rotate angle="195" x="0" y="1" z="0"/>
+                <translate x="0" y="17.7" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Valetudo-->
+            <transform>
+                <rotate angle="279" x="1" y="0" z="0"/>
+                <rotate angle="232" x="0" y="1" z="0"/>
+                <translate x="0" y="18.9" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Euporie-->
+            <transform>
+                <rotate angle="129" x="1" y="0" z="0"/>
+                <rotate angle="19" x="0" y="1" z="0"/>
+                <translate x="0" y="19.2" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 18-->
+            <transform>
+                <rotate angle="182" x="1" y="0" z="0"/>
+                <rotate angle="51" x="0" y="1" z="0"/>
+                <translate x="0" y="20.2" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Harpalyke-->
+            <transform>
+                <rotate angle="9" x="1" y="0" z="0"/>
+                <rotate angle="353" x="0" y="1" z="0"/>
+                <translate x="0" y="20.4" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Hermippe-->
+            <transform>
+                <rotate angle="266" x="1" y="0" z="0"/>
+                <rotate angle="55" x="0" y="1" z="0"/>
+                <translate x="0" y="20.5" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2017 J 7-->
+            <transform>
+                <rotate angle="118" x="1" y="0" z="0"/>
+                <rotate angle="204" x="0" y="1" z="0"/>
+                <translate x="0" y="20.57" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Euanthe-->
+            <transform>
+                <rotate angle="88" x="1" y="0" z="0"/>
+                <rotate angle="101" x="0" y="1" z="0"/>
+                <translate x="0" y="20.58" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Thyone-->
+            <transform>
+                <rotate angle="258" x="1" y="0" z="0"/>
+                <rotate angle="115" x="0" y="1" z="0"/>
+                <translate x="0" y="20.59" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2016 J 1-->
+            <transform>
+                <rotate angle="257" x="1" y="0" z="0"/>
+                <rotate angle="236" x="0" y="1" z="0"/>
+                <translate x="0" y="20.595" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Mneme-->
+            <transform>
+                <rotate angle="244" x="1" y="0" z="0"/>
+                <rotate angle="164" x="0" y="1" z="0"/>
+                <translate x="0" y="20.6" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2017 J 3-->
+            <transform>
+                <rotate angle="335" x="1" y="0" z="0"/>
+                <rotate angle="247" x="0" y="1" z="0"/>
+                <translate x="0" y="20.63" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Iocaste-->
+            <transform>
+                <rotate angle="60" x="1" y="0" z="0"/>
+                <rotate angle="335" x="0" y="1" z="0"/>
+                <translate x="0" y="20.64" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Praxidike-->
+            <transform>
+                <rotate angle="88" x="1" y="0" z="0"/>
+                <rotate angle="36" x="0" y="1" z="0"/>
+                <translate x="0" y="20.7" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Ananke-->
+            <transform>
+                <rotate angle="327" x="1" y="0" z="0"/>
+                <rotate angle="183" x="0" y="1" z="0"/>
+                <translate x="0" y="20.74" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 16 -->
+            <transform>
+                <rotate angle="278" x="1" y="0" z="0"/>
+                <rotate angle="281" x="0" y="1" z="0"/>
+                <translate x="0" y="20.75" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Thelxinoe-->
+            <transform>
+                <rotate angle="133" x="1" y="0" z="0"/>
+                <rotate angle="87" x="0" y="1" z="0"/>
+                <translate x="0" y="21.0" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Orthosie-->
+            <transform>
+                <rotate angle="272" x="1" y="0" z="0"/>
+                <rotate angle="230" x="0" y="1" z="0"/>
+                <translate x="0" y="21.05" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Helike-->
+            <transform>
+                <rotate angle="255" x="1" y="0" z="0"/>
+                <rotate angle="42" x="0" y="1" z="0"/>
+                <translate x="0" y="21.1" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Eupheme-->
+            <transform>
+                <rotate angle="240" x="1" y="0" z="0"/>
+                <rotate angle="69" x="0" y="1" z="0"/>
+                <translate x="0" y="21.14" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2010 J 2-->
+            <transform>
+                <rotate angle="235" x="1" y="0" z="0"/>
+                <rotate angle="252" x="0" y="1" z="0"/>
+                <translate x="0" y="21.2" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2017 J 9-->
+            <transform>
+                <rotate angle="318" x="1" y="0" z="0"/>
+                <rotate angle="215" x="0" y="1" z="0"/>
+                <translate x="0" y="21.4" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2017 J 6-->
+            <transform>
+                <rotate angle="217" x="1" y="0" z="0"/>
+                <rotate angle="167" x="0" y="1" z="0"/>
+                <translate x="0" y="22.39" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2011 J 1-->
+            <transform>
+                <rotate angle="94" x="1" y="0" z="0"/>
+                <rotate angle="237" x="0" y="1" z="0"/>
+                <translate x="0" y="22.4" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Kale-->
+            <transform>
+                <rotate angle="199" x="1" y="0" z="0"/>
+                <rotate angle="200" x="0" y="1" z="0"/>
+                <translate x="0" y="22.41" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Chaldene-->
+            <transform>
+                <rotate angle="303" x="1" y="0" z="0"/>
+                <rotate angle="334" x="0" y="1" z="0"/>
+                <translate x="0" y="22.5" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Taygete-->
+            <transform>
+                <rotate angle="83" x="1" y="0" z="0"/>
+                <rotate angle="114" x="0" y="1" z="0"/>
+                <translate x="0" y="22.55" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Herse-->
+            <transform>
+                <rotate angle="61" x="1" y="0" z="0"/>
+                <rotate angle="22" x="0" y="1" z="0"/>
+                <translate x="0" y="22.56" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Kallichore-->
+            <transform>
+                <rotate angle="42" x="1" y="0" z="0"/>
+                <rotate angle="94" x="0" y="1" z="0"/>
+                <translate x="0" y="22.6" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Kalyke-->
+            <transform>
+                <rotate angle="233" x="1" y="0" z="0"/>
+                <rotate angle="358" x="0" y="1" z="0"/>
+                <translate x="0" y="22.65" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 19-->
+            <transform>
+                <rotate angle="79" x="1" y="0" z="0"/>
+                <rotate angle="15" x="0" y="1" z="0"/>
+                <translate x="0" y="22.69" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Pasithee-->
+            <transform>
+                <rotate angle="209" x="1" y="0" z="0"/>
+                <rotate angle="29" x="0" y="1" z="0"/>
+                <translate x="0" y="22.7" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 10 -->
+            <transform>
+                <rotate angle="181" x="1" y="0" z="0"/>
+                <rotate angle="312" x="0" y="1" z="0"/>
+                <translate x="0" y="22.73" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 23 -->
+            <transform>
+                <rotate angle="300" x="1" y="0" z="0"/>
+                <rotate angle="48" x="0" y="1" z="0"/>
+                <translate x="0" y="22.74" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Philophrosyne-->
+            <transform>
+                <rotate angle="180" x="1" y="0" z="0"/>
+                <rotate angle="33" x="0" y="1" z="0"/>
+                <translate x="0" y="22.76" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Cyllene-->
+            <transform>
+                <rotate angle="211" x="1" y="0" z="0"/>
+                <rotate angle="83" x="0" y="1" z="0"/>
+                <translate x="0" y="22.8" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 24-->
+            <transform>
+                <rotate angle="293" x="1" y="0" z="0"/>
+                <rotate angle="38" x="0" y="1" z="0"/>
+                <translate x="0" y="22.88" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2010 J 1-->
+            <transform>
+                <rotate angle="318" x="1" y="0" z="0"/>
+                <rotate angle="300" x="0" y="1" z="0"/>
+                <translate x="0" y="22.89" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Autonoe-->
+            <transform>
+                <rotate angle="262" x="1" y="0" z="0"/>
+                <rotate angle="288" x="0" y="1" z="0"/>
+                <translate x="0" y="22.96" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Megaclite-->
+            <transform>
+                <rotate angle="5" x="1" y="0" z="0"/>
+                <rotate angle="268" x="0" y="1" z="0"/>
+                <translate x="0" y="23.0" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Eurydome-->
+            <transform>
+                <rotate angle="0" x="1" y="0" z="0"/>
+                <rotate angle="171" x="0" y="1" z="0"/>
+                <translate x="0" y="23.15" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2017 J 5-->
+            <transform>
+                <rotate angle="293" x="1" y="0" z="0"/>
+                <rotate angle="91" x="0" y="1" z="0"/>
+                <translate x="0" y="23.16" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2017 J 8-->
+            <transform>
+                <rotate angle="88" x="1" y="0" z="0"/>
+                <rotate angle="276" x="0" y="1" z="0"/>
+                <translate x="0" y="23.17" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Pasiphae-->
+            <transform>
+                <rotate angle="302" x="1" y="0" z="0"/>
+                <rotate angle="296" x="0" y="1" z="0"/>
+                <translate x="0" y="23.2" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Callirrhoe-->
+            <transform>
+                <rotate angle="122" x="1" y="0" z="0"/>
+                <rotate angle="221" x="0" y="1" z="0"/>
+                <translate x="0" y="23.21" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2011 J 2-->
+            <transform>
+                <rotate angle="323" x="1" y="0" z="0"/>
+                <rotate angle="131" x="0" y="1" z="0"/>
+                <translate x="0" y="23.23" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2017 J 2-->
+            <transform>
+                <rotate angle="53" x="1" y="0" z="0"/>
+                <rotate angle="6" x="0" y="1" z="0"/>
+                <translate x="0" y="23.24" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Isonoe-->
+            <transform>
+                <rotate angle="213" x="1" y="0" z="0"/>
+                <rotate angle="237" x="0" y="1" z="0"/>
+                <translate x="0" y="23.31" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Aitne-->
+            <transform>
+                <rotate angle="108" x="1" y="0" z="0"/>
+                <rotate angle="290" x="0" y="1" z="0"/>
+                <translate x="0" y="23.33" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Hegemone-->
+            <transform>
+                <rotate angle="169" x="1" y="0" z="0"/>
+                <rotate angle="126" x="0" y="1" z="0"/>
+                <translate x="0" y="23.44" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Sponde-->
+            <transform>
+                <rotate angle="181" x="1" y="0" z="0"/>
+                <rotate angle="118" x="0" y="1" z="0"/>
+                <translate x="0" y="23.45" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Eukelade-->
+            <transform>
+                <rotate angle="295" x="1" y="0" z="0"/>
+                <rotate angle="250" x="0" y="1" z="0"/>
+                <translate x="0" y="23.48" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 4-->
+            <transform>
+                <rotate angle="95" x="1" y="0" z="0"/>
+                <rotate angle="139" x="0" y="1" z="0"/>
+                <translate x="0" y="23.56" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Erinome-->
+            <transform>
+                <rotate angle="145" x="1" y="0" z="0"/>
+                <rotate angle="336" x="0" y="1" z="0"/>
+                <translate x="0" y="23.57" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Arche-->
+            <transform>
+                <rotate angle="1" x="1" y="0" z="0"/>
+                <rotate angle="343" x="0" y="1" z="0"/>
+                <translate x="0" y="23.63" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Eirene-->
+            <transform>
+                <rotate angle="119" x="1" y="0" z="0"/>
+                <rotate angle="335" x="0" y="1" z="0"/>
+                <translate x="0" y="23.66" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 9 -->
+            <transform>
+                <rotate angle="70" x="1" y="0" z="0"/>
+                <rotate angle="222" x="0" y="1" z="0"/>
+                <translate x="0" y="23.85" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Carme-->
+            <transform>
+                <rotate angle="181" x="1" y="0" z="0"/>
+                <rotate angle="295" x="0" y="1" z="0"/>
+                <translate x="0" y="23.92" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Aoede-->
+            <transform>
+                <rotate angle="245" x="1" y="0" z="0"/>
+                <rotate angle="235" x="0" y="1" z="0"/>
+                <translate x="0" y="24.0" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Kore-->
+            <transform>
+                <rotate angle="270" x="1" y="0" z="0"/>
+                <rotate angle="45" x="0" y="1" z="0"/>
+                <translate x="0" y="24.34" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- Sinope-->
+            <transform>
+                <rotate angle="63" x="1" y="0" z="0"/>
+                <rotate angle="243" x="0" y="1" z="0"/>
+                <translate x="0" y="24.37" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2017 J 1-->
+            <transform>
+                <rotate angle="288" x="1" y="0" z="0"/>
+                <rotate angle="81" x="0" y="1" z="0"/>
+                <translate x="0" y="24.44" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         <group>
+            <!-- S/2003 J 2 -->
+            <transform>
+                <rotate angle="343" x="1" y="0" z="0"/>
+                <rotate angle="26" x="0" y="1" z="0"/>
+                <translate x="0" y="30.3" z="0" />
+                <scale x="0.15" y="0.15" z="0.15" />
+            </transform>
+            <models>
+                <model file="../../models/sphere.3d" />
+            </models>
+         </group>
+         
