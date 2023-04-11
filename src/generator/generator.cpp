@@ -107,7 +107,7 @@ tuple<float,float,float>* generate_cone(float bottom_radius, float height, int s
 			double bot_height = division_height_step * i;
 			double top_height = bot_height + division_height_step;
 			double bot_radius = bottom_radius - division_radius_step * i;
-			double top_radius = bot_radius - division_height_step;
+			double top_radius = bot_radius - division_radius_step;
 
 			// lados
 			point_array.push_back(make_tuple(bot_radius * sin(alfa * j), bot_height, bot_radius * cos(alfa * j)));
