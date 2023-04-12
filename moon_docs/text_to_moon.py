@@ -15,15 +15,15 @@ for line in moon_file:
 
 for name, distance, diameter in res:
 
-    angle_x = rn.randint(0, 360)
-    angle_y = rn.randint(0, 360)
+    angle = rn.randint(0, 360)
+    rotate_on_x = rn.randint(0, 1)
+    rotate_on_z = rn.randint(0, 1)
 
     xml_file.write(
         f"""<group>
             <!-- {name}-->
             <transform>
-                <rotate angle=\"{angle_x}\" x=\"1\" y=\"0\" z=\"0\"/>
-                <rotate angle=\"{angle_y}\" x=\"0\" y=\"1\" z=\"0\"/>
+                <rotate angle=\"{angle}\" x=\"1\" y=\"1\" z=\"1\"/>
                 <translate x=\"0\" y=\"{float(distance)}\" z=\"0\" />
                 <scale x=\"0.15\" y=\"0.15\" z=\"0.15\" />
             </transform>
