@@ -1,7 +1,7 @@
 <group>
             <!-- Cordelia-->
             <transform>
-                <rotate angle="59" x="1" y="1" z="1"/>
+                <rotate angle="171" x="1" y="1" z="1"/>
                 <translate x="0" y="0.049" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -12,7 +12,7 @@
          <group>
             <!-- Ophelia-->
             <transform>
-                <rotate angle="80" x="1" y="1" z="1"/>
+                <rotate angle="82" x="1" y="1" z="1"/>
                 <translate x="0" y="0.053" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -23,7 +23,7 @@
          <group>
             <!-- Bianca-->
             <transform>
-                <rotate angle="234" x="1" y="1" z="1"/>
+                <rotate angle="165" x="0" y="1" z="0"/>
                 <translate x="0" y="0.059" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -34,7 +34,7 @@
          <group>
             <!-- Cressida-->
             <transform>
-                <rotate angle="225" x="1" y="1" z="1"/>
+                <rotate angle="277" x="1" y="0" z="1"/>
                 <translate x="0" y="0.062" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -45,7 +45,7 @@
          <group>
             <!-- Desdemona-->
             <transform>
-                <rotate angle="32" x="1" y="1" z="1"/>
+                <rotate angle="63" x="1" y="0" z="0"/>
                 <translate x="0" y="0.063" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -56,7 +56,7 @@
          <group>
             <!-- Juliet-->
             <transform>
-                <rotate angle="35" x="1" y="1" z="1"/>
+                <rotate angle="213" x="0" y="0" z="1"/>
                 <translate x="0" y="0.064" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -67,7 +67,7 @@
          <group>
             <!-- Portia-->
             <transform>
-                <rotate angle="228" x="1" y="1" z="1"/>
+                <rotate angle="74" x="1" y="0" z="1"/>
                 <translate x="0" y="0.066" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -78,7 +78,7 @@
          <group>
             <!-- Rosalind-->
             <transform>
-                <rotate angle="78" x="1" y="1" z="1"/>
+                <rotate angle="254" x="1" y="0" z="0"/>
                 <translate x="0" y="0.069" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -89,7 +89,7 @@
          <group>
             <!-- Cupid-->
             <transform>
-                <rotate angle="139" x="1" y="1" z="1"/>
+                <rotate angle="43" x="1" y="1" z="1"/>
                 <translate x="0" y="0.074" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -100,7 +100,7 @@
          <group>
             <!-- Belinda-->
             <transform>
-                <rotate angle="317" x="1" y="1" z="1"/>
+                <rotate angle="42" x="0" y="0" z="1"/>
                 <translate x="0" y="0.075" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -111,7 +111,7 @@
          <group>
             <!-- Perdita-->
             <transform>
-                <rotate angle="41" x="1" y="1" z="1"/>
+                <rotate angle="358" x="0" y="1" z="0"/>
                 <translate x="0" y="0.076" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -122,7 +122,7 @@
          <group>
             <!-- Puck-->
             <transform>
-                <rotate angle="278" x="1" y="1" z="1"/>
+                <rotate angle="47" x="1" y="1" z="1"/>
                 <translate x="0" y="0.086" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -133,7 +133,7 @@
          <group>
             <!-- Mab-->
             <transform>
-                <rotate angle="62" x="1" y="1" z="1"/>
+                <rotate angle="244" x="0" y="0" z="0"/>
                 <translate x="0" y="0.097" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -144,7 +144,7 @@
          <group>
             <!-- Miranda-->
             <transform>
-                <rotate angle="45" x="1" y="1" z="1"/>
+                <rotate angle="97" x="1" y="1" z="1"/>
                 <translate x="0" y="0.13" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -155,7 +155,7 @@
          <group>
             <!-- Ariel-->
             <transform>
-                <rotate angle="76" x="1" y="1" z="1"/>
+                <rotate angle="360" x="1" y="1" z="0"/>
                 <translate x="0" y="0.19" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -166,7 +166,7 @@
          <group>
             <!-- Umbriel-->
             <transform>
-                <rotate angle="218" x="1" y="1" z="1"/>
+                <rotate angle="9" x="1" y="0" z="0"/>
                 <translate x="0" y="0.26" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -177,7 +177,7 @@
          <group>
             <!-- Titania-->
             <transform>
-                <rotate angle="9" x="1" y="1" z="1"/>
+                <rotate angle="170" x="0" y="1" z="1"/>
                 <translate x="0" y="0.43" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -188,7 +188,7 @@
          <group>
             <!-- Oberon-->
             <transform>
-                <rotate angle="84" x="1" y="1" z="1"/>
+                <rotate angle="56" x="1" y="1" z="0"/>
                 <translate x="0" y="0.58" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -199,7 +199,7 @@
          <group>
             <!-- Francisco-->
             <transform>
-                <rotate angle="294" x="1" y="1" z="1"/>
+                <rotate angle="134" x="1" y="0" z="1"/>
                 <translate x="0" y="4.27" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -210,7 +210,7 @@
          <group>
             <!-- Caliban-->
             <transform>
-                <rotate angle="277" x="1" y="1" z="1"/>
+                <rotate angle="141" x="0" y="0" z="1"/>
                 <translate x="0" y="7.16" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -221,7 +221,7 @@
          <group>
             <!-- Stephano-->
             <transform>
-                <rotate angle="206" x="1" y="1" z="1"/>
+                <rotate angle="154" x="0" y="0" z="0"/>
                 <translate x="0" y="7.95" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -232,7 +232,7 @@
          <group>
             <!-- Trinculo-->
             <transform>
-                <rotate angle="143" x="1" y="1" z="1"/>
+                <rotate angle="209" x="0" y="0" z="1"/>
                 <translate x="0" y="8.5" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -243,7 +243,7 @@
          <group>
             <!-- Sycorax-->
             <transform>
-                <rotate angle="141" x="1" y="1" z="1"/>
+                <rotate angle="75" x="0" y="0" z="0"/>
                 <translate x="0" y="12.2" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -254,7 +254,7 @@
          <group>
             <!-- Margaret-->
             <transform>
-                <rotate angle="346" x="1" y="1" z="1"/>
+                <rotate angle="268" x="1" y="1" z="0"/>
                 <translate x="0" y="14.42" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -265,7 +265,7 @@
          <group>
             <!-- Prospero-->
             <transform>
-                <rotate angle="290" x="1" y="1" z="1"/>
+                <rotate angle="285" x="0" y="1" z="0"/>
                 <translate x="0" y="16.2" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -276,7 +276,7 @@
          <group>
             <!-- Setebos-->
             <transform>
-                <rotate angle="254" x="1" y="1" z="1"/>
+                <rotate angle="54" x="1" y="1" z="0"/>
                 <translate x="0" y="17.54" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -287,7 +287,7 @@
          <group>
             <!-- Ferdinand-->
             <transform>
-                <rotate angle="204" x="1" y="1" z="1"/>
+                <rotate angle="71" x="0" y="0" z="1"/>
                 <translate x="0" y="20.45" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>

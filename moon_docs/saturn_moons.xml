@@ -1,7 +1,7 @@
 <group>
             <!-- S/2009 S 1-->
             <transform>
-                <rotate angle="264" x="1" y="1" z="1"/>
+                <rotate angle="261" x="1" y="1" z="0"/>
                 <translate x="0" y="0.117" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -12,7 +12,7 @@
          <group>
             <!-- Pan-->
             <transform>
-                <rotate angle="339" x="1" y="1" z="1"/>
+                <rotate angle="246" x="1" y="1" z="1"/>
                 <translate x="0" y="0.133" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -23,7 +23,7 @@
          <group>
             <!-- Daphnis-->
             <transform>
-                <rotate angle="46" x="1" y="1" z="1"/>
+                <rotate angle="226" x="1" y="0" z="1"/>
                 <translate x="0" y="0.136" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -34,7 +34,7 @@
          <group>
             <!-- Atlas-->
             <transform>
-                <rotate angle="157" x="1" y="1" z="1"/>
+                <rotate angle="190" x="0" y="0" z="1"/>
                 <translate x="0" y="0.137" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -45,7 +45,7 @@
          <group>
             <!-- Prometheus-->
             <transform>
-                <rotate angle="73" x="1" y="1" z="1"/>
+                <rotate angle="5" x="0" y="1" z="1"/>
                 <translate x="0" y="0.139" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -56,7 +56,7 @@
          <group>
             <!-- Pandora-->
             <transform>
-                <rotate angle="18" x="1" y="1" z="1"/>
+                <rotate angle="28" x="1" y="1" z="0"/>
                 <translate x="0" y="0.141" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -67,7 +67,7 @@
          <group>
             <!-- Epimetheus-->
             <transform>
-                <rotate angle="298" x="1" y="1" z="1"/>
+                <rotate angle="296" x="0" y="1" z="0"/>
                 <translate x="0" y="0.151" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -78,7 +78,7 @@
          <group>
             <!-- Janus-->
             <transform>
-                <rotate angle="351" x="1" y="1" z="1"/>
+                <rotate angle="8" x="0" y="1" z="1"/>
                 <translate x="0" y="0.152" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -89,7 +89,7 @@
          <group>
             <!-- Aegaeon-->
             <transform>
-                <rotate angle="17" x="1" y="1" z="1"/>
+                <rotate angle="229" x="0" y="0" z="0"/>
                 <translate x="0" y="0.167" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -100,7 +100,7 @@
          <group>
             <!-- Mimas-->
             <transform>
-                <rotate angle="283" x="1" y="1" z="1"/>
+                <rotate angle="102" x="1" y="1" z="1"/>
                 <translate x="0" y="0.185" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -111,7 +111,7 @@
          <group>
             <!-- Methone-->
             <transform>
-                <rotate angle="222" x="1" y="1" z="1"/>
+                <rotate angle="208" x="0" y="1" z="1"/>
                 <translate x="0" y="0.194" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -122,7 +122,7 @@
          <group>
             <!-- Anthe-->
             <transform>
-                <rotate angle="360" x="1" y="1" z="1"/>
+                <rotate angle="239" x="0" y="0" z="0"/>
                 <translate x="0" y="0.197" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -133,7 +133,7 @@
          <group>
             <!-- Pallene-->
             <transform>
-                <rotate angle="99" x="1" y="1" z="1"/>
+                <rotate angle="74" x="1" y="0" z="0"/>
                 <translate x="0" y="0.212" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -144,7 +144,7 @@
          <group>
             <!-- Enceladus-->
             <transform>
-                <rotate angle="32" x="1" y="1" z="1"/>
+                <rotate angle="75" x="0" y="0" z="1"/>
                 <translate x="0" y="0.237" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -155,7 +155,7 @@
          <group>
             <!-- Tethys-->
             <transform>
-                <rotate angle="186" x="1" y="1" z="1"/>
+                <rotate angle="219" x="1" y="0" z="0"/>
                 <translate x="0" y="0.294" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -166,7 +166,7 @@
          <group>
             <!-- Telesto-->
             <transform>
-                <rotate angle="82" x="1" y="1" z="1"/>
+                <rotate angle="301" x="0" y="0" z="1"/>
                 <translate x="0" y="0.294" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -177,7 +177,7 @@
          <group>
             <!-- Calypso-->
             <transform>
-                <rotate angle="309" x="1" y="1" z="1"/>
+                <rotate angle="187" x="1" y="0" z="0"/>
                 <translate x="0" y="0.294" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -188,7 +188,7 @@
          <group>
             <!-- Dione-->
             <transform>
-                <rotate angle="168" x="1" y="1" z="1"/>
+                <rotate angle="263" x="1" y="1" z="0"/>
                 <translate x="0" y="0.377" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -199,7 +199,7 @@
          <group>
             <!-- Helene-->
             <transform>
-                <rotate angle="34" x="1" y="1" z="1"/>
+                <rotate angle="84" x="1" y="1" z="0"/>
                 <translate x="0" y="0.377" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -210,7 +210,7 @@
          <group>
             <!-- Polydeuces-->
             <transform>
-                <rotate angle="332" x="1" y="1" z="1"/>
+                <rotate angle="112" x="0" y="0" z="1"/>
                 <translate x="0" y="0.377" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -221,7 +221,7 @@
          <group>
             <!-- Rhea-->
             <transform>
-                <rotate angle="176" x="1" y="1" z="1"/>
+                <rotate angle="285" x="0" y="0" z="1"/>
                 <translate x="0" y="0.527" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -232,7 +232,7 @@
          <group>
             <!-- Titan-->
             <transform>
-                <rotate angle="202" x="1" y="1" z="1"/>
+                <rotate angle="154" x="1" y="1" z="1"/>
                 <translate x="0" y="1.2" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -243,7 +243,7 @@
          <group>
             <!-- Hyperion-->
             <transform>
-                <rotate angle="27" x="1" y="1" z="1"/>
+                <rotate angle="100" x="1" y="1" z="0"/>
                 <translate x="0" y="1.4" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -254,7 +254,7 @@
          <group>
             <!-- Iapetus-->
             <transform>
-                <rotate angle="101" x="1" y="1" z="1"/>
+                <rotate angle="28" x="1" y="0" z="1"/>
                 <translate x="0" y="3.5" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -265,7 +265,7 @@
          <group>
             <!-- Kiviuq-->
             <transform>
-                <rotate angle="191" x="1" y="1" z="1"/>
+                <rotate angle="94" x="1" y="0" z="0"/>
                 <translate x="0" y="11.2" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -276,7 +276,7 @@
          <group>
             <!-- Ijiraq-->
             <transform>
-                <rotate angle="230" x="1" y="1" z="1"/>
+                <rotate angle="342" x="1" y="1" z="0"/>
                 <translate x="0" y="11.3" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -287,7 +287,7 @@
          <group>
             <!-- Phoebe-->
             <transform>
-                <rotate angle="233" x="1" y="1" z="1"/>
+                <rotate angle="255" x="1" y="1" z="0"/>
                 <translate x="0" y="12.9" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -298,7 +298,7 @@
          <group>
             <!-- Paaliaq-->
             <transform>
-                <rotate angle="328" x="1" y="1" z="1"/>
+                <rotate angle="113" x="1" y="0" z="0"/>
                 <translate x="0" y="15.1" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -309,7 +309,7 @@
          <group>
             <!-- Skathi-->
             <transform>
-                <rotate angle="146" x="1" y="1" z="1"/>
+                <rotate angle="31" x="0" y="0" z="1"/>
                 <translate x="0" y="15.6" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -320,7 +320,7 @@
          <group>
             <!-- S/2004 S 37-->
             <transform>
-                <rotate angle="285" x="1" y="1" z="1"/>
+                <rotate angle="270" x="1" y="1" z="1"/>
                 <translate x="0" y="15.8" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -331,7 +331,7 @@
          <group>
             <!-- S/2007 S 2-->
             <transform>
-                <rotate angle="264" x="1" y="1" z="1"/>
+                <rotate angle="174" x="0" y="0" z="0"/>
                 <translate x="0" y="16.1" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -342,7 +342,7 @@
          <group>
             <!-- Albiorix-->
             <transform>
-                <rotate angle="352" x="1" y="1" z="1"/>
+                <rotate angle="333" x="0" y="0" z="0"/>
                 <translate x="0" y="16.4" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -353,7 +353,7 @@
          <group>
             <!-- Bebhionn-->
             <transform>
-                <rotate angle="145" x="1" y="1" z="1"/>
+                <rotate angle="172" x="1" y="1" z="1"/>
                 <translate x="0" y="16.8" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -364,7 +364,7 @@
          <group>
             <!-- S/2004 S 29-->
             <transform>
-                <rotate angle="7" x="1" y="1" z="1"/>
+                <rotate angle="348" x="0" y="1" z="0"/>
                 <translate x="0" y="17.0" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -375,7 +375,7 @@
          <group>
             <!-- Erriapus-->
             <transform>
-                <rotate angle="262" x="1" y="1" z="1"/>
+                <rotate angle="59" x="1" y="1" z="0"/>
                 <translate x="0" y="17.4" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -386,7 +386,7 @@
          <group>
             <!-- S/2004 S 31-->
             <transform>
-                <rotate angle="213" x="1" y="1" z="1"/>
+                <rotate angle="178" x="1" y="1" z="1"/>
                 <translate x="0" y="17.5" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -397,7 +397,7 @@
          <group>
             <!-- Skoll-->
             <transform>
-                <rotate angle="141" x="1" y="1" z="1"/>
+                <rotate angle="205" x="1" y="1" z="1"/>
                 <translate x="0" y="17.6" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -408,7 +408,7 @@
          <group>
             <!-- Siarnaq-->
             <transform>
-                <rotate angle="267" x="1" y="1" z="1"/>
+                <rotate angle="33" x="0" y="0" z="1"/>
                 <translate x="0" y="17.8" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -419,7 +419,7 @@
          <group>
             <!-- Tarqeq-->
             <transform>
-                <rotate angle="315" x="1" y="1" z="1"/>
+                <rotate angle="144" x="0" y="1" z="1"/>
                 <translate x="0" y="17.9" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -430,7 +430,7 @@
          <group>
             <!-- S/2004 S 13-->
             <transform>
-                <rotate angle="313" x="1" y="1" z="1"/>
+                <rotate angle="260" x="1" y="1" z="1"/>
                 <translate x="0" y="18.0" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -441,7 +441,7 @@
          <group>
             <!-- Hyrrokkin-->
             <transform>
-                <rotate angle="284" x="1" y="1" z="1"/>
+                <rotate angle="272" x="1" y="0" z="1"/>
                 <translate x="0" y="18.3" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -452,7 +452,7 @@
          <group>
             <!-- Tarvos-->
             <transform>
-                <rotate angle="96" x="1" y="1" z="1"/>
+                <rotate angle="298" x="0" y="0" z="1"/>
                 <translate x="0" y="18.4" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -463,7 +463,7 @@
          <group>
             <!-- Mundilfari-->
             <transform>
-                <rotate angle="4" x="1" y="1" z="1"/>
+                <rotate angle="296" x="0" y="1" z="0"/>
                 <translate x="0" y="18.5" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -474,7 +474,7 @@
          <group>
             <!-- S/2006 S 1-->
             <transform>
-                <rotate angle="325" x="1" y="1" z="1"/>
+                <rotate angle="105" x="0" y="0" z="0"/>
                 <translate x="0" y="18.6" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -485,7 +485,7 @@
          <group>
             <!-- Greip-->
             <transform>
-                <rotate angle="309" x="1" y="1" z="1"/>
+                <rotate angle="15" x="0" y="1" z="0"/>
                 <translate x="0" y="18.7" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -496,7 +496,7 @@
          <group>
             <!-- Jarnsaxa-->
             <transform>
-                <rotate angle="207" x="1" y="1" z="1"/>
+                <rotate angle="303" x="0" y="0" z="0"/>
                 <translate x="0" y="19.0" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -507,7 +507,7 @@
          <group>
             <!-- Bergelmir-->
             <transform>
-                <rotate angle="162" x="1" y="1" z="1"/>
+                <rotate angle="231" x="0" y="1" z="0"/>
                 <translate x="0" y="19.05" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -518,7 +518,7 @@
          <group>
             <!-- S/2004 S 17-->
             <transform>
-                <rotate angle="84" x="1" y="1" z="1"/>
+                <rotate angle="162" x="1" y="0" z="0"/>
                 <translate x="0" y="19.1" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -529,7 +529,7 @@
          <group>
             <!-- Narvi-->
             <transform>
-                <rotate angle="4" x="1" y="1" z="1"/>
+                <rotate angle="24" x="0" y="1" z="0"/>
                 <translate x="0" y="19.13" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -540,7 +540,7 @@
          <group>
             <!-- Gridr (S/2004 S 20)-->
             <transform>
-                <rotate angle="245" x="1" y="1" z="1"/>
+                <rotate angle="193" x="1" y="0" z="1"/>
                 <translate x="0" y="19.4" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -551,7 +551,7 @@
          <group>
             <!-- Suttungr-->
             <transform>
-                <rotate angle="106" x="1" y="1" z="1"/>
+                <rotate angle="352" x="1" y="0" z="0"/>
                 <translate x="0" y="19.6" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -562,7 +562,7 @@
          <group>
             <!-- Hati-->
             <transform>
-                <rotate angle="300" x="1" y="1" z="1"/>
+                <rotate angle="309" x="1" y="0" z="1"/>
                 <translate x="0" y="19.7" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -573,7 +573,7 @@
          <group>
             <!-- S/2004 S 12-->
             <transform>
-                <rotate angle="252" x="1" y="1" z="1"/>
+                <rotate angle="158" x="0" y="1" z="1"/>
                 <translate x="0" y="19.9" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -584,7 +584,7 @@
          <group>
             <!-- Farbauti-->
             <transform>
-                <rotate angle="239" x="1" y="1" z="1"/>
+                <rotate angle="17" x="1" y="0" z="1"/>
                 <translate x="0" y="19.95" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -595,7 +595,7 @@
          <group>
             <!-- Eggther (S/2004 S 27)-->
             <transform>
-                <rotate angle="84" x="1" y="1" z="1"/>
+                <rotate angle="261" x="1" y="0" z="0"/>
                 <translate x="0" y="19.97" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -606,7 +606,7 @@
          <group>
             <!-- Bestla-->
             <transform>
-                <rotate angle="219" x="1" y="1" z="1"/>
+                <rotate angle="14" x="1" y="0" z="0"/>
                 <translate x="0" y="20.3" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -617,7 +617,7 @@
          <group>
             <!-- S/2007 S 3-->
             <transform>
-                <rotate angle="33" x="1" y="1" z="1"/>
+                <rotate angle="134" x="0" y="0" z="1"/>
                 <translate x="0" y="20.4" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -628,7 +628,7 @@
          <group>
             <!-- Aegir-->
             <transform>
-                <rotate angle="221" x="1" y="1" z="1"/>
+                <rotate angle="18" x="0" y="1" z="0"/>
                 <translate x="0" y="20.48" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -639,7 +639,7 @@
          <group>
             <!-- S/2004 S 7-->
             <transform>
-                <rotate angle="213" x="1" y="1" z="1"/>
+                <rotate angle="64" x="1" y="1" z="1"/>
                 <translate x="0" y="20.5" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -650,7 +650,7 @@
          <group>
             <!-- Angrboda (S/2004 S 22)-->
             <transform>
-                <rotate angle="356" x="1" y="1" z="1"/>
+                <rotate angle="48" x="1" y="1" z="1"/>
                 <translate x="0" y="20.6" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -661,7 +661,7 @@
          <group>
             <!-- Thrymr-->
             <transform>
-                <rotate angle="290" x="1" y="1" z="1"/>
+                <rotate angle="50" x="1" y="0" z="0"/>
                 <translate x="0" y="20.7" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -672,7 +672,7 @@
          <group>
             <!-- Beli (S/2004 S 30)-->
             <transform>
-                <rotate angle="197" x="1" y="1" z="1"/>
+                <rotate angle="247" x="0" y="1" z="1"/>
                 <translate x="0" y="20.8" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -683,7 +683,7 @@
          <group>
             <!-- Skrymir (S/2004 S 23)-->
             <transform>
-                <rotate angle="97" x="1" y="1" z="1"/>
+                <rotate angle="335" x="0" y="0" z="0"/>
                 <translate x="0" y="21.0" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -694,7 +694,7 @@
          <group>
             <!-- Gerd (S/2004 S 25)-->
             <transform>
-                <rotate angle="159" x="1" y="1" z="1"/>
+                <rotate angle="158" x="0" y="1" z="0"/>
                 <translate x="0" y="21.1" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -705,7 +705,7 @@
          <group>
             <!-- Gunnlod (S/2004 S 32)-->
             <transform>
-                <rotate angle="3" x="1" y="1" z="1"/>
+                <rotate angle="14" x="0" y="0" z="0"/>
                 <translate x="0" y="21.2" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -716,7 +716,7 @@
          <group>
             <!-- S/2006 S 3-->
             <transform>
-                <rotate angle="54" x="1" y="1" z="1"/>
+                <rotate angle="61" x="1" y="0" z="1"/>
                 <translate x="0" y="21.3" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -727,7 +727,7 @@
          <group>
             <!-- Geirrod (S/2004 S 38)-->
             <transform>
-                <rotate angle="332" x="1" y="1" z="1"/>
+                <rotate angle="325" x="0" y="0" z="0"/>
                 <translate x="0" y="21.9" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -738,7 +738,7 @@
          <group>
             <!-- S/2004 S 28-->
             <transform>
-                <rotate angle="1" x="1" y="1" z="1"/>
+                <rotate angle="98" x="0" y="1" z="1"/>
                 <translate x="0" y="22.0" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -749,7 +749,7 @@
          <group>
             <!-- Kari-->
             <transform>
-                <rotate angle="167" x="1" y="1" z="1"/>
+                <rotate angle="299" x="1" y="1" z="1"/>
                 <translate x="0" y="22.2" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -760,7 +760,7 @@
          <group>
             <!-- Alvaldi (S/2004 S 35)-->
             <transform>
-                <rotate angle="151" x="1" y="1" z="1"/>
+                <rotate angle="172" x="0" y="0" z="1"/>
                 <translate x="0" y="22.4" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -771,7 +771,7 @@
          <group>
             <!-- Fenrir-->
             <transform>
-                <rotate angle="198" x="1" y="1" z="1"/>
+                <rotate angle="135" x="0" y="0" z="1"/>
                 <translate x="0" y="22.5" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -782,7 +782,7 @@
          <group>
             <!-- S/2004 S 21-->
             <transform>
-                <rotate angle="1" x="1" y="1" z="1"/>
+                <rotate angle="113" x="1" y="0" z="0"/>
                 <translate x="0" y="22.6" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -793,7 +793,7 @@
          <group>
             <!-- S/2004 S 24-->
             <transform>
-                <rotate angle="116" x="1" y="1" z="1"/>
+                <rotate angle="286" x="1" y="0" z="0"/>
                 <translate x="0" y="22.9" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -804,7 +804,7 @@
          <group>
             <!-- S/2004 S 36-->
             <transform>
-                <rotate angle="175" x="1" y="1" z="1"/>
+                <rotate angle="315" x="0" y="0" z="1"/>
                 <translate x="0" y="23.1" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -815,7 +815,7 @@
          <group>
             <!-- Loge-->
             <transform>
-                <rotate angle="40" x="1" y="1" z="1"/>
+                <rotate angle="323" x="1" y="1" z="0"/>
                 <translate x="0" y="23.2" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -826,7 +826,7 @@
          <group>
             <!-- Surtur-->
             <transform>
-                <rotate angle="61" x="1" y="1" z="1"/>
+                <rotate angle="26" x="1" y="1" z="1"/>
                 <translate x="0" y="23.3" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -837,7 +837,7 @@
          <group>
             <!-- S/2004 S 39-->
             <transform>
-                <rotate angle="186" x="1" y="1" z="1"/>
+                <rotate angle="302" x="1" y="0" z="0"/>
                 <translate x="0" y="23.5" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -848,7 +848,7 @@
          <group>
             <!-- Ymir-->
             <transform>
-                <rotate angle="183" x="1" y="1" z="1"/>
+                <rotate angle="59" x="0" y="1" z="1"/>
                 <translate x="0" y="23.6" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -859,7 +859,7 @@
          <group>
             <!-- Thiazzi (S/2004 S 33)-->
             <transform>
-                <rotate angle="358" x="1" y="1" z="1"/>
+                <rotate angle="219" x="1" y="0" z="1"/>
                 <translate x="0" y="24.1" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -870,7 +870,7 @@
          <group>
             <!-- S/2004 S 34-->
             <transform>
-                <rotate angle="51" x="1" y="1" z="1"/>
+                <rotate angle="214" x="1" y="0" z="1"/>
                 <translate x="0" y="24.2" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -881,7 +881,7 @@
          <group>
             <!-- Fornjot-->
             <transform>
-                <rotate angle="73" x="1" y="1" z="1"/>
+                <rotate angle="4" x="1" y="0" z="1"/>
                 <translate x="0" y="24.8" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
@@ -892,7 +892,7 @@
          <group>
             <!-- S/2004 S 26-->
             <transform>
-                <rotate angle="333" x="1" y="1" z="1"/>
+                <rotate angle="187" x="0" y="0" z="0"/>
                 <translate x="0" y="26.7" z="0" />
                 <scale x="0.15" y="0.15" z="0.15" />
             </transform>
