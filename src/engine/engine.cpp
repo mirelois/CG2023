@@ -3,8 +3,8 @@
 Camera* camera_global;
 Group* group_global;
 float camera_side = 0, camera_up = 0, camera_front = 0, camera_move_delta = 2, 
-	look_rotate_delta_up = M_PI/16, look_rotate_delta_right = M_PI / 16, look_rotate_up = 0, look_rotate_right = 0;
-
+	look_rotate_delta_up = M_PI/32, look_rotate_delta_right = M_PI / 32, look_rotate_up = 0, look_rotate_right = 0;
+float saved[3] = { camera_global->position[0],camera_global->position[1],camera_global->position[2] };
 char axis = 1;
 char polygon = 1;
 
@@ -13,16 +13,16 @@ using namespace std;
 void drawAxis(){
 	glBegin(GL_LINES);
 	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(-100.0f, 0.0f, 0.0f);
-	glVertex3f( 100.0f, 0.0f, 0.0f);
+	glVertex3f(-300.0f, 0.0f, 0.0f);
+	glVertex3f( 300.0f, 0.0f, 0.0f);
 
 	glColor3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, -100.0f, 0.0f);
 	glVertex3f(0.0f, 100.0f, 0.0f);
 
 	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(0.0f, 0.0f, -100.0f);
-	glVertex3f(0.0f, 0.0f, 100.0f);
+	glVertex3f(0.0f, 0.0f, -300.0f);
+	glVertex3f(0.0f, 0.0f, 300.0f);
 
 	glEnd();
 }
@@ -89,6 +89,12 @@ float normalize_vector(float p[3]) {
 	return norm;
 }
 
+void save_position() {
+	saved[0] += ;
+	saved[1] += ;
+	saved[2] += ;
+}
+
 void renderScene(void) {
 
 	// clear buffers
@@ -100,22 +106,11 @@ void renderScene(void) {
 
 	//os cálculos estão aqui dentro se por ventura nos interessar mudar a direção da câmera (implica recalcular)
 	//se estiver demasiado lento põe-se no início
-	float dx = camera_global->position[0] - camera_global->lookAt[0],
-		dy = camera_global->position[1] - camera_global->lookAt[1],
-		dz = camera_global->position[2] - camera_global->lookAt[2];
-
-	float norm = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2));
-	dx = dx / norm;
-	dy = dy / norm;
-	dz = dz / norm;
-
-	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
-	//por alguma razão tem de ser up x d e não ao contrário shrug
-	float r[3] = { dz * camera_global->up[1] - camera_global->up[2] * dy,
-		dx * camera_global->up[2] - camera_global->up[0] * dz,
-		dy * camera_global->up[0] - camera_global->up[1] * dx };
-
-	normalize_vector(r);
+	float d[3] = { camera_global->lookAt[0] - camera_global->position[0],
+		camera_global->lookAt[1] - camera_global->position[1],
+		camera_global->lookAt[2] - camera_global->position[2] };
+	
+	float norm = normalize_vector(d);
 
 	//rotação de l sobre o eixo up e sobre o eixo r
 	//na documentação do glut tem a matriz explicitada, ter cuidado que faltam parenteses
@@ -123,28 +118,39 @@ void renderScene(void) {
 
 	normalize_vector(camera_global->up);
 	
-	//float l[3] = {camera_global->lookAt[0], camera_global->lookAt[1], camera_global->lookAt[2] };
+	rotate_over_vector(d, camera_global->up, look_rotate_right * look_rotate_delta_right);
 
-	//l[0] += camera_side * camera_move_delta * r[0] + camera_front * camera_move_delta * dx + camera_up * camera_move_delta * camera_global->up[0];
-	//l[1] += camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * dy + camera_up * camera_move_delta * camera_global->up[1];
-	//l[2] += camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * dz + camera_up * camera_move_delta * camera_global->up[2];
+	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
+	//a direção para a frente é o -z
+	float r[3] = { d[1] * camera_global->up[2] - camera_global->up[1] * d[2],
+		d[2] * camera_global->up[0] - camera_global->up[2] * d[0],
+		d[0] * camera_global->up[1] - camera_global->up[0] * d[1] };
 
-	rotate_over_vector(camera_global->lookAt, r, look_rotate_up * look_rotate_delta_up);
-	printf("rotate up: %f %f %f\n", camera_global->lookAt[0], camera_global->lookAt[1], camera_global->lookAt[2]);
-	rotate_over_vector(camera_global->lookAt, camera_global->up, look_rotate_right * look_rotate_delta_right);
-	printf("rotate right: %f %f %f\n", camera_global->lookAt[0], camera_global->lookAt[1], camera_global->lookAt[2]);
+	normalize_vector(r);
 
-	gluLookAt(	camera_global->position[0] + camera_side * camera_move_delta * r[0] + camera_front * camera_move_delta * dx + camera_up * camera_move_delta * camera_global->up[0],
-				camera_global->position[1] + camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * dy + camera_up * camera_move_delta * camera_global->up[1],
-				camera_global->position[2] + camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * dz + camera_up * camera_move_delta * camera_global->up[2],
-				camera_global->lookAt[0] + camera_side * camera_move_delta * r[0] + camera_front * camera_move_delta * dx + camera_up * camera_move_delta * camera_global->up[0],
-				camera_global->lookAt[1] + camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * dy + camera_up * camera_move_delta * camera_global->up[1],
-				camera_global->lookAt[2] + camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * dz + camera_up * camera_move_delta * camera_global->up[2],
+	rotate_over_vector(d, r, look_rotate_up * look_rotate_delta_up);
+
+	float desl[3] = { d[0] * camera_move_delta * camera_front + r[0] * camera_move_delta * camera_side + camera_up * camera_move_delta * camera_global->up[0] ,
+		camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * d[1] + camera_up * camera_move_delta * camera_global->up[1],
+		camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * d[2] + camera_up * camera_move_delta * camera_global->up[2]
+	};
+
+	printf("%f %f %f\n", desl[0], desl[1], desl[2]);
+
+	gluLookAt(	desl[0] + saved[0],
+				desl[1] + saved[1],
+				desl[2] + saved[2],
+				saved[0] + desl[0] + d[0] * norm, 
+				saved[1] + desl[1] + d[1] * norm, 
+				saved[2] + desl[2] + d[2] * norm,
 				camera_global->up[0], camera_global->up[1], camera_global->up[2]);
 
 	// Colocar funcoes de desenho aqui
 	if(axis)
 		drawAxis();
+
+
+
 	draw();
 
 	// End of frame
@@ -180,25 +186,38 @@ void processKeys(unsigned char key, int xx, int yy) {
 
 	switch(key){
 
+	case 'r': {
+		look_rotate_right = 0;
+		look_rotate_up = 0;
+		camera_side = 0;
+		camera_up = 0;
+		camera_front = 0;
+		saved[0] = camera_global->position[0], saved[1] = camera_global->position[0], saved[2] = camera_global->position[0];
+		break;
+	}
+
 	case 'u': {
-		//if (look_rotate_up * look_rotate_delta_up < M_PI/2 - look_rotate_delta_up)
 			look_rotate_up += 1;
+			save_position();
 		break;
 	}
 
 	case 'j': {
-		//if (look_rotate_up * look_rotate_delta_up > - M_PI / 2 + look_rotate_delta_up)
 			look_rotate_up -= 1; 
+			save_position();
 		break;
 	}
 
 	case 'h': {
-		look_rotate_right -= 1;
+		look_rotate_right += 1;
+		save_position();
+
 		break;
 	}
 
 	case 'k': {
-		look_rotate_right += 1;
+		look_rotate_right -= 1;
+		save_position();
 		break;
 	}
 
@@ -212,7 +231,7 @@ void processKeys(unsigned char key, int xx, int yy) {
 	}
 
 		case 'w': {
-			camera_front -= 1;
+			camera_front += 1;
 			break;
 		}
 
@@ -222,7 +241,7 @@ void processKeys(unsigned char key, int xx, int yy) {
 		}
 
 		case 's': {
-			camera_front += 1;
+			camera_front -= 1;
 			break;
 		}
 
