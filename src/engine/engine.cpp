@@ -4,7 +4,7 @@ Camera* camera_global;
 Group* group_global;
 float camera_side = 0, camera_up = 0, camera_front = 0, camera_move_delta = 2, 
 	look_rotate_delta_up = M_PI/32, look_rotate_delta_right = M_PI / 32, look_rotate_up = 0, look_rotate_right = 0;
-float saved[3] = { camera_global->position[0],camera_global->position[1],camera_global->position[2] };
+float saved[3];
 char axis = 1;
 char polygon = 1;
 
@@ -90,9 +90,39 @@ float normalize_vector(float p[3]) {
 }
 
 void save_position() {
-	saved[0] += ;
-	saved[1] += ;
-	saved[2] += ;
+	//os cálculos estão aqui dentro se por ventura nos interessar mudar a direção da câmera (implica recalcular)
+	//se estiver demasiado lento põe-se no início
+	float d[3] = { camera_global->lookAt[0] - camera_global->position[0],
+		camera_global->lookAt[1] - camera_global->position[1],
+		camera_global->lookAt[2] - camera_global->position[2] };
+
+	normalize_vector(d);
+
+	//rotação de l sobre o eixo up e sobre o eixo r
+	//na documentação do glut tem a matriz explicitada, ter cuidado que faltam parenteses
+	//https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glRotate.xml
+
+	normalize_vector(camera_global->up);
+
+	rotate_over_vector(d, camera_global->up, look_rotate_right * look_rotate_delta_right);
+
+	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
+	//a direção para a frente é o -z
+	float r[3] = { d[1] * camera_global->up[2] - camera_global->up[1] * d[2],
+		d[2] * camera_global->up[0] - camera_global->up[2] * d[0],
+		d[0] * camera_global->up[1] - camera_global->up[0] * d[1] };
+
+	normalize_vector(r);
+
+	rotate_over_vector(d, r, look_rotate_up * look_rotate_delta_up);
+
+	saved[0] += d[0] * camera_move_delta * camera_front + r[0] * camera_move_delta * camera_side + camera_up * camera_move_delta * camera_global->up[0];
+	saved[1] += camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * d[1] + camera_up * camera_move_delta * camera_global->up[1];
+	saved[2] += camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * d[2] + camera_up * camera_move_delta * camera_global->up[2];
+	camera_front = 0;
+	camera_up = 0;
+	camera_side = 0;
+	printf("%f %f %f\n", saved[0], saved[1], saved[2]);
 }
 
 void renderScene(void) {
@@ -135,11 +165,7 @@ void renderScene(void) {
 		camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * d[2] + camera_up * camera_move_delta * camera_global->up[2]
 	};
 
-	printf("%f %f %f\n", desl[0], desl[1], desl[2]);
-
-	gluLookAt(	desl[0] + saved[0],
-				desl[1] + saved[1],
-				desl[2] + saved[2],
+	gluLookAt(	desl[0] + saved[0], desl[1] + saved[1], desl[2] + saved[2],
 				saved[0] + desl[0] + d[0] * norm, 
 				saved[1] + desl[1] + d[1] * norm, 
 				saved[2] + desl[2] + d[2] * norm,
@@ -149,7 +175,7 @@ void renderScene(void) {
 	if(axis)
 		drawAxis();
 
-
+	//mudar o mundo
 
 	draw();
 
@@ -192,32 +218,31 @@ void processKeys(unsigned char key, int xx, int yy) {
 		camera_side = 0;
 		camera_up = 0;
 		camera_front = 0;
-		saved[0] = camera_global->position[0], saved[1] = camera_global->position[0], saved[2] = camera_global->position[0];
+		saved[0] = camera_global->position[0], saved[1] = camera_global->position[1], saved[2] = camera_global->position[2];
 		break;
 	}
 
 	case 'u': {
-			look_rotate_up += 1;
-			save_position();
+		save_position();
+		look_rotate_up += 1;
 		break;
 	}
 
 	case 'j': {
-			look_rotate_up -= 1; 
-			save_position();
+		save_position();
+		look_rotate_up -= 1;
 		break;
 	}
 
 	case 'h': {
-		look_rotate_right += 1;
 		save_position();
-
+		look_rotate_right += 1;
 		break;
 	}
 
 	case 'k': {
-		look_rotate_right -= 1;
 		save_position();
+		look_rotate_right -= 1;
 		break;
 	}
 
@@ -283,6 +308,9 @@ void processSpecialKeys(int key, int xx, int yy) {
 void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
     camera_global = camera;
 	group_global = group;
+	saved[0] = camera_global->position[0];
+	saved[1] = camera_global->position[1];
+	saved[2] = camera_global->position[2];
 
 	// init GLUT and #include "parser.cpp"the window
 	glutInit(&argc, argv);
