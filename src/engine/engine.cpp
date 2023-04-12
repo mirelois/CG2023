@@ -2,8 +2,8 @@
 
 Camera* camera_global;
 Group* group_global;
-float camera_side = 0, camera_up = 0, camera_front = 0, camera_move_delta = 2, 
-	look_rotate_delta_up = M_PI/32, look_rotate_delta_right = M_PI / 32, look_rotate_up = 0, look_rotate_right = 0;
+float  camera_move_delta = 2, look_rotate_delta_up = M_PI / 32, look_rotate_delta_right = M_PI / 32;
+int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_rotate_right = 0;
 float saved[3];
 char axis = 1;
 char polygon = 1;
@@ -75,10 +75,16 @@ void draw(){
 
 void rotate_over_vector(float p[3], float v[3], float angle) {
 	//https://en.wikipedia.org/wiki/Rotation_matrix#General_rotations
+	float q[3];
 	float omc = 1 - cos(angle), s = sin(angle), c = cos(angle);
-	p[0] = p[0] * (pow(v[0], 2) * omc + c) + p[1] * (v[0] * v[1] * omc - v[2] * s) + p[2] * (v[0] * v[2] * omc + v[1] * s);
-	p[1] = p[0] * (v[1] * v[0] * omc + v[2] * s) + p[1] * (pow(v[1], 2) * omc + c) + p[2] * (v[1] * v[2] * omc - v[0] * s);
-	p[2] = p[0] * (v[2] * v[0] * omc - v[1] * s) + p[1] * (v[2] * v[1] * omc + v[0] * s) + p[2] * (pow(v[2], 2) * omc + c);
+
+	q[0] = p[0] * (pow(v[0], 2) * omc + c) + p[1] * (v[0] * v[1] * omc - v[2] * s) + p[2] * (v[0] * v[2] * omc + v[1] * s);
+	q[1] = p[0] * (v[1] * v[0] * omc + v[2] * s) + p[1] * (pow(v[1], 2) * omc + c) + p[2] * (v[1] * v[2] * omc - v[0] * s);
+	q[2] = p[0] * (v[2] * v[0] * omc - v[1] * s) + p[1] * (v[2] * v[1] * omc + v[0] * s) + p[2] * (pow(v[2], 2) * omc + c);
+
+	p[0] = q[0];
+	p[1] = q[1];
+	p[2] = q[2];
 }
 
 float normalize_vector(float p[3]) {
@@ -122,7 +128,6 @@ void save_position() {
 	camera_front = 0;
 	camera_up = 0;
 	camera_side = 0;
-	printf("%f %f %f\n", saved[0], saved[1], saved[2]);
 }
 
 void renderScene(void) {
@@ -160,10 +165,18 @@ void renderScene(void) {
 
 	rotate_over_vector(d, r, look_rotate_up * look_rotate_delta_up);
 
+	//normalize_vector(d);
+
 	float desl[3] = { d[0] * camera_move_delta * camera_front + r[0] * camera_move_delta * camera_side + camera_up * camera_move_delta * camera_global->up[0] ,
 		camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * d[1] + camera_up * camera_move_delta * camera_global->up[1],
 		camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * d[2] + camera_up * camera_move_delta * camera_global->up[2]
 	};
+
+	printf("r: %f %f %f\n", r[0], r[1], r[2]);
+
+	printf("d: %f %f %f\n", d[0], d[1], d[2]);
+	
+	printf("norm: %f\n", norm);
 
 	gluLookAt(	desl[0] + saved[0], desl[1] + saved[1], desl[2] + saved[2],
 				saved[0] + desl[0] + d[0] * norm, 
@@ -224,25 +237,29 @@ void processKeys(unsigned char key, int xx, int yy) {
 
 	case 'u': {
 		save_position();
-		look_rotate_up += 1;
+		look_rotate_up = (look_rotate_up + 1) % (int)((2 * M_PI) / look_rotate_delta_up + 1);
+		printf("up: %d\n", look_rotate_up);
 		break;
 	}
 
 	case 'j': {
 		save_position();
-		look_rotate_up -= 1;
+		look_rotate_up = (look_rotate_up - 1) % (int)((2 * M_PI) / look_rotate_delta_up + 1);
+		printf("up: %d\n", look_rotate_up);
 		break;
 	}
 
 	case 'h': {
 		save_position();
-		look_rotate_right += 1;
+		look_rotate_right = (look_rotate_right + 1) % (int)((2 * M_PI) / look_rotate_delta_right + 1);
+		printf("right: %d\n", look_rotate_right);
 		break;
 	}
 
 	case 'k': {
 		save_position();
-		look_rotate_right -= 1;
+		look_rotate_right = (look_rotate_right - 1) % (int)((2 * M_PI) / look_rotate_delta_right + 1);
+		printf("right: %d\n", look_rotate_right);
 		break;
 	}
 
