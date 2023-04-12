@@ -1,1 +1,0 @@
-/usr/bin/c++  -Wall -pedantic -Wall -pedantic CMakeFiles/engine.dir/classes.cpp.o CMakeFiles/engine.dir/main.cpp.o CMakeFiles/engine.dir/engine.cpp.o CMakeFiles/engine.dir/parser.cpp.o -o ../../bin/engine  /usr/lib/libOpenGL.so /usr/lib/libGLX.so /usr/lib/libGLU.so /usr/lib/libglut.so /usr/lib/libXmu.so /usr/lib/libXi.so 
