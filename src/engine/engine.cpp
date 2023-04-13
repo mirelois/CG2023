@@ -2,7 +2,7 @@
 
 Camera* camera_global;
 Group* group_global;
-float  camera_move_delta = 2, look_rotate_delta_up = M_PI / 32, look_rotate_delta_right = M_PI / 32;
+float  camera_move_delta = 1, look_rotate_delta_up = M_PI / 32, look_rotate_delta_right = M_PI / 32;
 int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_rotate_right = 0;
 float saved[3];
 char axis = 1;
