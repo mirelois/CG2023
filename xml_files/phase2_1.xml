@@ -13,8 +13,8 @@
             <scale x="2" y="0.3" z="1" />
         </transform>
         <models>
-            <model file="../../models/cone.3d" />
-            <model file="../../models/plane.3d" />
+            <model file="models/cone.3d" />
+            <model file="models/plane.3d" />
         </models>
     </group>
 </world>
