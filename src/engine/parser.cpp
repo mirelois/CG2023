@@ -100,39 +100,59 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
             xml_attribute<> *attr;
             if((attr = node_temp->first_attribute("x")))
                 group->translate[0] = atof(attr->value());
+            else
+                group->translate[0] = 0;
         
             if((attr = node_temp->first_attribute("y")))
                 group->translate[1] = atof(attr->value());
+            else
+                group->translate[1] = 0;
         
             if((attr = node_temp->first_attribute("z")))
                 group->translate[2] = atof(attr->value());
+            else
+                group->translate[2] = 0;
         } else if(!strcmp(node_temp->name(), "rotate")){
             group->transformations.push_back('r');
 
             xml_attribute<> *attr;
             if((attr = node_temp->first_attribute("angle")))
                 group->rotate[0] = atof(attr->value());
+            else
+                group->rotate[0] = 0;
 
             if((attr = node_temp->first_attribute("x")))
                 group->rotate[1] = atof(attr->value());
+            else
+                group->rotate[1] = 0;
         
             if((attr = node_temp->first_attribute("y")))
                 group->rotate[2] = atof(attr->value());
+            else
+                group->rotate[2] = 0;
         
             if((attr = node_temp->first_attribute("z")))
                 group->rotate[3] = atof(attr->value());
+            else
+                group->rotate[3] = 0;
         } else if(!strcmp(node_temp->name(), "scale")){
             group->transformations.push_back('s');
 
             xml_attribute<> *attr;
             if((attr = node_temp->first_attribute("x")))
                 group->scale[0] = atof(attr->value());
+            else
+                group->scale[0] = 0;
         
             if((attr = node_temp->first_attribute("y")))
                 group->scale[1] = atof(attr->value());
+            else
+                group->scale[1] = 0;
         
             if((attr = node_temp->first_attribute("z")))
                 group->scale[2] = atof(attr->value());
+            else
+                group->scale[2] = 0;
         }
     }
 }
