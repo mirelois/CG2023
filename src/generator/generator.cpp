@@ -135,7 +135,7 @@ vector<tuple<float,float, float>>* generate_cylinder(float radius, float height,
     float alfa = 2*M_PI/slices;
 
     for(int i=0; i<slices; i++){
-        point_array->push_back(make_tuple(sin(alfa * i),height/2, cos(alfa * (i+1))));
+        point_array->push_back(make_tuple(sin(alfa * i),height/2, cos(alfa * i)));
         point_array->push_back(make_tuple(sin(alfa * (i+1)),height/2, cos(alfa * (i+1))));
         point_array->push_back(make_tuple(0.0f,height/2, 0.0f));
 
