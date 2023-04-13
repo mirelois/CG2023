@@ -12,7 +12,7 @@
             <scale x="10" y="10" z="10" />
         </transform>
         <models>
-            <model file="../../models/sphere.3d" />
+            <model file="models/sphere.3d" />
         </models>
         <group>
             <!-- Mercury-->
@@ -23,7 +23,7 @@
                     z="0.00175199253249085" />
             </transform>
             <models>
-                <model file="../../models/sphere.3d" />
+                <model file="models/sphere.3d" />
             </models>
         </group>
         <group>
@@ -35,7 +35,7 @@
                     z="0.00434551590435844" />
             </transform>
             <models>
-                <model file="../../models/sphere.3d" />
+                <model file="models/sphere.3d" />
             </models>
         </group>
         <group>
@@ -47,7 +47,7 @@
                     z="0.00457456738708983" />
             </transform>
             <models>
-                <model file="../../models/sphere.3d" />
+                <model file="models/sphere.3d" />
             </models>
             <group>
                 <!-- Moon-->
@@ -57,7 +57,7 @@
                     <scale x="0.25" y="0.25" z="0.25" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
         </group>
@@ -70,7 +70,7 @@
                     z="0.00243412077259999" />
             </transform>
             <models>
-                <model file="../../models/sphere.3d" />
+                <model file="models/sphere.3d" />
             </models>
             <group>
                 <!-- deimos-->
@@ -81,7 +81,7 @@
                         z="0.00051851728944049904" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -93,7 +93,7 @@
                         z="0.00092918298267737434" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
         </group>
@@ -106,7 +106,7 @@
                     z="0.05019817620449487" />
             </transform>
             <models>
-                <model file="../../models/sphere.3d" />
+                <model file="models/sphere.3d" />
             </models>
             <group>
                 <!-- Metis-->
@@ -117,7 +117,7 @@
                         z="0.00356739895135063352" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -129,7 +129,7 @@
                         z="0.00136058936749186956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -141,7 +141,7 @@
                         z="0.01385478197385013599" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -153,7 +153,7 @@
                         z="0.00813035109842702615" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -165,7 +165,7 @@
                         z="0.30223335766907810651" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -177,7 +177,7 @@
                         z="0.25892679365500764765" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -189,7 +189,7 @@
                         z="0.43655007632574499565" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -201,7 +201,7 @@
                         z="0.39988053361651287876" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -213,7 +213,7 @@
                         z="0.00074666489679431867" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -225,7 +225,7 @@
                         z="0.00182518085883055683" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -237,7 +237,7 @@
                         z="0.01161478728346717997" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -249,7 +249,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -261,7 +261,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -273,7 +273,7 @@
                         z="0.00663702130483838793" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -285,7 +285,7 @@
                         z="0.00348443618504015382" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -297,7 +297,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -309,7 +309,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -321,7 +321,7 @@
                         z="0.00008296276631047986" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -333,7 +333,7 @@
                         z="0.00008296276631047986" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -345,7 +345,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -357,7 +357,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -369,7 +369,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -381,7 +381,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -393,7 +393,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -405,7 +405,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -417,7 +417,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -429,7 +429,7 @@
                         z="0.00008296276631047986" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -441,7 +441,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -453,7 +453,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -465,7 +465,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -477,7 +477,7 @@
                         z="0.00058073936417335893" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -489,7 +489,7 @@
                         z="0.00240592022300391587" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -501,7 +501,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -513,7 +513,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -525,7 +525,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -537,7 +537,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -549,7 +549,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -561,7 +561,7 @@
                         z="0.00008296276631047986" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -573,7 +573,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -585,7 +585,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -597,7 +597,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -609,7 +609,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -621,7 +621,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -633,7 +633,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -645,7 +645,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -657,7 +657,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -669,7 +669,7 @@
                         z="0.00058073936417335893" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -681,7 +681,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -693,7 +693,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -705,7 +705,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -717,7 +717,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -729,7 +729,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -741,7 +741,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -753,7 +753,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -765,7 +765,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -777,7 +777,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -789,7 +789,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -801,7 +801,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -813,7 +813,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -825,7 +825,7 @@
                         z="0.00008296276631047986" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -837,7 +837,7 @@
                         z="0.00481184044600783175" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -849,7 +849,7 @@
                         z="0.00082962766310479849" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -861,7 +861,7 @@
                         z="0.00008296276631047986" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -873,7 +873,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -885,7 +885,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -897,7 +897,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -909,7 +909,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -921,7 +921,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -933,7 +933,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -945,7 +945,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -957,7 +957,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -969,7 +969,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -981,7 +981,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -993,7 +993,7 @@
                         z="0.00008296276631047986" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1005,7 +1005,7 @@
                         z="0.00389925001659255322" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1017,7 +1017,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1029,7 +1029,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1041,7 +1041,7 @@
                         z="0.00290369682086679499" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1053,7 +1053,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1065,7 +1065,7 @@
                         z="0.00016592553262095971" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
         </group>
@@ -1078,14 +1078,14 @@
                     z="0.04181230702951102" />
             </transform>
             <models>
-                <model file="../../models/sphere.3d" />
+                <model file="models/sphere.3d" />
             </models>
             <group>
                 <transform>
                     <scale x="5" y="0.1" z="5" />
                 </transform>
                 <models>
-                    <model file="../../models/torus.3d" />
+                    <model file="models/torus.3d" />
                 </models>
             </group>
             <group>
@@ -1097,7 +1097,7 @@
                         z="0.00002488882989314395" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1109,7 +1109,7 @@
                         z="0.00233955000995553176" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1121,7 +1121,7 @@
                         z="0.00063881330059069492" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1133,7 +1133,7 @@
                         z="0.00250547554257649161" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1145,7 +1145,7 @@
                         z="0.00715139045596336394" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1157,7 +1157,7 @@
                         z="0.00675316917767306100" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1169,7 +1169,7 @@
                         z="0.00964027344527775866" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1181,7 +1181,7 @@
                         z="0.01485033516957589422" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1193,7 +1193,7 @@
                         z="0.00005475542576491670" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1205,7 +1205,7 @@
                         z="0.03285325545895002169" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1217,7 +1217,7 @@
                         z="0.00024059202230039157" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1229,7 +1229,7 @@
                         z="0.00014933297935886374" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1241,7 +1241,7 @@
                         z="0.00036503617176611138" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1253,7 +1253,7 @@
                         z="0.04181323422048184579" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1265,7 +1265,7 @@
                         z="0.08810645782172960017" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1277,7 +1277,7 @@
                         z="0.00205747660449990058" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1289,7 +1289,7 @@
                         z="0.00177540319904426875" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1301,7 +1301,7 @@
                         z="0.09315059401340677891" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1313,7 +1313,7 @@
                         z="0.00292028937412889102" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1325,7 +1325,7 @@
                         z="0.00021570319240724764" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1337,7 +1337,7 @@
                         z="0.12673392181588902239" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1349,7 +1349,7 @@
                         z="0.42721344660516358260" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1361,7 +1361,7 @@
                         z="0.02239994690382956025" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1373,7 +1373,7 @@
                         z="0.12183082232693966118" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1385,7 +1385,7 @@
                         z="0.00141036702727815742" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1397,7 +1397,7 @@
                         z="0.00107851596203623816" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1409,7 +1409,7 @@
                         z="0.01767106922413221037" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1421,7 +1421,7 @@
                         z="0.00207406915776199617" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1433,7 +1433,7 @@
                         z="0.00066370213048383886" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1445,7 +1445,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1457,7 +1457,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1469,7 +1469,7 @@
                         z="0.00236443883984867580" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1481,7 +1481,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1493,7 +1493,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1505,7 +1505,7 @@
                         z="0.00082962766310479849" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1517,7 +1517,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1529,7 +1529,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1541,7 +1541,7 @@
                         z="0.00331851065241919397" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1553,7 +1553,7 @@
                         z="0.00058073936417335893" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1565,7 +1565,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1577,7 +1577,7 @@
                         z="0.00066370213048383886" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1589,7 +1589,7 @@
                         z="0.00124444149465719779" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1601,7 +1601,7 @@
                         z="0.00058073936417335893" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1613,7 +1613,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1625,7 +1625,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1637,7 +1637,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1649,7 +1649,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1661,7 +1661,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1673,7 +1673,7 @@
                         z="0.00058073936417335893" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1685,7 +1685,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1697,7 +1697,7 @@
                         z="0.00058073936417335893" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1709,7 +1709,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1721,7 +1721,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1733,7 +1733,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1745,7 +1745,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1757,7 +1757,7 @@
                         z="0.00058073936417335893" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1769,7 +1769,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1781,7 +1781,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1793,7 +1793,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1805,7 +1805,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1817,7 +1817,7 @@
                         z="0.00066370213048383886" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1829,7 +1829,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1841,7 +1841,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1853,7 +1853,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1865,7 +1865,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1877,7 +1877,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1889,7 +1889,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1901,7 +1901,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1913,7 +1913,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1925,7 +1925,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1937,7 +1937,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1949,7 +1949,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1961,7 +1961,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1973,7 +1973,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1985,7 +1985,7 @@
                         z="0.00041481383155239925" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -1997,7 +1997,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2009,7 +2009,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2021,7 +2021,7 @@
                         z="0.00157629255989911727" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2033,7 +2033,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2045,7 +2045,7 @@
                         z="0.00024888829893143956" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2057,7 +2057,7 @@
                         z="0.00049777659786287912" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2069,7 +2069,7 @@
                         z="0.00033185106524191943" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
         </group>
@@ -2082,7 +2082,7 @@
                     z="0.01821066992173476" />
             </transform>
             <models>
-                <model file="../../models/sphere.3d" />
+                <model file="models/sphere.3d" />
             </models>
             <group>
                 <!-- Cordelia-->
@@ -2093,7 +2093,7 @@
                         z="0.00373332448397159337" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2105,7 +2105,7 @@
                         z="0.00398221278290303293" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2117,7 +2117,7 @@
                         z="0.00456295214707639219" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2129,7 +2129,7 @@
                         z="0.00696887237008030763" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2141,7 +2141,7 @@
                         z="0.00580739364173358998" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2153,7 +2153,7 @@
                         z="0.00829627663104798470" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2165,7 +2165,7 @@
                         z="0.01178071281608813851" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2177,7 +2177,7 @@
                         z="0.00663702130483838793" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2189,7 +2189,7 @@
                         z="0.00149332979358863735" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2201,7 +2201,7 @@
                         z="0.00871109046260038454" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2213,7 +2213,7 @@
                         z="0.00290369682086679499" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2225,7 +2225,7 @@
                         z="0.01368885644122917571" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2237,7 +2237,7 @@
                         z="0.00207406915776199617" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2249,7 +2249,7 @@
                         z="0.03915842569854648819" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2261,7 +2261,7 @@
                         z="0.09607088338753566603" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2273,7 +2273,7 @@
                         z="0.09748125041481382758" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2285,7 +2285,7 @@
                         z="0.13091524523793721113" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2297,7 +2297,7 @@
                         z="0.12651821862348178183" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2309,7 +2309,7 @@
                         z="0.00182518085883055683" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2321,7 +2321,7 @@
                         z="0.00414813831552399235" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2333,7 +2333,7 @@
                         z="0.00265480852193535543" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2345,7 +2345,7 @@
                         z="0.00149332979358863735" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2357,7 +2357,7 @@
                         z="0.01410367027278157555" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2369,7 +2369,7 @@
                         z="0.00165925532620959698" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2381,7 +2381,7 @@
                         z="0.00414813831552399235" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2393,7 +2393,7 @@
                         z="0.00398221278290303293" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
             <group>
@@ -2405,7 +2405,7 @@
                         z="0.00165925532620959698" />
                 </transform>
                 <models>
-                    <model file="../../models/sphere.3d" />
+                    <model file="models/sphere.3d" />
                 </models>
             </group>
         </group>
@@ -2418,7 +2418,7 @@
                     z="0.01767932792417606" />
             </transform>
             <models>
-                <model file="../../models/sphere.3d" />
+                <model file="models/sphere.3d" />
             </models>
         </group>
     </group>
