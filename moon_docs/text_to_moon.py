@@ -7,7 +7,7 @@ xml_file = open(sys.argv[2], "w")
 xml_string = str()
 res = list()
 
-mother_planet_size = 6780
+mother_planet_size = 139822
 
 
 for line in moon_file:
@@ -22,7 +22,7 @@ for name, distance, diameter in res:
     rotate_on_y = rn.randint(0, 1)
     rotate_on_z = rn.randint(0, 1)
 
-    dist = ((10000000*float(distance)/(mother_planet_size))/9) + 2
+    dist = ((10000000*float(distance)/(mother_planet_size))/9) + 1
     diam = float(diameter)/(mother_planet_size/10)
 
     xml_file.write(
