@@ -7,13 +7,22 @@ xml_file = open(sys.argv[2], "w")
 xml_string = str()
 res = list()
 
-mother_planet_size = 6780
+mother_planet_size = 49244
 
+# (\w+) (\d+) km (\d+(?:.\d+)?) km
+
+lista = list()
 
 for line in moon_file:
-    # print(line)
-    res += (re.findall(
-        r"(.+?)(?:\(currently lost\))?- distance: (\d+(?:\.\d+)?) million km- diameter: (\d+(?:.\d+)?) km", line))
+
+    lista = re.findall(
+        r"(\w+) (\d+(?:.\d+)?) million km (\d+(?:.\d+)?) km", line)
+
+    if lista:
+        res += lista
+
+    lista = re.findall(r"(\w+) (\d+(?:.\d+)?) km (\d+(?:.\d+)?) km", line)
+    res += lista
 
 for name, distance, diameter in res:
 
