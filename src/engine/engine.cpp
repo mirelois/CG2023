@@ -167,16 +167,10 @@ void renderScene(void) {
 
 	//normalize_vector(d);
 
-	float desl[3] = { d[0] * camera_move_delta * camera_front + r[0] * camera_move_delta * camera_side + camera_up * camera_move_delta * camera_global->up[0] ,
-		camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * d[1] + camera_up * camera_move_delta * camera_global->up[1],
-		camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * d[2] + camera_up * camera_move_delta * camera_global->up[2]
+	float desl[3] = { d[0] * camera_move_delta * camera_front + r[0] * camera_move_delta * camera_side ,
+		camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * d[1] + camera_up * camera_move_delta,
+		camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * d[2]
 	};
-
-	printf("r: %f %f %f\n", r[0], r[1], r[2]);
-
-	printf("d: %f %f %f\n", d[0], d[1], d[2]);
-	
-	printf("norm: %f\n", norm);
 
 	gluLookAt(	desl[0] + saved[0], desl[1] + saved[1], desl[2] + saved[2],
 				saved[0] + desl[0] + d[0] * norm, 
