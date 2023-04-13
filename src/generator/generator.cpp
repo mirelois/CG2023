@@ -129,6 +129,32 @@ tuple<float,float,float>* generate_cone(float bottom_radius, float height, int s
     return temp;
 }
 
+vector<tuple<float,float, float>>* generate_cylinder(float radius, float height, int slices){
+    vector<tuple<float,float, float>>* point_array = new vector<tuple<float,float,float>>;
+
+    float alfa = 2*M_PI/slices;
+
+    for(int i=0; i<slices; i++){
+        point_array->push_back(make_tuple(sin(alfa * i),height/2, cos(alfa * (i+1))));
+        point_array->push_back(make_tuple(sin(alfa * (i+1)),height/2, cos(alfa * (i+1))));
+        point_array->push_back(make_tuple(0.0f,height/2, 0.0f));
+
+        point_array->push_back(make_tuple(0.0f,-height/2, 0.0f));
+        point_array->push_back(make_tuple(sin(alfa * (i+1)),-height/2, cos(alfa * (i+1))));
+        point_array->push_back(make_tuple(sin(alfa * i),-height/2, cos(alfa * (i+1))));
+
+        point_array->push_back(make_tuple(sin(alfa * i),-height/2, cos(alfa * i)));
+        point_array->push_back(make_tuple(sin(alfa * (i+1)),-height/2, cos(alfa * (i+1))));
+        point_array->push_back(make_tuple(sin(alfa * i),height/2, cos(alfa * (i+1))));
+
+        point_array->push_back(make_tuple(sin(alfa * i),height/2, cos(alfa * i)));
+        point_array->push_back(make_tuple(sin(alfa * (i+1)),-height/2, cos(alfa * (i+1))));
+        point_array->push_back(make_tuple(sin(alfa * (i+1)),height/2, cos(alfa * (i+1))));
+    }
+
+    return point_array;
+}
+
 
 tuple<float,float,float>* generate_box(float length,  int grid_slices, int* points_total)
 {
@@ -318,7 +344,11 @@ int main(int argc, char* argv[]){
         tuple<float,float,float>* torus = generate_torus(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
         points_write(argv[6], points_total, torus);
         free(torus);
-    } else{
+    } else if(!strcmp(argv[1], "cylinder")){
+        vector<tuple<float,float, float>>* cylinder = generate_cylinder(atof(argv[2]), atof(argv[3]), atoi(argv[4]));
+        points_write(argv[5], cylinder->size(), cylinder->data());
+        free(cylinder);
+    }else{
         printf("Invalid Model\n");
     }
 
