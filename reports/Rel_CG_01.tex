@@ -1,0 +1,835 @@
+\documentclass[14pt, a4 paper]{report}
+\usepackage{graphicx} % Required for inserting images
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareMathSymbol{\invques}{\mathord}{operators}{`>}
+\DeclareUnicodeCharacter{00BF}{\tmquestiondown}
+\DeclareRobustCommand{\tmquestiondown}{%
+  \ifmmode\invques\else\textquestiondown\fi
+}
+\usepackage[portuges]{babel}%Babel -- irá activar automaticamente as regras apropriadas de hifenização para a língua todo o
+                                   %-- o texto gerado é automaticamente traduzido para Português.
+                                   %  Por exemplo, “chapter” irá passar a “capítulo”, “table of contents” a “conteúdo”.
+                                   % portuges -- específica para o Português.
+\usepackage[utf8]{inputenc} % define o encoding usado texto fonte (input)--usual "utf8" ou "latin1
+\usepackage{parcolumns}
+
+\usepackage{graphicx} %permite incluir graficos, tabelas, figuras
+\usepackage{url} % para utilizar o comando \url{}
+\usepackage{enumerate} %permite escolher, nas listas enumeradas, se os iems sao marcados com letras ou numeros-romanos em vez de numeracao normal
+
+%\usepackage{apalike} % gerar biliografia no estilo 'named' (apalike)
+
+\usepackage{color} % Para escrever em cores
+\usepackage{multirow} %tabelas com multilinhas
+\usepackage{array} %formatação especial de tabelas em array
+\usepackage[pdftex]{hyperref} % transformar as referências internas do seu documento em hiper-ligações.
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+%Exemplos de fontes -- nao e vulgar mudar o tipo de fonte
+%\usepackage{tgbonum} % Fonte de letra: TEX Gyre Bonum
+%\usepackage{lmodern} % Fonte de letra: Latin Modern Sans Serif
+%\usepackage{helvet}  % Fonte de letra: Helvetica
+%\usepackage{charter} % Fonte de letra:Charter
+
+\definecolor{saddlebrown}{rgb}{0.55, 0.27, 0.07} % para definir uma nova cor, neste caso 'saddlebrown'
+
+\usepackage{listings}  % para utilizar blocos de texto verbatim no estilo 'listings'
+%paramerização mais vulgar dos blocos LISTING - GENERAL
+\lstset{
+	basicstyle=\small, %o tamanho das fontes que são usadas para o código
+	numbers=left, % onde colocar a numeração da linha
+	numberstyle=\tiny, %o tamanho das fontes que são usadas para a numeração da linha
+	numbersep=5pt, %distancia entre a numeração da linha e o codigo
+	breaklines=true, %define quebra automática de linha
+    frame=tB,  % caixa a volta do codigo
+	mathescape=true, %habilita o modo matemático
+	escapeinside={(*@}{@*)} % se escrever isto  aceita tudo o que esta dentro das marcas e nao altera
+}
+%
+%\lstset{ %
+%	language=Java,							% choose the language of the code
+%	basicstyle=\ttfamily\footnotesize,		% the size of the fonts that are used for the code
+%	keywordstyle=\bfseries,					% set the keyword style
+%	%numbers=left,							% where to put the line-numbers
+%	numberstyle=\scriptsize,				% the size of the fonts that are used for the line-numbers
+%	stepnumber=2,							% the step between two line-numbers. If it's 1 each line
+%											% will be numbered
+%	numbersep=5pt,							% how far the line-numbers are from the code
+%	backgroundcolor=\color{white},			% choose the background color. You must add \usepackage{color}
+%	showspaces=false,						% show spaces adding particular underscores
+%	showstringspaces=false,					% underline spaces within strings
+%	showtabs=false,							% show tabs within strings adding particular underscores
+%	frame=none,								% adds a frame around the code
+%	%abovecaptionskip=-.8em,
+%	%belowcaptionskip=.7em,
+%	tabsize=2,								% sets default tabsize to 2 spaces
+%	captionpos=b,							% sets the caption-position to bottom
+%	breaklines=true,						% sets automatic line breaking
+%	breakatwhitespace=false,				% sets if automatic breaks should only happen at whitespace
+%	title=\lstname,							% show the filename of files included with \lstinputlisting;
+%											% also try caption instead of title
+%	escapeinside={\%*}{*)},					% if you want to add a comment within your code
+%	morekeywords={*,...}					% if you want to add more keywords to the set
+%}
+
+\usepackage{xspace} % deteta se a seguir a palavra tem uma palavra ou um sinal de pontuaçao se tiver uma palavra da espaço, se for um sinal de pontuaçao nao da espaço
+
+\parindent=2pt %espaço a deixar para fazer a  indentação da primeira linha após um parágrafo
+\parskip=4pt % espaço entre o parágrafo e o texto anterior
+
+\setlength{\oddsidemargin}{-1cm} %espaço entre o texto e a margem
+\setlength{\textwidth}{18cm} %Comprimento do texto na pagina
+\setlength{\headsep}{-1cm} %espaço entre o texto e o cabeçalho
+\setlength{\textheight}{23cm} %altura do texto na pagina
+
+% comando '\def' usado para definir abreviatura (macros)
+% o primeiro argumento é o nome do novo comando e o segundo entre chavetas é o texto original, ou sequência de controle, para que expande
+\def\darius{\textsf{Darius}\xspace}
+\def\antlr{\texttt{AnTLR}\xspace}
+\def\VM{\href{https://ewvm.epl.di.uminho.pt/}{VM}}
+\def\plc{\emph{Processamento de Linguagens e Compiladores}\xspace}
+\def\titulo#1{\section{#1}}    %no corpo do documento usa-se na forma '\titulo{MEU TITULO}'
+\def\super#1{{\em Supervisor: #1}\\ }
+\def\area#1{{\em \'{A}rea: #1}\\[0.2cm]}
+\def\resumo{\underline{Resumo}:\\ }
+\def\e#1{\emph{#1}}
+
+%\input{LPgeneralDefintions} %permite ler de um ficheiro de texto externo mais definições
+
+\title{Computação Gráfica (3º ano de LCC)\\
+       \textbf{Trabalho Prático (Fase 1) — Grupo 3}\\ Relatório de Desenvolvimento}
+\author{André Lucena Ribas Ferreira (A94956) 
+    \and Carlos Eduardo da Silva Machado (A96936)
+    \and Gonçalo Manuel Maia de Sousa (A97485)}
+\date{\today} %data
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Este relatório aborda a solução proposta para o enunciado da 1ª fase do Trabalho Prático da Unidade Curricular "Computação Gráfica". 
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Introdução} \label{chap:intro}
+
+O presente relatório tem como objetivo apresentar a solução concebida pelo Grupo 3 para a 1ª fase do Trabalho Prático da Unidade Curricular "Computação Gráfica". 
+
+Esta fase consiste em definir duas aplicações: o \textit{generator}, que gera um ficheiro com representação dos vértices para o modelo pretendido; e o \textit{engine}, que, a partir da especificação de um ficheiro de configuração, escrito em \textit{xml}, exibe uma cena com os modelos já gerados.
+
+Para tal, utilizou-se o módulo \textit{rapidxml} para leitura do ficheiro de configuração, tal como o \textit{GLUT} para a representação gráfica.
+
+\section{Estrutura do Relatório}
+
+Para além deste, o relatório compreende diferentes Capítulos. Em \ref{chap:generator}, descreve-se a implementação da aplicação \textit{generator}. Em \ref{chap:engine} apresenta-se a implementação da aplicação \textit{engine}. Em \ref{chap:resultado} expõe-se imagens tiradas aos modelos gerados a partir dos \textit{xmls} dos \textit{test files}.
+Em \ref{chap:conclusion} apresenta-se a conclusão do relatório.
+
+\chapter{\textit{Generator}} \label{chap:generator}
+A aplicação \textit{generator} foi desenhada de forma a gerar ficheiros \textit{model} que podem ser utilizados pela aplicação \textit{engine}, com extensão ".3d".
+
+Esses ficheiros são encabeçados por um valor inteiro que denota a quantidade de vértices que o modelo contém, seguidos por valores binários que representam uma estrutura \textit{tuple}, constituída por três valores de vírgula flutuante, para cada um dos vértices.
+
+Em todos os momentos em que se realizam operações, nomeadamente de rotação, em pontos, utilizam-se múltiplos do ângulo de rotação/fator de translação e aplica-se sempre aos ponto originais. Desta forma, minimiza-se substancialmente o erro de aproximação por se efetuarem cálculos de vírgula flutuante.
+
+A aplicação é capaz de gerar modelos para cinco tipos de primitivas diferentes:
+\section{Esfera}
+Os parâmetros necessários para definir uma esfera são: o seu raio (\textit{radius}), o números de divisões horizontais (\textit{slices}) e de divisões verticais (\textit{stacks}).
+Inicialmente é fixado um ponto $P$ no eixo $y$ tal que:
+$$
+P = (0,radius,0)
+$$
+
+\begin{lstlisting}[language = java]
+tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, int *points_total){
+    *points_total = slices*6*(stacks-1);
+    float alfa_x = M_PI/stacks;     
+    float alfa_y = 2*M_PI/slices;
+
+    float pivot_x = 0;
+    float pivot_y = radius;
+    float pivot_z = 0;
+\end{lstlisting}
+
+São posteriormente gerados $stacks+1$ pontos auxiliares, incluindo $P$, por rotações de $P$ de ângulos múltiplos de $\frac{\pi}{stacks}$ em torno do eixo $Ox$, aos quais chamamos de \textit{master\_line}.
+
+\begin{lstlisting}[language = java]
+    tuple<float, float, float>* master_line = new tuple<float,float,float>[stacks+1];
+    tuple<float,float,float>* points_array = new tuple<float,float,float>[*points_total];
+    //generate master line
+    int master_line_index = 0;
+    int i;
+    for (i = 0; i < stacks+1; i++) {
+        master_line[master_line_index++] = make_tuple(
+                pivot_x,
+                pivot_y*cos(i*alfa_x),
+                pivot_y*sin(i*alfa_x)
+                );
+    }
+\end{lstlisting}
+
+Finalmente, os restantes pontos da esfera são obtidos rodando os pontos do \textit{master\_line} em torno do eixo $y$ por ângulos múltiplos de $\frac{2\pi}{slices}$, tendo em conta a ordem contrária os ponteiros do relógio que os vértices devem ter para se obter a orientação correta.
+
+Para cada uma das \textit{slices}, ou seja, para cada uma das linhas verticais,
+
+\begin{lstlisting}[language = c++]
+int index = 0;
+for (int j = 0; j < slices; j++) {
+\end{lstlisting}
+
+os vértices são gerados primeiro no sentido crescente do ângulo de rotação ao torno do eixo \textit{Ox} e de seguida no sentido decrescente. Apenas se percorre \textit{stacks-1} divisões horizontais de modo a apenas gerar um triângulo tanto para a primeira e para a última.
+
+No sentido decrescente, geram-se os triângulos no sentido contrário aos ponteiros, em relação à \textit{master\_line}:
+
+\begin{lstlisting}[language = c++]
+    for (int i = 0; i < stacks-1; i++) {
+        points_array[index++] = make_tuple(
+            get<0>(master_line[i])*cos(j*alfa_y) + get<2>(master_line[i])*sin(j*alfa_y),
+            get<1>(master_line[i]),
+            -get<0>(master_line[i])*sin(j*alfa_y) + get<2>(master_line[i])*cos(j*alfa_y)
+            );
+
+        points_array[index++] = make_tuple(
+            get<0>(master_line[i+1])*cos(j*alfa_y) + get<2>(master_line[i+1])*sin(j*alfa_y),
+            get<1>(master_line[i+1]),
+            -get<0>(master_line[i+1])*sin(j*alfa_y) + get<2>(master_line[i+1])*cos(j*alfa_y)
+            );
+
+        points_array[index++] = make_tuple(
+            get<0>(master_line[i+1])*cos(((j+1)%slices)*alfa_y) + get<2>(master_line[i+1])*sin(((j+1)%slices)*alfa_y),
+            get<1>(master_line[i+1]),
+            -get<0>(master_line[i+1])*sin(((j+1)%slices)*alfa_y) + get<2>(master_line[i+1])*cos(((j+1)%slices)*alfa_y)
+            );
+    }
+
+\end{lstlisting}
+
+Enquanto que no sentido crescente, geram-se os triângulos no sentido dos ponteiros, em relação à \textit{master\_line}:
+
+\begin{lstlisting}[language = c++]
+    for (int i = stacks; i > 1; i--) {
+        points_array[index++] = make_tuple(
+            get<0>(master_line[i])*cos(-j*alfa_y) + get<2>(master_line[i])*sin(-j*alfa_y),
+            get<1>(master_line[i]),
+            -get<0>(master_line[i])*sin(-j*alfa_y) + get<2>(master_line[i])*cos(-j*alfa_y)
+            );
+
+        points_array[index++] = make_tuple(
+            get<0>(master_line[i-1])*cos(-j*alfa_y) + get<2>(master_line[i-1])*sin(-j*alfa_y),
+            get<1>(master_line[i-1]),
+            -get<0>(master_line[i-1])*sin(-j*alfa_y) + get<2>(master_line[i-1])*cos(-j*alfa_y)
+            );
+
+        points_array[index++] = make_tuple(
+            get<0>(master_line[i-1])*cos(-((j+1)%slices)*alfa_y) + get<2>(master_line[i-1])*sin(-((j+1)%slices)*alfa_y),
+            get<1>(master_line[i-1]),
+            -get<0>(master_line[i-1])*sin(-((j+1)%slices)*alfa_y) + get<2>(master_line[i-1])*cos(-((j+1)%slices)*alfa_y)
+            );
+    }
+}
+
+
+    return points_array;
+}
+\end{lstlisting}
+De modo a evitar que pontos sejam calculados por rotações de $360$ graus é calculado o módulo do indice \textit{j+1} com \textit{slices} 
+
+\section{Cone}
+De modo a construir o cone, precisamos de quatro parâmetros, o raio da base (\textit{bottom\_radius}), a altura (\textit{height}), as divisões verticais (\textit{slices}) e as horizontais (\textit{stacks}).
+Começamos por definir o ângulo \textit{alfa} que é calculado através $2 * \frac{\pi}{slices}$ e os passos \textit{division\_height\_step} como $\frac{height}{stacks}$ e \textit{division\_radius\_stacks} como $\frac{bottom\_radius}{stacks}$.
+
+Iniciamos com a construção da base do cone, com um triângulo para cada \textit{slice} criando três pontos que juntos geram um triângulo. Um deles será sempre a origem, para que a base do cone fique no plano $xOz$, enquanto os outros dois serão pontos no perímetro da circunferência, no sentido dos ponteiros do relógio para a orientação da base ser no sentido negativo do eixo $Oy$.
+
+\begin{lstlisting}[language = c++]
+tuple<float,float,float>* generate_cone(float bottom_radius, float height, int slices, int stacks, int* total_points){
+    
+    vector<tuple<float,float, float>> point_array;
+    int i, j;
+    double alfa = 2 * M_PI / slices;
+    double division_height_step = height / stacks;
+    double division_radius_step = bottom_radius / stacks;
+    // Base
+    for (i = 0; i < slices; i++) {
+        point_array.push_back(make_tuple(bottom_radius * sin(alfa * (i + 1)), 0.0f, bottom_radius * cos(alfa * (i + 1))));
+        point_array.push_back(make_tuple(bottom_radius * sin(alfa * i), 0.0f, bottom_radius * cos(alfa * i)));
+        point_array.push_back(make_tuple(0.0f, 0.0f, 0.0f));
+    }
+\end{lstlisting}
+
+Posteriormente, consideram-se circunferências menores ao longo da altura do cone, com saltos ditados pelos valores \textit{division\_radius\_step} e \textit{division\_height\_step}, respetivamente. Para cada uma das \textit{slices}, definem-se dois triângulos orientados para fora do sólido geométrico. Para tal, utilizam-se coordenadas análogas à rotação ao redor do eixo $Oy$, por se tratar de uma circunferência.
+
+\begin{lstlisting}[language = Java]
+    for (i = 0; i < stacks; i++) {
+        for (j = 0; j < slices; j++) {
+            double bot_height = division_height_step * i;
+            double top_height = bot_height + division_height_step;
+            double bot_radius = bottom_radius - division_radius_step * i;
+            double top_radius = bot_radius - division_height_step;
+
+            // lados
+            point_array.push_back(make_tuple(bot_radius * sin(alfa * j), bot_height, bot_radius * cos(alfa * j)));
+            point_array.push_back(make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1))));
+            point_array.push_back(make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j)));
+
+            point_array.push_back(make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j)));
+            point_array.push_back(make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1))));
+            point_array.push_back(make_tuple(top_radius * sin(alfa * (j + 1)), top_height, top_radius * cos(alfa * (j + 1))));
+        }
+    }
+
+    *total_points = point_array.size();
+
+    tuple<float,float,float>* temp = (tuple<float,float,float>*) malloc(sizeof(tuple<float,float,float>) * point_array.size());
+    for(int i=0; i< point_array.size(); i++){
+        temp[i] = point_array[i];
+    }
+    return temp;
+}
+\end{lstlisting}
+
+\section{Plano}
+Os parâmetros necessários para definir um Plano são: o seu comprimento (\textit{length}) e o tamanho da grelha (\textit{grid\_slices}).
+
+Para tal é fixo o ponto $(\frac{-length}{2},0,\frac{-length}{2})$ e os restantes são calculados realizando translações a partir deste por múltiplos do vetor $(\frac{length}{2},0,\frac{length}{2})$.
+
+\begin{lstlisting}[language=java]
+    float delta = length/grid_slices;
+
+    int index = 0;
+
+    float referential_x = -length/2;
+
+    float referential_z = -length/2;
+
+    for(int i = 0; i < grid_slices; i++){
+        for (int j = 0; j < grid_slices; j++)
+        {
+            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
+            point_array[index++] = make_tuple(j*delta+referential_x, 0, (i+1)*delta+referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, (i+1)*delta+referential_z);
+
+            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, (i+1)*delta+referential_z);
+            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, i*delta+referential_z);
+        }
+    }
+
+\end{lstlisting}
+
+\section{Cubo}
+Os parâmetros necessários para definir um Cubo são: o seu comprimento (\textit{length}) e o tamanho da grelha (\textit{grid\_slices}).
+
+Inicialmente é fixado um ponto $(\frac{-length}{2},\frac{length}{2},\frac{length}{2})$ e gerado um plano modo análogo ao processo executado para a diretiva do Plano, ajustado para que seja paralelo a $x0y$
+
+Posteriormente o plano anterior é rodado $180$ graus em torno eixo $y$ e estes valores são também guardados.
+\begin{lstlisting}[language=java]
+for (int i = 0; i < *points_total/6; i++) {
+        //back face
+        point_array[index++] = make_tuple(-get<0>(point_array[i]), get<1>(point_array[i]), -get<2>(point_array[i]));
+    }
+\end{lstlisting}
+As duas faces finais são geradas por rotações das faces já geradas em torno do eixo $x$ e $y$ por um ângulo de $90$ graus. 
+\begin{lstlisting}[language=java]
+    for(int i=0;  i < *points_total/3; i++)
+    {
+        point_array[index++] = make_tuple(get<2>(point_array[i]), get<1>(point_array[i]), -get<0>(point_array[i]));
+    }
+    for(int i=0; i < *points_total/3; i++)
+    {
+        point_array[index++] = make_tuple(get<0>(point_array[i]), -get<2>(point_array[i]), get<1>(point_array[i]));
+    }
+\end{lstlisting}
+Note-se que as rotações não causam composição de erro porque todas as multiplicações efetuadas são por números inteiros.
+
+\section{Torus}
+
+Como figura extra às pedidas no enunciado, decidimos implementar o modelo de um torus, paralelo ao eixo $xOz$.
+
+Os parâmetros necessários para definir um Torus são: 
+o raio interno (\textit{inner\_radius}), externo(\textit{outer\_radius}), o número de divisões verticais(\textit{vertical\_divisions}) e horizontais(\textit{horizontal\_division}).
+Tal como no caso da esfera os pontos do toros são calculados por rotação de um conjunto de pontos.
+Neste caso o conjunto de pontos forma uma circunferência centrada no ponto $(\frac{outer_radius+inner_radius}{2},0,0)$.
+
+De modo a gerar este conjunto é fixo o ponto $(0,\frac{outer_radius-inner_radius}{2},0)$ e rodado à volta do eixo $x$ por ângulos múltiplos de $\frac{2\pi}{vertical\_divisions}$, partindo sempre da origem o que resulta em rotações simples de uma circunferência, partindo de um eixo.
+
+\begin{lstlisting}[language = Java]
+
+    float delta_x = 2*M_PI/vertical_divisions;
+
+    float delta_y = 2*M_PI/horizontal_divisions;
+
+    float pivot_x = 0;
+
+    float pivot_y = (outer_radius-inner_radius)/2;
+
+    float pivot_z = 0;
+
+    for (int i = 0; i < vertical_divisions; i++) {
+
+        master_circle[master_circle_index++] = make_tuple(
+                pivot_x,
+                pivot_y*cos(i*delta_x),
+                pivot_y*sin(i*delta_x) + (outer_radius+inner_radius)/2
+                );
+
+    }
+\end{lstlisting}
+Posteriormente são efetuadas rotações dos pontos armazenados por ângulos múltiplos de $\frac{2\pi}{horizontal\_divisions}$ de modo a gerar todos os pontos do toro, em torno do eixo $Oy$.
+\begin{lstlisting}[language = Java]
+for (int i = 0; i < horizontal_divisions; i++) {
+    for (int j = 0; j < vertical_divisions; j++) {
+        point_array[index++] = make_tuple(
+            get<0>(master_circle[j])*cos(i*delta_y) 
+                + get<2>(master_circle[j])*sin(i*delta_y),
+            get<1>(master_circle[j]),
+            -get<0>(master_circle[j])*sin(i*delta_y) 
+                + get<2>(master_circle[j])*cos(i*delta_y)
+            );
+        point_array[index++] = make_tuple(
+            get<0>(master_circle[(j+1)%vertical_divisions])*cos(i*delta_y) 
+                + get<2>(master_circle[(j+1)%vertical_divisions])*sin(i*delta_y),
+            get<1>(master_circle[(j+1)%vertical_divisions]),
+            -get<0>(master_circle[(j+1)%vertical_divisions])*sin(i*delta_y) 
+                + get<2>(master_circle[(j+1)%vertical_divisions])*cos(i*delta_y)
+                    );
+        point_array[index++] = make_tuple(
+            get<0>(master_circle[(j+1)%vertical_divisions])               
+                *cos(((i+1)%horizontal_divisions)*delta_y) 
+                + get<2>(master_circle[(j+1)%vertical_divisions])
+                *sin(((i+1)%horizontal_divisions)*delta_y),
+            get<1>(master_circle[(j+1)%vertical_divisions]),
+            -get<0>(master_circle[(j+1)%vertical_divisions])
+                *sin(((i+1)%horizontal_divisions)*delta_y) 
+                + get<2>(master_circle[(j+1)%vertical_divisions])
+                *cos(((i+1)%horizontal_divisions)*delta_y)
+            );
+
+
+        point_array[index++] = make_tuple(
+            get<0>(master_circle[j])*cos(i*delta_y) 
+                + get<2>(master_circle[j])*sin(i*delta_y),
+            get<1>(master_circle[j]),
+            -get<0>(master_circle[j])*sin(i*delta_y) 
+                + get<2>(master_circle[j])*cos(i*delta_y)
+            );
+        point_array[index++] = make_tuple(
+            get<0>(master_circle[(j+1)%vertical_divisions])
+                *cos(((i+1)%horizontal_divisions)*delta_y) 
+                + get<2>(master_circle[(j+1)%vertical_divisions])
+                *sin(((i+1)%horizontal_divisions)*delta_y),
+            get<1>(master_circle[(j+1)%vertical_divisions]),
+            -get<0>(master_circle[(j+1)%vertical_divisions])
+                *sin(((i+1)%horizontal_divisions)*delta_y) 
+                + get<2>(master_circle[(j+1)%vertical_divisions])
+                *cos(((i+1)%horizontal_divisions)*delta_y)
+            );
+        point_array[index++] = make_tuple(
+            get<0>(master_circle[j])*cos(((i+1)%horizontal_divisions)*delta_y) 
+                + get<2>(master_circle[j])*sin(((i+1)%horizontal_divisions)*delta_y),
+            get<1>(master_circle[j]),
+            -get<0>(master_circle[j])*sin(((i+1)%horizontal_divisions)*delta_y) 
+                + get<2>(master_circle[j])*cos(((i+1)%horizontal_divisions)*delta_y)
+            );
+\end{lstlisting}
+Como o conjunto de pontos auxiliar define uma circunferência, é necessário calcular o módulo do índice com o tamanho total de modo a permanecer dentro do array e fazer com que os pontos iniciais e finais coincidam.
+
+
+
+\chapter{\textit{Engine}} \label{chap:engine}
+Neste capítulo falaremos do motor 3D, que poderá ser constituído maioritariamente por duas partes:
+\begin{itemize}
+    \item Classes
+    \item Parsing de XML
+    \item Engine em si
+\end{itemize}
+\section{Classes}
+Antes de prosseguir para a função de \textit{parsing}, é importante referir que criamos três classes que permitem armazenar o conteúdo lido do \textit{xml}, e desse modo, evitar que o ficheiro tenha de ser lido mais do que uma vez.
+Temos, por isso, uma classe \textit{Window} que guardar a largura (\textit{width}) e altura (\textit{height}) da janela.
+\begin{lstlisting}[language = c++]
+class Window{
+public:
+    // Valores por Omissao
+    float width = 512;
+    float height = 512; 
+};
+\end{lstlisting}
+Além dessa, a classe \textit{Camara} guarda as coordenadas da sua posição (\textit{position}), o ponto para qual a camara está a olhar (\textit{lookAt}), o vetor "up" (\textit{"up vector"}) e a projeção (\textit{projection}).
+\begin{lstlisting}[language = c++]
+class Camera{
+public:
+    float position[3] = {1,2,1}; // Valor por omissão sugerido por nos
+    float lookAt[3] = {0,0,0}; // valor por omissão sugerido por nos
+    float up[3] = {0,1,0}; // Valor Padrao segundo o ficheiro de exemplo
+    float projection[3] = {60,1,1000}; // Valor Padrao segundo o ficheiro de exemplo
+};
+\end{lstlisting}
+
+Por fim, possuímos duas classes que se englobam numa. O \textit{model} que guarda um \textit{array} de n-tuplos do tipo \textit{float} com n igual a 3 que representam as coordenadas de cada ponto. O \textit{group} possuí um vetor de apontadores para \textit{models}.
+\begin{lstlisting}[language = c++]
+class Model{
+public:
+    int size;
+    std::tuple<float, float, float>* figure;
+};
+
+
+class Group{
+public:
+    std::vector<Model*> models;
+};
+\end{lstlisting}
+
+\section{Parser}
+O \textit{engine} de conseguir ler um ficheiro de configuração xml. Para tal, seguimos a sugestão do link do \textit{StackOverflow} do enunciado do trabalho. Portanto, escolhemos o \textit{rapidxml} como \textit{XML DOM parser}, por ser \textit{open-source} e ser bastante eficiente em relação aos outros \textit{parsers}.
+
+O nosso \textit{parser} é divido em várias funções, cada uma corresponde ao \textit{parsing} dos campos do \textit{xml} correspondente a cada classe.
+
+Começando pela função principal, nele começamos por abrir o documento \textit{xml} e preparar para começar a percorrer cada um dos nodos e atributos do ficheiro. O primeiro nodo chamamos de \textit{root\_node} e corresponde ao primeiro \textit{node} (\textit{world}).
+Posteriormente, fazemos a procura da janela, câmara e grupo. Caso esse campo exista no \textit{xml}, chamamos a função de \textit{parsing} respetiva à classe.
+\begin{lstlisting}[language = c++]
+void parser(char* fileName, Window* window, Camera* camera, Group* group)
+{  
+    
+    xml_document<> doc;
+    xml_node<> * root_node = NULL;
+
+    // Leitura do Ficheiro
+    ifstream theFile (fileName);
+    vector<char> buffer((istreambuf_iterator<char>(theFile)), istreambuf_iterator<char>());
+    buffer.push_back('\0');
+   
+    // Parsing
+    doc.parse<0>(&buffer[0]);
+   
+    // Encontrar o nodo raiz aka world
+    root_node = doc.first_node("world");
+    
+    xml_node<> *temp;
+
+    // Janela
+    if((temp = root_node->first_node("window")))
+        parse_window(temp, window);
+    
+    // Camara
+    if((temp = root_node->first_node("camera")))
+        parse_camera(temp, camera);
+
+    // Grupo
+    if((temp = root_node->first_node("group")))
+        parse_group(temp, group);
+}
+\end{lstlisting}
+
+Tanto na função da janela quanto na função da câmara, tentamos ser o mais o mais genérico possível, no sentido em que se um dos campos não aparecer no ficheiro, usamos o valor por omissão definido na classe, como se pode ver no excerto de código abaixo.
+\begin{lstlisting}[language = c++]
+void parse_window(xml_node<> *window_node, Window* window){
+    xml_attribute<> *temp;
+    
+    if((temp = window_node->first_attribute("width")))
+        window->width = atof(temp->value());
+
+    if((temp = window_node->first_attribute("height")))
+        window->height = atof(temp->value());
+}
+
+void parse_camera(xml_node<> *camera_node, Camera* camera){
+    xml_node<> *temp;
+
+    if((temp = camera_node->first_node("position"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("x")))
+            camera->position[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            camera->position[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            camera->position[2] = atof(attr->value());
+    }
+
+    if((temp = camera_node->first_node("lookAt"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("x")))
+            camera->lookAt[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            camera->lookAt[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            camera->lookAt[2] = atof(attr->value());
+    }
+
+    if((temp = camera_node->first_node("up"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("x")))
+            camera->up[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("y")))
+            camera->up[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("z")))
+            camera->up[2] = atof(attr->value());
+    }
+
+    if((temp = camera_node->first_node("projection"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("fov")))
+            camera->projection[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("near")))
+            camera->projection[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("far")))
+            camera->projection[2] = atof(attr->value());
+    }
+
+}
+\end{lstlisting}
+
+A função do \textit{Group} é ligeiramente diferente às anteriores porque um \textit{group} possuí um nodo \textit{Models} com um número arbitrário de \textit{Model}'s, portanto, temos de recorrer a um ciclo para percorrer todos os nodos. Dentro da função, abrimos e lemos cada ficheiro de cada \textit{Model}, que fora gerado pelo \textit{generator}.
+Como mencionado anteriormente, um ficheiro .3d tem um inteiro seguido por um \textit{array} de tuplos. Seguindo essa lógica, primeiro lemos para um inteiro o valor escrito no ficheiro, que simboliza o número de vértices e só depois é que lemos o \textit{array} de uma só vez, pois sabemos o número de pontos, realizando apenas duas operações de leitura. Finalmente, criamos um \textit{Model}, guardamos tudo na estrutura, e esse objeto é, também, guardado dentro do array de \textit{Models} do objeto \textit{Group}.
+\begin{lstlisting}[language = c++]
+void parse_group(xml_node<> *group_node, Group* group){
+    for(xml_node<> *node_models = group_node->first_node("models")->first_node();node_models; node_models = node_models->next_sibling()){
+        // Criar fstream e abrir
+        fstream filestream;
+        filestream.open(node_models->first_attribute()->value(), ios::in|ios::binary);
+
+        // Ler inteiro para o n
+        int n;
+        filestream.read((char*)&n,sizeof(int));
+
+        // Ler array de tuplos
+        tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
+        filestream.read((char*)tuples, sizeof(tuple<float,float,float>) * n);
+
+        // fechar o ficheiro
+        filestream.close();
+
+        // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
+        Model* model = new Model;
+        model->figure = tuples;
+        model->size = n;
+        group->models.push_back(model);
+    }
+    
+}
+\end{lstlisting}
+
+\section{\textit{Engine}}
+Finalmente, no ficheiro \textit{engine.cpp}, tratamos da parte gráfica.
+A primeira função é a função run() que é chamada no \textit{main.cpp}, e leva como argumentos os objetos criados igualmente no main, isto é, Câmara, janela e grupo, além do \textit{argv} e \textit{argc}. A função começa com a passagem da \textit{camera} e do \textit{group} para uma variável global, pois as funções \textit{renderScene} e \textit{changeSize} não possuem argumentos. A seguir, iniciamos o \textit{GLUT} e a janela, o registro de \textit{Callback} com \textit{glutDisplayFunc} e \textit{changeSize} e o \textit{Callback} com a função processKeys. Por fim, a opções do \textit{openGL} e chamamos o \textit{glutMainLoop}.
+\begin{lstlisting}[language = c++]
+void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
+    camera_global = camera;
+	group_global = group;
+
+	// init GLUT and the window
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
+	glutInitWindowPosition(100,100);
+	glutInitWindowSize(window->height,window->width);
+	glutCreateWindow("3DEngine");
+		
+// Required callback registry 
+	glutDisplayFunc(renderScene);
+	glutReshapeFunc(changeSize);
+	
+// Callback registration for keyboard processing
+	glutKeyboardFunc(processKeys);
+	//glutSpecialFunc(processSpecialKeys);
+
+//  OpenGL settings
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	
+// enter GLUT's main cycle
+	glutMainLoop();
+}
+\end{lstlisting}
+
+Na função \textit{renderScene}, ao chamar a gluLookAt(), utilizamos os campos do objeto \textit{Camara} e temos duas funções de desenho, uma \textit{drawAxis} que desenha os eixos e uma \textit{draw} que desenha todas as figuras pedidas pelo \textit{xml}. É de realçar que temos uma variável global que indica se o eixo está ativo ou não, e portanto, se estiver a falso, não desenha os eixos.
+\begin{lstlisting}[language = c++]
+void renderScene(void) {
+
+	// clear buffers
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// set the camera
+	glLoadIdentity();
+	gluLookAt(camera_global->position[0], camera_global->position[1], camera_global->position[2],
+		camera_global->lookAt[0], camera_global->lookAt[1], camera_global->lookAt[2],
+		camera_global->up[0], camera_global->up[1], camera_global->up[2]);
+
+	// Colocar funcoes de desenho aqui
+	if(axis)
+		drawAxis();
+	draw();
+
+	// End of frame
+	glutSwapBuffers();
+}
+\end{lstlisting}
+
+Na função \textit{changeSize} na \textit{gluPerspective}, colocamos os campos do objeto nos parâmetros. 
+\begin{lstlisting}[language = c++]
+void changeSize(int w, int h) {
+
+	// Prevent a divide by zero, when window is too short
+	// (you cant make a window with zero width).
+	if(h == 0)
+		h = 1;
+
+	// compute window's aspect ratio 
+	float ratio = w * 1.0 / h;
+
+	// Set the projection matrix as current
+	glMatrixMode(GL_PROJECTION);
+	// Load Identity Matrix
+	glLoadIdentity();
+	
+	// Set the viewport to be the entire window
+    glViewport(0, 0, w, h);
+
+	// Set perspective
+	gluPerspective(camera_global->projection[0],ratio, camera_global->projection[1] ,camera_global->projection[2]);
+
+	// return to the model view matrix mode
+	glMatrixMode(GL_MODELVIEW);
+}
+\end{lstlisting}
+
+A função \textit{drawAxis} desenha os três eixos x, y e z com diferentes cores.
+\begin{lstlisting}[language = c++]
+void drawAxis(){
+	glBegin(GL_LINES);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-100.0f, 0.0f, 0.0f);
+	glVertex3f( 100.0f, 0.0f, 0.0f);
+
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(0.0f, -100.0f, 0.0f);
+	glVertex3f(0.0f, 100.0f, 0.0f);
+
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, -100.0f);
+	glVertex3f(0.0f, 0.0f, 100.0f);
+
+	glEnd();
+}
+\end{lstlisting}
+
+Já a função \textit{draw} mencionada atrás também recorre a uma variável global para decidir se queremos as figuras geométricas a serem desenhadas com o modo \textit{polygon} ou não. O restante, são dois ciclos \textit{fors} que percorrem o \textit{vector} do objeto \textit{Group} e em cada objeto \textit{Model}, percorremos os vértices, ao mesmo tempo que os desenhamos.
+\begin{lstlisting}[language = c++]
+void draw(){
+	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
+	glBegin(GL_TRIANGLES);
+	glColor3f(1.0f,1.0f,1.0f);
+	for(int i=0; i<group_global->models.size(); i++){
+		for(int j=0; j<group_global->models[i]->size; j++){
+			glVertex3f(get<0>(group_global->models[i]->figure[j]), get<1>(group_global->models[i]->figure[j]), get<2>(group_global->models[i]->figure[j]));
+		}
+	}
+	glEnd();
+}
+\end{lstlisting}
+
+Em último lugar, decidimos implementar a função \textit{processKeys}, que, por agora, possui apenas dois comandos, remover ou adicionar os eixos ou o \textit{model} ter o modo \textit{polygon}, para tal, utilizamos duas variáveis globais que servem como booleanos. Para executar esses comandos, basta pressionar os botões "o" e "p" do teclado para remover os eixos ou trocar o modo \textit{polygon}, respetivamente.
+\begin{lstlisting}[language = c++]
+void processKeys(unsigned char key, int xx, int yy) {
+
+	switch(key){
+		case 'o':{
+			axis = !axis;
+			break;
+		}
+
+		case 'p':{
+			polygon = !polygon;
+			break;
+		}
+
+		default:{
+			return;
+		}
+	}
+	glutPostRedisplay();
+
+}
+\end{lstlisting}
+
+\chapter{Resultados} \label{chap:resultado}
+
+Neste capítulo apresentamos os resultados obtidos da execução de ambas as aplicações utilizando os ficheiros de teste fornecidos. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{1.png}
+\caption{Teste 1\_1}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{2.png}
+\caption{Teste 1\_2}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{3.png}
+\caption{Teste 1\_3}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{4.png}
+\caption{Teste 1\_4}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{1_5.png}
+\caption{Teste 1\_5}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{torus.png}
+\caption{Torus}
+\end{figure}
+
+\chapter{Conclusão} \label{chap:conclusion}
+
+Em suma, ao longo deste relatório foram desenvolvidas duas aplicações, \textit{engine} e \textit{generator}, com sucesso.
+A aplicação \textit{engine}, que utiliza o \textit{rapixml} para interpretar um ficheiro \textit{xml} fornecido pelo utilizador e gerado pelo \textit{generator}, que é capaz de gerar ficheiros para cinco primitivas gráficas: esfera, cone, plano, cubo e toros.
+
+\end{document}
