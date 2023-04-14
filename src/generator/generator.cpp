@@ -136,32 +136,30 @@ vector<tuple<float,float, float>>* generate_cylinder(float radius, float height,
     float alfa = 2*M_PI/slices;
 
     for (int i = 0; i < slices; i++) {
-		point_array->push_back(make_tuple(0.0f,-height/2, 0.0f));
+        //bottom part
+        point_array->push_back(make_tuple(0.0f,-height/2, 0.0f));
         point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),-height/2, radius*cos(alfa * (i+1))));
         point_array->push_back(make_tuple(radius*sin(alfa * i),-height/2, radius*cos(alfa * i)));
         
-	}
-
-    for(int i=0; i<stacks; i++){
-        for(int j=0; j<slices; j++){
-            double bot_height = -height/2 + i*division_height_step;
-			double top_height = bot_height + division_height_step;
-
-            point_array->push_back(make_tuple(radius*sin(alfa * j),bot_height, radius*cos(alfa * j)));
-            point_array->push_back(make_tuple(radius*sin(alfa * (j+1)),bot_height, radius*cos(alfa * (j+1))));
-            point_array->push_back(make_tuple(radius*sin(alfa * j),top_height, radius*cos(alfa * j)));
-
-            point_array->push_back(make_tuple(radius*sin(alfa * j),top_height, radius*cos(alfa * j)));
-            point_array->push_back(make_tuple(radius*sin(alfa * (j+1)),bot_height, radius*cos(alfa * (j+1))));
-            point_array->push_back(make_tuple(radius*sin(alfa * (j+1)),top_height, radius*cos(alfa * (j+1))));
-        }
-    }
-
-    for(int i=0; i<slices; i++){
+        //top part
         point_array->push_back(make_tuple(radius*sin(alfa * i),height/2, radius*cos(alfa * i)));
         point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),height/2, radius*cos(alfa * (i+1))));
         point_array->push_back(make_tuple(0.0f,height/2, 0.0f));
-    }
+
+        //middle part
+        for(int j=0; j<stacks; j++){
+            double bot_height = -height/2 + j*division_height_step;
+            double top_height = bot_height + division_height_step;
+
+            point_array->push_back(make_tuple(radius*sin(alfa * i),bot_height, radius*cos(alfa * i)));
+            point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),bot_height, radius*cos(alfa * (i+1))));
+            point_array->push_back(make_tuple(radius*sin(alfa * i),top_height, radius*cos(alfa * i)));
+
+            point_array->push_back(make_tuple(radius*sin(alfa * i),top_height, radius*cos(alfa * i)));
+            point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),bot_height, radius*cos(alfa * (i+1))));
+            point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),top_height, radius*cos(alfa * (i+1))));
+        }
+	}
 
     return point_array;
 }
