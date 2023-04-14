@@ -232,28 +232,24 @@ void processKeys(unsigned char key, int xx, int yy) {
 	case 'u': {
 		save_position();
 		look_rotate_up = (look_rotate_up + 1) % (int)((2 * M_PI) / look_rotate_delta_up + 1);
-		printf("up: %d\n", look_rotate_up);
 		break;
 	}
 
 	case 'j': {
 		save_position();
 		look_rotate_up = (look_rotate_up - 1) % (int)((2 * M_PI) / look_rotate_delta_up + 1);
-		printf("up: %d\n", look_rotate_up);
 		break;
 	}
 
 	case 'h': {
 		save_position();
 		look_rotate_right = (look_rotate_right + 1) % (int)((2 * M_PI) / look_rotate_delta_right + 1);
-		printf("right: %d\n", look_rotate_right);
 		break;
 	}
 
 	case 'k': {
 		save_position();
 		look_rotate_right = (look_rotate_right - 1) % (int)((2 * M_PI) / look_rotate_delta_right + 1);
-		printf("right: %d\n", look_rotate_right);
 		break;
 	}
 
