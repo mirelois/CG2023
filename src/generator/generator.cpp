@@ -133,31 +133,28 @@ vector<tuple<float,float, float>>* generate_cylinder(float radius, float height,
     vector<tuple<float,float, float>>* point_array = new vector<tuple<float,float,float>>;
 
     float division_height_step = height/stacks;
-    float division_raidus_step = radius/stacks;
     float alfa = 2*M_PI/slices;
 
     for(int i=0; i<stacks; i++){
         for(int j=0; j<slices; j++){
             double bot_height = -height/2 + i*division_height_step;
 			double top_height = bot_height + division_height_step;
-			double bot_radius = radius - i*division_raidus_step;
-			double top_radius = bot_radius - division_raidus_step;
 
-            point_array->push_back(make_tuple(sin(alfa * j),top_height, cos(alfa * j)));
-            point_array->push_back(make_tuple(sin(alfa * (j+1)),top_height, cos(alfa * (j+1))));
+            point_array->push_back(make_tuple(radius*sin(alfa * j),top_height, radius*cos(alfa * j)));
+            point_array->push_back(make_tuple(radius*sin(alfa * (j+1)),top_height, radius*cos(alfa * (j+1))));
             point_array->push_back(make_tuple(0.0f,top_height, 0.0f));
 
             point_array->push_back(make_tuple(0.0f,bot_height, 0.0f));
-            point_array->push_back(make_tuple(sin(alfa * (j+1)),bot_height, cos(alfa * (j+1))));
-            point_array->push_back(make_tuple(sin(alfa * j),bot_height, cos(alfa * j)));
+            point_array->push_back(make_tuple(radius*sin(alfa * (j+1)),bot_height, radius*cos(alfa * (j+1))));
+            point_array->push_back(make_tuple(radius*sin(alfa * j),bot_height, radius*cos(alfa * j)));
 
-            point_array->push_back(make_tuple(sin(alfa * j),bot_height, cos(alfa * j)));
-            point_array->push_back(make_tuple(sin(alfa * (j+1)),bot_height, cos(alfa * (j+1))));
-            point_array->push_back(make_tuple(sin(alfa * j),top_height, cos(alfa * j)));
+            point_array->push_back(make_tuple(radius*sin(alfa * j),bot_height, radius*cos(alfa * j)));
+            point_array->push_back(make_tuple(radius*sin(alfa * (j+1)),bot_height, radius*cos(alfa * (j+1))));
+            point_array->push_back(make_tuple(radius*sin(alfa * j),top_height, radius*cos(alfa * j)));
 
-            point_array->push_back(make_tuple(sin(alfa * j),top_height, cos(alfa * j)));
-            point_array->push_back(make_tuple(sin(alfa * (j+1)),bot_height, cos(alfa * (j+1))));
-            point_array->push_back(make_tuple(sin(alfa * (j+1)),top_height, cos(alfa * (j+1))));
+            point_array->push_back(make_tuple(radius*sin(alfa * j),top_height, radius*cos(alfa * j)));
+            point_array->push_back(make_tuple(radius*sin(alfa * (j+1)),bot_height, radius*cos(alfa * (j+1))));
+            point_array->push_back(make_tuple(radius*sin(alfa * (j+1)),top_height, radius*cos(alfa * (j+1))));
         }
     }
 
@@ -247,7 +244,6 @@ tuple <float, float, float>* generate_plane(float length, int grid_slices, int* 
 tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, int *points_total){
     *points_total = slices*6*(stacks-1);
     float alfa_x = M_PI/stacks;
-
     float alfa_y = 2*M_PI/slices;
 
     float pivot_x = 0;
@@ -355,7 +351,7 @@ int main(int argc, char* argv[]){
         free(torus);
     } else if(!strcmp(argv[1], "cylinder")){
         vector<tuple<float,float, float>>* cylinder = generate_cylinder(atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
-        points_write(argv[5], cylinder->size(), cylinder->data());
+        points_write(argv[6], cylinder->size(), cylinder->data());
         free(cylinder);
     }else{
         printf("Invalid Model\n");
