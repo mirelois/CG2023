@@ -31,7 +31,7 @@ tuple<float, float, float>* generate_torus(float inner_radius, float outer_radiu
 
     float pivot_y = (outer_radius-inner_radius)/2;
 
-    float pivot_z = 0;
+    //float pivot_z = 0;
 
 
     for (int i = 0; i < vertical_divisions; i++) {
@@ -243,7 +243,7 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
 
     float pivot_x = 0;
     float pivot_y = radius;
-    float pivot_z = 0;
+    //float pivot_z = 0;
 
     tuple<float, float, float>* master_line = new tuple<float,float,float>[stacks+1];
     tuple<float,float,float>* points_array = new tuple<float,float,float>[*points_total];
