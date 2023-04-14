@@ -1074,7 +1074,7 @@
             <!-- Saturn-->
             <transform>
                 <translate x="34.30985376127905084331" y="0" z="0" />
-                <rotate angle="0" x="0" y="0" z="0" />
+                <rotate angle="20" x="1" y="0" z="0" />
                 <scale x="0.04181230702951102" y="0.04181230702951102"
                     z="0.04181230702951102" />
             </transform>
@@ -1083,7 +1083,7 @@
             </models>
             <group>
                 <transform>
-                    <scale x="5" y="0.1" z="5" />
+                    <scale x="2" y="0.1" z="2" />
                 </transform>
                 <models>
                     <model file="models/torus.3d" />
