@@ -8,7 +8,7 @@ void parse_bezier(char *fileName, vector<vector<int>*>* patches, vector<vector<f
     string number;
     
     file >> nPatches;
-    
+
     getline(file,number,'\n');
     for(int i=0; i<nPatches; i++){
         vector<int>* patch = new vector<int>();
@@ -58,11 +58,11 @@ void calculate_points(vector<tuple<float,float,float>>* point_vector, vector<vec
     }; 
     
     for(vector<int>* patch: *patches){
-        for(int p = 0; p<3; p++){
+        printf("patch\n");
             float point[3];
             for(int i=0; i<=tessellationLevel; i++){
                 for(int j=0; j<=tessellationLevel; j++){
-                    
+                    for(int p = 0; p<3; p++){
                     float MV[4][1]; // M^T = M no caso de Bezier
                     float v[4][1] = {{j*j*j*1.0f/(tessellationLevel*tessellationLevel*tessellationLevel)},
                      {j*j*1.0f/(tessellationLevel*tessellationLevel)},
@@ -88,10 +88,11 @@ void calculate_points(vector<tuple<float,float,float>>* point_vector, vector<vec
                     //printf("%f %f %f \n", MPMV[0], MPMV[1], MPMV[2]);
 
                     point[p] = (i*i*i)/(tessellationLevel*tessellationLevel*tessellationLevel)*MPMV[0][0] + (i*i)/(tessellationLevel*tessellationLevel)*MPMV[1][0] + i/tessellationLevel*MPMV[2][0] + MPMV[3][0];
-
+                    }
+                point_vector->push_back(make_tuple(point[0], point[1], point[2]));
+                printf("%f %f %f \n", point[0], point[1], point[2]);
                 }
-            }
-            point_vector->push_back(make_tuple(point[0], point[1], point[2]));
+            
         } 
     }
 }
@@ -105,9 +106,9 @@ vector<tuple<float,float,float>>* generate_bezier(char *fileName, int tessellati
     parse_bezier(fileName, patches, cpoints);
     calculate_points(point_vector, patches, cpoints, tessellationLevel);
     
-    for(tuple<float,float,float> tuplo: *point_vector){
-        printf("%f %f %f\n", get<0>(tuplo),get<1>(tuplo),get<2>(tuplo));
-    }
+    //for(tuple<float,float,float> tuplo: *point_vector){
+    //    printf("%f %f %f\n", get<0>(tuplo),get<1>(tuplo),get<2>(tuplo));
+    //}
     
     return point_vector;
 }
