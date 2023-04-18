@@ -5,6 +5,8 @@ PROJECT(generator)
 
 add_executable(generator
 	generator.cpp
+	bezier.cpp
+	bezier.h
 )
 
 target_link_libraries(

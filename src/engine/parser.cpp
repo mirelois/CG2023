@@ -78,7 +78,6 @@ void parse_group_models(xml_node<> *node_Models, Group* group){
         // Ler array de tuplos
         tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
         filestream.read((char*)tuples, sizeof(tuple<float,float,float>) * n);
-
         // fechar o ficheiro
         filestream.close();
 

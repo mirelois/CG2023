@@ -12,6 +12,7 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -pedantic")
 
 add_subdirectory(src/generator)
 add_subdirectory(src/engine)
+
 target_include_directories(generator PUBLIC include)
 target_include_directories(engine PUBLIC include)
 
