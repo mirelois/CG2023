@@ -64,6 +64,15 @@ else (WIN32) #Linux and Mac
 	link_directories(${GLUT_LIBRARY_DIRS})
 	add_definitions(${GLUT_DEFINITIONS})
 	
+	if (NOT APPLE)
+		find_package(GLEW REQUIRED)
+		include_directories(${GLEW_INCLUDE_DIRS})
+		link_libraries(${GLEW_LIBRARIES})
+		target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES})
+	else (NOT APPLE)
+		target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} )
+	endif(NOT APPLE)
+
 	target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} )
 	if(NOT GLUT_FOUND)
 	   message(ERROR ": GLUT not found!")
