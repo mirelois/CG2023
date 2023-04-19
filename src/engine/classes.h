@@ -1,6 +1,12 @@
 #include <tuple>
 #include <vector>
 
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
 class Camera {
 public:
     float position[3] = { 1,2,1 }; // Valor por omiss�o sugerido por n�s
@@ -24,15 +30,84 @@ public:
 };
 
 
+class Transformation{
+public:
+    void virtual transform() = 0;
+};
+
+class Translate: public Transformation{
+private:
+float arguments[3];
+public:
+void setArgOne(float x){
+    arguments[0] = x;
+}
+
+void setArgTwo(float y){
+    arguments[1] = y;
+}
+
+void setArgThree(float z){
+    arguments[2] = z;
+}
+
+void transform() override{
+    glTranslatef(arguments[0], arguments[1], arguments[2]);
+}
+};
+
+class Rotate: public Transformation{
+private:
+float arguments[4];
+public:
+void setArgOne(float alpha){
+    arguments[0] = alpha;
+}
+
+void setArgTwo(float x){
+    arguments[1] = x;
+}
+
+void setArgThree(float y){
+    arguments[2] = y;
+}
+
+void setArgFour(float z){
+    arguments[3] = z;
+}
+
+void transform() override{
+    glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
+}
+};
+
+class Scale: public Transformation{
+private:
+float arguments[3];
+public:
+void setArgOne(float x){
+    arguments[0] = x;
+}
+
+void setArgTwo(float y){
+    arguments[1] = y;
+}
+
+void setArgThree(float z){
+    arguments[2] = z;
+}
+
+void transform() override{
+    glScalef(arguments[0], arguments[1], arguments[2]);
+}
+};
+
 class Group{
 public:
     std::vector<Model*> models;
 
 
-    std::vector<char> transformations;
-    float translate[3];
-    float rotate[4];
-    float scale[3];
+    std::vector<Transformation*> transformations;
 
     //Group *group = 0;
     std::vector<Group*> subGroups;

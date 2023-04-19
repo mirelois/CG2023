@@ -30,25 +30,8 @@ void drawAxis(){
 void drawGroup(Group* group){
 	glPushMatrix();
 	
-	for(char transformation: group->transformations){
-		switch(transformation){
-
-			case 't': {
-				glTranslatef(group->translate[0], group->translate[1], group->translate[2]);
-				break;
-			}
-
-			case 'r': {
-				glRotatef(group->rotate[0], group->rotate[1], group->rotate[2], group->rotate[3]);
-				break;
-			}
-
-			case 's':{
-				glScalef(group->scale[0], group->scale[1], group->scale[2]);
-				break;
-			}
-
-		}
+	for(Transformation* transformation: group->transformations){
+		transformation->transform();
 	}
 
 	glBegin(GL_TRIANGLES);
@@ -96,24 +79,24 @@ float normalize_vector(float p[3]) {
 }
 
 void save_position() {
-	//os cálculos estão aqui dentro se por ventura nos interessar mudar a direção da câmera (implica recalcular)
-	//se estiver demasiado lento põe-se no início
+	//os cï¿½lculos estï¿½o aqui dentro se por ventura nos interessar mudar a direï¿½ï¿½o da cï¿½mera (implica recalcular)
+	//se estiver demasiado lento pï¿½e-se no inï¿½cio
 	float d[3] = { camera_global->lookAt[0] - camera_global->position[0],
 		camera_global->lookAt[1] - camera_global->position[1],
 		camera_global->lookAt[2] - camera_global->position[2] };
 
 	normalize_vector(d);
 
-	//rotação de l sobre o eixo up e sobre o eixo r
-	//na documentação do glut tem a matriz explicitada, ter cuidado que faltam parenteses
+	//rotaï¿½ï¿½o de l sobre o eixo up e sobre o eixo r
+	//na documentaï¿½ï¿½o do glut tem a matriz explicitada, ter cuidado que faltam parenteses
 	//https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glRotate.xml
 
 	normalize_vector(camera_global->up);
 
 	rotate_over_vector(d, camera_global->up, look_rotate_right * look_rotate_delta_right);
 
-	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
-	//a direção para a frente é o -z
+	//cross product ï¿½ mï¿½o enquanto nï¿½o descubro como fazer pela funï¿½ï¿½o cross (cadï¿½?)
+	//a direï¿½ï¿½o para a frente ï¿½ o -z
 	float r[3] = { d[1] * camera_global->up[2] - camera_global->up[1] * d[2],
 		d[2] * camera_global->up[0] - camera_global->up[2] * d[0],
 		d[0] * camera_global->up[1] - camera_global->up[0] * d[1] };
@@ -139,24 +122,24 @@ void renderScene(void) {
 	glLoadIdentity();
 
 
-	//os cálculos estão aqui dentro se por ventura nos interessar mudar a direção da câmera (implica recalcular)
-	//se estiver demasiado lento põe-se no início
+	//os cï¿½lculos estï¿½o aqui dentro se por ventura nos interessar mudar a direï¿½ï¿½o da cï¿½mera (implica recalcular)
+	//se estiver demasiado lento pï¿½e-se no inï¿½cio
 	float d[3] = { camera_global->lookAt[0] - camera_global->position[0],
 		camera_global->lookAt[1] - camera_global->position[1],
 		camera_global->lookAt[2] - camera_global->position[2] };
 	
 	float norm = normalize_vector(d);
 
-	//rotação de l sobre o eixo up e sobre o eixo r
-	//na documentação do glut tem a matriz explicitada, ter cuidado que faltam parenteses
+	//rotaï¿½ï¿½o de l sobre o eixo up e sobre o eixo r
+	//na documentaï¿½ï¿½o do glut tem a matriz explicitada, ter cuidado que faltam parenteses
 	//https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glRotate.xml
 
 	normalize_vector(camera_global->up);
 	
 	rotate_over_vector(d, camera_global->up, look_rotate_right * look_rotate_delta_right);
 
-	//cross product à mão enquanto não descubro como fazer pela função cross (cadê?)
-	//a direção para a frente é o -z
+	//cross product ï¿½ mï¿½o enquanto nï¿½o descubro como fazer pela funï¿½ï¿½o cross (cadï¿½?)
+	//a direï¿½ï¿½o para a frente ï¿½ o -z
 	float r[3] = { d[1] * camera_global->up[2] - camera_global->up[1] * d[2],
 		d[2] * camera_global->up[0] - camera_global->up[2] * d[0],
 		d[0] * camera_global->up[1] - camera_global->up[0] * d[1] };

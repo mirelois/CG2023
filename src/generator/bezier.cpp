@@ -91,14 +91,24 @@ vector<tuple<float,float,float>>* generate_bezier(char *file_name, int tessellat
     parse_bezier(file_name, patches, cpoints);
     
     for(vector<int>* patch: *patches){
-        for(int u=0;u<=tessellation_level; u++){
-            for(int v=0; v<=tessellation_level; v++){
-                point_vector->push_back(calculate_square(u/tessellation_level*1.0f,v/tessellation_level*1.0f, patch, cpoints));
-                point_vector->push_back(calculate_square((u+1)/tessellation_level*1.0f,v/tessellation_level*1.0f, patch, cpoints));
-                point_vector->push_back(calculate_square((u+1)/tessellation_level*1.0f,(v+1)/tessellation_level*1.0f, patch, cpoints));
-                point_vector->push_back(calculate_square(u/tessellation_level*1.0f,(v+1)/tessellation_level*1.0f, patch, cpoints));
+        for(int u=0; u<tessellation_level; u++){
+            for(int v=0; v<tessellation_level; v++){
+                point_vector->push_back(calculate_square(u/tessellation_level,v/tessellation_level, patch, cpoints));
+                point_vector->push_back(calculate_square(u/tessellation_level,(v+1)/tessellation_level, patch, cpoints));
+                point_vector->push_back(calculate_square((u+1)/tessellation_level,(v+1)/tessellation_level, patch, cpoints));
+
+                point_vector->push_back(calculate_square((u+1)/tessellation_level,(v+1)/tessellation_level, patch, cpoints));
+                point_vector->push_back(calculate_square((u+1)/tessellation_level,v/tessellation_level, patch, cpoints));
+                point_vector->push_back(calculate_square(u/tessellation_level,v/tessellation_level, patch, cpoints));
+                //point_vector->push_back(calculate_square((u+1)/tessellation_level*1.0f,v/tessellation_level*1.0f, patch, cpoints));
+                //point_vector->push_back(calculate_square((u+1)/tessellation_level*1.0f,(v+1)/tessellation_level*1.0f, patch, cpoints));
+                //point_vector->push_back(calculate_square(u/tessellation_level*1.0f,(v+1)/tessellation_level*1.0f, patch, cpoints));
             }
         }
+    }
+
+    for(tuple<float,float,float> tuple: *point_vector){
+        printf("%f %f %f\n", get<0>(tuple),get<1>(tuple),get<2>(tuple));
     }
 
     return point_vector;

@@ -94,64 +94,70 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
     for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
         if(!strcmp(node_temp->name(), "translate")){
-            group->transformations.push_back('t');
+            Translate* translation = new Translate();
 
             xml_attribute<> *attr;
             if((attr = node_temp->first_attribute("x")))
-                group->translate[0] = atof(attr->value());
+                translation->setArgOne(atof(attr->value()));
             else
-                group->translate[0] = 0;
+                translation->setArgOne(0.0f);
         
             if((attr = node_temp->first_attribute("y")))
-                group->translate[1] = atof(attr->value());
+                translation->setArgTwo(atof(attr->value()));
             else
-                group->translate[1] = 0;
+                translation->setArgTwo(0.0f);
         
             if((attr = node_temp->first_attribute("z")))
-                group->translate[2] = atof(attr->value());
+                translation->setArgThree(atof(attr->value()));
             else
-                group->translate[2] = 0;
+                translation->setArgThree(0.0f);
+
+            group->transformations.push_back(translation);
         } else if(!strcmp(node_temp->name(), "rotate")){
-            group->transformations.push_back('r');
+            Rotate* rotation = new Rotate();
 
             xml_attribute<> *attr;
             if((attr = node_temp->first_attribute("angle")))
-                group->rotate[0] = atof(attr->value());
+                rotation->setArgOne(atof(attr->value()));
             else
-                group->rotate[0] = 0;
-
+                rotation->setArgOne(0.0f);
+        
             if((attr = node_temp->first_attribute("x")))
-                group->rotate[1] = atof(attr->value());
+                rotation->setArgTwo(atof(attr->value()));
             else
-                group->rotate[1] = 0;
+                rotation->setArgTwo(0.0f);
         
             if((attr = node_temp->first_attribute("y")))
-                group->rotate[2] = atof(attr->value());
+                rotation->setArgThree(atof(attr->value()));
             else
-                group->rotate[2] = 0;
+                rotation->setArgThree(0.0f);
         
             if((attr = node_temp->first_attribute("z")))
-                group->rotate[3] = atof(attr->value());
+                rotation->setArgFour(atof(attr->value()));
             else
-                group->rotate[3] = 0;
+                rotation->setArgFour(0.0f);
+
+            group->transformations.push_back(rotation);
         } else if(!strcmp(node_temp->name(), "scale")){
-            group->transformations.push_back('s');
+            Scale* scale = new Scale();
 
             xml_attribute<> *attr;
             if((attr = node_temp->first_attribute("x")))
-                group->scale[0] = atof(attr->value());
+                scale->setArgOne(atof(attr->value()));
             else
-                group->scale[0] = 0;
+                scale->setArgOne(0.0f);
         
             if((attr = node_temp->first_attribute("y")))
-                group->scale[1] = atof(attr->value());
+                scale->setArgTwo(atof(attr->value()));
             else
-                group->scale[1] = 0;
+                scale->setArgTwo(0.0f);
         
             if((attr = node_temp->first_attribute("z")))
-                group->scale[2] = atof(attr->value());
+                scale->setArgThree(atof(attr->value()));
             else
-                group->scale[2] = 0;
+                scale->setArgThree(0.0f);
+
+            group->transformations.push_back(scale);
         }
     }
 }
