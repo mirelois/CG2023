@@ -2,7 +2,8 @@
 
 Camera* camera_global;
 Group* group_global;
-float  camera_move_delta = 1, look_rotate_delta_up = M_PI / 32, look_rotate_delta_right = M_PI / 32;
+float  camera_move_delta = 1, look_rotate_delta_up = M_PI / 1024, look_rotate_delta_right = M_PI / 1024;
+float startX = 0.0f, startY = 0.0f, tracking = 0;
 int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_rotate_right = 0;
 float last_camera_position[3];
 char axis = 1;
@@ -116,6 +117,8 @@ void calculate_displacement(float displacement[3], float distance_to_lookat[3]) 
 }
 
 void save_position() {
+	if (camera_front == 0 && camera_up == 0 && camera_side == 0) return;
+
 	float desl[3];
 	float dist[3];
 
@@ -284,6 +287,48 @@ void processSpecialKeys(int key, int xx, int yy) {
 
 }
 
+void processMouseButtons(int button, int state, int xx, int yy) {
+
+	if (state == GLUT_DOWN) {
+		startX = xx;
+		startY = yy;
+		tracking = 1;
+		printf("Botão\n");
+	}
+	else if (state == GLUT_UP) {
+		printf("Levanta\n");
+		tracking = 0;
+	}
+}
+
+void processMouseMotion(int xx, int yy) {
+
+	int deltaX, deltaY;
+	int alphaAux, betaAux;
+	int rAux;
+
+	if (!tracking)
+		return;
+
+	deltaX = startX - xx;
+	deltaY = startY - yy;
+
+	startX = xx;
+	startY = yy;
+
+	if (tracking == 1) {
+		save_position();
+		look_rotate_right = (look_rotate_right + deltaX) % (int)((2 * M_PI) / look_rotate_delta_right + 1);
+		look_rotate_up = (look_rotate_up + deltaY) % (int)((2 * M_PI) / look_rotate_delta_up + 1);
+		printf("%d %d\n", look_rotate_right, look_rotate_up);
+		/*if (betaAux > 85.0)
+			betaAux = 85.0;
+		else if (betaAux < -85.0)
+			betaAux = -85.0;*/
+	}
+	glutPostRedisplay();
+}
+
 void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
     camera_global = camera;
 	group_global = group;
@@ -304,6 +349,8 @@ void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
 	
 // Callback registration for keyboard processing
 	glutKeyboardFunc(processKeys);
+	glutMouseFunc(processMouseButtons);
+	glutMotionFunc(processMouseMotion);
 	//glutSpecialFunc(processSpecialKeys);
 
 //  OpenGL settings
