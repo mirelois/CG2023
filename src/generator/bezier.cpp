@@ -62,7 +62,7 @@ tuple<float,float,float> calculate_square(float u, float v, vector<int>* patch, 
     for(int p=0; p<3; p++){
         float V[4] = {v*v*v, v*v, v, 1};
         float MV[4];
-        multMatrixVector(*M,V,MV);
+        multMatrixVector(&M[0][0], V, MV);
 
         float PMV[4];
         float P[4][4] = {{cpoints->at(patch->at(0))[p], cpoints->at(patch->at(1))[p], cpoints->at(patch->at(2))[p], cpoints->at(patch->at(3))[p]},
@@ -71,10 +71,10 @@ tuple<float,float,float> calculate_square(float u, float v, vector<int>* patch, 
                         {cpoints->at(patch->at(12))[p], cpoints->at(patch->at(13))[p], cpoints->at(patch->at(14))[p], cpoints->at(patch->at(15))[p]}
         };
 
-        multMatrixVector(*P, MV, PMV);
+        multMatrixVector(&P[0][0], MV, PMV);
 
         float MPMV[4];
-        multMatrixVector(*M, PMV, MPMV);
+        multMatrixVector(&M[0][0], PMV, MPMV);
 
         points[p] = u*u*u*MPMV[0] + u*u*MPMV[1] + u*MPMV[2] + MPMV[3];
     }
