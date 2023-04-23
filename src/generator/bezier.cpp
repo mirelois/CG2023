@@ -108,7 +108,7 @@ vector<tuple<float,float,float>>* generate_bezier(char *file_name, int tessellat
     }
 
     for(tuple<float,float,float> tuple: *point_vector){
-        printf("%f %f %f\n", get<0>(tuple),get<1>(tuple),get<2>(tuple));
+        //printf("%f %f %f\n", get<0>(tuple),get<1>(tuple),get<2>(tuple));
     }
 
     return point_vector;
