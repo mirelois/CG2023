@@ -6,4 +6,4 @@
 
 using namespace std;
 
-vector<tuple<float,float,float>>* generate_bezier(char *fileName, int tessellationLevel);
+vector<tuple<float,float,float>>* generate_bezier(char *fileName, float tessellationLevel);

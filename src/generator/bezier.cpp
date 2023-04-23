@@ -15,11 +15,11 @@ void parse_bezier(char *fileName, vector<vector<int>*>* patches, vector<vector<f
         string line;
         getline(file, line, '\n');
         stringstream lineS (line);
-        
         while(getline(lineS, number, ',')){
+            //printf("%s ", number.c_str());
             patch->push_back(atoi(number.c_str()));
         }
-
+        //putchar('\n');
         patches->push_back(patch);
     }
     
@@ -32,12 +32,15 @@ void parse_bezier(char *fileName, vector<vector<int>*>* patches, vector<vector<f
         
         vector<float> points;
         while(getline(lineS, number, ',')){
+            //printf("%s ",number.c_str());
             points.push_back(atof(number.c_str()));
         }
-
+        //putchar('\n');
         cpoints->push_back(points);
     }
 
+    
+    file.close();
 }
 
 
@@ -77,19 +80,25 @@ tuple<float,float,float> calculate_square(float u, float v, vector<int>* patch, 
         multMatrixVector(&M[0][0], PMV, MPMV);
 
         points[p] = u*u*u*MPMV[0] + u*u*MPMV[1] + u*MPMV[2] + MPMV[3];
+        //printf("%f %f %f %f\n", MPMV[0], MPMV[1], MPMV[2], MPMV[3]);    
+        //printf("%f, %f %f\n\n", points[p], u, v);
+    }
+
+    if (points[0] == 0.0f && points[1] == 0.0f && points[2] == 0.0f) {
+        //printf("%f %f\n", u, v);
     }
 
     return make_tuple(points[0], points[1], points[2]);
 }
 
-vector<tuple<float,float,float>>* generate_bezier(char *file_name, int tessellation_level){
+vector<tuple<float,float,float>>* generate_bezier(char *file_name, float tessellation_level){
     vector<tuple<float,float,float>>* point_vector = new vector<tuple<float,float,float>>();
 
     vector<vector<int>*>* patches = new vector<vector<int>*>();
     vector<vector<float>>* cpoints = new vector<vector<float>>();
 
     parse_bezier(file_name, patches, cpoints);
-    
+    printf("Corri :)\n");
     for(vector<int>* patch: *patches){
         for(float u=0; u<tessellation_level; u++){
             for(float v=0; v<tessellation_level; v++){

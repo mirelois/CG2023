@@ -355,7 +355,7 @@ int main(int argc, char* argv[]){
         vector<tuple<float,float, float>>* cylinder = generate_cylinder(atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
         points_write(argv[6], cylinder->size(), cylinder->data());
         free(cylinder);
-    }else if(!strcmp(argv[1], "bezier")){
+    }else if(!strcmp(argv[1], "patch")){
         vector<tuple<float,float, float>>* bezier = generate_bezier(argv[2], atoi(argv[3]));
         points_write(argv[4], bezier->size(), bezier->data());
         free(bezier);
