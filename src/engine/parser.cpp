@@ -118,9 +118,14 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
 
             xml_attribute<> *attr;
             if((attr = node_temp->first_attribute("angle")))
-                rotation->setArgOne(atof(attr->value()));
+                rotation->setArgOne(atof(attr->value()), false);
             else
-                rotation->setArgOne(0.0f);
+                rotation->setArgOne(0.0f, false);
+
+            if ((attr = node_temp->first_attribute("time")))
+                rotation->setArgOne(atof(attr->value()), true);
+            else
+                rotation->setArgOne(0.0f, true);
         
             if((attr = node_temp->first_attribute("x")))
                 rotation->setArgTwo(atof(attr->value()));

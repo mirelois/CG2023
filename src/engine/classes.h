@@ -1,5 +1,6 @@
 #include <tuple>
 #include <vector>
+#include <math.h>
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -56,12 +57,15 @@ void transform() override{
 }
 };
 
+//desta forma perde-se precisão se o tempo de espera for muito grande
 class Rotate: public Transformation{
 private:
 float arguments[4];
+bool time;
 public:
-void setArgOne(float alpha){
+void setArgOne(float alpha, bool time){
     arguments[0] = alpha;
+    time = time;
 }
 
 void setArgTwo(float x){
@@ -77,7 +81,12 @@ void setArgFour(float z){
 }
 
 void transform() override{
-    glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
+    if (time) {
+        //Conseguir um valor que pertença a [0,1] com base no resto do tempo passado desde o último múltiplo de time
+        float timePassed = (glutGet(GLUT_ELAPSED_TIME) % (int)arguments[0]) / arguments[0];
+        glRotatef(2 * M_PI * timePassed, arguments[1], arguments[2], arguments[3]);
+    } else
+        glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
 }
 };
 
