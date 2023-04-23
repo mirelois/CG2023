@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include <tuple>
 #include <vector>
 #include <math.h>
@@ -63,9 +64,10 @@ private:
 float arguments[4];
 bool time;
 public:
-void setArgOne(float alpha, bool time){
+void setArgOne(float alpha, bool t){
+    printf("%f %d\n", alpha, t);
     arguments[0] = alpha;
-    time = time;
+    time = t;
 }
 
 void setArgTwo(float x){
@@ -82,9 +84,10 @@ void setArgFour(float z){
 
 void transform() override{
     if (time) {
-        //Conseguir um valor que pertença a [0,1] com base no resto do tempo passado desde o último múltiplo de time
-        float timePassed = (glutGet(GLUT_ELAPSED_TIME) % (int)arguments[0]) / arguments[0];
-        glRotatef(2 * M_PI * timePassed, arguments[1], arguments[2], arguments[3]);
+        //Conseguir um valor que pertença a [0,1] com base no resto do tempo passado desde o último múltiplo de 
+        float timePassed = remainder(glutGet(GLUT_ELAPSED_TIME) / 1000.0f, arguments[0]);  
+        timePassed = timePassed < 0 ? (timePassed + arguments[0]) / arguments[0] : timePassed / arguments[0];
+        glRotatef(360.0f * timePassed, arguments[1], arguments[2], arguments[3]);
     } else
         glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
 }

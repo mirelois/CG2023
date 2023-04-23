@@ -293,10 +293,8 @@ void processMouseButtons(int button, int state, int xx, int yy) {
 		startX = xx;
 		startY = yy;
 		tracking = 1;
-		printf("Botão\n");
 	}
 	else if (state == GLUT_UP) {
-		printf("Levanta\n");
 		tracking = 0;
 	}
 }
@@ -320,7 +318,6 @@ void processMouseMotion(int xx, int yy) {
 		save_position();
 		look_rotate_right = (look_rotate_right + deltaX) % (int)((2 * M_PI) / look_rotate_delta_right + 1);
 		look_rotate_up = (look_rotate_up + deltaY) % (int)((2 * M_PI) / look_rotate_delta_up + 1);
-		printf("%d %d\n", look_rotate_right, look_rotate_up);
 		/*if (betaAux > 85.0)
 			betaAux = 85.0;
 		else if (betaAux < -85.0)
@@ -345,6 +342,7 @@ void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
 		
 // Required callback registry 
 	glutDisplayFunc(renderScene);
+	glutIdleFunc(renderScene);
 	glutReshapeFunc(changeSize);
 	
 // Callback registration for keyboard processing
