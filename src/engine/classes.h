@@ -62,35 +62,58 @@ void transform() override{
 class Rotate: public Transformation{
 private:
 float arguments[4];
-bool time;
 public:
-void setArgOne(float alpha, bool t){
-    printf("%f %d\n", alpha, t);
+void setArgOne(float alpha){
     arguments[0] = alpha;
-    time = t;
 }
 
-void setArgTwo(float x){
+void virtual setArgTwo(float x){
     arguments[1] = x;
 }
 
-void setArgThree(float y){
+void virtual setArgThree(float y){
     arguments[2] = y;
 }
 
-void setArgFour(float z){
+void virtual setArgFour(float z){
     arguments[3] = z;
 }
 
 void transform() override{
-    if (time) {
-        //Conseguir um valor que pertença a [0,1] com base no resto do tempo passado desde o último múltiplo de 
-        float timePassed = remainder(glutGet(GLUT_ELAPSED_TIME) / 1000.0f, arguments[0]);  
-        timePassed = timePassed < 0 ? (timePassed + arguments[0]) / arguments[0] : timePassed / arguments[0];
-        glRotatef(360.0f * timePassed, arguments[1], arguments[2], arguments[3]);
-    } else
-        glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
+    glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
 }
+};
+
+class Rotate_Time : public Rotate {
+private:
+    float arguments[3];
+    unsigned int time;
+public:
+    Rotate_Time(unsigned int t) {
+        time = t;
+    }
+    void setTime(unsigned int t) {
+        time = t;
+    }
+
+    void setArgTwo(float x) override{
+        arguments[0] = x;
+    }
+
+    void setArgThree(float y) override {
+        arguments[1] = y;
+    }
+
+    void setArgFour(float z) override {
+        arguments[2] = z;
+    }
+
+    void transform() override {
+        //Conseguir um valor que pertença a [0,1] com base no resto do tempo passado desde o último múltiplo de 
+        float timePassed = remainder(glutGet(GLUT_ELAPSED_TIME) / 1000.0f, time);
+        timePassed = timePassed < 0 ? (timePassed + time) / time : timePassed / time;
+        glRotatef(360.0f * timePassed, arguments[0], arguments[1], arguments[2]);
+    }
 };
 
 class Scale: public Transformation{

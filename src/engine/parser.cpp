@@ -114,15 +114,22 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
 
             group->transformations.push_back(translation);
         } else if(!strcmp(node_temp->name(), "rotate")){
-            Rotate* rotation = new Rotate();
 
-            xml_attribute<> *attr;
-            if((attr = node_temp->first_attribute("angle")))
-                rotation->setArgOne(atof(attr->value()), false);
-            else if ((attr = node_temp->first_attribute("time")))
-                rotation->setArgOne(atof(attr->value()), true);
-            else
-                rotation->setArgOne(0.0f, false);
+            Rotate* rotation;
+            xml_attribute<>* attr;
+
+            if ((attr = node_temp->first_attribute("time"))) {
+                rotation = new Rotate_Time(atof(attr->value()));
+            }
+            else {
+                rotation = new Rotate();
+                if ((attr = node_temp->first_attribute("angle"))) {
+                    rotation->setArgOne(atof(attr->value()));
+                }
+                else {
+                    rotation->setArgOne(0.0f);
+                }
+            }
         
             if((attr = node_temp->first_attribute("x")))
                 rotation->setArgTwo(atof(attr->value()));
