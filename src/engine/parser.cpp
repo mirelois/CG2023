@@ -89,30 +89,73 @@ void parse_group_models(xml_node<> *node_Models, Group* group){
     }
 }
 
+void parse_translate_points(Translate_Catmull* translation, xml_node<>* node) {
+    xml_attribute<>* attr;
+    float p[3];
+    for (node = node->first_node(); node; node = node->next_sibling()) {
+        if ((attr = node->first_attribute("x"))) {
+            p[0] = atof(attr->value());
+        }
+        else {
+            p[0] = 0.0f;
+        }
+
+        if ((attr = node->first_attribute("y"))) {
+            p[1] = atof(attr->value());
+        }
+        else {
+            p[1] = 0.0f;
+        }
+
+        if ((attr = node->first_attribute("z"))) {
+            p[2] = atof(attr->value());
+        }
+        else {
+            p[2] = 0.0f;
+        }
+        translation->addPoint(p);
+    }
+}
+
 void parse_group_transform(xml_node<> *node_transform, Group* group){
     
     for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
         if(!strcmp(node_temp->name(), "translate")){
-            Translate* translation = new Translate();
 
-            xml_attribute<> *attr;
-            if((attr = node_temp->first_attribute("x")))
-                translation->setArgOne(atof(attr->value()));
-            else
-                translation->setArgOne(0.0f);
-        
-            if((attr = node_temp->first_attribute("y")))
-                translation->setArgTwo(atof(attr->value()));
-            else
-                translation->setArgTwo(0.0f);
-        
-            if((attr = node_temp->first_attribute("z")))
-                translation->setArgThree(atof(attr->value()));
-            else
-                translation->setArgThree(0.0f);
+            xml_attribute<>* attr;
+            if ((attr = node_temp->first_attribute("time"))) {
+                Translate_Catmull* translation = new Translate_Catmull();
+                translation->setTime(atof(attr->value()));
+                if ((attr = node_temp->first_attribute("align"))) {
+                    translation->setAlign(!strcmp("true", attr->value()));
+                }
+                else translation->setAlign(false);
 
-            group->transformations.push_back(translation);
+                parse_translate_points(translation, node_temp);
+
+                group->transformations.push_back(translation);
+            }
+            else {
+                Translate* translation = new Translate();
+
+                if ((attr = node_temp->first_attribute("x")))
+                    translation->setArgOne(atof(attr->value()));
+                else
+                    translation->setArgOne(0.0f);
+
+                if ((attr = node_temp->first_attribute("y")))
+                    translation->setArgTwo(atof(attr->value()));
+                else
+                    translation->setArgTwo(0.0f);
+
+                if ((attr = node_temp->first_attribute("z")))
+                    translation->setArgThree(atof(attr->value()));
+                else
+                    translation->setArgThree(0.0f);
+
+                group->transformations.push_back(translation);
+            }
         } else if(!strcmp(node_temp->name(), "rotate")){
 
             Rotate* rotation;
