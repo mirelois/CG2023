@@ -409,8 +409,8 @@ int main(int argc, char* argv[]){
         points_write(argv[6], cylinder->size(), cylinder->data());
         free(cylinder);
     }else if(!strcmp(argv[1], "patch")){
-        vector<tuple<float,float, float>>* bezier = generate_bezier(argv[2], atoi(argv[3]));
-        //points_write(argv[4], bezier->size(), bezier->data());
+        vector<float>* bezier = generate_bezier(argv[2], atoi(argv[3]));
+        points_write(argv[4], bezier->size(), bezier->data());
         free(bezier);
     }
     else{
