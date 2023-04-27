@@ -29,7 +29,7 @@ void drawAxis(){
 	glEnd();
 }
 
-void drawGroup(Group* group, unsigned int* counter){
+void drawGroup(Group* group, int* counter){
 	glPushMatrix();
 	
 	for(Transformation* transformation: group->transformations){
@@ -38,7 +38,7 @@ void drawGroup(Group* group, unsigned int* counter){
 
 	for(Model* groupModel: group->models){
 		glDrawArrays(GL_TRIANGLES, *counter, groupModel->size);
-		*counter += groupModel->size;
+		*counter = groupModel->size;
 	}
 	
 	for(Group* groupChild: group->subGroups)
@@ -51,7 +51,7 @@ void drawGroup(Group* group, unsigned int* counter){
 void draw(){
 	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
 	glColor3f(1.0f,1.0f,1.0f);
-	unsigned int counter = 0;
+	int counter = 0;
 	drawGroup(group_global, &counter);
 	
 }
