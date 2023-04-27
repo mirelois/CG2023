@@ -305,7 +305,7 @@ float* generate_plane(float length, int grid_slices, int* points_total){
 }
 
 float* generate_sphere(float radius, int slices, int stacks, int *points_total){
-    *points_total = slices*6*(stacks-1);
+    *points_total = 3*slices*6*(stacks-1);
     float alfa_x = M_PI/stacks;
     float alfa_y = 2*M_PI/slices;
 
