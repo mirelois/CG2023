@@ -128,35 +128,67 @@ tuple<float,float,float>* generate_cone(float bottom_radius, float height, int s
     return temp;
 }
 
-vector<tuple<float,float, float>>* generate_cylinder(float radius, float height, int slices, int stacks){
-    vector<tuple<float,float, float>>* point_array = new vector<tuple<float,float,float>>;
+vector<float>* generate_cylinder(float radius, float height, int slices, int stacks){
+    vector<float>* point_array = new vector<float>();
 
     float division_height_step = height/stacks;
     float alfa = 2*M_PI/slices;
 
     for (int i = 0; i < slices; i++) {
         //bottom part
-        point_array->push_back(make_tuple(0.0f,-height/2, 0.0f));
-        point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),-height/2, radius*cos(alfa * (i+1))));
-        point_array->push_back(make_tuple(radius*sin(alfa * i),-height/2, radius*cos(alfa * i)));
+        point_array->push_back(0.0f);
+        point_array->push_back(-height/2);
+        point_array->push_back(0.0f);
+
+        point_array->push_back(radius*sin(alfa * (i+1)));
+        point_array->push_back(-height/2);
+        point_array->push_back(radius*cos(alfa * (i+1)));
+
+        point_array->push_back(radius*sin(alfa * i));
+        point_array->push_back(-height/2);
+        point_array->push_back(radius*cos(alfa * i));
         
         //top part
-        point_array->push_back(make_tuple(radius*sin(alfa * i),height/2, radius*cos(alfa * i)));
-        point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),height/2, radius*cos(alfa * (i+1))));
-        point_array->push_back(make_tuple(0.0f,height/2, 0.0f));
+        point_array->push_back(radius*sin(alfa * i));
+        point_array->push_back(height/2);
+        point_array->push_back(radius*cos(alfa * i));
+
+        point_array->push_back(radius*sin(alfa * (i+1)));
+        point_array->push_back(height/2);
+        point_array->push_back(radius*cos(alfa * (i+1)));
+
+        point_array->push_back(0.0f);
+        point_array->push_back(height/2);
+        point_array->push_back(0.0f);
 
         //middle part
         for(int j=0; j<stacks; j++){
             double bot_height = -height/2 + j*division_height_step;
             double top_height = bot_height + division_height_step;
 
-            point_array->push_back(make_tuple(radius*sin(alfa * i),bot_height, radius*cos(alfa * i)));
-            point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),bot_height, radius*cos(alfa * (i+1))));
-            point_array->push_back(make_tuple(radius*sin(alfa * i),top_height, radius*cos(alfa * i)));
+            point_array->push_back(radius*sin(alfa * i));
+            point_array->push_back(bot_height);
+            point_array->push_back(radius*cos(alfa * i));
 
-            point_array->push_back(make_tuple(radius*sin(alfa * i),top_height, radius*cos(alfa * i)));
-            point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),bot_height, radius*cos(alfa * (i+1))));
-            point_array->push_back(make_tuple(radius*sin(alfa * (i+1)),top_height, radius*cos(alfa * (i+1))));
+            point_array->push_back(radius*sin(alfa * (i+1)));
+            point_array->push_back(bot_height);
+            point_array->push_back(radius*cos(alfa * (i+1)));
+
+            point_array->push_back(radius*sin(alfa * i));
+            point_array->push_back(top_height);
+            point_array->push_back(radius*cos(alfa * i));
+
+            point_array->push_back(radius*sin(alfa * i));
+            point_array->push_back(top_height);
+            point_array->push_back(radius*cos(alfa * i));
+
+            point_array->push_back(radius*sin(alfa * (i+1)));
+            point_array->push_back(bot_height);
+            point_array->push_back(radius*cos(alfa * (i+1)));
+
+            point_array->push_back(radius*sin(alfa * (i+1)));
+            point_array->push_back(top_height);
+            point_array->push_back(radius*cos(alfa * (i+1)));
         }
 	}
 
@@ -164,13 +196,13 @@ vector<tuple<float,float, float>>* generate_cylinder(float radius, float height,
 }
 
 
-tuple<float,float,float>* generate_box(float length,  int grid_slices, int* points_total)
+float* generate_box(float length,  int grid_slices, int* points_total)
 {
     //a quantidade de pontos ´e definida pelo grid;
     //grid**2 * 2 * 3 * 6 (nr quadrados * nr triangulos * nr pontos no triangulo * nr faces)    
     
     *points_total = grid_slices*grid_slices*36;
-    tuple <float, float, float>* point_array = new tuple <float, float, float>[*points_total];
+    float* point_array = (float*) malloc(sizeof(float)* *points_total);
 
     float delta = length/grid_slices;
 
@@ -185,16 +217,33 @@ tuple<float,float,float>* generate_box(float length,  int grid_slices, int* poin
     for(int i = 0; i < grid_slices; i++){
         for (int j = 0; j < grid_slices; j++)
         {
-            point_array[index++] = make_tuple(j*delta+referential_x, -i*delta+referential_y, referential_z);
-            point_array[index++] = make_tuple(j*delta+referential_x, -(i+1)*delta+referential_y, referential_z);
-            point_array[index++] = make_tuple((j+1)*delta+referential_x, -(i+1)*delta+referential_y, referential_z);
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = -i*delta+referential_y;
+            point_array[index++] = referential_z;
 
-            point_array[index++] = make_tuple(j*delta+referential_x, -i*delta+referential_y, referential_z);
-            point_array[index++] = make_tuple((j+1)*delta+referential_x, -(i+1)*delta+referential_y, referential_z);
-            point_array[index++] = make_tuple((j+1)*delta+referential_x, -i*delta+referential_y, referential_z);
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = -(i+1)*delta+referential_y;
+            point_array[index++] = referential_z;
+
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = -(i+1)*delta+referential_y;
+            point_array[index++] = referential_z;
+
+
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = -i*delta+referential_y;
+            point_array[index++] = referential_z;
+
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = -(i+1)*delta+referential_y;
+            point_array[index++] = referential_z;
+
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = -i*delta+referential_y;
+            point_array[index++] = referential_z;
         }
     }
-
+    /*
     for (int i = 0; i < *points_total/6; i++) {
         //back face
         point_array[index++] = make_tuple(-get<0>(point_array[i]), get<1>(point_array[i]), -get<2>(point_array[i]));
@@ -208,7 +257,7 @@ tuple<float,float,float>* generate_box(float length,  int grid_slices, int* poin
     {
         point_array[index++] = make_tuple(get<0>(point_array[i]), -get<2>(point_array[i]), get<1>(point_array[i]));
     }
-    
+    */
     return point_array;
 }
 
@@ -243,7 +292,7 @@ tuple <float, float, float>* generate_plane(float length, int grid_slices, int* 
     return point_array;
 }
 
-tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, int *points_total){
+float* generate_sphere(float radius, int slices, int stacks, int *points_total){
     *points_total = slices*6*(stacks-1);
     float alfa_x = M_PI/stacks;
     float alfa_y = 2*M_PI/slices;
@@ -253,7 +302,7 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
     //float pivot_z = 0;
 
     tuple<float, float, float>* master_line = new tuple<float,float,float>[stacks+1];
-    tuple<float,float,float>* points_array = new tuple<float,float,float>[*points_total];
+    float* points_array = (float*) malloc(sizeof(float) * *points_total);
 
     //generate master line
     int master_line_index = 0;
@@ -270,43 +319,33 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
     for (int j = 0; j < slices; j++) {
         for (int i = 0; i < stacks-1; i++) {
             
-            points_array[index++] = make_tuple(
-                    get<0>(master_line[i])*cos(j*alfa_y) + get<2>(master_line[i])*sin(j*alfa_y),
-                    get<1>(master_line[i]),
-                    -get<0>(master_line[i])*sin(j*alfa_y) + get<2>(master_line[i])*cos(j*alfa_y)
-                    );
+            points_array[index++] = get<0>(master_line[i])*cos(j*alfa_y) + get<2>(master_line[i])*sin(j*alfa_y);
+            points_array[index++] = get<1>(master_line[i]);
+            points_array[index++] = -get<0>(master_line[i])*sin(j*alfa_y) + get<2>(master_line[i])*cos(j*alfa_y);
 
-            points_array[index++] = make_tuple(
-                    get<0>(master_line[i+1])*cos(j*alfa_y) + get<2>(master_line[i+1])*sin(j*alfa_y),
-                    get<1>(master_line[i+1]),
-                    -get<0>(master_line[i+1])*sin(j*alfa_y) + get<2>(master_line[i+1])*cos(j*alfa_y)
-                    );
 
-            points_array[index++] = make_tuple(
-                    get<0>(master_line[i+1])*cos(((j+1)%slices)*alfa_y) + get<2>(master_line[i+1])*sin(((j+1)%slices)*alfa_y),
-                    get<1>(master_line[i+1]),
-                    -get<0>(master_line[i+1])*sin(((j+1)%slices)*alfa_y) + get<2>(master_line[i+1])*cos(((j+1)%slices)*alfa_y)
-                    );
+            points_array[index++] = get<0>(master_line[i+1])*cos(j*alfa_y) + get<2>(master_line[i+1])*sin(j*alfa_y);
+            points_array[index++] = get<1>(master_line[i+1]);
+            points_array[index++] = -get<0>(master_line[i+1])*sin(j*alfa_y) + get<2>(master_line[i+1])*cos(j*alfa_y);
+
+            points_array[index++] = get<0>(master_line[i+1])*cos(((j+1)%slices)*alfa_y) + get<2>(master_line[i+1])*sin(((j+1)%slices)*alfa_y);
+            points_array[index++] = get<1>(master_line[i+1]);
+            points_array[index++] = -get<0>(master_line[i+1])*sin(((j+1)%slices)*alfa_y) + get<2>(master_line[i+1])*cos(((j+1)%slices)*alfa_y);
+            
         }
         for (int i = stacks; i > 1; i--) {
             
-            points_array[index++] = make_tuple(
-                    get<0>(master_line[i])*cos(-j*alfa_y) + get<2>(master_line[i])*sin(-j*alfa_y),
-                    get<1>(master_line[i]),
-                    -get<0>(master_line[i])*sin(-j*alfa_y) + get<2>(master_line[i])*cos(-j*alfa_y)
-                    );
+            points_array[index++] = get<0>(master_line[i])*cos(-j*alfa_y) + get<2>(master_line[i])*sin(-j*alfa_y);
+            points_array[index++] = get<1>(master_line[i]);
+            points_array[index++] = -get<0>(master_line[i])*sin(-j*alfa_y) + get<2>(master_line[i])*cos(-j*alfa_y);
 
-            points_array[index++] = make_tuple(
-                    get<0>(master_line[i-1])*cos(-j*alfa_y) + get<2>(master_line[i-1])*sin(-j*alfa_y),
-                    get<1>(master_line[i-1]),
-                    -get<0>(master_line[i-1])*sin(-j*alfa_y) + get<2>(master_line[i-1])*cos(-j*alfa_y)
-                    );
+            points_array[index++] = get<0>(master_line[i-1])*cos(-j*alfa_y) + get<2>(master_line[i-1])*sin(-j*alfa_y);
+            points_array[index++] = get<1>(master_line[i-1]);
+            points_array[index++] = -get<0>(master_line[i-1])*sin(-j*alfa_y) + get<2>(master_line[i-1])*cos(-j*alfa_y);
 
-            points_array[index++] = make_tuple(
-                    get<0>(master_line[i-1])*cos(-((j+1)%slices)*alfa_y) + get<2>(master_line[i-1])*sin(-((j+1)%slices)*alfa_y),
-                    get<1>(master_line[i-1]),
-                    -get<0>(master_line[i-1])*sin(-((j+1)%slices)*alfa_y) + get<2>(master_line[i-1])*cos(-((j+1)%slices)*alfa_y)
-                    );
+            points_array[index++] = get<0>(master_line[i-1])*cos(-((j+1)%slices)*alfa_y) + get<2>(master_line[i-1])*sin(-((j+1)%slices)*alfa_y);
+            points_array[index++] = get<1>(master_line[i-1]);
+            points_array[index++] = -get<0>(master_line[i-1])*sin(-((j+1)%slices)*alfa_y) + get<2>(master_line[i-1])*cos(-((j+1)%slices)*alfa_y);
         }
     }
 
@@ -314,13 +353,13 @@ tuple<float,float,float>* generate_sphere(float radius, int slices, int stacks, 
 }
 
 
-void points_write (const char *filename, int nVertices, tuple<float,float,float> points[]) 
+void points_write (const char *filename, int nVertices, float* points) 
 {
     fstream file;
     file.open(filename,ios::out|ios::binary|ios::in|ios::trunc);
 
     file.write((char*)&nVertices, sizeof(int));
-    file.write((char*)points, sizeof(tuple<float,float,float>)*nVertices);
+    file.write((char*)points, sizeof(float)*nVertices);
 
     file.close();
 }
@@ -328,36 +367,36 @@ void points_write (const char *filename, int nVertices, tuple<float,float,float>
 int main(int argc, char* argv[]){
     if(!strcmp(argv[1], "sphere")){
         int points_total;
-        tuple<float,float,float>* sphere = generate_sphere(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
+        float* sphere = generate_sphere(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
         points_write(argv[5], points_total, sphere);
         delete(sphere);
     } else if(!strcmp(argv[1], "box")){
         int points_total;
-        tuple<float,float,float>* box = generate_box(atof(argv[2]), atoi(argv[3]), &points_total);
+        float* box = generate_box(atof(argv[2]), atoi(argv[3]), &points_total);
         points_write(argv[4], points_total, box);
         delete(box);
     } else if(!strcmp(argv[1], "plane")){
         int points_total;
         tuple<float,float,float>* plane = generate_plane(atof(argv[2]), atoi(argv[3]), &points_total);
-        points_write(argv[4], points_total, plane);
+        //points_write(argv[4], points_total, plane);
         delete(plane);
     } else if(!strcmp(argv[1], "cone")){
         int points_total;
         tuple<float,float,float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
-        points_write(argv[6], points_total, cone);
+        //points_write(argv[6], points_total, cone);
         free(cone);
     } else if(!strcmp(argv[1], "torus")){
         int points_total;
         tuple<float,float,float>* torus = generate_torus(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
-        points_write(argv[6], points_total, torus);
+        //points_write(argv[6], points_total, torus);
         free(torus);
     } else if(!strcmp(argv[1], "cylinder")){
-        vector<tuple<float,float, float>>* cylinder = generate_cylinder(atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
+        vector<float>* cylinder = generate_cylinder(atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
         points_write(argv[6], cylinder->size(), cylinder->data());
         free(cylinder);
     }else if(!strcmp(argv[1], "patch")){
         vector<tuple<float,float, float>>* bezier = generate_bezier(argv[2], atoi(argv[3]));
-        points_write(argv[4], bezier->size(), bezier->data());
+        //points_write(argv[4], bezier->size(), bezier->data());
         free(bezier);
     }
     else{

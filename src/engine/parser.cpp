@@ -1,8 +1,5 @@
 #include "parser.h"
 
-using namespace std;
-using namespace rapidxml;
-
 void parse_window(xml_node<> *window_node, Window* window){
     xml_attribute<> *temp;
     
@@ -66,7 +63,7 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-void parse_group_models(xml_node<> *node_Models, Group* group){
+void parse_group_models(xml_node<> *node_Models, Group* group, vector<float>* points){
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
         fstream filestream;
@@ -76,14 +73,16 @@ void parse_group_models(xml_node<> *node_Models, Group* group){
         filestream.read((char*)&n,sizeof(int));
 
         // Ler array de tuplos
-        tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
-        filestream.read((char*)tuples, sizeof(tuple<float,float,float>) * n);
+        //tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
+        int before = points->size();
+        points->resize(before + n);
+        filestream.read((char*)(points->data() + before), sizeof(float) * n);
         // fechar o ficheiro
         filestream.close();
 
         // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
         Model* model = new Model;
-        model->figure = tuples;
+        //model->figure = tuples;
         model->size = n;
         group->models.push_back(model);
     }
@@ -215,7 +214,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
 }
 
 
-void parse_group(xml_node<> *group_node, Group* group){
+void parse_group(xml_node<> *group_node, Group* group, vector<float>* points){
     xml_node<>* temp;
     
     // Transformações
@@ -224,17 +223,17 @@ void parse_group(xml_node<> *group_node, Group* group){
 
     // Modelos 
     if((temp = group_node->first_node("models")))
-        parse_group_models(temp, group);
+        parse_group_models(temp, group, points);
     
     // Grupos
     for(temp = group_node->first_node("group"); temp; temp = temp->next_sibling("group")){
         Group *groupChild = new Group;
         group->subGroups.push_back(groupChild);
-        parse_group(temp, groupChild);
+        parse_group(temp, groupChild, points);
     }
 }
 
-void parser(char* fileName, Window* window, Camera* camera, Group* group)
+void parser(char* fileName, Window* window, Camera* camera, Group* group, vector<float>* points)
 {  
     
     xml_document<> doc;
@@ -263,5 +262,5 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group)
 
     // Grupo
     if((temp = root_node->first_node("group")))
-        parse_group(temp, group);
+        parse_group(temp, group, points);
 }

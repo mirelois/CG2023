@@ -8,8 +8,7 @@ int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_r
 float last_camera_position[3];
 char axis = 1;
 char polygon = 1;
-
-using namespace std;
+GLuint buffer;
 
 void drawAxis(){
 	glBegin(GL_LINES);
@@ -28,23 +27,20 @@ void drawAxis(){
 	glEnd();
 }
 
-void drawGroup(Group* group){
+void drawGroup(Group* group, unsigned int* counter){
 	glPushMatrix();
 	
 	for(Transformation* transformation: group->transformations){
 		transformation->transform();
 	}
 
-	glBegin(GL_TRIANGLES);
 	for(Model* groupModel: group->models){
-		for(int i=0; i<groupModel->size; i++){
-			glVertex3f(get<0>(groupModel->figure[i]), get<1>(groupModel->figure[i]), get<2>(groupModel->figure[i]));
-		}
+		glDrawArrays(GL_TRIANGLES, *counter, groupModel->size);
+		*counter += groupModel->size;
 	}
-	glEnd();
 	
 	for(Group* groupChild: group->subGroups)
-		drawGroup(groupChild);
+		drawGroup(groupChild, counter);
 	
 	
 	glPopMatrix();
@@ -53,7 +49,8 @@ void drawGroup(Group* group){
 void draw(){
 	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
 	glColor3f(1.0f,1.0f,1.0f);
-	drawGroup(group_global);
+	unsigned int counter = 0;
+	drawGroup(group_global, &counter);
 	
 }
 
@@ -326,9 +323,16 @@ void processMouseMotion(int xx, int yy) {
 	glutPostRedisplay();
 }
 
-void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
-    camera_global = camera;
-	group_global = group;
+int main(int argc, char* argv[]) {
+
+// Initialize objects
+	camera_global = new Camera();
+	group_global = new Group();
+	Window* window = new Window();
+	
+// Read Xml file
+	vector<float> points;
+	parser(argv[1], window, camera_global, group_global, &points);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
@@ -350,11 +354,20 @@ void run(Window* window, Camera* camera, Group* group, int argc, char* argv[]) {
 	glutMouseFunc(processMouseButtons);
 	glutMotionFunc(processMouseMotion);
 	//glutSpecialFunc(processSpecialKeys);
+	
+// Init glew
+	glewInit();
 
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+// VBO'S
+	glGenBuffers(1, &buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	glBufferData(GL_ARRAY_BUFFER, points.size()*sizeof(float), points.data(), GL_STATIC_DRAW);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
 // enter GLUT's main cycle
 	glutMainLoop();
 }
