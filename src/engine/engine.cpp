@@ -9,6 +9,8 @@ float last_camera_position[3];
 char axis = 1;
 char polygon = 1;
 GLuint buffer;
+int timebase = 0;
+float frame = 0;
 
 void drawAxis(){
 	glBegin(GL_LINES);
@@ -157,6 +159,19 @@ void renderScene(void) {
 	//mudar o mundo
 
 	draw();
+
+	float fps;
+	int time;
+	char s[64];
+	frame++;
+	time=glutGet(GLUT_ELAPSED_TIME); 
+	if (time - timebase > 1000) { 
+		fps = frame*1000.0/(time-timebase); 
+		timebase = time; 
+		frame = 0; 
+		sprintf(s, "FPS: %f6.2", fps);
+		glutSetWindowTitle(s);
+	} 
 
 	// End of frame
 	glutSwapBuffers();

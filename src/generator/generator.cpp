@@ -86,21 +86,28 @@ tuple<float, float, float>* generate_torus(float inner_radius, float outer_radiu
 }
 
 
-tuple<float,float,float>* generate_cone(float bottom_radius, float height, int slices, int stacks, int* total_points){
+vector<float>* generate_cone(float bottom_radius, float height, int slices, int stacks){
     
-    vector<tuple<float,float, float>> point_array;
+    vector<float>* point_array = new vector<float>();
     int i, j;
 	double alfa = 2 * M_PI / slices;
 	double division_height_step = height / stacks;
 	double division_radius_step = bottom_radius / stacks;
 	// Base
 	for (i = 0; i < slices; i++) {
-		point_array.push_back(make_tuple(bottom_radius * sin(alfa * (i + 1)), 0.0f, bottom_radius * cos(alfa * (i + 1))));
-        point_array.push_back(make_tuple(bottom_radius * sin(alfa * i), 0.0f, bottom_radius * cos(alfa * i)));
-		point_array.push_back(make_tuple(0.0f, 0.0f, 0.0f));
-        
-	}
+		point_array->push_back(bottom_radius * sin(alfa * (i + 1)));
+        point_array->push_back(0.0f);
+        point_array->push_back(bottom_radius * cos(alfa * (i + 1)));
 
+        point_array->push_back(bottom_radius * sin(alfa * i));
+        point_array->push_back(0.0f);
+        point_array->push_back(bottom_radius * cos(alfa * i));
+
+		point_array->push_back(0.0f);
+        point_array->push_back(0.0f);
+        point_array->push_back(0.0f);
+	}
+    /*
 	for (i = 0; i < stacks; i++) {
 		for (j = 0; j < slices; j++) {
 			double bot_height = division_height_step * i;
@@ -109,23 +116,26 @@ tuple<float,float,float>* generate_cone(float bottom_radius, float height, int s
 			double top_radius = bot_radius - division_radius_step;
 
 			// lados
-			point_array.push_back(make_tuple(bot_radius * sin(alfa * j), bot_height, bot_radius * cos(alfa * j)));
-			point_array.push_back(make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1))));
-			point_array.push_back(make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j)));
+			point_array->push_back(bot_radius * sin(alfa * j));
+            point_array->push_back(bot_height);
+            point_array->push_back(bot_radius * cos(alfa * j));
 
-			point_array.push_back(make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j)));
-			point_array.push_back(make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1))));
-			point_array.push_back(make_tuple(top_radius * sin(alfa * (j + 1)), top_height, top_radius * cos(alfa * (j + 1))));
+			point_array->push_back(bot_radius * sin(alfa * (j + 1)));
+            point_array->push_back(bot_height);
+            point_array->push_back(bot_radius * cos(alfa * (j + 1)));
+
+			point_array->push_back(top_radius * sin(alfa * j));
+            point_array->push_back(top_height);
+            point_array->push_back(top_radius * cos(alfa * j));
+
+			point_array->push_back(make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j)));
+			point_array->push_back(make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1))));
+			point_array->push_back(make_tuple(top_radius * sin(alfa * (j + 1)), top_height, top_radius * cos(alfa * (j + 1))));
 		}
 	}
+    */
 
-    *total_points = point_array.size();
-
-    tuple<float,float,float>* temp = (tuple<float,float,float>*) malloc(sizeof(tuple<float,float,float>) * point_array.size());
-    for(int i=0; i< point_array.size(); i++){
-        temp[i] = point_array[i];
-    }
-    return temp;
+    return point_array;
 }
 
 vector<float>* generate_cylinder(float radius, float height, int slices, int stacks){
@@ -262,11 +272,11 @@ float* generate_box(float length,  int grid_slices, int* points_total)
 }
 
 
-tuple <float, float, float>* generate_plane(float length, int grid_slices, int* points_total){
+float* generate_plane(float length, int grid_slices, int* points_total){
 
     *points_total = grid_slices*grid_slices*6;
 
-    tuple <float, float, float>* point_array = new tuple <float, float, float>[*points_total];
+    float* point_array = (float*) malloc(sizeof(float) * *points_total);
 
     float delta = length/grid_slices;
 
@@ -275,11 +285,14 @@ tuple <float, float, float>* generate_plane(float length, int grid_slices, int* 
     float referential_x = -length/2;
 
     float referential_z = -length/2;
-
+    /*
     for(int i = 0; i < grid_slices; i++){
         for (int j = 0; j < grid_slices; j++)
         {
             point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
+            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
+            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
+            
             point_array[index++] = make_tuple(j*delta+referential_x, 0, (i+1)*delta+referential_z);
             point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, (i+1)*delta+referential_z);
 
@@ -288,6 +301,7 @@ tuple <float, float, float>* generate_plane(float length, int grid_slices, int* 
             point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, i*delta+referential_z);
         }
     }
+    */
 
     return point_array;
 }
@@ -376,15 +390,15 @@ int main(int argc, char* argv[]){
         points_write(argv[4], points_total, box);
         delete(box);
     } else if(!strcmp(argv[1], "plane")){
-        int points_total;
-        tuple<float,float,float>* plane = generate_plane(atof(argv[2]), atoi(argv[3]), &points_total);
+        //int points_total;
+        //tuple<float,float,float>* plane = generate_plane(atof(argv[2]), atoi(argv[3]), &points_total);
         //points_write(argv[4], points_total, plane);
-        delete(plane);
+        //delete(plane);
     } else if(!strcmp(argv[1], "cone")){
-        int points_total;
-        tuple<float,float,float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
+        //int points_total;
+        //tuple<float,float,float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
         //points_write(argv[6], points_total, cone);
-        free(cone);
+        //free(cone);
     } else if(!strcmp(argv[1], "torus")){
         int points_total;
         tuple<float,float,float>* torus = generate_torus(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
