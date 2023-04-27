@@ -209,7 +209,7 @@ float* generate_box(float length,  int grid_slices, int* points_total)
     //a quantidade de pontos ´e definida pelo grid;
     //grid**2 * 2 * 3 * 6 (nr quadrados * nr triangulos * nr pontos no triangulo * nr faces)    
     
-    *points_total = grid_slices*grid_slices*36;
+    *points_total = grid_slices*grid_slices*36*3;
     float* point_array = (float*) malloc(sizeof(float)* *points_total);
 
     float delta = length/grid_slices;
@@ -252,27 +252,35 @@ float* generate_box(float length,  int grid_slices, int* points_total)
         }
     }
     /*
-    for (int i = 0; i < *points_total/6; i++) {
+    for (int i = 0; i < *points_total/18;) {
         //back face
-        point_array[index++] = make_tuple(-get<0>(point_array[i]), get<1>(point_array[i]), -get<2>(point_array[i]));
+        point_array[index++] = -point_array[i++];
+        point_array[index++] = point_array[i++];
+        point_array[index++] = -point_array[i++];
     }
 
-    for(int i=0;  i < *points_total/3; i++)
+    for(int i=0;  i < *points_total/9; i+=3)
     {
-        point_array[index++] = make_tuple(get<2>(point_array[i]), get<1>(point_array[i]), -get<0>(point_array[i]));
+        point_array[index++] = point_array[i+2];
+        point_array[index++] = point_array[i+1];
+        point_array[index++] = -point_array[i];
     }
-    for(int i=0; i < *points_total/3; i++)
+
+    for(int i=0; i < *points_total/9; i+=3)
     {
-        point_array[index++] = make_tuple(get<0>(point_array[i]), -get<2>(point_array[i]), get<1>(point_array[i]));
+        point_array[index++] = point_array[i];
+        point_array[index++] = -point_array[i+2];
+        point_array[index++] = point_array[i+1];
     }
     */
+    
     return point_array;
 }
 
 
 float* generate_plane(float length, int grid_slices, int* points_total){
 
-    *points_total = grid_slices*grid_slices*6;
+    *points_total = grid_slices*grid_slices*18;
 
     float* point_array = (float*) malloc(sizeof(float) * *points_total);
 
@@ -283,23 +291,37 @@ float* generate_plane(float length, int grid_slices, int* points_total){
     float referential_x = -length/2;
 
     float referential_z = -length/2;
-    /*
+    
     for(int i = 0; i < grid_slices; i++){
         for (int j = 0; j < grid_slices; j++)
         {
-            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
-            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
-            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = i*delta+referential_z;
             
-            point_array[index++] = make_tuple(j*delta+referential_x, 0, (i+1)*delta+referential_z);
-            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, (i+1)*delta+referential_z);
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = (i+1)*delta+referential_z;
 
-            point_array[index++] = make_tuple(j*delta+referential_x, 0, i*delta+referential_z);
-            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, (i+1)*delta+referential_z);
-            point_array[index++] = make_tuple((j+1)*delta+referential_x, 0, i*delta+referential_z);
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = (i+1)*delta+referential_z;
+
+
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = i*delta+referential_z;
+
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = (i+1)*delta+referential_z;
+
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = i*delta+referential_z;
         }
     }
-    */
+    
 
     return point_array;
 }
@@ -381,17 +403,17 @@ int main(int argc, char* argv[]){
         int points_total;
         float* sphere = generate_sphere(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
         points_write(argv[5], points_total, sphere);
-        delete(sphere);
+        free(sphere);
     } else if(!strcmp(argv[1], "box")){
         int points_total;
         float* box = generate_box(atof(argv[2]), atoi(argv[3]), &points_total);
         points_write(argv[4], points_total, box);
-        delete(box);
+        free(box);
     } else if(!strcmp(argv[1], "plane")){
-        //int points_total;
-        //tuple<float,float,float>* plane = generate_plane(atof(argv[2]), atoi(argv[3]), &points_total);
-        //points_write(argv[4], points_total, plane);
-        //delete(plane);
+        int points_total;
+        float* plane = generate_plane(atof(argv[2]), atoi(argv[3]), &points_total);
+        points_write(argv[4], points_total, plane);
+        free(plane);
     } else if(!strcmp(argv[1], "cone")){
         vector<float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]));
         points_write(argv[6], cone->size(), cone->data());
