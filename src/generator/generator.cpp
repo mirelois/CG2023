@@ -10,7 +10,7 @@ using namespace std;
 
 float* generate_torus(float inner_radius, float outer_radius, int vertical_divisions, int horizontal_divisions, int* points_total){
 
-    *points_total = 9*vertical_divisions*horizontal_divisions;
+    *points_total = 18*vertical_divisions*horizontal_divisions;
 
     float* point_array = (float*) malloc(sizeof(float) * *points_total);
     int index = 0;

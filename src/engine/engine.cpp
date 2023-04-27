@@ -37,7 +37,7 @@ void drawGroup(Group* group, int* counter){
 	}
 
 	for(Model* groupModel: group->models){
-		glDrawArrays(GL_TRIANGLES, *counter, groupModel->size);
+		glDrawArrays(GL_TRIANGLES, 0, groupModel->size);
 		*counter = groupModel->size;
 	}
 	
