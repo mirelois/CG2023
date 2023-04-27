@@ -8,12 +8,11 @@
 
 using namespace std;
 
-tuple<float, float, float>* generate_torus(float inner_radius, float outer_radius, int vertical_divisions, int horizontal_divisions, int* points_total){
+float* generate_torus(float inner_radius, float outer_radius, int vertical_divisions, int horizontal_divisions, int* points_total){
 
-    *points_total = 6*vertical_divisions*horizontal_divisions;
+    *points_total = 9*vertical_divisions*horizontal_divisions;
 
-    tuple<float, float, float>* point_array = new tuple<float, float, float>[*points_total];
-
+    float* point_array = (float*) malloc(sizeof(float) * *points_total);
     int index = 0;
 
     
@@ -47,39 +46,30 @@ tuple<float, float, float>* generate_torus(float inner_radius, float outer_radiu
 
         for (int j = 0; j < vertical_divisions; j++) {
 
-            point_array[index++] = make_tuple(
-                    get<0>(master_circle[j])*cos(i*delta_y) + get<2>(master_circle[j])*sin(i*delta_y),
-                    get<1>(master_circle[j]),
-                    -get<0>(master_circle[j])*sin(i*delta_y) + get<2>(master_circle[j])*cos(i*delta_y)
-                    );
-            point_array[index++] = make_tuple(
-                    get<0>(master_circle[(j+1)%vertical_divisions])*cos(i*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*sin(i*delta_y),
-                    get<1>(master_circle[(j+1)%vertical_divisions]),
-                    -get<0>(master_circle[(j+1)%vertical_divisions])*sin(i*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*cos(i*delta_y)
-                    );
-            point_array[index++] = make_tuple(
-                    get<0>(master_circle[(j+1)%vertical_divisions])*cos(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*sin(((i+1)%horizontal_divisions)*delta_y),
-                    get<1>(master_circle[(j+1)%vertical_divisions]),
-                    -get<0>(master_circle[(j+1)%vertical_divisions])*sin(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*cos(((i+1)%horizontal_divisions)*delta_y)
-                    );
+            point_array[index++] = get<0>(master_circle[j])*cos(i*delta_y) + get<2>(master_circle[j])*sin(i*delta_y);
+            point_array[index++] = get<1>(master_circle[j]);
+            point_array[index++] = -get<0>(master_circle[j])*sin(i*delta_y) + get<2>(master_circle[j])*cos(i*delta_y);
+
+            point_array[index++] = get<0>(master_circle[(j+1)%vertical_divisions])*cos(i*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*sin(i*delta_y);
+            point_array[index++] = get<1>(master_circle[(j+1)%vertical_divisions]);
+            point_array[index++] = -get<0>(master_circle[(j+1)%vertical_divisions])*sin(i*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*cos(i*delta_y);
+
+            point_array[index++] = get<0>(master_circle[(j+1)%vertical_divisions])*cos(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*sin(((i+1)%horizontal_divisions)*delta_y);
+            point_array[index++] = get<1>(master_circle[(j+1)%vertical_divisions]);
+            point_array[index++] = -get<0>(master_circle[(j+1)%vertical_divisions])*sin(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*cos(((i+1)%horizontal_divisions)*delta_y);
 
 
-            point_array[index++] = make_tuple(
-                    get<0>(master_circle[j])*cos(i*delta_y) + get<2>(master_circle[j])*sin(i*delta_y),
-                    get<1>(master_circle[j]),
-                    -get<0>(master_circle[j])*sin(i*delta_y) + get<2>(master_circle[j])*cos(i*delta_y)
-                    );
-            point_array[index++] = make_tuple(
-                    get<0>(master_circle[(j+1)%vertical_divisions])*cos(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*sin(((i+1)%horizontal_divisions)*delta_y),
-                    get<1>(master_circle[(j+1)%vertical_divisions]),
-                    -get<0>(master_circle[(j+1)%vertical_divisions])*sin(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*cos(((i+1)%horizontal_divisions)*delta_y)
-                    );
-            point_array[index++] = make_tuple(
-                    get<0>(master_circle[j])*cos(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[j])*sin(((i+1)%horizontal_divisions)*delta_y),
-                    get<1>(master_circle[j]),
-                    -get<0>(master_circle[j])*sin(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[j])*cos(((i+1)%horizontal_divisions)*delta_y)
-                    );
+            point_array[index++] = get<0>(master_circle[j])*cos(i*delta_y) + get<2>(master_circle[j])*sin(i*delta_y);
+            point_array[index++] = get<1>(master_circle[j]);
+            point_array[index++] = -get<0>(master_circle[j])*sin(i*delta_y) + get<2>(master_circle[j])*cos(i*delta_y);
 
+            point_array[index++] = get<0>(master_circle[(j+1)%vertical_divisions])*cos(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*sin(((i+1)%horizontal_divisions)*delta_y);
+            point_array[index++] = get<1>(master_circle[(j+1)%vertical_divisions]);
+            point_array[index++] = -get<0>(master_circle[(j+1)%vertical_divisions])*sin(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[(j+1)%vertical_divisions])*cos(((i+1)%horizontal_divisions)*delta_y);
+
+            point_array[index++] = get<0>(master_circle[j])*cos(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[j])*sin(((i+1)%horizontal_divisions)*delta_y);
+            point_array[index++] = get<1>(master_circle[j]);
+            point_array[index++] = -get<0>(master_circle[j])*sin(((i+1)%horizontal_divisions)*delta_y) + get<2>(master_circle[j])*cos(((i+1)%horizontal_divisions)*delta_y);
         }
     }
     return point_array;
@@ -107,7 +97,7 @@ vector<float>* generate_cone(float bottom_radius, float height, int slices, int 
         point_array->push_back(0.0f);
         point_array->push_back(0.0f);
 	}
-    /*
+    
 	for (i = 0; i < stacks; i++) {
 		for (j = 0; j < slices; j++) {
 			double bot_height = division_height_step * i;
@@ -128,12 +118,20 @@ vector<float>* generate_cone(float bottom_radius, float height, int slices, int 
             point_array->push_back(top_height);
             point_array->push_back(top_radius * cos(alfa * j));
 
-			point_array->push_back(make_tuple(top_radius * sin(alfa * j), top_height, top_radius * cos(alfa * j)));
-			point_array->push_back(make_tuple(bot_radius * sin(alfa * (j + 1)), bot_height, bot_radius * cos(alfa * (j + 1))));
-			point_array->push_back(make_tuple(top_radius * sin(alfa * (j + 1)), top_height, top_radius * cos(alfa * (j + 1))));
+			point_array->push_back(top_radius * sin(alfa * j));
+            point_array->push_back(top_height);
+            point_array->push_back(top_radius * cos(alfa * j));
+
+			point_array->push_back(bot_radius * sin(alfa * (j + 1)));
+            point_array->push_back(bot_height);
+            point_array->push_back(bot_radius * cos(alfa * (j + 1)));
+
+			point_array->push_back(top_radius * sin(alfa * (j + 1)));
+            point_array->push_back(top_height);
+            point_array->push_back(top_radius * cos(alfa * (j + 1)));
 		}
 	}
-    */
+    
 
     return point_array;
 }
@@ -367,7 +365,7 @@ float* generate_sphere(float radius, int slices, int stacks, int *points_total){
 }
 
 
-void points_write (const char *filename, int nVertices, float* points) 
+void points_write(const char *filename, int nVertices, float* points) 
 {
     fstream file;
     file.open(filename,ios::out|ios::binary|ios::in|ios::trunc);
@@ -395,14 +393,13 @@ int main(int argc, char* argv[]){
         //points_write(argv[4], points_total, plane);
         //delete(plane);
     } else if(!strcmp(argv[1], "cone")){
-        //int points_total;
-        //tuple<float,float,float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
-        //points_write(argv[6], points_total, cone);
-        //free(cone);
+        vector<float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]));
+        points_write(argv[6], cone->size(), cone->data());
+        free(cone);
     } else if(!strcmp(argv[1], "torus")){
         int points_total;
-        tuple<float,float,float>* torus = generate_torus(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
-        //points_write(argv[6], points_total, torus);
+        float* torus = generate_torus(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
+        points_write(argv[6], points_total, torus);
         free(torus);
     } else if(!strcmp(argv[1], "cylinder")){
         vector<float>* cylinder = generate_cylinder(atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
