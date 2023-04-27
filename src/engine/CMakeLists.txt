@@ -13,12 +13,10 @@ set(OpenGL_GL_PREFERENCE "GLVND")
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -pedantic")
 
 add_executable(engine
-	main.h
 	engine.h
 	parser.h
 	classes.h
 	classes.cpp
-	main.cpp
 	engine.cpp
 	parser.cpp
 	rapidxml.hpp
