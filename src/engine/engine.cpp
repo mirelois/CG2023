@@ -284,8 +284,7 @@ void processKeys(unsigned char key, int xx, int yy) {
 			return;
 		}
 	}
-	glutPostRedisplay();
-
+	//glutPostRedisplay();
 }
 
 void processSpecialKeys(int key, int xx, int yy) {
@@ -296,7 +295,7 @@ void processSpecialKeys(int key, int xx, int yy) {
 	default:
 		return;
 	}
-	glutPostRedisplay();
+	//glutPostRedisplay();
 
 }
 
@@ -336,7 +335,7 @@ void processMouseMotion(int xx, int yy) {
 		else if (betaAux < -85.0)
 			betaAux = -85.0;*/
 	}
-	glutPostRedisplay();
+	//glutPostRedisplay();
 }
 
 int main(int argc, char* argv[]) {
