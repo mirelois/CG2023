@@ -1,4 +1,5 @@
 #include "engine.h"
+#include <algorithm>
 
 Camera* camera_global;
 Group* group_global;
@@ -29,7 +30,7 @@ void drawAxis(){
 	glEnd();
 }
 
-void drawGroup(Group* group, int* counter){
+void drawGroup(Group* group, unsigned int* counter){
 	glPushMatrix();
 	
 	for(Transformation* transformation: group->transformations){
@@ -37,8 +38,8 @@ void drawGroup(Group* group, int* counter){
 	}
 
 	for(Model* groupModel: group->models){
-		glDrawArrays(GL_TRIANGLES, 0, groupModel->size);
-		*counter = groupModel->size;
+		glDrawArrays(GL_TRIANGLES, *counter, groupModel->size);
+		*counter += groupModel->size;
 	}
 	
 	for(Group* groupChild: group->subGroups)
@@ -51,7 +52,7 @@ void drawGroup(Group* group, int* counter){
 void draw(){
 	glPolygonMode(GL_FRONT_AND_BACK, polygon ? GL_LINE : GL_FILL);
 	glColor3f(1.0f,1.0f,1.0f);
-	int counter = 0;
+	unsigned int counter = 0;
 	drawGroup(group_global, &counter);
 	
 }

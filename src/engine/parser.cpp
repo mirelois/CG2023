@@ -83,7 +83,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float>* po
         // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
         Model* model = new Model;
         //model->figure = tuples;
-        model->size = n;
+        model->size = n/3;
         group->models.push_back(model);
     }
 }

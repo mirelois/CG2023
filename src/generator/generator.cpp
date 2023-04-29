@@ -225,7 +225,6 @@ float* generate_box(float length,  int grid_slices, int* points_total)
 
     float referential_z = length/2;
 
-    printf("what???????");
     for(int i = 0; i < grid_slices; i++){
         for (int j = 0; j < grid_slices; j++)
         {
@@ -274,7 +273,6 @@ float* generate_box(float length,  int grid_slices, int* points_total)
             point_array[index++] = -point_array[i*3 + 0];
         }
         
-        printf("antes quarto for");
         for(int i=0; i < *points_total/9; i++)
         {//x, -z, y
             point_array[index++] =  point_array[i*3 + 0];
