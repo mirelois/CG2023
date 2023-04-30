@@ -68,7 +68,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
         model_name = node_models->first_attribute()->value();
-        if (!model_map->contains(model_name)) {
+        if (model_map->find(model_name) == model_map->end()) {
             fstream filestream;
             filestream.open(node_models->first_attribute()->value(), ios::in | ios::binary);
             // Ler inteiro para o n
