@@ -76,7 +76,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             filestream.read((char*)&n, sizeof(int));
 
             // Ler array de tuplos
-            tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
+            //tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
             int before = points->size();
             points->resize(before + n);
             //filestream.read((char*)tuples, sizeof(float) * n);
