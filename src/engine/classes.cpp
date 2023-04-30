@@ -18,11 +18,11 @@ public:
 };
 
 
-class Model{
+/*class Model {
 public:
     int size;
     std::tuple<float, float, float>* figure;
-};
+};*/
 
 
 class Group{
