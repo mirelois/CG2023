@@ -1,7 +1,6 @@
 #include "engine.h"
 #include <algorithm>
 
-vector<Model*> models;
 Camera* camera_global;
 Group* group_global;
 float  camera_move_delta = 1, look_rotate_delta_up = M_PI / 1024, look_rotate_delta_right = M_PI / 1024;
@@ -346,7 +345,7 @@ int main(int argc, char* argv[]) {
 	
 // Read Xml file
 	vector<float> points;
-	parser(argv[1], window, camera_global, group_global, &points, &models);
+	parser(argv[1], window, camera_global, group_global, &points);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
