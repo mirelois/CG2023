@@ -36,7 +36,7 @@ public:
 
 class Transformation{
 public:
-    void virtual transform();
+    void virtual transform() = 0;
 };
 
 class Translate_Catmull: public Transformation {
