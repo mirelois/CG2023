@@ -30,13 +30,12 @@ class Model {
 public:
     int size;
     int index = 0;
-    std::tuple<float, float, float>* figure;
 };
 
 
 class Transformation{
 public:
-    void virtual transform();
+    void virtual transform() = 0;
 };
 
 class Translate_Catmull: public Transformation {
