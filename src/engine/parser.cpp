@@ -138,6 +138,10 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
             xml_attribute<>* attr;
             if ((attr = node_temp->first_attribute("time"))) {
                 Translate_Catmull* translation = new Translate_Catmull();
+                if ((attr = node_temp->first_attribute("draw"))) {
+                    translation->setAlign(!strcmp("true", attr->value()));
+                }
+                
                 translation->setTime(atof(attr->value()));
                 if ((attr = node_temp->first_attribute("align"))) {
                     translation->setAlign(!strcmp("true", attr->value()));
