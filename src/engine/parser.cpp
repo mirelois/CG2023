@@ -71,7 +71,8 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
         if (model_map->find(model_name) == model_map->end()) {
             fstream filestream;
             filestream.open(node_models->first_attribute()->value(), ios::in | ios::binary);
-            // Ler inteiro para o n
+            assert( (filestream.rdstate() & std::ifstream::failbit ) == 0 );
+                // Ler inteiro para o n
             int n;
             filestream.read((char*)&n, sizeof(int));
 
