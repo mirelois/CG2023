@@ -138,6 +138,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
 
             xml_attribute<>* attr;
             if ((attr = node_temp->first_attribute("time"))) {
+                float time = atof(attr->value());
                 Translate_Catmull* translation;
                 if ((attr = node_temp->first_attribute("draw")) && strcmp(attr->value(), "True")) {
                     if ((attr = node_temp->first_attribute("align")) && strcmp(attr->value(), "True")) {
@@ -156,7 +157,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
                     }
                 }
                 
-                translation->setTime(atof(attr->value()));
+                translation->setTime(time);
                 parse_translate_points(translation, node_temp);
                 group->transformations.push_back(translation);
             }
