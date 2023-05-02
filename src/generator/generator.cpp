@@ -333,6 +333,7 @@ float* generate_plane(float length, int grid_slices, int* points_total){
 }
 
 float* generate_sphere_index(float radius, int slices, int stacks, int *points_total, int* index_total){
+
     *index_total = slices*6*(stacks-1);
     *points_total = 3*(slices*(stacks-1)+2);
     int master_line_size = (stacks+1)*3;
@@ -380,23 +381,23 @@ float* generate_sphere_index(float radius, int slices, int stacks, int *points_t
         //add top triangle
         index_array[index++] = 0;
         index_array[index++] = (stacks-1)*j+1;
-        index_array[index++] = (stacks-1)*(j+1)+1;
+        index_array[index++] = (stacks-1)*((j+1)%slices)+1;
         
         for (int i = 0; i < stacks-2; i++) {
             //primeiro triangulo da stack
             index_array[index++] = (stacks-1)*j+i+1;
             index_array[index++] = (stacks-1)*j+(i+1)+1;
-            index_array[index++] = (stacks-1)+(j+1)+(i+1)+1;
+            index_array[index++] = (stacks-1)+((j+1)%slices)+(i+1)+1;
             
             //segundo triangulo da stack
             index_array[index++] = (stacks-1)*j+i+1;
             index_array[index++] = (stacks-1)*j+(i+1)+1;
-            index_array[index++] = (stacks-1)*(j+1)+i+1;
+            index_array[index++] = (stacks-1)*((j+1)%slices)+i+1;
         }
         //add bottom triangle
         index_array[index++] = (stacks-1)*j;
         index_array[index++] = *points_total-3;//last
-        index_array[index++] = (stacks-1)*(j+1)+1;
+        index_array[index++] = (stacks-1)*((j+1)%slices)+1;
     }
     //TODO return correct things
     return points_array;
