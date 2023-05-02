@@ -7,54 +7,47 @@
         <projection fov="60" near="1" far="10000" />
     </camera>
     <group>
-        <!-- Sun-->
         <transform>
             <scale x="10" y="10" z="10" />
         </transform>
-        <models>
-            <model file="./models/sphere.3d" />
-        </models>
         <group>
-            <!-- Mercury-->
+            <!-- Sun-->
             <transform>
-                <translate x="1.38603671525334481984" y="0" z="0" />
-                <rotate angle="0" x="0" y="0" z="0" />
-                <scale x="0.00175199253249085" y="0.00175199253249085"
-                    z="0.00175199253249085" />
+                <rotate time="33.333333333333336" x="0" y="1" z="0"/>
             </transform>
             <models>
                 <model file="./models/sphere.3d" />
             </models>
+        </group>
+        <group>
+            <!-- Mercury-->
+            <transform>
+                <rotate time="108.64197530864197" x="0" y="1" z="0"/>
+                <translate x="1.38603671525334481984" y="0" z="0" />
+                <scale x="0.00175199253249085" y="0.00175199253249085"
+                        z="0.00175199253249085" />
+            </transform>
+            <group>
+                <transform>
+                    <rotate time="72.42798353909465" x="0" y="1" z="0" />
+                </transform>
+                <models>
+                    <model file="./models/sphere.3d" />
+                </models>
+            </group>
+            
         </group>
         <group>
             <!-- Venus-->
             <transform>
+                <rotate time="277.4074074074074" x="0" y="1" z="0" />
                 <translate x="2.58969387999329825334" y="0" z="0" />
-                <rotate angle="0" x="0" y="0" z="0" />
                 <scale x="0.00434551590435844" y="0.00434551590435844"
                     z="0.00434551590435844" />
             </transform>
-            <models>
-                <model file="./models/sphere.3d" />
-            </models>
-        </group>
-        <group>
-            <!-- Earth-->
-            <transform>
-                <translate x="3.58057490246762899488" y="0" z="0" />
-                <rotate angle="0" x="0" y="0" z="0" />
-                <scale x="0.00457456738708983" y="0.00457456738708983"
-                    z="0.00457456738708983" />
-            </transform>
-            <models>
-                <model file="./models/sphere.3d" />
-            </models>
             <group>
-                <!-- Moon-->
                 <transform>
-                    <translate x="0" y="5" z="0" />
-                    <rotate angle="0" x="0" y="0" z="0" />
-                    <scale x="0.25" y="0.25" z="0.25" />
+                    <rotate time="300.0" x="0" y="1" z="0" />
                 </transform>
                 <models>
                     <model file="./models/sphere.3d" />
@@ -62,16 +55,54 @@
             </group>
         </group>
         <group>
+            <!-- Earth-->
+            <transform>
+                <rotate time="450.61728395061726" x="0" y="1" z="0" />
+                <translate x="3.58057490246762899488" y="0" z="0" />
+                <scale x="0.00457456738708983" y="0.00457456738708983"
+                    z="0.00457456738708983" />
+            </transform>
+            <group>
+                <transform>
+                    <rotate time="1.2345679012345678" x="0" y="1" z="0" />
+                </transform>
+                <models>
+                    <model file="./models/sphere.3d" />
+                </models>
+            </group>
+            <group>
+                <!-- Moon-->
+                <transform>
+                    <rotate time="829.6296296296297" x="0" y="1" z="0" />
+                    <translate x="0" y="5" z="0" />
+                    <scale x="0.25" y="0.25" z="0.25" />
+                </transform>
+                <group>
+                    <transform>
+                        <rotate time="829.6296296296297" x="0" y="1" z=""/>
+                    </transform>
+                    <models>
+                        <model file="./models/sphere.3d" />
+                    </models>
+                </group>
+            </group>
+        </group>
+        <group>
             <!-- Mars-->
             <transform>
+                <rotate time="848.1481481481482" x="0" y="1" z="0" />
                 <translate x="5.45558986142026292043" y="0" z="0" />
-                <rotate angle="0" x="0" y="0" z="0" />
-                <scale x="0.00243412077259999" y="0.00243412077259999"
-                    z="0.00243412077259999" />
             </transform>
-            <models>
-                <model file="./models/sphere.3d" />
-            </models>
+            <group>
+                <transform>
+                    <rotate time="1.286008230452675" x="0" y="1" z="0" />
+                    <scale x="0.00243412077259999" y="0.00243412077259999"
+                    z="0.00243412077259999" />
+                </transform>
+                <models>
+                    <model file="./models/sphere.3d" />
+                </models>
+            </group>
             <group>
                 <!-- deimos-->
                 <transform>
@@ -101,14 +132,19 @@
         <group>
             <!-- Jupiter-->
             <transform>
+                <rotate time="5346.913580246914" x="0" y="1" z="0" />
                 <translate x="18.62880256575955684184" y="0" z="0" />
-                <rotate angle="0" x="0" y="0" z="0" />
                 <scale x="0.05019817620449487" y="0.05019817620449487"
-                    z="0.05019817620449487" />
+                        z="0.05019817620449487" />
             </transform>
-            <models>
-                <model file="./models/sphere.3d" />
-            </models>
+            <group>
+                <transform>
+                    <rotate time="0.51440329218107" x="0" y="1" z="0" />
+                </transform>
+                <models>
+                    <model file="./models/sphere.3d" />
+                </models>
+            </group>
             <group>
                 <!-- Metis-->
                 <transform>
@@ -1073,22 +1109,28 @@
         <group>
             <!-- Saturn-->
             <transform>
+                <rotate time="13267.901234567902" x="0" y="1" z="0" />
                 <translate x="34.30985376127905084331" y="0" z="0" />
-                <rotate angle="20" x="1" y="0" z="0" />
                 <scale x="0.04181230702951102" y="0.04181230702951102"
-                    z="0.04181230702951102" />
+                        z="0.04181230702951102" />
             </transform>
-            <models>
-                <model file="./models/sphere.3d" />
-            </models>
             <group>
                 <transform>
-                    <scale x="2" y="0.1" z="2" />
+                    <rotate time="0.565843621399177" x="0" y="1" z="0" />
                 </transform>
                 <models>
-                    <model file="./models/torus.3d" />
+                    <model file="./models/sphere.3d" />
                 </models>
+                <group>
+                    <transform>
+                        <scale x="2" y="0.1" z="2" />
+                    </transform>
+                    <models>
+                        <model file="./models/torus.3d" />
+                    </models>
+                </group>
             </group>
+
             <group>
                 <!-- S/2009 S 1-->
                 <transform>
@@ -2077,14 +2119,20 @@
         <group>
             <!-- Uranus-->
             <transform>
+                <rotate time="37764.1975308642" x="0" y="1" z="0" />
                 <translate x="68.75134630573705862844" y="0" z="0" />
-                <rotate angle="0" x="0" y="0" z="0" />
                 <scale x="0.01821066992173476" y="0.01821066992173476"
-                    z="0.01821066992173476" />
+                        z="0.01821066992173476" />
             </transform>
-            <models>
-                <model file="./models/sphere.3d" />
-            </models>
+            <group>
+                <transform>
+                    <rotate time="0.8744855967078189" x="0" y="1" z="0" />
+                </transform>
+                <models>
+                    <model file="./models/sphere.3d" />
+                </models>
+            </group>
+
             <group>
                 <!-- Cordelia-->
                 <transform>
@@ -2413,14 +2461,19 @@
         <group>
             <!-- Neptune-->
             <transform>
+                <rotate time="7382.716049382716" x="0" y="1" z="0" />
                 <translate x="107.58718077595078455033" y="0" z="0" />
-                <rotate angle="0" x="0" y="0" z="0" />
                 <scale x="0.01767932792417606" y="0.01767932792417606"
-                    z="0.01767932792417606" />
+                        z="0.01767932792417606" />
             </transform>
-            <models>
-                <model file="./models/sphere.3d" />
-            </models>
+            <group>
+                <transform>
+                    <rotate time="0.051440329218107" x="0" y="1" z="0" />
+                </transform>
+                <models>
+                    <model file="./models/sphere.3d" />
+                </models>
+            </group>
             <group>
                 <!-- Naiad-->
                 <transform>

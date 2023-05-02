@@ -1,7 +1,8 @@
 import re
+import sys
 
-
-file = open("/home/utilizador/Documents/3_ano/2_semestre/computacao_grafica/CG2023/xml_files/solar_system_moons.xml", "r")
+file = open(sys.argv[1], "r")
+#file = open("/home/utilizador/Documents/3_ano/2_semestre/computacao_grafica/CG2023/xml_files/solar_system_moons.xml", "r")
 
 for line in file:
     tup = re.findall(
