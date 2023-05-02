@@ -28,7 +28,7 @@ public:
 
 class Model {
 public:
-    int size;
+    unsigned int size;
     unsigned int index = 0;
 };
 

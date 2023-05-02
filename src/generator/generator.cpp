@@ -399,7 +399,13 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
         index_array[index++] = *points_total-3;//last
         index_array[index++] = (stacks-1)*((j+1)%slices)+1;
     }
-    //TODO return correct things
+    printf("Dentro da func\n");
+    for(int i=0; i< *points_total; i++){
+            if(i % 3 == 0)
+                printf("\n");
+            printf("%f ",points_array[i]);
+        }
+
     return make_tuple(points_array, index_array);
 }
 
@@ -492,17 +498,25 @@ void write3D(const char *filename, unsigned int nVertices, float* points, unsign
 
 int main(int argc, char* argv[]){
     if(!strcmp(argv[1], "sphere")){
-        int points_total;
-        float* sphere = generate_sphere(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
-        points_write(argv[5], points_total, sphere);
-        free(sphere);
+        unsigned int points_total, index_total;
+        //float* sphere = generate_sphere(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
+        tuple<float*, unsigned int*> sphere = generate_sphere_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total, &index_total);
+        printf("\nDentro do main\n");
+        float* ar = get<0>(sphere);
+        for(int i=0; i<points_total; i++){
+            if(i % 3 == 0)
+                printf("\n");
+            printf("%f ",ar[i]);
+        }
+        //points_write(argv[5], points_total, sphere);
+        write3D(argv[5], points_total, get<0>(sphere), index_total, get<1>(sphere));
     } else if(!strcmp(argv[1], "box")){
         int points_total;
         float* box = generate_box(atof(argv[2]), atoi(argv[3]), &points_total);
         points_write(argv[4], points_total, box);
         free(box);
     } else if(!strcmp(argv[1], "plane")){
-        int points_total;
+        int points_total;//TODO return correct things
         float* plane = generate_plane(atof(argv[2]), atoi(argv[3]), &points_total);
         points_write(argv[4], points_total, plane);
         free(plane);

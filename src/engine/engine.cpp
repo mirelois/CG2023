@@ -9,7 +9,7 @@ int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_r
 float last_camera_position[3];
 char axis = 1;
 char polygon = 1;
-GLuint buffer;
+GLuint buffer[2];
 int timebase = 0;
 float frame = 0;
 
@@ -32,13 +32,14 @@ void drawAxis(){
 
 void drawGroup(Group* group){
 	glPushMatrix();
-	
+
 	for(Transformation* transformation: group->transformations){
 		transformation->transform();
 	}
-
 	for(Model* groupModel: group->models){
-		glDrawArrays(GL_TRIANGLES, groupModel->index, groupModel->size);
+		//glDrawArrays(GL_TRIANGLES, groupModel->index, groupModel->size);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+		glDrawElements(GL_TRIANGLES, groupModel->size, GL_UNSIGNED_INT, (void*) (groupModel->index*sizeof(GLuint)));
 	}
 	
 	for(Group* groupChild: group->subGroups)
@@ -339,7 +340,15 @@ int main(int argc, char* argv[]) {
 	
 // Read Xml file
 	vector<float>* points = new vector<float>();
-	parser(argv[1], window, camera_global, group_global, points);
+	vector<unsigned int>* indices = new vector<unsigned int>();
+	parser(argv[1], window, camera_global, group_global, points, indices);
+	int i=0;
+	for(float x: *points){
+		printf("%f ", x);
+		if(i == 2)
+			printf("\n");
+		i += 1 % 3;
+	}
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
@@ -371,12 +380,18 @@ int main(int argc, char* argv[]) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 // VBO'S
-	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	glGenBuffers(2, buffer);
+
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glBufferData(GL_ARRAY_BUFFER, points->size()*sizeof(float), points->data(), GL_STATIC_DRAW);
 	delete(points);
-	glVertexPointer(3, GL_FLOAT, 0, 0);
 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size()*sizeof(unsigned int), indices->data(), GL_STATIC_DRAW);
+	delete(indices);
+
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
 // enter GLUT's main cycle
 	glutMainLoop();
 }

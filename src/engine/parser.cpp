@@ -63,7 +63,7 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, unordered_map<string, Model*> *model_map, unsigned int *index){
+void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, vector<unsigned int>* indices, unordered_map<string, Model*> *model_map, unsigned int *index){
     string model_name;
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
@@ -73,18 +73,22 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             filestream.open(node_models->first_attribute()->value(), ios::in | ios::binary);
             assert( (filestream.rdstate() & std::ifstream::failbit ) == 0 );
                 // Ler inteiro para o n
-            int n;
-            filestream.read((char*)&n, sizeof(int));
+            unsigned int n;
+            filestream.read((char*)&n, sizeof(unsigned int));
 
             // Ler array de tuplos
             //tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
-            int before = points->size();
+            unsigned int before = points->size();
             points->resize(before + n);
             //filestream.read((char*)tuples, sizeof(float) * n);
             filestream.read((char*)(points->data() + before), sizeof(float) * n);
+            unsigned int n_indices;
+            filestream.read((char*)&n_indices, sizeof(unsigned int));
+            before = indices->size();
+            indices->resize(before + n_indices);
+            filestream.read((char*)(indices->data() + before), sizeof(unsigned int) * n_indices);
             // fechar o ficheiro
             filestream.close();
-
             // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
             Model* model = new Model;
             //model->figure = tuples;
@@ -240,7 +244,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
 }
 
 
-void parse_group(xml_node<> *group_node, Group* group, vector<float>* points,
+void parse_group(xml_node<> *group_node, Group* group, vector<float>* points, vector<unsigned int>* indices,
                 unordered_map<string, Model*> *model_map, unsigned int *index){
     xml_node<>* temp;
     // Transformações
@@ -249,17 +253,17 @@ void parse_group(xml_node<> *group_node, Group* group, vector<float>* points,
 
     // Modelos 
     if((temp = group_node->first_node("models")))
-        parse_group_models(temp, group, points, model_map, index);
+        parse_group_models(temp, group, points, indices, model_map, index);
     
     // Grupos
     for(temp = group_node->first_node("group"); temp; temp = temp->next_sibling("group")){
         Group *groupChild = new Group;
         group->subGroups.push_back(groupChild);
-        parse_group(temp, groupChild, points, model_map, index);
+        parse_group(temp, groupChild, points, indices, model_map, index);
     }
 }
 
-void parser(char* fileName, Window* window, Camera* camera, Group* group, vector<float>* points)
+void parser(char* fileName, Window* window, Camera* camera, Group* group, vector<float>* points, vector<unsigned int>* indices)
 {  
     
     xml_document<> doc;
@@ -290,7 +294,7 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group, vector
     unsigned int index = 0;
     unordered_map<string, Model*> model_map = {};
     if((temp = root_node->first_node("group")))
-        parse_group(temp, group, points, &model_map, &index);
+        parse_group(temp, group, points, indices, &model_map, &index);
 
     //percorrer o mapa e pôr nos points os pontos ao mesmo tempo que se põe o índice (ou fazer logo que se coloca)
 }
