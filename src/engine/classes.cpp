@@ -90,7 +90,7 @@ void Translate_Catmull::transform() {
     float timePassed = remainder(glutGet(GLUT_ELAPSED_TIME) / 1000.0f, time);
     float pos[3];
     timePassed = timePassed < 0 ? (timePassed + time) / time : timePassed / time;
-    getGlobalCatmullRomPoint(timePassed, pos, this->x);
+    getGlobalCatmullRomPoint(timePassed, pos, x);
     glTranslatef(pos[0], pos[1], pos[2]);
 }
 

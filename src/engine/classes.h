@@ -39,16 +39,13 @@ public:
 };
 
 class Translate_Catmull: public Transformation {
-private:
-    float time;
+public:
     std::vector<float*> points;
-    float y[3] = { 0,1,0 };
+    float time;
+    float x[3];
     void multMatrixVector(float* m, float* v, float* res);
     void getCatmullRomPoint(float t, float* p0, float* p1, float* p2, float* p3, float* pos, float* deriv);
     // given  global t, returns the point in the curve
-
-public:
-    float x[3];
     void getGlobalCatmullRomPoint(float gt, float* pos, float* deriv);
     void setTime(float t);
     void addPoint(float p[3]);
@@ -56,11 +53,11 @@ public:
 };
 
 class Translate_Catmull_Align : public virtual Translate_Catmull {
-private:
+public:
+    float y[3] = { 0,1,0 };
     void buildRotMatrix(float* x, float* y, float* z, float* m);
     void cross(float* a, float* b, float* res);
     void normalize(float* a);
-public:
     void align();
     void transform() override;
 };
