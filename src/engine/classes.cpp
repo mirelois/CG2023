@@ -95,7 +95,7 @@ void Translate_Catmull::transform() {
 }
 
 void Translate_Catmull_Align::align() {
-    float y[3], z[3];
+    float z[3];
     normalize(x);
     cross(x, y, z);
     normalize(z);

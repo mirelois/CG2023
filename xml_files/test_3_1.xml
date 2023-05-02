@@ -12,7 +12,7 @@
 		</transform>
 		<group>
 			<transform>
-				<translate time = "10" align="True" draw="False"> <!-- O campo align diz se o objecto deve ser orientado na curva -->
+				<translate time = "10" align="True" draw="True"> <!-- O campo align diz se o objecto deve ser orientado na curva -->
 					<point x = "0" y = "0" z = "4" />
 					<point x = "4" y = "0" z = "0" />
 					<point x = "0" y = "0" z = "-4" />
