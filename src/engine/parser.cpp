@@ -139,21 +139,25 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
             xml_attribute<>* attr;
             if ((attr = node_temp->first_attribute("time"))) {
                 Translate_Catmull* translation;
-                if ((attr = node_temp->first_attribute("draw"))) {
-                    translation = new Translate_Catmull_Curve();
+                if ((attr = node_temp->first_attribute("draw")) && strcmp(attr->value(), "True")) {
+                    if ((attr = node_temp->first_attribute("align")) && strcmp(attr->value(), "True")) {
+                        translation = new Translate_Catmull_Curve_Align();
+                    }
+                    else {
+                        translation = new Translate_Catmull_Curve();
+                    }
                 }
                 else {
-                    translation = new Translate_Catmull();
+                    if ((attr = node_temp->first_attribute("align")) && strcmp(attr->value(), "True")) {
+                        translation = new Translate_Catmull_Align();
+                    }
+                    else {
+                        translation = new Translate_Catmull();
+                    }
                 }
                 
                 translation->setTime(atof(attr->value()));
-                if ((attr = node_temp->first_attribute("align"))) {
-                    translation->setAlign(!strcmp("true", attr->value()));
-                }
-                else translation->setAlign(false);
-
                 parse_translate_points(translation, node_temp);
-
                 group->transformations.push_back(translation);
             }
             else {

@@ -75,12 +75,8 @@ void Translate_Catmull::getGlobalCatmullRomPoint(float gt, float* pos, float* de
 
     getCatmullRomPoint(t, points[indices[0]], points[indices[1]], points[indices[2]], points[indices[3]], pos, deriv);
 }
-
 void Translate_Catmull::setTime(float t) {
     time = t;
-}
-void Translate_Catmull::setAlign(bool a) {
-    align = a;
 }
 void Translate_Catmull::addPoint(float p[3]) {
     //TODO quero não usar mallocs
@@ -92,26 +88,47 @@ void Translate_Catmull::addPoint(float p[3]) {
 }
 void Translate_Catmull::transform() {
     float timePassed = remainder(glutGet(GLUT_ELAPSED_TIME) / 1000.0f, time);
-    float pos[3], x[3], z[3];
+    float pos[3];
     timePassed = timePassed < 0 ? (timePassed + time) / time : timePassed / time;
-    getGlobalCatmullRomPoint(timePassed, pos, x);
+    getGlobalCatmullRomPoint(timePassed, pos, this->x);
     glTranslatef(pos[0], pos[1], pos[2]);
 }
 
-void Translate_Catmull_Align::transform() {
-    Translate_Catmull::transform();
+void Translate_Catmull_Align::align() {
+    float y[3], z[3];
     normalize(x);
     cross(x, y, z);
     normalize(z);
     cross(z, x, y);
-
     float m[16];
     buildRotMatrix(x, y, z, m);
     glMultMatrixf(m);
 }
 
+void Translate_Catmull_Curve::curve() {
+    float p[3], d[3];
+    // draw curve using line segments with GL_LINE_LOOP
+    glBegin(GL_LINE_LOOP);
+    for (float t = 0; t < 1; t += 0.01) {
+        getGlobalCatmullRomPoint(t, p, d);
+        glVertex3f(p[0], p[1], p[2]);
+    }
+    glEnd();
+}
+
+void Translate_Catmull_Align::transform() {
+    Translate_Catmull::transform();
+    align();
+}
+
 void Translate_Catmull_Curve::transform() {
     //se der asneira a culpa é disto
     Translate_Catmull::transform();
+    curve();
+}
 
+void Translate_Catmull_Curve_Align::transform() {
+    Translate_Catmull::transform();
+    curve();
+    align();
 }
