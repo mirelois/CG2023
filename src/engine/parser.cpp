@@ -140,8 +140,8 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
             if ((attr = node_temp->first_attribute("time"))) {
                 float time = atof(attr->value());
                 Translate_Catmull* translation;
-                if ((attr = node_temp->first_attribute("draw")) && strcmp(attr->value(), "True")) {
-                    if ((attr = node_temp->first_attribute("align")) && strcmp(attr->value(), "True")) {
+                if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
+                    if ((attr = node_temp->first_attribute("align")) && !strcmp(attr->value(), "True")) {
                         translation = new Translate_Catmull_Curve_Align();
                     }
                     else {
@@ -149,7 +149,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
                     }
                 }
                 else {
-                    if ((attr = node_temp->first_attribute("align")) && strcmp(attr->value(), "True")) {
+                    if ((attr = node_temp->first_attribute("align")) && !strcmp(attr->value(), "True")) {
                         translation = new Translate_Catmull_Align();
                     }
                     else {
