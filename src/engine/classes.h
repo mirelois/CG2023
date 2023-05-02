@@ -42,7 +42,7 @@ class Translate_Catmull: public Transformation {
 public:
     std::vector<float*> points;
     float time;
-    float x[3];
+    float x[3] = {0.0f,0.0f,0.0f};
     void multMatrixVector(float* m, float* v, float* res);
     void getCatmullRomPoint(float t, float* p0, float* p1, float* p2, float* p3, float* pos, float* deriv);
     // given  global t, returns the point in the curve
