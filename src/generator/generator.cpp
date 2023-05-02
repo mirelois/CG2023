@@ -345,7 +345,7 @@ float* generate_sphere_index(float radius, int slices, int stacks, int *points_t
 
     float* master_line = (float*) malloc(sizeof(float) * master_line_size);
     float* points_array = (float*) malloc(sizeof(float) * *points_total);
-    float* index_array = (float*) malloc(sizeof(float) * *index_total);
+    unsigned int* index_array = (unsigned int*) malloc(sizeof(unsigned int) * *index_total);
 
     //generate master line
     int master_line_index = 0;
