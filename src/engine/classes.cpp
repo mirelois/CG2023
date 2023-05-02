@@ -123,12 +123,12 @@ void Translate_Catmull_Align::transform() {
 
 void Translate_Catmull_Curve::transform() {
     //se der asneira a culpa é disto
-    Translate_Catmull::transform();
     curve();
+    Translate_Catmull::transform();
 }
 
 void Translate_Catmull_Curve_Align::transform() {
-    Translate_Catmull::transform();
     curve();
+    Translate_Catmull::transform();
     align();
 }
