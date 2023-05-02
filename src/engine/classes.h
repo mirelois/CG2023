@@ -29,7 +29,7 @@ public:
 class Model {
 public:
     int size;
-    int index = 0;
+    unsigned int index = 0;
 };
 
 
@@ -44,9 +44,6 @@ private:
     std::vector<float*> points;
     bool align;
     float y[3] = { 0,1,0 };
-    void buildRotMatrix(float* x, float* y, float* z, float* m);
-    void cross(float* a, float* b, float* res);
-    void normalize(float* a);
     void multMatrixVector(float* m, float* v, float* res);
     void getCatmullRomPoint(float t, float* p0, float* p1, float* p2, float* p3, float* pos, float* deriv);
     // given  global t, returns the point in the curve
@@ -56,6 +53,22 @@ public:
     void setTime(float t);
     void setAlign(bool a);
     void addPoint(float p[3]);
+    void transform() override;
+};
+
+class Translate_Catmull_Align : public Translate_Catmull {
+    void buildRotMatrix(float* x, float* y, float* z, float* m);
+    void cross(float* a, float* b, float* res);
+    void normalize(float* a);
+    void transform() override;
+};
+
+class Translate_Catmull_Curve_Align : public Translate_Catmull_Align {
+
+};
+
+class Translate_Catmull_Curve : public Translate_Catmull {
+public:
     void transform() override;
 };
 

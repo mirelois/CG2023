@@ -63,7 +63,7 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, unordered_map<string, Model*> *model_map, int *index){
+void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, unordered_map<string, Model*> *model_map, unsigned int *index){
     string model_name;
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
@@ -236,7 +236,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
 
 
 void parse_group(xml_node<> *group_node, Group* group, vector<float>* points,
-                unordered_map<string, Model*> *model_map, int *index){
+                unordered_map<string, Model*> *model_map, unsigned int *index){
     xml_node<>* temp;
     // Transformações
     if((temp = group_node->first_node("transform")))
@@ -282,7 +282,7 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group, vector
         parse_camera(temp, camera);
 
     // Grupo
-    int index = 0;
+    unsigned int index = 0;
     unordered_map<string, Model*> model_map = {};
     if((temp = root_node->first_node("group")))
         parse_group(temp, group, points, &model_map, &index);

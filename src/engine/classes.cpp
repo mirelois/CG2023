@@ -2,7 +2,7 @@
 #include <vector>
 #include "classes.h"
 
-void Translate_Catmull::buildRotMatrix(float* x, float* y, float* z, float* m) {
+void Translate_Catmull_Align::buildRotMatrix(float* x, float* y, float* z, float* m) {
 
     m[0] = x[0]; m[1] = x[1]; m[2] = x[2]; m[3] = 0;
     m[4] = y[0]; m[5] = y[1]; m[6] = y[2]; m[7] = 0;
@@ -11,7 +11,7 @@ void Translate_Catmull::buildRotMatrix(float* x, float* y, float* z, float* m) {
 }
 
 
-void Translate_Catmull::cross(float* a, float* b, float* res) {
+void Translate_Catmull_Align::cross(float* a, float* b, float* res) {
 
     res[0] = a[1] * b[2] - a[2] * b[1];
     res[1] = a[2] * b[0] - a[0] * b[2];
@@ -19,7 +19,7 @@ void Translate_Catmull::cross(float* a, float* b, float* res) {
 }
 
 
-void Translate_Catmull::normalize(float* a) {
+void Translate_Catmull_Align::normalize(float* a) {
 
     float l = sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
     a[0] = a[0] / l;
@@ -96,14 +96,22 @@ void Translate_Catmull::transform() {
     timePassed = timePassed < 0 ? (timePassed + time) / time : timePassed / time;
     getGlobalCatmullRomPoint(timePassed, pos, x);
     glTranslatef(pos[0], pos[1], pos[2]);
-    if (align) {
-        normalize(x);
-        cross(x, y, z);
-        normalize(z);
-        cross(z, x, y);
+}
 
-        float m[16];
-        buildRotMatrix(x, y, z, m);
-        glMultMatrixf(m);
-    }
+void Translate_Catmull_Align::transform() {
+    Translate_Catmull::transform();
+    normalize(x);
+    cross(x, y, z);
+    normalize(z);
+    cross(z, x, y);
+
+    float m[16];
+    buildRotMatrix(x, y, z, m);
+    glMultMatrixf(m);
+}
+
+void Translate_Catmull_Curve::transform() {
+    //se der asneira a culpa é disto
+    Translate_Catmull::transform();
+
 }
