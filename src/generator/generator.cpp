@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 #include <ostream>
 #include <stdio.h>
 #define _USE_MATH_DEFINES
@@ -348,12 +349,11 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
     float* points_array = (float*) malloc(sizeof(float) * *points_total);
     unsigned int* index_array = (unsigned int*) malloc(sizeof(unsigned int) * *index_total);
 
-    //generate master line
     int master_line_index = 0;
     for (int i = 0; i < stacks+1; i++) {
-        master_line[master_line_index] = pivot_x;
-        master_line[master_line_index] = pivot_y*cos(i*alfa_x);
-        master_line[master_line_index] = pivot_y*sin(i*alfa_x);
+        master_line[master_line_index++] = pivot_x;
+        master_line[master_line_index++] = pivot_y*cos(i*alfa_x);
+        master_line[master_line_index++] = pivot_y*sin(i*alfa_x);
     }
 
     int index = 0;
@@ -383,28 +383,22 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
         index_array[index++] = (stacks-1)*j+1;
         index_array[index++] = (stacks-1)*((j+1)%slices)+1;
         
-        for (int i = 0; i < stacks-2; i++) {
-            //primeiro triangulo da stack
-            index_array[index++] = (stacks-1)*j+i+1;
-            index_array[index++] = (stacks-1)*j+(i+1)+1;
-            index_array[index++] = (stacks-1)+((j+1)%slices)+(i+1)+1;
-            
-            //segundo triangulo da stack
-            index_array[index++] = (stacks-1)*j+i+1;
-            index_array[index++] = (stacks-1)*j+(i+1)+1;
-            index_array[index++] = (stacks-1)*((j+1)%slices)+i+1;
-        }
-        //add bottom triangle
-        index_array[index++] = (stacks-1)*j;
-        index_array[index++] = *points_total-3;//last
-        index_array[index++] = (stacks-1)*((j+1)%slices)+1;
+        //for (int i = 0; i < stacks-2; i++) {
+        //    //primeiro triangulo da stack
+        //    index_array[index++] = (stacks-1)*j+i+1;
+        //    index_array[index++] = (stacks-1)*j+(i+1)+1;
+        //    index_array[index++] = (stacks-1)+((j+1)%slices)+(i+1)+1;
+        //    
+        //    //segundo triangulo da stack
+        //    index_array[index++] = (stacks-1)*j+i+1;
+        //    index_array[index++] = (stacks-1)*j+(i+1)+1;
+        //    index_array[index++] = (stacks-1)*((j+1)%slices)+i+1;
+        //}
+        ////add bottom triangle
+        //index_array[index++] = (stacks-1)*j;
+        //index_array[index++] = *points_total-3;//last
+        //index_array[index++] = (stacks-1)*((j+1)%slices)+1;
     }
-    printf("Dentro da func\n");
-    for(int i=0; i< *points_total; i++){
-            if(i % 3 == 0)
-                printf("\n");
-            printf("%f ",points_array[i]);
-        }
 
     return make_tuple(points_array, index_array);
 }
@@ -501,13 +495,7 @@ int main(int argc, char* argv[]){
         unsigned int points_total, index_total;
         //float* sphere = generate_sphere(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
         tuple<float*, unsigned int*> sphere = generate_sphere_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total, &index_total);
-        printf("\nDentro do main\n");
         float* ar = get<0>(sphere);
-        for(int i=0; i<points_total; i++){
-            if(i % 3 == 0)
-                printf("\n");
-            printf("%f ",ar[i]);
-        }
         //points_write(argv[5], points_total, sphere);
         write3D(argv[5], points_total, get<0>(sphere), index_total, get<1>(sphere));
     } else if(!strcmp(argv[1], "box")){
