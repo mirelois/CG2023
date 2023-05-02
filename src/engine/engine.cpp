@@ -312,8 +312,6 @@ void processMouseButtons(int button, int state, int xx, int yy) {
 void processMouseMotion(int xx, int yy) {
 
 	int deltaX, deltaY;
-	int alphaAux, betaAux;
-	int rAux;
 
 	if (!tracking)
 		return;
@@ -328,10 +326,6 @@ void processMouseMotion(int xx, int yy) {
 		save_position();
 		look_rotate_right = (look_rotate_right + deltaX) % (int)((2 * M_PI) / look_rotate_delta_right + 1);
 		look_rotate_up = (look_rotate_up + deltaY) % (int)((2 * M_PI) / look_rotate_delta_up + 1);
-		/*if (betaAux > 85.0)
-			betaAux = 85.0;
-		else if (betaAux < -85.0)
-			betaAux = -85.0;*/
 	}
 	//glutPostRedisplay();
 }
@@ -344,8 +338,8 @@ int main(int argc, char* argv[]) {
 	Window* window = new Window();
 	
 // Read Xml file
-	vector<float> points;
-	parser(argv[1], window, camera_global, group_global, &points);
+	vector<float>* points = new vector<float>();
+	parser(argv[1], window, camera_global, group_global, points);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
@@ -379,8 +373,10 @@ int main(int argc, char* argv[]) {
 // VBO'S
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, points.size()*sizeof(float), points.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, points->size()*sizeof(float), points->data(), GL_STATIC_DRAW);
+	delete(points);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
+
 // enter GLUT's main cycle
 	glutMainLoop();
 }
