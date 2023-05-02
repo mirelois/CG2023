@@ -332,8 +332,8 @@ float* generate_plane(float length, int grid_slices, int* points_total){
     return point_array;
 }
 
-float* generate_sphere_index(float radius, int slices, int stacks, int *points_total, int* index_total){
 
+tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int stacks, unsigned int *points_total, unsigned int* index_total){
     *index_total = slices*6*(stacks-1);
     *points_total = 3*(slices*(stacks-1)+2);
     int master_line_size = (stacks+1)*3;
@@ -400,7 +400,7 @@ float* generate_sphere_index(float radius, int slices, int stacks, int *points_t
         index_array[index++] = (stacks-1)*((j+1)%slices)+1;
     }
     //TODO return correct things
-    return points_array;
+    return make_tuple(points_array, index_array);
 }
 
 float* generate_sphere(float radius, int slices, int stacks, int *points_total){
@@ -471,6 +471,21 @@ void points_write(const char *filename, int nVertices, float* points)
 
     file.write((char*)&nVertices, sizeof(int));
     file.write((char*)points, sizeof(float)*nVertices);
+
+    file.close();
+}
+
+void write3D(const char *filename, unsigned int nVertices, float* points, unsigned int nIndices, unsigned int* indices){
+    ofstream file;
+    file.open(filename, ios::out|ios::binary|ios::trunc);
+
+    // Pontos
+    file.write((char*)&nVertices, sizeof(unsigned int));
+    file.write((char*)points, sizeof(float)*nVertices);
+
+    // Indices
+    file.write((char*)&nIndices, sizeof(unsigned int));
+    file.write((char*)indices, sizeof(unsigned int)*nIndices);
 
     file.close();
 }
