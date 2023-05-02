@@ -332,6 +332,76 @@ float* generate_plane(float length, int grid_slices, int* points_total){
     return point_array;
 }
 
+float* generate_sphere_index(float radius, int slices, int stacks, int *points_total, int* index_total){
+    *index_total = slices*6*(stacks-1);
+    *points_total = 3*(slices*(stacks-1)+2);
+    int master_line_size = (stacks+1)*3;
+    float alfa_x = M_PI/stacks;
+    float alfa_y = 2*M_PI/slices;
+
+    float pivot_x = 0;
+    float pivot_y = radius;
+    //float pivot_z = 0;
+
+    float* master_line = (float*) malloc(sizeof(float) * master_line_size);
+    float* points_array = (float*) malloc(sizeof(float) * *points_total);
+    float* index_array = (float*) malloc(sizeof(float) * *index_total);
+
+    //generate master line
+    int master_line_index = 0;
+    for (int i = 0; i < stacks+1; i++) {
+        master_line[master_line_index] = pivot_x;
+        master_line[master_line_index] = pivot_y*cos(i*alfa_x);
+        master_line[master_line_index] = pivot_y*sin(i*alfa_x);
+    }
+
+    int index = 0;
+
+    points_array[index++] = master_line[0];
+    points_array[index++] = master_line[1];
+    points_array[index++] = master_line[2];
+
+    points_array[*points_total-3] = master_line[master_line_size-1];
+    points_array[*points_total-2] = master_line[master_line_size-2];
+    points_array[*points_total-1] = master_line[master_line_size-3];
+
+    for (int j = 0; j < slices; j++) {
+        for (int i = 1; i < stacks-2; i++) {
+            points_array[index++] = (master_line[i*3 + 0])*cos(j*alfa_y) + (master_line[i*3 + 2])*sin(j*alfa_y);
+            points_array[index++] = (master_line[i*3 + 1]);
+            points_array[index++] = (master_line[i*3 + 0])*sin(j*alfa_y) + (master_line[i*3 + 2])*cos(j*alfa_y);
+        }
+    }
+
+    index = 0;
+    
+    for (int j = 0; j < slices; j++) {
+        
+        //add top triangle
+        index_array[index++] = 0;
+        index_array[index++] = (stacks-1)*j+1;
+        index_array[index++] = (stacks-1)*(j+1)+1;
+        
+        for (int i = 0; i < stacks-2; i++) {
+            //primeiro triangulo da stack
+            index_array[index++] = (stacks-1)*j+i+1;
+            index_array[index++] = (stacks-1)*j+(i+1)+1;
+            index_array[index++] = (stacks-1)+(j+1)+(i+1)+1;
+            
+            //segundo triangulo da stack
+            index_array[index++] = (stacks-1)*j+i+1;
+            index_array[index++] = (stacks-1)*j+(i+1)+1;
+            index_array[index++] = (stacks-1)*(j+1)+i+1;
+        }
+        //add bottom triangle
+        index_array[index++] = (stacks-1)*j;
+        index_array[index++] = *points_total-3;//last
+        index_array[index++] = (stacks-1)*(j+1)+1;
+    }
+    //TODO return correct things
+    return points_array;
+}
+
 float* generate_sphere(float radius, int slices, int stacks, int *points_total){
     *points_total = 3*slices*6*(stacks-1);
     float alfa_x = M_PI/stacks;
