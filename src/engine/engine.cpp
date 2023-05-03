@@ -33,14 +33,10 @@ void drawAxis(){
 void drawGroup(Group* group){
 	glPushMatrix();
 
-	for(Transformation* transformation: group->transformations){
+	for(Transformation* transformation: group->transformations)
 		transformation->transform();
-	}
-	for(Model* groupModel: group->models){
-		//glDrawArrays(GL_TRIANGLES, groupModel->index, groupModel->size);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+	for(Model* groupModel: group->models)
 		glDrawElements(GL_TRIANGLES, groupModel->size, GL_UNSIGNED_INT, (void*) (groupModel->index*sizeof(GLuint)));
-	}
 	
 	for(Group* groupChild: group->subGroups)
 		drawGroup(groupChild);
@@ -342,13 +338,6 @@ int main(int argc, char* argv[]) {
 	vector<float>* points = new vector<float>();
 	vector<unsigned int>* indices = new vector<unsigned int>();
 	parser(argv[1], window, camera_global, group_global, points, indices);
-	int i=0;
-	for(float x: *points){
-		printf("%f ", x);
-		if(i == 2)
-			printf("\n");
-		i += 1 % 3;
-	}
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
@@ -390,7 +379,6 @@ int main(int argc, char* argv[]) {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size()*sizeof(unsigned int), indices->data(), GL_STATIC_DRAW);
 	delete(indices);
 
-	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 // enter GLUT's main cycle
 	glutMainLoop();
