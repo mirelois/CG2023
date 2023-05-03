@@ -42,8 +42,8 @@ tuple<float*, unsigned int*> generate_torus_index(float inner_radius, float oute
         master_circle[master_circle_index++] = pivot_y*sin(i*delta_x) + (outer_radius+inner_radius)/2;
     }
 
-    for (int i = 0; i < horizontal_divisions; i++) {
-        for (int j = 0; j < vertical_divisions; j++) {
+    for (int j = 0; j < vertical_divisions; j++) {
+        for (int i = 0; i < horizontal_divisions; i++) {
             point_array[index++] = (master_circle[3*j + 0])*cos(i*delta_y) + (master_circle[3*j + 2])*sin(i*delta_y);
             point_array[index++] = (master_circle[3*j + 1]);
             point_array[index++] = (master_circle[3*j + 0])*sin(i*delta_y) + (master_circle[3*j + 2])*cos(i*delta_y);
@@ -52,16 +52,22 @@ tuple<float*, unsigned int*> generate_torus_index(float inner_radius, float oute
 
     index = 0;
 
-    for (int j = 0; j < horizontal_divisions; j++) {
-        for (int i = 0; i < vertical_divisions; i++) {
+    for (int j = 0; j < vertical_divisions; j++) {
+        for (int i = 0; i < horizontal_divisions; i++) {
             index_array[index++] = horizontal_divisions*j + i;
-            index_array[index++] = horizontal_divisions*((j+1)%horizontal_divisions) + i;
-            index_array[index++] = horizontal_divisions*((j+1)%horizontal_divisions) + ((i+1)%horizontal_divisions);
+            index_array[index++] = horizontal_divisions*((j+1)%vertical_divisions) + i;
+            index_array[index++] = horizontal_divisions*((j+1)%vertical_divisions) + ((i+1)%horizontal_divisions);
 
             index_array[index++] = horizontal_divisions*j + i;
-            index_array[index++] = horizontal_divisions*((j+1)%horizontal_divisions) + ((i+1)%horizontal_divisions);
+            index_array[index++] = horizontal_divisions*((j+1)%vertical_divisions) + ((i+1)%horizontal_divisions);
             index_array[index++] = horizontal_divisions*j + ((i+1)%horizontal_divisions);
         }
+    }
+
+    for (int i=0; i < *index_total; i++) {
+        printf("%u,",index_array[i]); 
+        if((i+1)%3 == 0) putchar('\n');
+        if((i+1)%6 == 0) putchar('\n');
     }
 
     return make_tuple(point_array, index_array);
@@ -496,11 +502,6 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
         index_array[index++] = (stacks-1)+(stacks-1)*(j);
         index_array[index++] = (stacks-1)*(slices)+1;//last
         index_array[index++] = (stacks-1)+(stacks-1)*((j+1)%slices);
-    }
-
-    for (int i=0; i < *index_total; i++) {
-        printf("%u,",index_array[i]); 
-        if((i+1)%3 == 0) putchar('\n');
     }
 
     return make_tuple(points_array, index_array);
