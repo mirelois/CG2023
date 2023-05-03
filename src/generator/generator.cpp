@@ -285,9 +285,9 @@ float* generate_box(float length,  int grid_slices, int* points_total)
     return point_array;
 }
 
-tuple<float*, unsigned int*> generate_plane_index(float length, int grid_slices, int* points_total, int* index_array_total){
+tuple<float*, unsigned int*> generate_plane_index(float length, int grid_slices, int* points_total, int* index_total){
 
-    *points_total = grid_slices*grid_slices*18;
+    *points_total = grid_slices*grid_slices*3*6;
 
     float* point_array = (float*) malloc(sizeof(float) * *points_total);
 
