@@ -674,10 +674,7 @@ void write3D(const char *filename, unsigned int nVertices, float* points, unsign
 int main(int argc, char* argv[]){
     if(!strcmp(argv[1], "sphere")){
         unsigned int points_total, index_total;
-        //float* sphere = generate_sphere(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total);
         tuple<float*, unsigned int*> sphere = generate_sphere_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), &points_total, &index_total);
-        float* ar = get<0>(sphere);
-        //points_write(argv[5], points_total, sphere);
         write3D(argv[5], points_total, get<0>(sphere), index_total, get<1>(sphere));
     } else if(!strcmp(argv[1], "box")){
         unsigned int points_total, index_total;
@@ -700,9 +697,8 @@ int main(int argc, char* argv[]){
         points_write(argv[6], cylinder->size(), cylinder->data());
         free(cylinder);
     }else if(!strcmp(argv[1], "patch")){
-        vector<float>* bezier = generate_bezier(argv[2], atoi(argv[3]));
-        points_write(argv[4], bezier->size(), bezier->data());
-        free(bezier);
+        tuple<vector<float>*, vector<unsigned int>*> bezier = generate_bezier(argv[2], atoi(argv[3]));
+        write3D(argv[4], get<0>(bezier)->size(), get<0>(bezier)->data(), get<1>(bezier)->size(), get<1>(bezier)->data());
     }
     else{
         printf("Invalid Model\n");
