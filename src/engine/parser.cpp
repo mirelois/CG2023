@@ -193,7 +193,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
             if ((attr = node_temp->first_attribute("time"))) {
                 rotation = new Rotate_Time(atof(attr->value()));
             }
-            else if (attr = node_temp->first_attribute("angle")) {
+            else if ((attr = node_temp->first_attribute("angle"))) {
                 rotation = new Rotate_Alpha(atof(attr->value()));
             }
             else {
