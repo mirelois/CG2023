@@ -10,5 +10,13 @@
         <models>
             <model file="models/sphere.3d" />
         </models>
+        <group>
+            <transform>
+                <translate x="10" y="0" z="0" />
+            </transform>
+            <models>
+                <model file="models/sphere.3d" />
+            </models>
+        </group>
     </group>
 </world>
