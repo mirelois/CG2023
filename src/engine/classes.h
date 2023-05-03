@@ -88,25 +88,11 @@ class Rotate: public Transformation{
 private:
 float arguments[4];
 public:
-void setArgOne(float alpha){
-    arguments[0] = alpha;
-}
-
-void virtual setArgTwo(float x){
-    arguments[1] = x;
-}
-
-void virtual setArgThree(float y){
-    arguments[2] = y;
-}
-
-void virtual setArgFour(float z){
-    arguments[3] = z;
-}
-
-void transform() override{
-    glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
-}
+    void setArgOne(float alpha);
+    void virtual setArgTwo(float x);
+    void virtual setArgThree(float y);
+    void virtual setArgFour(float z);
+    void transform() override;
 };
 
 class Rotate_Time : public Rotate {
@@ -117,58 +103,27 @@ public:
     Rotate_Time(unsigned int t) {
         time = t;
     }
-    void setTime(unsigned int t) {
-        time = t;
-    }
-
-    void setArgTwo(float x) override{
-        arguments[0] = x;
-    }
-
-    void setArgThree(float y) override {
-        arguments[1] = y;
-    }
-
-    void setArgFour(float z) override {
-        arguments[2] = z;
-    }
-
-    void transform() override {
-        //Conseguir um valor que pertença a [0,1] com base no resto do tempo passado desde o último múltiplo de 
-        float timePassed = remainder(glutGet(GLUT_ELAPSED_TIME) / 1000.0f, time);
-        timePassed = timePassed < 0 ? (timePassed + time) / time : timePassed / time;
-        glRotatef(360.0f * timePassed, arguments[0], arguments[1], arguments[2]);
-    }
+    void setTime(unsigned int t);
+    void setArgTwo(float x) override;
+    void setArgThree(float y) override;
+    void setArgFour(float z) override;
+    void transform() override;
 };
 
 class Scale: public Transformation{
 private:
 float arguments[3];
 public:
-void setArgOne(float x){
-    arguments[0] = x;
-}
-
-void setArgTwo(float y){
-    arguments[1] = y;
-}
-
-void setArgThree(float z){
-    arguments[2] = z;
-}
-
-void transform() override{
-    glScalef(arguments[0], arguments[1], arguments[2]);
-}
+    void setArgOne(float x);
+    void setArgTwo(float y);
+    void setArgThree(float z);
+    void transform() override;
 };
 
 class Group{
 public:
     std::vector<Model*> models;
-
-
     std::vector<Transformation*> transformations;
-
     //Group *group = 0;
     std::vector<Group*> subGroups;
 };

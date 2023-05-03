@@ -2,6 +2,65 @@
 #include <vector>
 #include "classes.h"
 
+void Rotate::setArgOne(float alpha) {
+    arguments[0] = alpha;
+}
+
+void Rotate::setArgTwo(float x) {
+    arguments[1] = x;
+}
+
+void Rotate::setArgThree(float y) {
+    arguments[2] = y;
+}
+
+void Rotate::setArgFour(float z) {
+    arguments[3] = z;
+}
+
+void Rotate::transform() {
+    glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
+}
+
+void Rotate_Time::setTime(unsigned int t) {
+    time = t;
+}
+
+void Rotate_Time::setArgTwo(float x) {
+    arguments[0] = x;
+}
+
+void Rotate_Time::setArgThree(float y) {
+    arguments[1] = y;
+}
+
+void Rotate_Time::setArgFour(float z) {
+    arguments[2] = z;
+}
+
+void Rotate_Time::transform() {
+    //Conseguir um valor que pertença a [0,1] com base no resto do tempo passado desde o último múltiplo de 
+    float timePassed = remainder(glutGet(GLUT_ELAPSED_TIME) / 1000.0f, time);
+    timePassed = timePassed < 0 ? (timePassed + time) / time : timePassed / time;
+    glRotatef(360.0f * timePassed, arguments[0], arguments[1], arguments[2]);
+}
+
+void Scale::setArgOne(float x) {
+    arguments[0] = x;
+}
+
+void Scale::setArgTwo(float y) {
+    arguments[1] = y;
+}
+
+void Scale::setArgThree(float z) {
+    arguments[2] = z;
+}
+
+void Scale::transform() {
+    glScalef(arguments[0], arguments[1], arguments[2]);
+}
+
 void Translate::setArgOne(float x) {
     arguments[0] = x;
 }
