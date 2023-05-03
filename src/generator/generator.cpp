@@ -301,17 +301,26 @@ tuple<float*, unsigned int*> generate_plane_index(float length, int grid_slices,
 
     float referential_z = -length/2;
     
-    for(int i = 0; i < grid_slices; i++){
-        for (int j = 0; j < grid_slices; j++){
+    for(int i = 0; i < grid_slices+1; i++){
+        for (int j = 0; j < grid_slices+1; j++){
             point_array[index++] = j*delta+referential_x;
             point_array[index++] = 0.0f;
             point_array[index++] = i*delta+referential_z;
         }
     }
 
-    for(int i = 0; i < grid_slices+1; i++){
-        for (int j = 0; j < grid_slices+1; j++){
+    index = 0;
+
+    for(int i = 0; i < grid_slices; i++){
+        for (int j = 0; j < grid_slices; j++){
+
             index_array[index++] = (grid_slices+1)*i+j;
+            index_array[index++] = (grid_slices+1)*(i+1)+j;
+            index_array[index++] = (grid_slices+1)*(i+1)+(j+1);
+
+            index_array[index++] = (grid_slices+1)*i+j;
+            index_array[index++] = (grid_slices+1)*(i+1)+(j+1);
+            index_array[index++] = (grid_slices+1)*i+(j+1);
         }
     }
     return make_tuple(point_array, index_array);
