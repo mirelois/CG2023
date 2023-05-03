@@ -383,21 +383,33 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
         index_array[index++] = (stacks-1)*j+1;
         index_array[index++] = (stacks-1)*((j+1)%slices)+1;
         
-        //for (int i = 0; i < stacks-2; i++) {
-        //    //primeiro triangulo da stack
-        //    index_array[index++] = (stacks-1)*j+i+1;
-        //    index_array[index++] = (stacks-1)*j+(i+1)+1;
-        //    index_array[index++] = (stacks-1)+((j+1)%slices)+(i+1)+1;
-        //    
-        //    //segundo triangulo da stack
-        //    index_array[index++] = (stacks-1)*j+i+1;
-        //    index_array[index++] = (stacks-1)*j+(i+1)+1;
-        //    index_array[index++] = (stacks-1)*((j+1)%slices)+i+1;
-        //}
-        ////add bottom triangle
-        //index_array[index++] = (stacks-1)*j;
-        //index_array[index++] = *points_total-3;//last
-        //index_array[index++] = (stacks-1)*((j+1)%slices)+1;
+        for (int i = 0; i < stacks-2; i++) {
+            //primeiro triangulo da stack
+            index_array[index++] = (stacks-1)*j+i+1;
+            index_array[index++] = (stacks-1)*j+(i+1)+1;
+            index_array[index++] = (stacks-1)*((j+1)%slices)+(i+1)+1;
+            
+            //segundo triangulo da stack
+            index_array[index++] = (stacks-1)*j+i+1;
+            index_array[index++] = (stacks-1)*(j+1)+(i+1)+1;
+            index_array[index++] = (stacks-1)*((j+1)%slices)+i+1;
+        }
+        //add bottom triangle
+        index_array[index++] = (stacks-1)+(stacks-1)*(j);
+        index_array[index++] = *points_total-3;//last
+        index_array[index++] = (stacks-1)+(stacks-1)*((j+1)%slices);
+    }
+
+    for (int i=0; i < *index_total; i++) {
+        printf("%d\n",index_array[i]); 
+        if((i+1)%3 == 0) putchar('\n');
+    }
+
+    printf("\n------\n");
+
+    for (int i=0; i < *points_total; i++) {
+        printf("%f\n",points_array[i]); 
+        if((i+1)%3 == 0) putchar('\n');
     }
 
     return make_tuple(points_array, index_array);
