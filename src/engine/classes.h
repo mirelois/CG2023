@@ -105,12 +105,12 @@ public:
 
 class Rotate_Time : public Rotate {
 private:
-    unsigned int time;
+    float time;
 public:
-    Rotate_Time(unsigned int t) {
+    Rotate_Time(float t) {
         time = t;
     }
-    void setTime(unsigned int t);
+    void setTime(float t);
     void transform() override;
 };
 

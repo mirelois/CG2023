@@ -22,7 +22,7 @@ void Rotate_Alpha::transform() {
     glRotatef(alpha, arguments[0], arguments[1], arguments[2]);
 }
 
-void Rotate_Time::setTime(unsigned int t) {
+void Rotate_Time::setTime(float t) {
     time = t;
 }
 
