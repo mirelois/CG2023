@@ -64,12 +64,6 @@ tuple<float*, unsigned int*> generate_torus_index(float inner_radius, float oute
         }
     }
 
-    for (int i=0; i < *index_total; i++) {
-        printf("%u,",index_array[i]); 
-        if((i+1)%3 == 0) putchar('\n');
-        if((i+1)%6 == 0) putchar('\n');
-    }
-
     return make_tuple(point_array, index_array);
 }
 
@@ -271,6 +265,89 @@ vector<float>* generate_cylinder(float radius, float height, int slices, int sta
     return point_array;
 }
 
+ tuple<float*, unsigned int*> generate_box_index(float length,  int grid_slices, unsigned int* points_total, unsigned int* index_total)
+{
+    //a quantidade de pontos ´e definida pelo grid;
+    //este numero foi o que saiu das contas nao sei totalmente o seu significado
+    //mas pode ser posto assim 6*(grid*(grid+1)) + grid +1.
+    //Visto que o cubo tem 6 faces isto deve ser uma forma mais natural 
+    //de mostrar mas nao consigo decifrar o significado
+    *points_total = 6*grid_slices*grid_slices + 7*grid_slices + 1;
+    *index_total = grid_slices*grid_slices*36;
+    float* point_array = (float*) malloc(sizeof(float)* *points_total);
+    unsigned int* index_array = (unsigned int*) malloc(sizeof(unsigned int)* *index_total);
+
+    float delta = length/grid_slices;
+
+    int index = 0;
+
+    float referential_x = -length/2;
+
+    float referential_y = length/2;
+
+    float referential_z = length/2;
+
+    for(int i = 0; i < grid_slices; i++){
+        for (int j = 0; j < grid_slices; j++)
+        {
+            float x = j*delta+referential_x;
+            float y = -i*delta+referential_y;
+            float z = referential_z;
+
+            //variables are of the front
+            point_array[index++] = x;
+            point_array[index++] = y;
+            point_array[index++] = z;
+
+            //step up now
+            point_array[index++] = x;
+            point_array[index++] = -z;
+            point_array[index++] = y;
+            
+            //slide to the right
+            point_array[index++] = z;
+            point_array[index++] = y;
+            point_array[index++] = -x;
+
+            //go back
+            point_array[index++] = -x;
+            point_array[index++] = y;
+            point_array[index++] = -z;
+
+            //slide to the left
+            point_array[index++] = -z;
+            point_array[index++] = y;
+            point_array[index++] = x;
+            
+            //step down now
+            point_array[index++] = x;
+            point_array[index++] = z;
+            point_array[index++] = -y;
+        }
+    }
+    for (int i=0; i < *points_total; i++) {
+        printf("%f,",point_array[i]); 
+        if((i+1)%3 == 0) putchar('\n');
+    }
+
+    index = 0;
+    
+    for (int j = 0; j < grid_slices; j++) {
+        for (int i = 0; i < grid_slices*6; i++) {
+            index_array[index++] = (grid_slices*6)*j + i;
+            index_array[index++] = (grid_slices*6)*(j+1) + i;
+            index_array[index++] = (grid_slices*6)*(j+1) + ((i+1)%(grid_slices*6));
+
+            index_array[index++] = (grid_slices*6)*j + i;
+            index_array[index++] = (grid_slices*6)*(j+1) + ((i+1)%(grid_slices*6));
+            index_array[index++] = (grid_slices*6)*j + ((i+1)%(grid_slices*6));
+        }
+    }
+
+    return make_tuple(point_array, index_array);
+}
+
+
 
 float* generate_box(float length,  int grid_slices, int* points_total)
 {
@@ -331,19 +408,19 @@ float* generate_box(float length,  int grid_slices, int* points_total)
         point_array[index++] = -point_array[i*3 + 2];
     }
 
-        for(int i=0;  i < *points_total/9; i++)
-        {//z, y, -x
-            point_array[index++] =  point_array[i*3 + 2];
-            point_array[index++] =  point_array[i*3 + 1];
-            point_array[index++] = -point_array[i*3 + 0];
-        }
-        
-        for(int i=0; i < *points_total/9; i++)
-        {//x, -z, y
-            point_array[index++] =  point_array[i*3 + 0];
-            point_array[index++] = -point_array[i*3 + 2];
-            point_array[index++] =  point_array[i*3 + 1];
-        }
+    for(int i=0;  i < *points_total/9; i++)
+    {//z, y, -x
+        point_array[index++] =  point_array[i*3 + 2];
+        point_array[index++] =  point_array[i*3 + 1];
+        point_array[index++] = -point_array[i*3 + 0];
+    }
+    
+    for(int i=0; i < *points_total/9; i++)
+    {//x, -z, y
+        point_array[index++] =  point_array[i*3 + 0];
+        point_array[index++] = -point_array[i*3 + 2];
+        point_array[index++] =  point_array[i*3 + 1];
+    }
     
     return point_array;
 }
@@ -603,10 +680,9 @@ int main(int argc, char* argv[]){
         //points_write(argv[5], points_total, sphere);
         write3D(argv[5], points_total, get<0>(sphere), index_total, get<1>(sphere));
     } else if(!strcmp(argv[1], "box")){
-        int points_total;
-        float* box = generate_box(atof(argv[2]), atoi(argv[3]), &points_total);
-        points_write(argv[4], points_total, box);
-        free(box);
+        unsigned int points_total, index_total;
+        tuple<float*, unsigned int*> box = generate_box_index(atof(argv[2]), atoi(argv[3]), &points_total, &index_total);
+        write3D(argv[4], points_total, get<0>(box), index_total, get<1>(box));
     } else if(!strcmp(argv[1], "plane")){
         unsigned int points_total, index_total;
         tuple<float*, unsigned int*> plane = generate_plane_index(atof(argv[2]), atoi(argv[3]), &points_total, &index_total);
