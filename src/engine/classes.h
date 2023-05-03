@@ -77,21 +77,10 @@ class Translate: public Transformation{
 private:
 float arguments[3];
 public:
-void setArgOne(float x){
-    arguments[0] = x;
-}
-
-void setArgTwo(float y){
-    arguments[1] = y;
-}
-
-void setArgThree(float z){
-    arguments[2] = z;
-}
-
-void transform() override{
-    glTranslatef(arguments[0], arguments[1], arguments[2]);
-}
+    void setArgOne(float x);
+    void setArgTwo(float y);
+    void setArgThree(float z);
+    void transform() override;
 };
 
 //desta forma perde-se precisão se o tempo de espera for muito grande

@@ -2,6 +2,23 @@
 #include <vector>
 #include "classes.h"
 
+void Translate::setArgOne(float x) {
+    arguments[0] = x;
+}
+
+void Translate::setArgTwo(float y) {
+    arguments[1] = y;
+}
+
+void Translate::setArgThree(float z) {
+    arguments[2] = z;
+}
+
+void Translate::transform() {
+    glTranslatef(arguments[0], arguments[1], arguments[2]);
+}
+
+
 void Translate_Catmull_Align::buildRotMatrix(float* x, float* y, float* z, float* m) {
 
     m[0] = x[0]; m[1] = x[1]; m[2] = x[2]; m[3] = 0;
