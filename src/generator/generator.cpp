@@ -285,7 +285,7 @@ float* generate_box(float length,  int grid_slices, int* points_total)
     return point_array;
 }
 
-tuple<float*, unsigned int*> generate_plane_index(float length, int grid_slices, int* points_total, int* index_total){
+tuple<float*, unsigned int*> generate_plane_index(float length, int grid_slices, unsigned int* points_total, unsigned int* index_total){
 
     *index_total = grid_slices*grid_slices*6;
     *points_total = (grid_slices+1)*(grid_slices+1)*3;
@@ -541,10 +541,9 @@ int main(int argc, char* argv[]){
         points_write(argv[4], points_total, box);
         free(box);
     } else if(!strcmp(argv[1], "plane")){
-        int points_total;//TODO return correct things
-        float* plane = generate_plane(atof(argv[2]), atoi(argv[3]), &points_total);
-        points_write(argv[4], points_total, plane);
-        free(plane);
+        unsigned int points_total, index_total;
+        tuple<float*, unsigned int*> plane = generate_plane_index(atof(argv[2]), atoi(argv[3]), &points_total, &index_total);
+        write3D(argv[4], points_total, get<0>(plane), index_total, get<1>(plane));
     } else if(!strcmp(argv[1], "cone")){
         vector<float>* cone = generate_cone(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]));
         points_write(argv[6], cone->size(), cone->data());
