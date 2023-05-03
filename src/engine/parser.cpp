@@ -135,7 +135,7 @@ void parse_translate_points(Translate_Catmull* translation, xml_node<>* node) {
 }
 
 void parse_group_transform(xml_node<> *node_transform, Group* group, vector<float> *points, vector<unsigned int> *indices, unsigned int *index){
-    float max = 100;
+    short max = 100;
     for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
         if(!strcmp(node_temp->name(), "translate")){
@@ -157,7 +157,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, vector<floa
 
                 Model* catmull = new Model();
                 catmull->index = *index;
-                catmull->size = max;
+                catmull->size = 3*max;
                 *index += catmull->size;
                 group->models.push_back(catmull);
 
