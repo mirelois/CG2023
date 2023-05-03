@@ -62,17 +62,6 @@ public:
     void transform() override;
 };
 
-class Translate_Catmull_Curve : public virtual Translate_Catmull {
-public:
-    void curve();
-    void transform() override;
-};
-
-class Translate_Catmull_Curve_Align : public Translate_Catmull_Align, public Translate_Catmull_Curve {
-public:
-    void transform() override;
-};
-
 class Translate: public Transformation{
 private:
 float arguments[3];

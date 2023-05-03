@@ -134,8 +134,8 @@ void parse_translate_points(Translate_Catmull* translation, xml_node<>* node) {
     }
 }
 
-void parse_group_transform(xml_node<> *node_transform, Group* group){
-    
+void parse_group_transform(xml_node<> *node_transform, Group* group, vector<float> *points, vector<unsigned int> *indices, unsigned int *index){
+    float max = 100;
     for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
         if(!strcmp(node_temp->name(), "translate")){
@@ -144,26 +144,43 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
             if ((attr = node_temp->first_attribute("time"))) {
                 float time = atof(attr->value());
                 Translate_Catmull* translation;
-                if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
-                    if ((attr = node_temp->first_attribute("align")) && !strcmp(attr->value(), "True")) {
-                        translation = new Translate_Catmull_Curve_Align();
-                    }
-                    else {
-                        translation = new Translate_Catmull_Curve();
-                    }
+                if ((attr = node_temp->first_attribute("align")) && !strcmp(attr->value(), "True")) {
+                    translation = new Translate_Catmull_Align();
                 }
                 else {
-                    if ((attr = node_temp->first_attribute("align")) && !strcmp(attr->value(), "True")) {
-                        translation = new Translate_Catmull_Align();
-                    }
-                    else {
-                        translation = new Translate_Catmull();
-                    }
+                    translation = new Translate_Catmull();
                 }
                 
                 translation->setTime(time);
                 parse_translate_points(translation, node_temp);
                 group->transformations.push_back(translation);
+
+                Model* catmull = new Model();
+                catmull->index = *index;
+                catmull->size = max;
+                *index += catmull->size;
+                group->models.push_back(catmull);
+
+                if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
+                    float p[3], d[3];
+                    // draw curve using line segments with GL_LINE_LOOP
+                    translation->getGlobalCatmullRomPoint(0, p, d);
+                    points->push_back(p[0]);
+                    points->push_back(p[1]);
+                    points->push_back(p[2]);
+                    indices->push_back(0);
+                    for (float t = 1; t < max; t += 1) {
+                        translation->getGlobalCatmullRomPoint(t/max, p, d);
+                        points->push_back(p[0]);
+                        points->push_back(p[1]);
+                        points->push_back(p[2]);
+                        indices->push_back(t);
+                        indices->push_back(t);
+                        indices->push_back(t);
+                    }
+                    indices->push_back(0);
+                    indices->push_back(0);
+                }
             }
             else {
                 Translate* translation = new Translate();
@@ -246,7 +263,7 @@ void parse_group(xml_node<> *group_node, Group* group, vector<float>* points, ve
     xml_node<>* temp;
     // Transformações
     if((temp = group_node->first_node("transform")))
-        parse_group_transform(temp, group);
+        parse_group_transform(temp, group, points, indices, index);
 
     // Modelos 
     if((temp = group_node->first_node("models")))

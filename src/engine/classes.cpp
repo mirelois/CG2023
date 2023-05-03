@@ -169,30 +169,7 @@ void Translate_Catmull_Align::align() {
     glMultMatrixf(m);
 }
 
-void Translate_Catmull_Curve::curve() {
-    float p[3], d[3];
-    // draw curve using line segments with GL_LINE_LOOP
-    glBegin(GL_LINE_LOOP);
-    for (float t = 0; t < 1; t += 0.01) {
-        getGlobalCatmullRomPoint(t, p, d);
-        glVertex3f(p[0], p[1], p[2]);
-    }
-    glEnd();
-}
-
 void Translate_Catmull_Align::transform() {
-    Translate_Catmull::transform();
-    align();
-}
-
-void Translate_Catmull_Curve::transform() {
-    //se der asneira a culpa é disto
-    curve();
-    Translate_Catmull::transform();
-}
-
-void Translate_Catmull_Curve_Align::transform() {
-    curve();
     Translate_Catmull::transform();
     align();
 }
