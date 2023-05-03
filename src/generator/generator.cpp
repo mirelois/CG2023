@@ -13,6 +13,63 @@
 
 using namespace std;
 
+tuple<float*, unsigned int*> generate_torus_index(float inner_radius, float outer_radius, int vertical_divisions, int horizontal_divisions, unsigned int* points_total, unsigned int* index_total){
+
+    *points_total = horizontal_divisions*vertical_divisions*3;
+    *index_total = 6*vertical_divisions*horizontal_divisions;
+
+    float* point_array = (float*) malloc(sizeof(float) * *points_total);
+    unsigned int* index_array = (unsigned int*) malloc(sizeof(unsigned int) * *index_total);
+    float* master_circle = (float*) malloc(sizeof(float) * (vertical_divisions*3));
+    int index = 0;
+    
+    int master_circle_index = 0;
+
+    float delta_x = 2*M_PI/vertical_divisions;
+
+    float delta_y = 2*M_PI/horizontal_divisions;
+
+    float pivot_x = 0;
+
+    float pivot_y = (outer_radius-inner_radius)/2;
+
+    //float pivot_z = 0;
+
+
+    for (int i = 0; i < vertical_divisions; i++) {
+        master_circle[master_circle_index++] = pivot_x;
+        master_circle[master_circle_index++] = pivot_y*cos(i*delta_x);
+        master_circle[master_circle_index++] = pivot_y*sin(i*delta_x) + (outer_radius+inner_radius)/2;
+    }
+
+    for (int i = 0; i < horizontal_divisions; i++) {
+        for (int j = 0; j < vertical_divisions; j++) {
+            point_array[index++] = (master_circle[3*j + 0])*cos(i*delta_y) + (master_circle[3*j + 2])*sin(i*delta_y);
+            point_array[index++] = (master_circle[3*j + 1]);
+            point_array[index++] = (master_circle[3*j + 0])*sin(i*delta_y) + (master_circle[3*j + 2])*cos(i*delta_y);
+        }
+    }
+
+    index = 0;
+
+    for (int j = 0; j < horizontal_divisions; j++) {
+        for (int i = 0; i < vertical_divisions; i++) {
+            index_array[index++] = horizontal_divisions*j + i;
+            index_array[index++] = horizontal_divisions*((j+1)%horizontal_divisions) + i;
+            index_array[index++] = horizontal_divisions*((j+1)%horizontal_divisions) + ((i+1)%horizontal_divisions);
+
+            index_array[index++] = horizontal_divisions*j + i;
+            index_array[index++] = horizontal_divisions*((j+1)%horizontal_divisions) + ((i+1)%horizontal_divisions);
+            index_array[index++] = horizontal_divisions*j + ((i+1)%horizontal_divisions);
+        }
+    }
+
+    return make_tuple(point_array, index_array);
+}
+
+
+
+
 float* generate_torus(float inner_radius, float outer_radius, int vertical_divisions, int horizontal_divisions, int* points_total){
 
     *points_total = 18*vertical_divisions*horizontal_divisions;
@@ -558,10 +615,9 @@ int main(int argc, char* argv[]){
         points_write(argv[6], cone->size(), cone->data());
         free(cone);
     } else if(!strcmp(argv[1], "torus")){
-        int points_total;
-        float* torus = generate_torus(atof(argv[2]), atof(argv[3]),atoi(argv[4]),atoi(argv[5]), &points_total);
-        points_write(argv[6], points_total, torus);
-        free(torus);
+        unsigned int points_total, index_total;
+        tuple<float*, unsigned int*> torus = generate_torus_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), &points_total, &index_total);
+        write3D(argv[6], points_total, get<0>(torus), index_total, get<1>(torus));
     } else if(!strcmp(argv[1], "cylinder")){
         vector<float>* cylinder = generate_cylinder(atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
         points_write(argv[6], cylinder->size(), cylinder->data());
