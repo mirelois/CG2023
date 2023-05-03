@@ -84,29 +84,33 @@ public:
 };
 
 //desta forma perde-se precisão se o tempo de espera for muito grande
-class Rotate: public Transformation{
-private:
-float arguments[4];
+class Rotate : public Transformation {
 public:
-    void setArgOne(float alpha);
-    void virtual setArgTwo(float x);
-    void virtual setArgThree(float y);
-    void virtual setArgFour(float z);
+    float arguments[3];
+    void setArgOne(float x);
+    void setArgTwo(float y);
+    void setArgThree(float z);
+};
+
+class Rotate_Alpha: public Rotate{
+private:
+    float alpha;
+public:
+    Rotate_Alpha(float a) {
+        alpha = a;
+    }
+    void setAlpha(float a);
     void transform() override;
 };
 
 class Rotate_Time : public Rotate {
 private:
-    float arguments[3];
     unsigned int time;
 public:
     Rotate_Time(unsigned int t) {
         time = t;
     }
     void setTime(unsigned int t);
-    void setArgTwo(float x) override;
-    void setArgThree(float y) override;
-    void setArgFour(float z) override;
     void transform() override;
 };
 

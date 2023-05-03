@@ -2,40 +2,28 @@
 #include <vector>
 #include "classes.h"
 
-void Rotate::setArgOne(float alpha) {
-    arguments[0] = alpha;
+void Rotate::setArgOne(float x) {
+    arguments[0] = x;
 }
 
-void Rotate::setArgTwo(float x) {
-    arguments[1] = x;
+void Rotate::setArgTwo(float y) {
+    arguments[1] = y;
 }
 
-void Rotate::setArgThree(float y) {
-    arguments[2] = y;
+void Rotate::setArgThree(float z) {
+    arguments[2] = z;
 }
 
-void Rotate::setArgFour(float z) {
-    arguments[3] = z;
+void Rotate_Alpha::setAlpha(float a) {
+    alpha = a;
 }
 
-void Rotate::transform() {
-    glRotatef(arguments[0], arguments[1], arguments[2], arguments[3]);
+void Rotate_Alpha::transform() {
+    glRotatef(alpha, arguments[0], arguments[1], arguments[2]);
 }
 
 void Rotate_Time::setTime(unsigned int t) {
     time = t;
-}
-
-void Rotate_Time::setArgTwo(float x) {
-    arguments[0] = x;
-}
-
-void Rotate_Time::setArgThree(float y) {
-    arguments[1] = y;
-}
-
-void Rotate_Time::setArgFour(float z) {
-    arguments[2] = z;
 }
 
 void Rotate_Time::transform() {

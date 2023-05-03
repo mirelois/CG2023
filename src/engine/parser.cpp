@@ -193,30 +193,27 @@ void parse_group_transform(xml_node<> *node_transform, Group* group){
             if ((attr = node_temp->first_attribute("time"))) {
                 rotation = new Rotate_Time(atof(attr->value()));
             }
+            else if (attr = node_temp->first_attribute("angle")) {
+                rotation = new Rotate_Alpha(atof(attr->value()));
+            }
             else {
-                rotation = new Rotate();
-                if ((attr = node_temp->first_attribute("angle"))) {
-                    rotation->setArgOne(atof(attr->value()));
-                }
-                else {
-                    rotation->setArgOne(0.0f);
-                }
+                rotation = new Rotate_Alpha(0.0f);
             }
         
             if((attr = node_temp->first_attribute("x")))
+                rotation->setArgOne(atof(attr->value()));
+            else
+                rotation->setArgOne(0.0f);
+        
+            if((attr = node_temp->first_attribute("y")))
                 rotation->setArgTwo(atof(attr->value()));
             else
                 rotation->setArgTwo(0.0f);
         
-            if((attr = node_temp->first_attribute("y")))
+            if((attr = node_temp->first_attribute("z")))
                 rotation->setArgThree(atof(attr->value()));
             else
                 rotation->setArgThree(0.0f);
-        
-            if((attr = node_temp->first_attribute("z")))
-                rotation->setArgFour(atof(attr->value()));
-            else
-                rotation->setArgFour(0.0f);
 
             group->transformations.push_back(rotation);
         } else if(!strcmp(node_temp->name(), "scale")){
