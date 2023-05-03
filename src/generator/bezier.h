@@ -3,7 +3,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <map>
 
 using namespace std;
 
-vector<float>* generate_bezier(char *fileName, float tessellationLevel);
+tuple<vector<float>*, vector<unsigned int>*> generate_bezier(char *fileName, float tessellationLevel);
