@@ -287,9 +287,11 @@ float* generate_box(float length,  int grid_slices, int* points_total)
 
 tuple<float*, unsigned int*> generate_plane_index(float length, int grid_slices, int* points_total, int* index_total){
 
-    *points_total = grid_slices*grid_slices*3*6;
+    *index_total = grid_slices*grid_slices*6;
+    *points_total = (grid_slices+1)*(grid_slices+1)*3;
 
     float* point_array = (float*) malloc(sizeof(float) * *points_total);
+    unsigned int* index_array = (unsigned int*) malloc(sizeof(unsigned int) * *index_total);
 
     float delta = length/grid_slices;
 
@@ -300,35 +302,19 @@ tuple<float*, unsigned int*> generate_plane_index(float length, int grid_slices,
     float referential_z = -length/2;
     
     for(int i = 0; i < grid_slices; i++){
-        for (int j = 0; j < grid_slices; j++)
-        {
+        for (int j = 0; j < grid_slices; j++){
             point_array[index++] = j*delta+referential_x;
-            point_array[index++] = 0.0f;
-            point_array[index++] = i*delta+referential_z;
-            
-            point_array[index++] = j*delta+referential_x;
-            point_array[index++] = 0.0f;
-            point_array[index++] = (i+1)*delta+referential_z;
-
-            point_array[index++] = (j+1)*delta+referential_x;
-            point_array[index++] = 0.0f;
-            point_array[index++] = (i+1)*delta+referential_z;
-
-
-            point_array[index++] = j*delta+referential_x;
-            point_array[index++] = 0.0f;
-            point_array[index++] = i*delta+referential_z;
-
-            point_array[index++] = (j+1)*delta+referential_x;
-            point_array[index++] = 0.0f;
-            point_array[index++] = (i+1)*delta+referential_z;
-
-            point_array[index++] = (j+1)*delta+referential_x;
             point_array[index++] = 0.0f;
             point_array[index++] = i*delta+referential_z;
         }
     }
-    
+
+    for(int i = 0; i < grid_slices+1; i++){
+        for (int j = 0; j < grid_slices+1; j++){
+            index_array[index++] = (grid_slices+1)*i+j;
+        }
+    }
+    return make_tuple(point_array, index_array);
 }
 
 float* generate_plane(float length, int grid_slices, int* points_total){
