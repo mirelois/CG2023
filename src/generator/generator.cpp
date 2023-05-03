@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ostream>
 #include <stdio.h>
+#include <tuple>
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <string.h>
@@ -284,6 +285,51 @@ float* generate_box(float length,  int grid_slices, int* points_total)
     return point_array;
 }
 
+tuple<float*, unsigned int*> generate_plane_index(float length, int grid_slices, int* points_total, int* index_array_total){
+
+    *points_total = grid_slices*grid_slices*18;
+
+    float* point_array = (float*) malloc(sizeof(float) * *points_total);
+
+    float delta = length/grid_slices;
+
+    int index = 0;
+
+    float referential_x = -length/2;
+
+    float referential_z = -length/2;
+    
+    for(int i = 0; i < grid_slices; i++){
+        for (int j = 0; j < grid_slices; j++)
+        {
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = i*delta+referential_z;
+            
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = (i+1)*delta+referential_z;
+
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = (i+1)*delta+referential_z;
+
+
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = i*delta+referential_z;
+
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = (i+1)*delta+referential_z;
+
+            point_array[index++] = (j+1)*delta+referential_x;
+            point_array[index++] = 0.0f;
+            point_array[index++] = i*delta+referential_z;
+        }
+    }
+    
+}
 
 float* generate_plane(float length, int grid_slices, int* points_total){
 
@@ -355,13 +401,6 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
         master_line[master_line_index++] = pivot_y*cos(i*alfa_x);
         master_line[master_line_index++] = pivot_y*sin(i*alfa_x);
     }
-    
-    for (int i=3; i < 6; i++) {
-        printf("%f,",master_line[i]); 
-        if((i+1)%3 == 0) putchar('\n');
-    }
-
-    printf("\n-------\n\n");
 
     int index = 0;
 
@@ -373,6 +412,10 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
     points_array[*points_total-2] = master_line[master_line_size-2];
     points_array[*points_total-1] = master_line[master_line_size-3];
 
+    for (int i=0; i < 3; i++) {
+        printf("%f,",master_line[master_line_size-i]); 
+        if((i+1)%3 == 0) putchar('\n');
+    }
 
     for (int j = 0; j < slices; j++) {
         for (int i = 1; i < stacks; i++) {
@@ -380,10 +423,6 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
             points_array[index++] = (master_line[i*3 + 1]);
             points_array[index++] = (master_line[i*3 + 0])*sin(j*alfa_y) + (master_line[i*3 + 2])*cos(j*alfa_y);
         }
-    }
-    for (int i=0; i < *points_total; i++) {
-        printf("%f,",points_array[i]); 
-        if((i+1)%3 == 0) putchar('\n');
     }
 
     index = 0;
@@ -408,7 +447,7 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
         }
         //add bottom triangle
         index_array[index++] = (stacks-1)+(stacks-1)*(j);
-        index_array[index++] = *points_total-3;//last
+        index_array[index++] = (stacks-1)*(slices)+1;//last
         index_array[index++] = (stacks-1)+(stacks-1)*((j+1)%slices);
     }
 
