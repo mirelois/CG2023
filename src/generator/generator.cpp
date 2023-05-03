@@ -408,22 +408,17 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
     points_array[index++] = master_line[1];
     points_array[index++] = master_line[2];
 
-    points_array[*points_total-3] = master_line[master_line_size-1];
-    points_array[*points_total-2] = master_line[master_line_size-2];
-    points_array[*points_total-1] = master_line[master_line_size-3];
-
-    for (int i=0; i < 3; i++) {
-        printf("%f,",master_line[master_line_size-i]); 
-        if((i+1)%3 == 0) putchar('\n');
-    }
-
     for (int j = 0; j < slices; j++) {
-        for (int i = 1; i < stacks; i++) {
+        for (int i = 1; i <= stacks-1; i++) {
             points_array[index++] = (master_line[i*3 + 0])*cos(j*alfa_y) + (master_line[i*3 + 2])*sin(j*alfa_y);
             points_array[index++] = (master_line[i*3 + 1]);
             points_array[index++] = (master_line[i*3 + 0])*sin(j*alfa_y) + (master_line[i*3 + 2])*cos(j*alfa_y);
         }
     }
+
+    points_array[*points_total-3] = master_line[master_line_size-1];
+    points_array[*points_total-2] = master_line[master_line_size-2];
+    points_array[*points_total-1] = master_line[master_line_size-3];
 
     index = 0;
     
@@ -442,13 +437,18 @@ tuple<float*, unsigned int*> generate_sphere_index(float radius, int slices, int
             
             //segundo triangulo da stack
             index_array[index++] = (stacks-1)*j+i+1;
-            index_array[index++] = (stacks-1)*(j+1)+(i+1)+1;
+            index_array[index++] = (stacks-1)*((j+1)%slices)+(i+1)+1;
             index_array[index++] = (stacks-1)*((j+1)%slices)+i+1;
         }
         //add bottom triangle
         index_array[index++] = (stacks-1)+(stacks-1)*(j);
         index_array[index++] = (stacks-1)*(slices)+1;//last
         index_array[index++] = (stacks-1)+(stacks-1)*((j+1)%slices);
+    }
+
+    for (int i=0; i < *index_total; i++) {
+        printf("%u,",index_array[i]); 
+        if((i+1)%3 == 0) putchar('\n');
     }
 
     return make_tuple(points_array, index_array);
