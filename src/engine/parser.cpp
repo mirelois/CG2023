@@ -134,7 +134,7 @@ void parse_translate_points(Translate_Catmull* translation, xml_node<>* node) {
     }
 }
 
-void parse_group_transform(xml_node<> *node_transform, Group* group, vector<float> *points, vector<unsigned int> *indices, unsigned int *index){
+void parse_group_transform(xml_node<> *node_transform, Group* group, Group* parent, vector<float> *points, vector<unsigned int> *indices, unsigned int *index){
     short max = 100;
     for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
@@ -157,29 +157,20 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, vector<floa
 
                 Model* catmull = new Model();
                 catmull->index = *index;
-                catmull->size = 3*max;
+                catmull->size = max;
                 *index += catmull->size;
-                group->models.push_back(catmull);
+                parent->models.push_back(catmull);
 
                 if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
                     float p[3], d[3];
                     // draw curve using line segments with GL_LINE_LOOP
-                    translation->getGlobalCatmullRomPoint(0, p, d);
-                    points->push_back(p[0]);
-                    points->push_back(p[1]);
-                    points->push_back(p[2]);
-                    indices->push_back(0);
-                    for (float t = 1; t < max; t += 1) {
+                    for (float t = 0; t < max; t += 1) {
                         translation->getGlobalCatmullRomPoint(t/max, p, d);
                         points->push_back(p[0]);
                         points->push_back(p[1]);
                         points->push_back(p[2]);
                         indices->push_back(t);
-                        indices->push_back(t);
-                        indices->push_back(t);
                     }
-                    indices->push_back(0);
-                    indices->push_back(0);
                 }
             }
             else {
@@ -258,12 +249,12 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, vector<floa
 }
 
 
-void parse_group(xml_node<> *group_node, Group* group, vector<float>* points, vector<unsigned int>* indices,
+void parse_group(xml_node<> *group_node, Group* group, Group* parent, vector<float>* points, vector<unsigned int>* indices,
                 unordered_map<string, Model*> *model_map, unsigned int *index){
     xml_node<>* temp;
     // Transformações
     if((temp = group_node->first_node("transform")))
-        parse_group_transform(temp, group, points, indices, index);
+        parse_group_transform(temp, group, parent, points, indices, index);
 
     // Modelos 
     if((temp = group_node->first_node("models")))
@@ -273,7 +264,7 @@ void parse_group(xml_node<> *group_node, Group* group, vector<float>* points, ve
     for(temp = group_node->first_node("group"); temp; temp = temp->next_sibling("group")){
         Group *groupChild = new Group;
         group->subGroups.push_back(groupChild);
-        parse_group(temp, groupChild, points, indices, model_map, index);
+        parse_group(temp, groupChild, group, points, indices, model_map, index);
     }
 }
 
@@ -307,8 +298,10 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group, vector
     // Grupo
     unsigned int index = 0;
     unordered_map<string, Model*> model_map = {};
+    Group* not_blank = new Group();
+    group->subGroups.push_back(not_blank);
     if((temp = root_node->first_node("group")))
-        parse_group(temp, group, points, indices, &model_map, &index);
+        parse_group(temp, not_blank, group, points, indices, &model_map, &index);
 
     //percorrer o mapa e pôr nos points os pontos ao mesmo tempo que se põe o índice (ou fazer logo que se coloca)
 }
