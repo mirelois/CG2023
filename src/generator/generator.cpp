@@ -268,12 +268,9 @@ vector<float>* generate_cylinder(float radius, float height, int slices, int sta
  tuple<float*, unsigned int*> generate_box_index(float length,  int grid_slices, unsigned int* points_total, unsigned int* index_total)
 {
     //a quantidade de pontos ´e definida pelo grid;
-    //este numero foi o que saiu das contas nao sei totalmente o seu significado
-    //mas pode ser posto assim 6*(grid*(grid+1)) + grid +1.
-    //Visto que o cubo tem 6 faces isto deve ser uma forma mais natural 
-    //de mostrar mas nao consigo decifrar o significado
-    *points_total = ((4*grid_slices)*(grid_slices+1) + 2*(grid_slices+1)*(grid_slices+1))*3;
+    *points_total = 18*grid_slices*grid_slices + 24*grid_slices + 6;
     *index_total = grid_slices*grid_slices*36;
+    
     float* point_array = (float*) malloc(sizeof(float)* *points_total);
     unsigned int* index_array = (unsigned int*) malloc(sizeof(unsigned int)* *index_total);
 
@@ -293,70 +290,54 @@ vector<float>* generate_cylinder(float radius, float height, int slices, int sta
     //DO NOT TRY - you have been warned
     for(int i = 0; i < grid_slices+1; i++){
         for (int j = 0; j < grid_slices+1; j++){
-            float x = j*delta+referential_x;
-            float y = -i*delta+referential_y;
-            float z = referential_z;
 
             //variables are of the front
-            point_array[index++] = x;
-            point_array[index++] = y;
-            point_array[index++] = z;
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = -i*delta+referential_y;
+            point_array[index++] = referential_z;
         }
         for (int j = 1; j<grid_slices+1; j++){
-            float x = j*delta+referential_x;
-            float y = -i*delta+referential_y;
-            float z = referential_z;
 
             //slide to the right
-            point_array[index++] = z;
-            point_array[index++] = y;
-            point_array[index++] = -x;
+            point_array[index++] = referential_z;
+            point_array[index++] = -i*delta+referential_y;
+            point_array[index++] = -(j*delta+referential_x);
         }
         for (int j = 1; j<grid_slices+1; j++){
-            float x = j*delta+referential_x;
-            float y = -i*delta+referential_y;
-            float z = referential_z;
 
             //go back
-            point_array[index++] = -x;
-            point_array[index++] = y;
-            point_array[index++] = -z;
+            point_array[index++] = -(j*delta+referential_x);
+            point_array[index++] = -i*delta+referential_y;
+            point_array[index++] = -referential_z;
         }
         for (int j = 1; j<grid_slices; j++){
-            float x = j*delta+referential_x;
-            float y = -i*delta+referential_y;
-            float z = referential_z;
 
             //slide to the left
-            point_array[index++] = -z;
-            point_array[index++] = y;
-            point_array[index++] = x;
+            point_array[index++] = -referential_z;
+            point_array[index++] = -i*delta+referential_y;
+            point_array[index++] = j*delta+referential_x;
         }
     }
 
-    //this for does the midle points in the remaining faces(top and bottom)
+    //this for does the points in the remaining faces(top and bottom)
+    //points are repeated for locality porposes,
+    //totally not because it is hard to do it any other way
     for (int i=0 ; i<grid_slices+1; i++) {
         for (int j=0; j<grid_slices+1; j++) {
-            float x = j*delta+referential_x;
-            float y = -i*delta+referential_y;
-            float z = referential_z;
 
             //step up now
-            point_array[index++] = x;
-            point_array[index++] = -z;
-            point_array[index++] = y;
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = -referential_z;
+            point_array[index++] = -i*delta+referential_y;
         } 
     }
     for (int i=0 ; i<grid_slices+1; i++) {
         for (int j=0; j<grid_slices+1; j++) {
-            float x = j*delta+referential_x;
-            float y = -i*delta+referential_y;
-            float z = referential_z;
-            
             //step down now
-            point_array[index++] = x;
-            point_array[index++] = z;
-            point_array[index++] = -y;
+            point_array[index++] = j*delta+referential_x;
+            point_array[index++] = referential_z;;
+            point_array[index++] = i*delta-referential_y;
+;
         } 
     }
 
@@ -374,29 +355,31 @@ vector<float>* generate_cylinder(float radius, float height, int slices, int sta
         }
     }
 
-    int offset_top = (4*grid_slices)*(grid_slices+1);
-    int offset_bottom = offset_top + (grid_slices+1)*(grid_slices+1);
+    int offset = (4*grid_slices)*(grid_slices+1);
 
     for (int j=0; j<grid_slices; j++) {
         for (int i=0; i<grid_slices; i++) {
-            index_array[index++] = offset_top+((grid_slices+1)*j + i);
-            index_array[index++] = offset_top+((grid_slices+1)*(j+1) + i);
-            index_array[index++] = offset_top+((grid_slices+1)*(j+1) + (i+1));
+            index_array[index++] = offset+((grid_slices+1)*j + i);
+            index_array[index++] = offset+((grid_slices+1)*(j+1) + i);
+            index_array[index++] = offset+((grid_slices+1)*(j+1) + (i+1));
             
-            index_array[index++] = offset_top+((grid_slices+1)*j + i);
-            index_array[index++] = offset_top+((grid_slices+1)*(j+1) + (i+1));
-            index_array[index++] = offset_top+((grid_slices+1)*j + (i+1));
+            index_array[index++] = offset+((grid_slices+1)*j + i);
+            index_array[index++] = offset+((grid_slices+1)*(j+1) + (i+1));
+            index_array[index++] = offset+((grid_slices+1)*j + (i+1));
         }
     }
+    
+    offset += (grid_slices+1)*(grid_slices+1);
+    
     for (int j=0; j<grid_slices; j++) {
         for (int i=0; i<grid_slices; i++) {
-            index_array[index++] = offset_bottom+((grid_slices+1)*j + i);
-            index_array[index++] = offset_bottom+((grid_slices+1)*(j+1) + i);
-            index_array[index++] = offset_bottom+((grid_slices+1)*(j+1) + (i+1));
+            index_array[index++] = offset+((grid_slices+1)*j + i);
+            index_array[index++] = offset+((grid_slices+1)*(j+1) + i);
+            index_array[index++] = offset+((grid_slices+1)*(j+1) + (i+1));
                                                          
-            index_array[index++] = offset_bottom+((grid_slices+1)*j + i);
-            index_array[index++] = offset_bottom+((grid_slices+1)*(j+1) + (i+1));
-            index_array[index++] = offset_bottom+((grid_slices+1)*j + (i+1));
+            index_array[index++] = offset+((grid_slices+1)*j + i);
+            index_array[index++] = offset+((grid_slices+1)*(j+1) + (i+1));
+            index_array[index++] = offset+((grid_slices+1)*j + (i+1));
         }
     }
 
