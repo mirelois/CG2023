@@ -82,12 +82,16 @@ void calculate_square(float u, float v, vector<int>* patch, vector<vector<float>
     }
 }
 
-void interact(map<tuple<float,float,float>, unsigned int>* map, float* points, vector<unsigned int>* indices, unsigned int* ind){
+void interact(map<tuple<float,float,float>, unsigned int>* map, float* points, vector<unsigned int>* indices, unsigned int* ind, vector<float>* point_vector){
     tuple<float, float, float> item = make_tuple(points[0], points[1], points[2]);
-    if(map->find(item)==map->end())
-        map->insert(make_pair(item, (*ind)++));
-
-    indices->push_back(map->at(item));
+    if(map->find(item)==map->end()){
+        map->insert(make_pair(item, *ind));
+        indices->push_back(*ind);
+        (*ind)++;
+        point_vector->push_back(points[0]);point_vector->push_back(points[1]);point_vector->push_back(points[2]);
+    } else{
+        indices->push_back(map->at(item));
+    }   
 }
 
 tuple<vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, float tessellation_level){
@@ -95,6 +99,7 @@ tuple<vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, fl
     vector<vector<int>*>* patches = new vector<vector<int>*>();
     vector<vector<float>>* cpoints = new vector<vector<float>>();
     vector<unsigned int>* indices = new vector<unsigned int>();
+    vector<float>* point_vector = new vector<float>();
 
     parse_bezier(file_name, patches, cpoints);
 
@@ -107,35 +112,25 @@ tuple<vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, fl
         for(float u=0; u<tessellation_level; u++){
             for(float v=0; v<tessellation_level; v++){
                 calculate_square(u/tessellation_level,v/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind);
+                interact(&map, points, indices, &ind, point_vector);
 
                 calculate_square(u/tessellation_level,(v+1)/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind);
+                interact(&map, points, indices, &ind, point_vector);
 
                 calculate_square((u+1)/tessellation_level,(v+1)/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind);
+                interact(&map, points, indices, &ind, point_vector);
 
                 calculate_square((u+1)/tessellation_level,(v+1)/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind);
+                interact(&map, points, indices, &ind, point_vector);
 
                 calculate_square((u+1)/tessellation_level,v/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind);
+                interact(&map, points, indices, &ind, point_vector);
 
                 calculate_square(u/tessellation_level,v/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind);
+                interact(&map, points, indices, &ind, point_vector);
             }
         }
     }
-
-    vector<float>* point_vector = new vector<float>();
-    tuple<float, float, float> item;
-    for(auto const& element: map){
-        item = element.first;
-        point_vector->push_back(get<0>(item));
-        point_vector->push_back(get<1>(item));
-        point_vector->push_back(get<2>(item));
-    }
-
     
     return make_tuple(point_vector, indices);
 }
