@@ -63,7 +63,7 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, vector<unsigned int>* indices, unordered_map<string, Model*> *model_map, unsigned int *index){
+void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, vector<unsigned int>* indices, unordered_map<string, Model*> *model_map){
     string model_name;
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
@@ -89,20 +89,24 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
             //indices->resize(before + n_indices);
             filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
-            printf("%s\n", model_name.c_str());
-            for (unsigned int i = 0; i < n_indices;i++) {
-                indices->push_back(indices_buf[i] + before);
-                printf("%d\n", indices_buf[i]+before);
-            }
-            free(indices_buf);
-            // fechar o ficheiro
-            filestream.close();
+
             // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
             Model* model = new Model(GL_TRIANGLES);
             //model->figure = tuples;
             model->size = n_indices;
-            model->index = *index;
-            *index += n_indices;
+            model->index = indices->size();
+            
+
+            printf("%s\n", model_name.c_str());
+            for (unsigned int i = 0; i < n_indices;i++) {
+                indices->push_back(indices_buf[i] + before/3);
+                printf("%d\n", indices_buf[i] + before/3);
+            }
+
+            free(indices_buf);
+            // fechar o ficheiro
+            filestream.close();
+            
             //lista dos modelos
             model_map->insert(make_pair(model_name, model));
             group->models.push_back(model);
@@ -142,7 +146,7 @@ void parse_translate_points(Translate_Catmull* translation, xml_node<>* node) {
     }
 }
 
-void parse_group_transform(xml_node<> *node_transform, Group* group, Group* parent, vector<float> *points, vector<unsigned int> *indices, unsigned int *index){
+void parse_group_transform(xml_node<> *node_transform, Group* group, Group* parent, vector<float> *points, vector<unsigned int> *indices){
     float max = 100;
     for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
@@ -165,21 +169,23 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
 
                 if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
                     float p[3], d[3];
+                    unsigned int before = points->size();
                     // draw curve using line segments with GL_LINE_LOOP
+                    Model* catmull = new Model(GL_LINE_LOOP);
+                    catmull->index = indices->size();
+                    catmull->size = max;
+                    
+
                     for (unsigned int t = 0; t < max; t += 1) {
                         translation->getGlobalCatmullRomPoint(t/max, p, d);
                         points->push_back(p[0]);
                         points->push_back(p[1]);
                         points->push_back(p[2]);
-                        indices->push_back(t+(*index));
+                        indices->push_back(t+before/3);
+                        printf("Curve index: %d\n", t + before/3);
                     }
+                    parent->models.push_back(catmull);
                 }
-
-                Model* catmull = new Model(GL_LINE_LOOP);
-                catmull->index = *index;
-                catmull->size = max;
-                *index += catmull->size;
-                parent->models.push_back(catmull);
             }
             else {
                 Translate* translation = new Translate();
@@ -258,21 +264,21 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
 
 
 void parse_group(xml_node<> *group_node, Group* group, Group* parent, vector<float>* points, vector<unsigned int>* indices,
-                unordered_map<string, Model*> *model_map, unsigned int *index){
+                unordered_map<string, Model*> *model_map){
     xml_node<>* temp;
     // Transformações
     if((temp = group_node->first_node("transform")))
-        parse_group_transform(temp, group, parent, points, indices, index);
+        parse_group_transform(temp, group, parent, points, indices);
 
     // Modelos 
     if((temp = group_node->first_node("models")))
-        parse_group_models(temp, group, points, indices, model_map, index);
+        parse_group_models(temp, group, points, indices, model_map);
     
     // Grupos
     for(temp = group_node->first_node("group"); temp; temp = temp->next_sibling("group")){
         Group *groupChild = new Group;
         group->subGroups.push_back(groupChild);
-        parse_group(temp, groupChild, group, points, indices, model_map, index);
+        parse_group(temp, groupChild, group, points, indices, model_map);
     }
 }
 
@@ -304,12 +310,13 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group, vector
         parse_camera(temp, camera);
 
     // Grupo
-    unsigned int index = 0;
     unordered_map<string, Model*> model_map = {};
     Group* not_blank = new Group();
     group->subGroups.push_back(not_blank);
     if((temp = root_node->first_node("group")))
-        parse_group(temp, not_blank, group, points, indices, &model_map, &index);
-
+        parse_group(temp, not_blank, group, points, indices, &model_map);
+    for (int i = 0; i < points->size(); i+=3) {
+        printf("%f %f %f\n", points[i], points[i + 1], points[i + 2]);
+    }
     //percorrer o mapa e pôr nos points os pontos ao mesmo tempo que se põe o índice (ou fazer logo que se coloca)
 }
