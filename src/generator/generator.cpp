@@ -272,7 +272,7 @@ vector<float>* generate_cylinder(float radius, float height, int slices, int sta
     //mas pode ser posto assim 6*(grid*(grid+1)) + grid +1.
     //Visto que o cubo tem 6 faces isto deve ser uma forma mais natural 
     //de mostrar mas nao consigo decifrar o significado
-    *points_total = 6*grid_slices*grid_slices + 7*grid_slices + 1;
+    *points_total = ((4*grid_slices)*(grid_slices+1) + 2*(grid_slices+1)*(grid_slices+1))*3;
     *index_total = grid_slices*grid_slices*36;
     float* point_array = (float*) malloc(sizeof(float)* *points_total);
     unsigned int* index_array = (unsigned int*) malloc(sizeof(unsigned int)* *index_total);
@@ -287,9 +287,12 @@ vector<float>* generate_cylinder(float radius, float height, int slices, int sta
 
     float referential_z = length/2;
 
-    for(int i = 0; i < grid_slices; i++){
-        for (int j = 0; j < grid_slices; j++)
-        {
+    //this for loop creates the outside points
+    //it does this using magic and no person can reason
+    //about it without being evaporated
+    //DO NOT TRY - you have been warned
+    for(int i = 0; i < grid_slices+1; i++){
+        for (int j = 0; j < grid_slices+1; j++){
             float x = j*delta+referential_x;
             float y = -i*delta+referential_y;
             float z = referential_z;
@@ -298,49 +301,102 @@ vector<float>* generate_cylinder(float radius, float height, int slices, int sta
             point_array[index++] = x;
             point_array[index++] = y;
             point_array[index++] = z;
+        }
+        for (int j = 1; j<grid_slices+1; j++){
+            float x = j*delta+referential_x;
+            float y = -i*delta+referential_y;
+            float z = referential_z;
 
-            //step up now
-            point_array[index++] = x;
-            point_array[index++] = -z;
-            point_array[index++] = y;
-            
             //slide to the right
             point_array[index++] = z;
             point_array[index++] = y;
             point_array[index++] = -x;
+        }
+        for (int j = 1; j<grid_slices+1; j++){
+            float x = j*delta+referential_x;
+            float y = -i*delta+referential_y;
+            float z = referential_z;
 
             //go back
             point_array[index++] = -x;
             point_array[index++] = y;
             point_array[index++] = -z;
+        }
+        for (int j = 1; j<grid_slices; j++){
+            float x = j*delta+referential_x;
+            float y = -i*delta+referential_y;
+            float z = referential_z;
 
             //slide to the left
             point_array[index++] = -z;
             point_array[index++] = y;
             point_array[index++] = x;
+        }
+    }
+
+    //this for does the midle points in the remaining faces(top and bottom)
+    for (int i=0 ; i<grid_slices+1; i++) {
+        for (int j=0; j<grid_slices+1; j++) {
+            float x = j*delta+referential_x;
+            float y = -i*delta+referential_y;
+            float z = referential_z;
+
+            //step up now
+            point_array[index++] = x;
+            point_array[index++] = -z;
+            point_array[index++] = y;
+        } 
+    }
+    for (int i=0 ; i<grid_slices+1; i++) {
+        for (int j=0; j<grid_slices+1; j++) {
+            float x = j*delta+referential_x;
+            float y = -i*delta+referential_y;
+            float z = referential_z;
             
             //step down now
             point_array[index++] = x;
             point_array[index++] = z;
             point_array[index++] = -y;
-        }
-    }
-    for (int i=0; i < *points_total; i++) {
-        printf("%f,",point_array[i]); 
-        if((i+1)%3 == 0) putchar('\n');
+        } 
     }
 
     index = 0;
     
     for (int j = 0; j < grid_slices; j++) {
-        for (int i = 0; i < grid_slices*6; i++) {
-            index_array[index++] = (grid_slices*6)*j + i;
-            index_array[index++] = (grid_slices*6)*(j+1) + i;
-            index_array[index++] = (grid_slices*6)*(j+1) + ((i+1)%(grid_slices*6));
+        for (int i = 0; i < grid_slices*4; i++) {
+            index_array[index++] = (grid_slices*4)*j + i;
+            index_array[index++] = (grid_slices*4)*(j+1) + i;
+            index_array[index++] = (grid_slices*4)*(j+1) + ((i+1)%(grid_slices*4));
 
-            index_array[index++] = (grid_slices*6)*j + i;
-            index_array[index++] = (grid_slices*6)*(j+1) + ((i+1)%(grid_slices*6));
-            index_array[index++] = (grid_slices*6)*j + ((i+1)%(grid_slices*6));
+            index_array[index++] = (grid_slices*4)*j + i;
+            index_array[index++] = (grid_slices*4)*(j+1) + ((i+1)%(grid_slices*4));
+            index_array[index++] = (grid_slices*4)*j + ((i+1)%(grid_slices*4));
+        }
+    }
+
+    int offset_top = (4*grid_slices)*(grid_slices+1);
+    int offset_bottom = offset_top + (grid_slices+1)*(grid_slices+1);
+
+    for (int j=0; j<grid_slices; j++) {
+        for (int i=0; i<grid_slices; i++) {
+            index_array[index++] = offset_top+((grid_slices+1)*j + i);
+            index_array[index++] = offset_top+((grid_slices+1)*(j+1) + i);
+            index_array[index++] = offset_top+((grid_slices+1)*(j+1) + (i+1));
+            
+            index_array[index++] = offset_top+((grid_slices+1)*j + i);
+            index_array[index++] = offset_top+((grid_slices+1)*(j+1) + (i+1));
+            index_array[index++] = offset_top+((grid_slices+1)*j + (i+1));
+        }
+    }
+    for (int j=0; j<grid_slices; j++) {
+        for (int i=0; i<grid_slices; i++) {
+            index_array[index++] = offset_bottom+((grid_slices+1)*j + i);
+            index_array[index++] = offset_bottom+((grid_slices+1)*(j+1) + i);
+            index_array[index++] = offset_bottom+((grid_slices+1)*(j+1) + (i+1));
+                                                         
+            index_array[index++] = offset_bottom+((grid_slices+1)*j + i);
+            index_array[index++] = offset_bottom+((grid_slices+1)*(j+1) + (i+1));
+            index_array[index++] = offset_bottom+((grid_slices+1)*j + (i+1));
         }
     }
 
