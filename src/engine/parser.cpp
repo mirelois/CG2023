@@ -85,8 +85,13 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             unsigned int n_indices;
             filestream.read((char*)&n_indices, sizeof(unsigned int));
             before = indices->size();
-            indices->resize(before + n_indices);
-            filestream.read((char*)(indices->data() + before), sizeof(unsigned int) * n_indices);
+            unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
+            //indices->resize(before + n_indices);
+            filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
+            for (int i = 0; i < n_indices;i++) {
+                indices->push_back(indices_buf[i] + *index);
+            }
+            free(indices_buf);
             // fechar o ficheiro
             filestream.close();
             // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
@@ -94,7 +99,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             //model->figure = tuples;
             model->size = n_indices;
             model->index = *index;
-            *index += n / 3;
+            *index += n_indices;
             //lista dos modelos
             model_map->insert(make_pair(model_name, model));
             group->models.push_back(model);
@@ -135,7 +140,7 @@ void parse_translate_points(Translate_Catmull* translation, xml_node<>* node) {
 }
 
 void parse_group_transform(xml_node<> *node_transform, Group* group, Group* parent, vector<float> *points, vector<unsigned int> *indices, unsigned int *index){
-    short max = 100;
+    float max = 100;
     for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
         if(!strcmp(node_temp->name(), "translate")){
@@ -155,23 +160,23 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                 parse_translate_points(translation, node_temp);
                 group->transformations.push_back(translation);
 
+                if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
+                    float p[3], d[3];
+                    // draw curve using line segments with GL_LINE_LOOP
+                    for (unsigned int t = 0; t < max; t += 1) {
+                        translation->getGlobalCatmullRomPoint(t/max, p, d);
+                        points->push_back(p[0]);
+                        points->push_back(p[1]);
+                        points->push_back(p[2]);
+                        indices->push_back(t+(*index));
+                    }
+                }
+
                 Model* catmull = new Model(GL_LINE_LOOP);
                 catmull->index = *index;
                 catmull->size = max;
                 *index += catmull->size;
                 parent->models.push_back(catmull);
-
-                if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
-                    float p[3], d[3];
-                    // draw curve using line segments with GL_LINE_LOOP
-                    for (float t = 0; t < max; t += 1) {
-                        translation->getGlobalCatmullRomPoint(t/max, p, d);
-                        points->push_back(p[0]);
-                        points->push_back(p[1]);
-                        points->push_back(p[2]);
-                        indices->push_back(t);
-                    }
-                }
             }
             else {
                 Translate* translation = new Translate();
