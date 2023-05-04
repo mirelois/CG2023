@@ -95,12 +95,9 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             //model->figure = tuples;
             model->size = n_indices;
             model->index = indices->size();
-            
 
-            printf("%s\n", model_name.c_str());
             for (unsigned int i = 0; i < n_indices;i++) {
                 indices->push_back(indices_buf[i] + before/3);
-                printf("%d\n", indices_buf[i] + before/3);
             }
 
             free(indices_buf);
@@ -174,7 +171,6 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                     Model* catmull = new Model(GL_LINE_LOOP);
                     catmull->index = indices->size();
                     catmull->size = max;
-                    
 
                     for (unsigned int t = 0; t < max; t += 1) {
                         translation->getGlobalCatmullRomPoint(t/max, p, d);
@@ -182,7 +178,6 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                         points->push_back(p[1]);
                         points->push_back(p[2]);
                         indices->push_back(t+before/3);
-                        printf("Curve index: %d\n", t + before/3);
                     }
                     parent->models.push_back(catmull);
                 }
