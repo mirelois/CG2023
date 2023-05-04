@@ -138,7 +138,7 @@ void parse_translate_points(Translate_Catmull* translation, xml_node<>* node) {
 }
 
 void parse_group_transform(xml_node<> *node_transform, Group* group, Group* parent, vector<float> *points, vector<unsigned int> *indices){
-    float max = 100;
+    
     for(xml_node<> *node_temp = node_transform->first_node(); node_temp; node_temp = node_temp->next_sibling()){
         
         if(!strcmp(node_temp->name(), "translate")){
@@ -159,7 +159,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                 group->transformations.push_back(translation);
 
                 if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
-                    float p[3], d[3];
+                    float p[3], d[3], max = 100;
                     unsigned int before = points->size();
                     // draw curve using line segments with GL_LINE_LOOP
                     Model* catmull = new Model(GL_LINE_LOOP);
