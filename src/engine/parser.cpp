@@ -81,7 +81,6 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             unsigned int before = points->size();
             points->resize(before + n);
             //filestream.read((char*)tuples, sizeof(float) * n);
-            printf("\nTOTAL:%d\n", n);
             filestream.read((char*)(points->data() + before), sizeof(float) * n);
             unsigned int n_indices;
             filestream.read((char*)&n_indices, sizeof(unsigned int));
@@ -310,8 +309,5 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group, vector
     group->subGroups.push_back(not_blank);
     if((temp = root_node->first_node("group")))
         parse_group(temp, not_blank, group, points, indices, &model_map);
-    for (int i = 0; i < points->size(); i+=3) {
-        printf("%f %f %f\n", points[i], points[i + 1], points[i + 2]);
-    }
     //percorrer o mapa e pôr nos points os pontos ao mesmo tempo que se põe o índice (ou fazer logo que se coloca)
 }
