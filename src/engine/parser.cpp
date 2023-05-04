@@ -90,7 +90,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             // fechar o ficheiro
             filestream.close();
             // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
-            Model* model = new Model;
+            Model* model = new Model(GL_TRIANGLES);
             //model->figure = tuples;
             model->size = n_indices;
             model->index = *index;
@@ -155,7 +155,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                 parse_translate_points(translation, node_temp);
                 group->transformations.push_back(translation);
 
-                Model* catmull = new Model();
+                Model* catmull = new Model(GL_LINE_LOOP);
                 catmull->index = *index;
                 catmull->size = max;
                 *index += catmull->size;

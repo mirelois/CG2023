@@ -28,8 +28,10 @@ public:
 
 class Model {
 public:
+    unsigned int type;
     unsigned int size;
     unsigned int index = 0;
+    Model(unsigned int t) { type = t; }
 };
 
 
