@@ -81,15 +81,18 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             unsigned int before = points->size();
             points->resize(before + n);
             //filestream.read((char*)tuples, sizeof(float) * n);
+            printf("\nTOTAL:%d\n", n);
             filestream.read((char*)(points->data() + before), sizeof(float) * n);
             unsigned int n_indices;
             filestream.read((char*)&n_indices, sizeof(unsigned int));
-            before = indices->size();
+            //before = indices->size();
             unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
             //indices->resize(before + n_indices);
             filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
-            for (int i = 0; i < n_indices;i++) {
-                indices->push_back(indices_buf[i] + *index);
+            printf("%s\n", model_name.c_str());
+            for (unsigned int i = 0; i < n_indices;i++) {
+                indices->push_back(indices_buf[i] + before);
+                printf("%d\n", indices_buf[i]+before);
             }
             free(indices_buf);
             // fechar o ficheiro

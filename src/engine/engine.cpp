@@ -36,7 +36,7 @@ void drawGroup(Group* group){
 	for(Transformation* transformation: group->transformations)
 		transformation->transform();
 	for(Model* groupModel: group->models)
-		glDrawElements(groupModel->type, groupModel->size, GL_UNSIGNED_INT, (void*) (groupModel->index*sizeof(GLuint)));
+		glDrawElements(groupModel->type, groupModel->size, GL_UNSIGNED_INT, (void*) (groupModel->index * sizeof(GLuint)));
 	
 	for(Group* groupChild: group->subGroups)
 		drawGroup(groupChild);
