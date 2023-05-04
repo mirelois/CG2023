@@ -198,6 +198,73 @@ vector<float>* generate_cone(float bottom_radius, float height, int slices, int 
     return point_array;
 }
 
+tuple<float*, unsigned int*> generate_cylinder_index(float radius, float height, int slices, int stacks, unsigned int* point_total, unsigned int* index_total){
+
+    *point_total = 3*(slices*(stacks+1)+2);
+    *index_total = slices*((stacks+1)*6);
+
+    float* point_array = (float*)malloc(sizeof(float) * *point_total);
+    unsigned int* index_array = (unsigned int*)malloc(sizeof(unsigned int) * *index_total);
+
+    float division_height_step = height/stacks;
+    float alfa = 2*M_PI/slices;
+
+    int index = 0;
+
+    //top point
+	point_array[index++] = 0.0f;
+	point_array[index++] = height/2;
+	point_array[index++] = 0.0f;
+
+    for(int j=0; j<stacks+1; j++){
+        double sub_height = height/2 -j*division_height_step;
+        for (int i = 0; i < slices; i++) {
+        //middle part
+
+            point_array[index++] = radius*sin(alfa * i);
+            point_array[index++] = sub_height;
+            point_array[index++] = radius*cos(alfa * i);
+
+        }
+	}
+
+    //bottom point
+	point_array[index++] = 0.0f;;
+	point_array[index++] = -height/2;;
+	point_array[index++] = 0.0f;;
+
+    index = 0;
+
+    for (int i=0; i<slices; i++){
+            index_array[index++] = 0;
+            index_array[index++] = i+1;
+            index_array[index++] = (i+1)%(slices) + 1;
+    }
+
+    for (int j = 0; j < stacks; j++) {
+        for (int i = 0; i < slices; i++) {
+            index_array[index++] = slices*j + i + 1;
+            index_array[index++] = slices*(j+1) + i + 1;
+            index_array[index++] = slices*(j+1) + ((i+1)%slices) + 1;
+
+            index_array[index++] = slices*j + i + 1;
+            index_array[index++] = slices*(j+1) + ((i+1)%slices) + 1;
+            index_array[index++] = slices*j + ((i+1)%slices) + 1;
+        }
+    }
+    
+    for (int i=0; i<slices; i++){
+            int offset = slices*stacks+1;
+            index_array[index++] = offset+i;
+            index_array[index++] = slices*(stacks+1)+1;
+            index_array[index++] = offset+(i+1)%slices;
+    }
+
+    return make_tuple(point_array, index_array);
+}
+
+
+
 vector<float>* generate_cylinder(float radius, float height, int slices, int stacks){
     vector<float>* point_array = new vector<float>();
 
@@ -732,9 +799,9 @@ int main(int argc, char* argv[]){
         tuple<float*, unsigned int*> torus = generate_torus_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), &points_total, &index_total);
         write3D(argv[6], points_total, get<0>(torus), index_total, get<1>(torus));
     } else if(!strcmp(argv[1], "cylinder")){
-        vector<float>* cylinder = generate_cylinder(atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
-        points_write(argv[6], cylinder->size(), cylinder->data());
-        free(cylinder);
+        unsigned int points_total, index_total;
+        tuple<float*, unsigned int*> cylinder = generate_cylinder_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), &points_total, &index_total);
+        write3D(argv[6], points_total, get<0>(cylinder), index_total, get<1>(cylinder));
     }else if(!strcmp(argv[1], "patch")){
         tuple<vector<float>*, vector<unsigned int>*> bezier = generate_bezier(argv[2], atoi(argv[3]));
         write3D(argv[4], get<0>(bezier)->size(), get<0>(bezier)->data(), get<1>(bezier)->size(), get<1>(bezier)->data());
