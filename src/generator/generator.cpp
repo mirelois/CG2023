@@ -129,11 +129,6 @@ tuple<float*, unsigned int*> generate_cone_index(float bottom_radius, float heig
             index_array[index++] = offset+(i+1)%slices;
     }
 
-    for (int i=0; i<*point_total; i++) {
-        printf("%f,",point_array[i]); 
-        if((i+1)%3 == 0) putchar('\n');
-    }
-
     return make_tuple(point_array, index_array);
 }
 
