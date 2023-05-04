@@ -77,21 +77,16 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             filestream.read((char*)&n, sizeof(unsigned int));
 
             // Ler array de tuplos
-            //tuple<float,float,float>* tuples = new tuple<float,float,float>[n];
             unsigned int before = points->size();
             points->resize(before + n);
-            //filestream.read((char*)tuples, sizeof(float) * n);
             filestream.read((char*)(points->data() + before), sizeof(float) * n);
             unsigned int n_indices;
             filestream.read((char*)&n_indices, sizeof(unsigned int));
-            //before = indices->size();
             unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
-            //indices->resize(before + n_indices);
             filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
 
             // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
             Model* model = new Model(GL_TRIANGLES);
-            //model->figure = tuples;
             model->size = n_indices;
             model->index = indices->size();
 
@@ -305,9 +300,9 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group, vector
 
     // Grupo
     unordered_map<string, Model*> model_map = {};
-    Group* not_blank = new Group();
-    group->subGroups.push_back(not_blank);
+    Group* decoy = new Group();
+    group->subGroups.push_back(decoy);
     if((temp = root_node->first_node("group")))
-        parse_group(temp, not_blank, group, points, indices, &model_map);
+        parse_group(temp, decoy, group, points, indices, &model_map);
     //percorrer o mapa e pôr nos points os pontos ao mesmo tempo que se põe o índice (ou fazer logo que se coloca)
 }
