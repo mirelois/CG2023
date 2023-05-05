@@ -147,7 +147,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
             if ((attr = node_temp->first_attribute("time"))) {
                 float time = atof(attr->value());
                 Translate_Catmull* translation;
-                if ((attr = node_temp->first_attribute("align")) && !strcmp(attr->value(), "True")) {
+                if ((attr = node_temp->first_attribute("align")) && !strcmp(attr->value(), "true")) {
                     translation = new Translate_Catmull_Align();
                 }
                 else {
@@ -158,7 +158,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                 parse_translate_points(translation, node_temp);
                 group->transformations.push_back(translation);
 
-                if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "True")) {
+                if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "true")) {
                     float p[3], d[3], max = 100;
                     unsigned int before = points->size();
                     // draw curve using line segments with GL_LINE_LOOP
