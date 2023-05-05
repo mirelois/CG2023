@@ -10,11 +10,10 @@ a = 17.8*150000000/(1392700*25)
 
 xml_file.write(
     f"""<group>
-    <group>
     <transform>
-        <translate x = "12" y = "0" z = "0">
+        <translate x = "{a-3}" y = "0" z = "0"/>
     </transform>
-    </group>
+    <group>
     <transform>
         <translate time=\"{60*12*24*365}\" align="true" draw="true">
             <point x = "{a}" y = "0" z = "0" />
@@ -78,8 +77,12 @@ for x,z in l:
 )
 
 xml_file.write(
-    f"""    </translate>
-    </transform>
+    f"""        </translate>
+        </transform>
+        <models>
+            <model file="./models/sphere.3d" />
+        </models>
+    </group>
 </group>
     """
 )
