@@ -1,0 +1,2 @@
+f = open("deeznuts.txt")
+
