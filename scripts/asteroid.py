@@ -20,24 +20,24 @@ xml_file.write(
     """
 )
 
-print(a,b)
+print(a, b)
 
 print(math.sqrt(abs(a**2*b**2 - a**2 * b**2)/a**2))
 
 l = []
 
-for i in range(0,int(a), int(a/20)):
+for i in range(0, int(a), int(a/20)):
     x = i
     z = math.sqrt(abs(a**2*b**2 - x**2 * b**2)/a**2)
-    l.append((x,z))
-    
+    l.append((x, z))
 
-for x,z in reversed(l):
-    print((x,z))
+
+for x, z in reversed(l):
+    print((x, z))
     xml_file.write(
-    f"""        <point x = "{-x}" y = "0" z = "{z}" />
+        f"""        <point x = "{x}" y = "0" z = "{z}" />
     """
-)
+    )
 
 
 xml_file.write(
@@ -45,36 +45,36 @@ xml_file.write(
     """
 )
 
-for x,z in l:
-    print((-x,z))
+for x, z in l:
+    print((-x, z))
     xml_file.write(
-    f"""        <point x = "{x}" y = "0" z = "{-z}" />
+        f"""        <point x = "{-x}" y = "0" z = "{z}" />
     """
-)
+    )
 
 xml_file.write(
-    f"""        <point x = "{a}" y = "0" z = "0" />
+    f"""        <point x = "{-a}" y = "0" z = "0" />
     """
 )
 
-for x,z in reversed(l):
-    print((-x,-z))
+for x, z in reversed(l):
+    print((-x, -z))
     xml_file.write(
-    f"""        <point x = "{-x}" y = "0" z = "{-z}" />
+        f"""        <point x = "{-x}" y = "0" z = "{-z}" />
     """
-)
+    )
 
 xml_file.write(
     f"""        <point x = "0" y = "0" z = "{-b}" />
     """
 )
 
-for x,z in l:
-    print((x,-z))
+for x, z in l:
+    print((x, -z))
     xml_file.write(
-    f"""        <point x = "{-x}" y = "0" z = "{z}" />
+        f"""        <point x = "{x}" y = "0" z = "{-z}" />
     """
-)
+    )
 
 xml_file.write(
     f"""        </translate>
