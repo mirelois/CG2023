@@ -2649,7 +2649,7 @@
     </transform>
     <group>
     <transform>
-        <translate time="6307200" align="true" draw="true">
+        <translate time="0.0001" align="true" draw="true">
             <point x = "-76.68557478279601" y = "0" z = "0" />
             <point x = "-75" y = "0" z = "4.311887174657456" />
             <point x = "-72" y = "0" z = "7.117657564407889" />

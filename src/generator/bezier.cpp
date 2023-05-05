@@ -82,16 +82,21 @@ void calculate_square(float u, float v, vector<int>* patch, vector<vector<float>
     }
 }
 
-void interact(map<tuple<float,float,float>, unsigned int>* map, float* points, vector<unsigned int>* indices, unsigned int* ind, vector<float>* point_vector){
+unsigned int interact(map<tuple<float,float,float>, unsigned int>* map, float* points, vector<unsigned int>* indices, unsigned int* ind, vector<float>* point_vector){
     tuple<float, float, float> item = make_tuple(points[0], points[1], points[2]);
+    unsigned int ind_Actual;
     if(map->find(item)==map->end()){
         map->insert(make_pair(item, *ind));
         indices->push_back(*ind);
+        ind_Actual = *ind;
         (*ind)++;
         point_vector->push_back(points[0]);point_vector->push_back(points[1]);point_vector->push_back(points[2]);
     } else{
-        indices->push_back(map->at(item));
-    }   
+        ind_Actual = map->at(item);
+        indices->push_back(ind_Actual);
+    }
+
+    return ind_Actual;
 }
 
 tuple<vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, float tessellation_level){
@@ -108,26 +113,25 @@ tuple<vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, fl
     unsigned int ind = 0;
 
     float points[3];
+    unsigned int i1, i2;
     for(vector<int>* patch: *patches){
         for(float u=0; u<tessellation_level; u++){
             for(float v=0; v<tessellation_level; v++){
                 calculate_square(u/tessellation_level,v/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind, point_vector);
+                i1 = interact(&map, points, indices, &ind, point_vector);
 
                 calculate_square(u/tessellation_level,(v+1)/tessellation_level, patch, cpoints, points);
                 interact(&map, points, indices, &ind, point_vector);
 
                 calculate_square((u+1)/tessellation_level,(v+1)/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind, point_vector);
+                i2 = interact(&map, points, indices, &ind, point_vector);
 
-                calculate_square((u+1)/tessellation_level,(v+1)/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind, point_vector);
+                indices->push_back(i2);
 
                 calculate_square((u+1)/tessellation_level,v/tessellation_level, patch, cpoints, points);
                 interact(&map, points, indices, &ind, point_vector);
 
-                calculate_square(u/tessellation_level,v/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind, point_vector);
+                indices->push_back(i1);
             }
         }
     }
