@@ -1,0 +1,6 @@
+#!/bin/sh
+
+python3 text_to_moon.py ./jupyter_moons jupyter_moons.xml
+python3 text_to_moon.py ./uranus_moons uranus_moons.xml
+python3 text_to_moon.py ./saturn_moons saturn_moons.xml
+python3 text_to_moon.py ./mars_moons mars_moons.xml
