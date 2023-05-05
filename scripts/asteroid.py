@@ -26,7 +26,7 @@ print(math.sqrt(abs(a**2*b**2 - a**2 * b**2)/a**2))
 
 l = []
 
-for i in range(0,int(a), int(a/10)):
+for i in range(0,int(a), int(a/20)):
     x = i
     z = math.sqrt(abs(a**2*b**2 - x**2 * b**2)/a**2)
     l.append((x,z))
