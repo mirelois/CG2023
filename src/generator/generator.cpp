@@ -220,7 +220,6 @@ generate_cylinder_index(float radius, float height, int slices, int stacks,
     return make_tuple(point_array, index_array);
 }
 
-// TODO mudar ordem dos pontos para maximizar localidade
 tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
                                                   unsigned int *points_total,
                                                   unsigned int *index_total) {
