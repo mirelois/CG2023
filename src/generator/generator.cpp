@@ -352,12 +352,6 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
         }
     }
 
-    for (int i = 0; i < *index_total; i++) {
-        printf("%u,", index_array[i]);
-        if ((i + 1) % 3 == 0)
-            putchar('\n');
-    }
-
     return make_tuple(point_array, index_array);
 }
 
@@ -491,9 +485,13 @@ void write3D(const char *filename, unsigned int nVertices, float *points,
     file.write((char *)&nVertices, sizeof(unsigned int));
     file.write((char *)points, sizeof(float) * nVertices);
 
+    free(points);
+
     // Indices
     file.write((char *)&nIndices, sizeof(unsigned int));
     file.write((char *)indices, sizeof(unsigned int) * nIndices);
+    
+    free(indices);
 
     file.close();
 }
@@ -504,6 +502,7 @@ int main(int argc, char *argv[]) {
         tuple<float *, unsigned int *> sphere =
             generate_sphere_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
                                   &points_total, &index_total);
+        
         write3D(argv[5], points_total, get<0>(sphere), index_total,
                 get<1>(sphere));
     } else if (!strcmp(argv[1], "box")) {
