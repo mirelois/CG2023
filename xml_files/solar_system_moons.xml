@@ -2649,7 +2649,7 @@
     </transform>
     <group>
     <transform>
-        <translate time="0.0001" align="true" draw="true">
+        <translate time="6307" align="true" draw="true">
             <point x = "-76.68557478279601" y = "0" z = "0" />
             <point x = "-75" y = "0" z = "4.311887174657456" />
             <point x = "-72" y = "0" z = "7.117657564407889" />
@@ -2759,9 +2759,11 @@
             <point x = "-72" y = "0" z = "-7.117657564407889" />
             <point x = "-75" y = "0" z = "-4.311887174657456" />
             </translate>
+            <rotate angle="-90" x="1" y="0" z="0" />
+            <scale x="0.01" y="0.01" z="0.01" />
         </transform>
         <models>
-            <model file="./models/sphere.3d" />
+            <model file="./models/teapot.3d" />
         </models>
     </group>
 </group>
