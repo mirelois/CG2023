@@ -18,6 +18,13 @@ public:
     float projection[3] = { 60,1,1000 }; // Valor Padr�o segundo o ficheiro de exemplo
 };
 
+class Lights{
+public: // Default settings
+    float point[3] = {0,10,0};
+    float directional[3] = {1,1,1};
+    float spotlight[7] = {0,10,0,1,1,1,45};
+};
+
 class Window {
 public:
     // Valores por Omiss�o

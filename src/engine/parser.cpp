@@ -63,6 +63,58 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
+void parse_lights(xml_node<> *lights_node, Lights* lights){
+    xml_node<> *temp;
+
+    if((temp = lights_node->first_node("light")) && temp->first_attribute("point")){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("posX")))
+            lights->point[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("posY")))
+            lights->point[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("posZ")))
+            lights->point[2] = atof(attr->value());
+    }
+
+    if((temp = lights_node->first_node("light")) && temp->first_attribute("directional")){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("dirX")))
+            lights->directional[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("dirY")))
+            lights->directional[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("dirZ")))
+            lights->directional[2] = atof(attr->value());
+    }
+
+    if((temp = lights_node->first_node("light")) && temp->first_attribute("spotlight")){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("posX")))
+            lights->spotlight[0] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("posY")))
+            lights->spotlight[1] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("posZ")))
+            lights->spotlight[2] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("dirX")))
+            lights->spotlight[3] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("dirY")))
+            lights->spotlight[4] = atof(attr->value());
+        
+        if((attr = temp->first_attribute("dirZ")))
+            lights->spotlight[5] = atof(attr->value());
+
+        if((attr = temp->first_attribute("cutoff")))
+            lights->spotlight[6] = atof(attr->value());
+    }
+}
+
 void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, vector<unsigned int>* indices, unordered_map<string, Model*> *model_map){
     string model_name;
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
@@ -271,7 +323,7 @@ void parse_group(xml_node<> *group_node, Group* group, Group* parent, vector<flo
     }
 }
 
-void parser(char* fileName, Window* window, Camera* camera, Group* group, vector<float>* points, vector<unsigned int>* indices)
+void parser(char* fileName, Window* window, Camera* camera, Lights* lights, Group* group, vector<float>* points, vector<unsigned int>* indices)
 {  
     
     xml_document<> doc;
@@ -297,6 +349,10 @@ void parser(char* fileName, Window* window, Camera* camera, Group* group, vector
     // Câmara
     if((temp = root_node->first_node("camera")))
         parse_camera(temp, camera);
+
+    // Lights
+    if((temp = root_node->first_node("lights")))
+        parse_lights(temp, lights);
 
     // Grupo
     unordered_map<string, Model*> model_map = {};
