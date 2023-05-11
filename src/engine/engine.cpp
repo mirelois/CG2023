@@ -333,11 +333,12 @@ int main(int argc, char* argv[]) {
 	camera_global = new Camera();
 	group_global = new Group();
 	Window* window = new Window();
+	Lights* lights = new Lights();
 	
 // Read Xml file
 	vector<float>* points = new vector<float>();
 	vector<unsigned int>* indices = new vector<unsigned int>();
-	parser(argv[1], window, camera_global, group_global, points, indices);
+	parser(argv[1], window, camera_global, lights, group_global, points, indices);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
