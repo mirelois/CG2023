@@ -86,7 +86,7 @@ tuple<float *, unsigned int *>
 generate_cone_index(float bottom_radius, float height, int slices, int stacks,
                     unsigned int *point_total, unsigned int *index_total) {
 
-    *point_total = 3 * (slices * stacks + 2);
+    *point_total = 3 * ((slices + 1) * stacks + 2);
     *index_total = slices * stacks * 6;
 
     float *point_array = (float *)malloc(sizeof(float) * *point_total);
@@ -115,6 +115,15 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
             point_array[index++] = sub_radius * cos(alfa * j);
         }
     }
+
+    for (j = 0; j < slices; j++) {
+
+        // lados
+        point_array[index++] = bottom_radius * sin(alfa * j);
+        point_array[index++] = 0;
+        point_array[index++] = bottom_radius * cos(alfa * j);
+    }
+
     // bottom point
     point_array[index++] = 0;
     point_array[index++] = 0;
@@ -141,10 +150,15 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
     }
 
     for (int i = 0; i < slices; i++) {
-        int offset = slices * (stacks - 1) + 1;
+        int offset = (slices + 1) * (stacks - 1) + 2;
         index_array[index++] = offset + i;
         index_array[index++] = slices * (stacks + 1) + 1;
         index_array[index++] = offset + (i + 1) % slices;
+    }
+
+    for(int i=0; i<*index_total; i++){
+        printf("%u,", index_array[i]);
+        if((i+1)%3 == 0) putchar('\n');
     }
 
     return make_tuple(point_array, index_array);
@@ -184,11 +198,8 @@ generate_cylinder_index(float radius, float height, int slices, int stacks,
 
     // bottom point
     point_array[index++] = 0.0f;
-    ;
     point_array[index++] = -height / 2;
-    ;
     point_array[index++] = 0.0f;
-    ;
 
     index = 0;
 
@@ -314,11 +325,6 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
                 index_array[index++] = (grid_slices + 1) * i + (j + 1)       + f*((grid_slices + 1) * (grid_slices + 1));
             }
         }
-    }
-
-    for(int i=0; i<*points_total; i++){
-        printf("%f,", point_array[i]);
-        if((i+1)%3 == 0) putchar('\n');
     }
 
     return make_tuple(point_array, index_array);
