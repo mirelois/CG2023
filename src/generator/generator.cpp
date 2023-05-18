@@ -224,7 +224,8 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
                                                   unsigned int *points_total,
                                                   unsigned int *index_total) {
     // a quantidade de pontos ´e definida pelo grid;
-    *points_total = 18 * grid_slices * grid_slices + 24 * grid_slices + 6;
+    // agora tem de ser pontos com normais diferentes por isso ´e por face
+    *points_total = (grid_slices+1)*(grid_slices+1) * 3 * 6;
     *index_total = grid_slices * grid_slices * 36;
 
     float *point_array = (float *)malloc(sizeof(float) * *points_total);
@@ -241,12 +242,9 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
 
     float referential_z = length / 2;
 
-    // this for loop creates the outside points
-    // it does this using magic and no person can reason
-    // about it without being evaporated
-    // DO NOT TRY - you have been warned
-    for (int j = 0; j < grid_slices + 1; j++) {
-        for (int i = 0; i < grid_slices + 1; i++) {
+    //fromt face is in plane yx all others are relative to this one
+    for (int i = 0; i < grid_slices + 1; i++) {
+        for (int j = 0; j < grid_slices + 1; j++) {
 
             // variables are of the front
             point_array[index++] = j * delta + referential_x;
@@ -254,8 +252,8 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
             point_array[index++] = referential_z;
         }
     }
-    for (int j = 1; j < grid_slices + 1; j++) {
-        for (int i = 0; i < grid_slices + 1; i++) {
+    for (int i = 0; i < grid_slices + 1; i++) {
+        for (int j = 0; j < grid_slices + 1; j++) {
 
             // slide to the right
             point_array[index++] = referential_z;
@@ -263,8 +261,8 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
             point_array[index++] = -(j * delta + referential_x);
         }
     }
-    for (int j = 1; j < grid_slices + 1; j++) {
-        for (int i = 0; i < grid_slices + 1; i++) {
+    for (int i = 0; i < grid_slices + 1; i++) {
+        for (int j = 0; j < grid_slices + 1; j++) {
 
             // go back
             point_array[index++] = -(j * delta + referential_x);
@@ -272,8 +270,8 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
             point_array[index++] = -referential_z;
         }
     }
-    for (int j = 1; j < grid_slices; j++) {
-        for (int i = 0; i < grid_slices + 1; i++) {
+    for (int i = 0; i < grid_slices + 1; i++) {
+        for (int j = 0; j < grid_slices + 1; j++) {
 
             // slide to the left
             point_array[index++] = -referential_z;
@@ -282,9 +280,6 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
         }
     }
 
-    // this for does the points in the remaining faces(top and bottom)
-    // points are repeated for locality porposes,
-    // totally not because it is hard to do it any other way
     for (int i = 0; i < grid_slices + 1; i++) {
         for (int j = 0; j < grid_slices + 1; j++) {
 
@@ -294,6 +289,7 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
             point_array[index++] = -i * delta + referential_y;
         }
     }
+    
     for (int i = 0; i < grid_slices + 1; i++) {
         for (int j = 0; j < grid_slices + 1; j++) {
             // step down now
@@ -305,51 +301,24 @@ tuple<float *, unsigned int *> generate_box_index(float length, int grid_slices,
 
     index = 0;
 
-    for (int i = 0; i < grid_slices * 4; i++) {
-        for (int j = 0; j < grid_slices; j++) {
-            index_array[index++] = j + (grid_slices+1)*i;
-            index_array[index++] = (j + 1) + (grid_slices+1)*i;
-            index_array[index++] =
-                (j + 1) + (grid_slices+1) * ((i + 1) % (grid_slices * 4));
+    for (int f = 0; f < 6; f++){
+        for (int i = 0; i < grid_slices; i++) {
+            for (int j = 0; j < grid_slices; j++) {
 
-            index_array[index++] = j + (grid_slices+1)*i;
-            index_array[index++] =
-                (j + 1) + (grid_slices+1) * ((i + 1) % (grid_slices * 4));
-            index_array[index++] =
-                j + (grid_slices+1) * ((i + 1) % (grid_slices * 4));
+                index_array[index++] = (grid_slices + 1) * i + j             + f*((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * (i + 1) + j       + f*((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * (i + 1) + (j + 1) + f*((grid_slices + 1) * (grid_slices + 1));
+
+                index_array[index++] = (grid_slices + 1) * i + j             + f*((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * (i + 1) + (j + 1) + f*((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * i + (j + 1)       + f*((grid_slices + 1) * (grid_slices + 1));
+            }
         }
     }
 
-    int offset = (4 * grid_slices) * (grid_slices + 1);
-
-    for (int j = 0; j < grid_slices; j++) {
-        for (int i = 0; i < grid_slices; i++) {
-            index_array[index++] = offset + ((grid_slices + 1) * j + i);
-            index_array[index++] = offset + ((grid_slices + 1) * (j + 1) + i);
-            index_array[index++] =
-                offset + ((grid_slices + 1) * (j + 1) + (i + 1));
-
-            index_array[index++] = offset + ((grid_slices + 1) * j + i);
-            index_array[index++] =
-                offset + ((grid_slices + 1) * (j + 1) + (i + 1));
-            index_array[index++] = offset + ((grid_slices + 1) * j + (i + 1));
-        }
-    }
-
-    offset += (grid_slices + 1) * (grid_slices + 1);
-
-    for (int j = 0; j < grid_slices; j++) {
-        for (int i = 0; i < grid_slices; i++) {
-            index_array[index++] = offset + ((grid_slices + 1) * j + i);
-            index_array[index++] = offset + ((grid_slices + 1) * (j + 1) + i);
-            index_array[index++] =
-                offset + ((grid_slices + 1) * (j + 1) + (i + 1));
-
-            index_array[index++] = offset + ((grid_slices + 1) * j + i);
-            index_array[index++] =
-                offset + ((grid_slices + 1) * (j + 1) + (i + 1));
-            index_array[index++] = offset + ((grid_slices + 1) * j + (i + 1));
-        }
+    for(int i=0; i<*points_total; i++){
+        printf("%f,", point_array[i]);
+        if((i+1)%3 == 0) putchar('\n');
     }
 
     return make_tuple(point_array, index_array);
