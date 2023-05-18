@@ -156,11 +156,6 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         index_array[index++] = offset + (i + 1) % slices;
     }
 
-    for(int i=0; i<*index_total; i++){
-        printf("%u,", index_array[i]);
-        if((i+1)%3 == 0) putchar('\n');
-    }
-
     return make_tuple(point_array, index_array);
 }
 
@@ -168,7 +163,7 @@ tuple<float *, unsigned int *>
 generate_cylinder_index(float radius, float height, int slices, int stacks,
                         unsigned int *point_total, unsigned int *index_total) {
 
-    *point_total = 3 * (slices * (stacks + 1) + 2);
+    *point_total = 3 * ((slices + 2) * (stacks + 1) + 2);
     *index_total = slices * ((stacks + 1) * 6);
 
     float *point_array = (float *)malloc(sizeof(float) * *point_total);
@@ -184,6 +179,13 @@ generate_cylinder_index(float radius, float height, int slices, int stacks,
     point_array[index++] = 0.0f;
     point_array[index++] = height / 2;
     point_array[index++] = 0.0f;
+    
+    for (int i = 0; i < slices; i++) {
+        // top ring
+        point_array[index++] = radius * sin(alfa * i);
+        point_array[index++] = height/2;
+        point_array[index++] = radius * cos(alfa * i);
+    }
 
     for (int j = 0; j < stacks + 1; j++) {
         double sub_height = height / 2 - j * division_height_step;
@@ -194,6 +196,13 @@ generate_cylinder_index(float radius, float height, int slices, int stacks,
             point_array[index++] = sub_height;
             point_array[index++] = radius * cos(alfa * i);
         }
+    }
+    
+    for (int i = 0; i < slices; i++) {
+        // bottom ring
+        point_array[index++] = radius * sin(alfa * i);
+        point_array[index++] = -height/2;
+        point_array[index++] = radius * cos(alfa * i);
     }
 
     // bottom point
@@ -209,23 +218,30 @@ generate_cylinder_index(float radius, float height, int slices, int stacks,
         index_array[index++] = (i + 1) % (slices) + 1;
     }
 
+    int offset = slices + 1;
+
     for (int j = 0; j < stacks; j++) {
         for (int i = 0; i < slices; i++) {
-            index_array[index++] = slices * j + i + 1;
-            index_array[index++] = slices * (j + 1) + i + 1;
-            index_array[index++] = slices * (j + 1) + ((i + 1) % slices) + 1;
+            index_array[index++] = offset + slices * j + i;
+            index_array[index++] = offset + slices * (j + 1) + i;
+            index_array[index++] = offset + slices * (j + 1) + ((i + 1) % slices);
 
-            index_array[index++] = slices * j + i + 1;
-            index_array[index++] = slices * (j + 1) + ((i + 1) % slices) + 1;
-            index_array[index++] = slices * j + ((i + 1) % slices) + 1;
+            index_array[index++] = offset + slices * j + i;
+            index_array[index++] = offset + slices * (j + 1) + ((i + 1) % slices);
+            index_array[index++] = offset + slices * j + ((i + 1) % slices);
         }
     }
 
+    offset = slices * (stacks + 2) + 1;
     for (int i = 0; i < slices; i++) {
-        int offset = slices * stacks + 1;
         index_array[index++] = offset + i;
-        index_array[index++] = slices * (stacks + 1) + 1;
+        index_array[index++] = offset + slices;
         index_array[index++] = offset + (i + 1) % slices;
+    }
+
+    for(int i=0; i<*index_total; i++){
+        printf("%u,", index_array[i]);
+        if((i+1)%3 == 0) putchar('\n');
     }
 
     return make_tuple(point_array, index_array);
