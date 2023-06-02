@@ -38,7 +38,10 @@ public:
     unsigned int type;
     unsigned int size;
     unsigned int index = 0;
+    
 
+    // Texture
+    GLuint texID;
     // Color
     float diffuse[3];
     float ambient[3];
