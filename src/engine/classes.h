@@ -10,6 +10,8 @@
 #include <GL/glut.h>
 #endif
 
+#include <IL/il.h>
+
 class Camera {
 public:
     float position[3] = { 1,2,1 }; // Valor por omiss�o sugerido por n�s
@@ -38,6 +40,16 @@ public:
     unsigned int type;
     unsigned int size;
     unsigned int index = 0;
+    
+
+    // Texture
+    GLuint texID;
+    // Color
+    float diffuse[3];
+    float ambient[3];
+    float specular[3];
+    float emissive[3];
+    float shininess;
     Model(unsigned int t) { type = t; }
 };
 

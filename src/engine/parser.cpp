@@ -122,6 +122,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
         model_name = node_models->first_attribute()->value();
+        Model* model = new Model(GL_TRIANGLES);
         if (model_map->find(model_name) == model_map->end()) {
             fstream filestream;
             filestream.open(node_models->first_attribute()->value(), ios::in | ios::binary);
@@ -139,8 +140,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
             filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
 
-            // Criar o model, guardar os tuplos e o inteiro no model, guardar o model no group
-            Model* model = new Model(GL_TRIANGLES);
+            // Guardar os tuplos e o inteiro no model, guardar o model no group
             model->size = n_indices;
             model->index = indices->size();
 
@@ -158,6 +158,129 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
         }
         else {
             group->models.push_back(model_map->at(node_models->first_attribute()->value()));
+        }
+
+        xml_node<> *temp;
+        if((temp = node_models->first_node("texture"))){
+            unsigned int t,tw,th;
+	        unsigned char *texData;
+
+	        ilInit();
+	        ilEnable(IL_ORIGIN_SET);
+	        ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+	        ilGenImages(1,&t);
+	        ilBindImage(t);
+	        ilLoadImage((ILstring)temp->value());
+	        tw = ilGetInteger(IL_IMAGE_WIDTH);
+	        th = ilGetInteger(IL_IMAGE_HEIGHT);
+	        ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+	        texData = ilGetData();
+
+	        glGenTextures(1,&model->texID);
+	
+	        glBindTexture(GL_TEXTURE_2D,model->texID);
+	        glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_WRAP_S,		GL_REPEAT);
+	        glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_WRAP_T,		GL_REPEAT);
+
+	        glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_MAG_FILTER,   	GL_LINEAR);
+	        glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		
+	        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+	        glGenerateMipmap(GL_TEXTURE_2D);
+
+	        glBindTexture(GL_TEXTURE_2D, 0);
+        }
+
+        if((temp = node_models->first_node("color"))){
+            xml_node<> *tempColor;
+            xml_attribute<> *tempAttr;
+            if((tempColor = temp->first_node("diffuse"))){
+                if((tempAttr = tempColor->first_attribute("R"))){
+                    model->diffuse[0] = atof(tempAttr->value());
+                } else{
+                    model->diffuse[0] = 200;
+                }
+
+                if((tempAttr = tempColor->first_attribute("G"))){
+                    model->diffuse[0] = atof(tempAttr->value());
+                } else{
+                    model->diffuse[0] = 200;
+                }
+
+                if((tempAttr = tempColor->first_attribute("B"))){
+                    model->diffuse[0] = atof(tempAttr->value());
+                } else{
+                    model->diffuse[0] = 200;
+                }
+            }
+
+            if((tempColor = temp->first_node("ambient"))){
+                if((tempAttr = tempColor->first_attribute("R"))){
+                    model->ambient[0] = atof(tempAttr->value());
+                } else{
+                    model->ambient[0] = 200;
+                }
+
+                if((tempAttr = tempColor->first_attribute("G"))){
+                    model->ambient[0] = atof(tempAttr->value());
+                } else{
+                    model->ambient[0] = 200;
+                }
+
+                if((tempAttr = tempColor->first_attribute("B"))){
+                    model->ambient[0] = atof(tempAttr->value());
+                } else{
+                    model->ambient[0] = 200;
+                }
+            }
+
+            if((tempColor = temp->first_node("specular"))){
+                if((tempAttr = tempColor->first_attribute("R"))){
+                    model->specular[0] = atof(tempAttr->value());
+                } else{
+                    model->specular[0] = 200;
+                }
+
+                if((tempAttr = tempColor->first_attribute("G"))){
+                    model->specular[0] = atof(tempAttr->value());
+                } else{
+                    model->specular[0] = 200;
+                }
+
+                if((tempAttr = tempColor->first_attribute("B"))){
+                    model->specular[0] = atof(tempAttr->value());
+                } else{
+                    model->specular[0] = 200;
+                }
+            }
+
+            if((tempColor = temp->first_node("emissive"))){
+                if((tempAttr = tempColor->first_attribute("R"))){
+                    model->emissive[0] = atof(tempAttr->value());
+                } else{
+                    model->emissive[0] = 200;
+                }
+
+                if((tempAttr = tempColor->first_attribute("G"))){
+                    model->emissive[0] = atof(tempAttr->value());
+                } else{
+                    model->emissive[0] = 200;
+                }
+
+                if((tempAttr = tempColor->first_attribute("B"))){
+                    model->emissive[0] = atof(tempAttr->value());
+                } else{
+                    model->emissive[0] = 200;
+                }
+            }
+
+            if((tempColor = temp->first_node("shininess"))){
+                if((tempAttr = tempColor->first_attribute("value"))){
+                    model->shininess = atof(tempAttr->value());
+                } else{
+                    model->shininess = 0;
+                }
+            }
         }
         
     }
