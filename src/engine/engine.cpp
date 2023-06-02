@@ -342,7 +342,6 @@ void processMouseMotion(int xx, int yy) {
 }
 
 int main(int argc, char* argv[]) {
-
 // Initialize objects
 	camera_global = new Camera();
 	group_global = new Group();
@@ -395,9 +394,9 @@ int main(int argc, char* argv[]) {
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
-
+	
 	// VBO'S
-	glGenBuffers(3, buffer);
+	glGenBuffers(4, buffer);
 
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glBufferData(GL_ARRAY_BUFFER, points->size()*sizeof(float), points->data(), GL_STATIC_DRAW);
