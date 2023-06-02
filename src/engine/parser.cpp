@@ -1,5 +1,7 @@
 #include "parser.h"
 
+#define MAX_CATMULL_POINTS 10000
+
 void parse_window(xml_node<> *window_node, Window* window){
     xml_attribute<> *temp;
     
@@ -211,7 +213,11 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                 group->transformations.push_back(translation);
 
                 if ((attr = node_temp->first_attribute("draw")) && !strcmp(attr->value(), "true")) {
-                    float p[3], d[3], max = 100;
+                    unsigned int max = MAX_CATMULL_POINTS;
+                    if ((attr = node_temp->first_attribute("n_points"))) {
+                        max = atoi(attr->value());
+                    }
+                    float p[3], d[3];
                     unsigned int before = points->size();
                     // draw curve using line segments with GL_LINE_LOOP
                     Model* catmull = new Model(GL_LINE_LOOP);
@@ -219,7 +225,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                     catmull->size = max;
 
                     for (unsigned int t = 0; t < max; t += 1) {
-                        translation->getGlobalCatmullRomPoint(t/max, p, d);
+                        translation->getGlobalCatmullRomPoint(float(t)/max, p, d);
                         points->push_back(p[0]);
                         points->push_back(p[1]);
                         points->push_back(p[2]);
