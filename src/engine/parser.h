@@ -10,4 +10,4 @@ using namespace std;
 using namespace rapidxml;
 
 
-void parser(char* fileName, Window* window, Camera* camera, Lights* light, Group* group, vector<float>* points, vector<unsigned int>* indices);
+void parser(char* fileName, Window* window, Camera* camera, Lights* light, Group* group, vector<float>* points, vector<float>* normals, vector<unsigned int>* indices);

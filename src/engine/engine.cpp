@@ -9,7 +9,7 @@ int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_r
 float last_camera_position[3];
 char axis = 1;
 char polygon = 1;
-GLuint buffer[3];
+GLuint buffer[4];
 int timebase = 0;
 float frame = 0;
 
@@ -35,8 +35,23 @@ void drawGroup(Group* group){
 
 	for(Transformation* transformation: group->transformations)
 		transformation->transform();
-	for(Model* groupModel: group->models)
-		glDrawElements(groupModel->type, groupModel->size, GL_UNSIGNED_INT, (void*) (groupModel->index * sizeof(GLuint)));
+	for (Model* groupModel : group->models) {
+		//se texture for null é igual a 0 então o bind não faz nada
+		//glBindTexture(GL_TEXTURE_2D, groupModel->texture);
+		glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+		glVertexPointer(3, GL_FLOAT, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+		glNormalPointer(GL_FLOAT, 0, 0);
+
+		//não esquecer de trocar o buffer dos indices para ser o último
+		//glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
+		//glTexCoordPointer(2, GL_FLOAT, 0, 0);
+
+		glDrawElements(groupModel->type, groupModel->size, GL_UNSIGNED_INT, (void*)(groupModel->index * sizeof(GLuint)));
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+		
 	
 	for(Group* groupChild: group->subGroups)
 		drawGroup(groupChild);
@@ -340,11 +355,6 @@ int main(int argc, char* argv[]) {
 	vector<float>* normals = new vector<float>();
 	vector<unsigned int>* indices = new vector<unsigned int>();
 
-	parser(argv[1], window, camera_global, lights, group_global, points, normals, indices);
-	last_camera_position[0] = camera_global->position[0];
-	last_camera_position[1] = camera_global->position[1];
-	last_camera_position[2] = camera_global->position[2];
-
 	// init GLUT and #include "parser.cpp"the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
@@ -380,7 +390,13 @@ int main(int argc, char* argv[]) {
 
 	glEnable(GL_TEXTURE_2D);
 
-// VBO'S
+	//Parser depois dos inits para se conseguir dar load às texturas e guardar apenas o ID
+	parser(argv[1], window, camera_global, lights, group_global, points, normals, indices);
+	last_camera_position[0] = camera_global->position[0];
+	last_camera_position[1] = camera_global->position[1];
+	last_camera_position[2] = camera_global->position[2];
+
+	// VBO'S
 	glGenBuffers(3, buffer);
 
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
@@ -391,7 +407,11 @@ int main(int argc, char* argv[]) {
 	glBufferData(GL_ARRAY_BUFFER, normals->size() * sizeof(unsigned int), normals->data(), GL_STATIC_DRAW);
 	delete(normals);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, texCoords->size() * sizeof(unsigned int), texCoords->data(), GL_STATIC_DRAW);
+	//delete(texCoords);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[3]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size()*sizeof(unsigned int), indices->data(), GL_STATIC_DRAW);
 	delete(indices);
 

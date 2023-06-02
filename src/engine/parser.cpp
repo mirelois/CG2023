@@ -135,12 +135,17 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             // Ler array de tuplos
             unsigned int before = points->size();
             points->resize(before + n);
+            normals->resize(before + n);
+            //texCoords->resize(2*before/3 + n);
             filestream.read((char*)(points->data() + before), sizeof(float) * n);
+            filestream.read((char*)(normals->data() + before), sizeof(float) * n);
+            //filestream.read((char*)(texCoords->data() + 2*before/3, sizeof(float) * n);
+
             unsigned int n_indices;
             filestream.read((char*)&n_indices, sizeof(unsigned int));
             unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
             filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
-
+            
 
             // Guardar os tuplos e o inteiro no model, guardar o model no group
             model->size = n_indices;
