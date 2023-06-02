@@ -9,7 +9,7 @@ int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_r
 float last_camera_position[3];
 char axis = 1;
 char polygon = 1;
-GLuint buffer[2];
+GLuint buffer[3];
 int timebase = 0;
 float frame = 0;
 
@@ -338,7 +338,9 @@ int main(int argc, char* argv[]) {
 // Read Xml file
 	vector<float>* points = new vector<float>();
 	vector<unsigned int>* indices = new vector<unsigned int>();
-	parser(argv[1], window, camera_global, lights, group_global, points, indices);
+	vector<float>* normals = new vector<float>();
+
+	parser(argv[1], window, camera_global, lights, group_global, points, normals, indices);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
@@ -379,13 +381,17 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_TEXTURE_2D);
 
 // VBO'S
-	glGenBuffers(2, buffer);
+	glGenBuffers(3, buffer);
 
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glBufferData(GL_ARRAY_BUFFER, points->size()*sizeof(float), points->data(), GL_STATIC_DRAW);
 	delete(points);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+	glBufferData(GL_ARRAY_BUFFER, normals->size() * sizeof(unsigned int), normals->data(), GL_STATIC_DRAW);
+	delete(normals);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size()*sizeof(unsigned int), indices->data(), GL_STATIC_DRAW);
 	delete(indices);
 
