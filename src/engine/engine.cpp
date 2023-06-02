@@ -368,6 +368,15 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glClearColor(0, 0, 0, 0);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	glEnable(GL_TEXTURE_2D);
 
 // VBO'S
 	glGenBuffers(2, buffer);

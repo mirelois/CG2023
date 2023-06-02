@@ -10,6 +10,8 @@
 #include <GL/glut.h>
 #endif
 
+#include <IL/il.h>
+
 class Camera {
 public:
     float position[3] = { 1,2,1 }; // Valor por omiss�o sugerido por n�s
