@@ -352,6 +352,7 @@ int main(int argc, char* argv[]) {
 // Read Xml file
 	vector<float>* points = new vector<float>();
 	vector<float>* normals = new vector<float>();
+	vector<float>* texCoords = new vector<float>();
 	vector<unsigned int>* indices = new vector<unsigned int>();
 
 	// init GLUT and #include "parser.cpp"the window
@@ -390,7 +391,7 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_TEXTURE_2D);
 
 	//Parser depois dos inits para se conseguir dar load às texturas e guardar apenas o ID
-	parser(argv[1], window, camera_global, lights, group_global, points, normals, indices);
+	parser(argv[1], window, camera_global, lights, group_global, points, normals, texCoords, indices);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
