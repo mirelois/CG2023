@@ -117,7 +117,8 @@ void parse_lights(xml_node<> *lights_node, Lights* lights){
     }
 }
 
-void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, vector<unsigned int>* indices, unordered_map<string, Model*> *model_map){
+void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, vector<float>* normals,
+    vector<unsigned int>* indices, unordered_map<string, Model*> *model_map){
     string model_name;
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
@@ -139,6 +140,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             filestream.read((char*)&n_indices, sizeof(unsigned int));
             unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
             filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
+
 
             // Guardar os tuplos e o inteiro no model, guardar o model no group
             model->size = n_indices;
