@@ -591,6 +591,7 @@ generate_sphere_index(float radius, int slices, int stacks,
 }
 
 void write3D(const char *filename, unsigned int nVertices, float *points,
+             unsigned int nNormals, float *normals,
              unsigned int nIndices, unsigned int *indices) {
     ofstream file;
     file.open(filename, ios::out | ios::binary | ios::trunc);
@@ -607,54 +608,62 @@ void write3D(const char *filename, unsigned int nVertices, float *points,
     
     free(indices);
 
+    // Normals
+    file.write((char *)&nNormals, sizeof(unsigned int));
+    file.write((char *) normals, sizeof(float) * nNormals);
+
+    free(normals);
+
     file.close();
 }
 
 int main(int argc, char *argv[]) {
     if (!strcmp(argv[1], "sphere")) {
-        unsigned int points_total, index_total;
-        tuple<float *, unsigned int *> sphere =
+        unsigned int points_total, index_total, normal_total;
+        tuple<float *, float *, unsigned int *> sphere =
             generate_sphere_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
-                                  &points_total, &index_total);
+                                  &points_total, &index_total, &normal_total);
         
-        write3D(argv[5], points_total, get<0>(sphere), index_total,
-                get<1>(sphere));
+        write3D(argv[5], points_total, get<0>(sphere), normal_total, get<1>(sphere), index_total,
+                get<2>(sphere));
     } else if (!strcmp(argv[1], "box")) {
-        unsigned int points_total, index_total;
-        tuple<float *, unsigned int *> box = generate_box_index(
-            atof(argv[2]), atoi(argv[3]), &points_total, &index_total);
-        write3D(argv[4], points_total, get<0>(box), index_total, get<1>(box));
+        unsigned int points_total, index_total, normal_total;
+        tuple<float *, float *, unsigned int *> box = generate_box_index(
+            atof(argv[2]), atoi(argv[3]), &points_total, &index_total, &normal_total);
+        write3D(argv[4], points_total, get<0>(box), normal_total, get<1>(box), index_total, get<2>(box));
     } else if (!strcmp(argv[1], "plane")) {
-        unsigned int points_total, index_total;
-        tuple<float *, unsigned int *> plane = generate_plane_index(
-            atof(argv[2]), atoi(argv[3]), &points_total, &index_total);
-        write3D(argv[4], points_total, get<0>(plane), index_total,
-                get<1>(plane));
+        unsigned int points_total, index_total, normal_total;
+        tuple<float *, float *, unsigned int *> plane = generate_plane_index(
+            atof(argv[2]), atoi(argv[3]), &points_total, &index_total, &normal_total);
+        write3D(argv[4], points_total, get<0>(plane), normal_total, get<1>(plane), index_total,
+                get<2>(plane));
     } else if (!strcmp(argv[1], "cone")) {
-        unsigned int points_total, index_total;
-        tuple<float *, unsigned int *> cone =
+        unsigned int points_total, index_total, normal_total;
+        tuple<float *, float *, unsigned int *> cone =
             generate_cone_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
-                                atoi(argv[5]), &points_total, &index_total);
-        write3D(argv[6], points_total, get<0>(cone), index_total, get<1>(cone));
+                                atoi(argv[5]), &points_total, &index_total, &normal_total);
+        write3D(argv[6], points_total, get<0>(cone), normal_total, get<1>(cone), index_total, get<2>(cone));
     } else if (!strcmp(argv[1], "torus")) {
-        unsigned int points_total, index_total;
-        tuple<float *, unsigned int *> torus =
+        unsigned int points_total, index_total, normal_total;
+        tuple<float *, float *, unsigned int *> torus =
             generate_torus_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
-                                 atoi(argv[5]), &points_total, &index_total);
-        write3D(argv[6], points_total, get<0>(torus), index_total,
-                get<1>(torus));
+                                 atoi(argv[5]), &points_total, &index_total, &normal_total);
+        write3D(argv[6], points_total, get<0>(torus), normal_total, get<1>(torus),index_total,
+                get<2>(torus));
     } else if (!strcmp(argv[1], "cylinder")) {
-        unsigned int points_total, index_total;
-        tuple<float *, unsigned int *> cylinder =
+        unsigned int points_total, index_total, normal_total;
+        tuple<float *, float *, unsigned int *> cylinder =
             generate_cylinder_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
-                                    atoi(argv[5]), &points_total, &index_total);
-        write3D(argv[6], points_total, get<0>(cylinder), index_total,
-                get<1>(cylinder));
+                                    atoi(argv[5]), &points_total, &index_total, &normal_total);
+        write3D(argv[6], points_total, get<0>(cylinder), normal_total, get<1>(cylinder),index_total,
+                get<2>(cylinder));
     } else if (!strcmp(argv[1], "patch")) {
+        /*
         tuple<vector<float> *, vector<unsigned int> *> bezier =
             generate_bezier(argv[2], atoi(argv[3]));
         write3D(argv[4], get<0>(bezier)->size(), get<0>(bezier)->data(),
                 get<1>(bezier)->size(), get<1>(bezier)->data());
+                */
     } else {
         printf("Invalid Model\n");
     }
