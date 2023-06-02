@@ -37,6 +37,10 @@ void drawGroup(Group* group){
 		transformation->transform();
 
 	for (Model* groupModel : group->models) {
+		glMaterialfv(GL_FRONT, GL_SPECULAR, groupModel->specular);
+		glMaterialfv(GL_FRONT, GL_AMBIENT, groupModel->ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, groupModel->diffuse);
+		glMaterialfv(GL_FRONT, GL_SHININESS, &groupModel->shininess);
 		//se texture for null é igual a 0 então o bind não faz nada
 		//glBindTexture(GL_TEXTURE_2D, groupModel->texture);
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
@@ -378,14 +382,26 @@ int main(int argc, char* argv[]) {
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	float dark[4] = {0.2, 0.2, 0.2, 1.0};
+	float white[4] = {1.0, 1.0, 1.0, 1.0};
+	float black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+
+	// light colors
+	glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+	// controls global ambient light
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, black);
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glClearColor(0, 0, 0, 0);
-
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
 
 	glEnable(GL_TEXTURE_2D);
 

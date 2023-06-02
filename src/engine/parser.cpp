@@ -204,88 +204,62 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             if((tempColor = temp->first_node("diffuse"))){
                 if((tempAttr = tempColor->first_attribute("R"))){
                     model->diffuse[0] = atof(tempAttr->value());
-                } else{
-                    model->diffuse[0] = 200;
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
                     model->diffuse[0] = atof(tempAttr->value());
-                } else{
-                    model->diffuse[0] = 200;
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
                     model->diffuse[0] = atof(tempAttr->value());
-                } else{
-                    model->diffuse[0] = 200;
                 }
             }
 
             if((tempColor = temp->first_node("ambient"))){
                 if((tempAttr = tempColor->first_attribute("R"))){
                     model->ambient[0] = atof(tempAttr->value());
-                } else{
-                    model->ambient[0] = 200;
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
                     model->ambient[0] = atof(tempAttr->value());
-                } else{
-                    model->ambient[0] = 200;
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
                     model->ambient[0] = atof(tempAttr->value());
-                } else{
-                    model->ambient[0] = 200;
                 }
             }
 
             if((tempColor = temp->first_node("specular"))){
                 if((tempAttr = tempColor->first_attribute("R"))){
                     model->specular[0] = atof(tempAttr->value());
-                } else{
-                    model->specular[0] = 200;
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
                     model->specular[0] = atof(tempAttr->value());
-                } else{
-                    model->specular[0] = 200;
-                }
+                } 
 
                 if((tempAttr = tempColor->first_attribute("B"))){
                     model->specular[0] = atof(tempAttr->value());
-                } else{
-                    model->specular[0] = 200;
                 }
             }
 
             if((tempColor = temp->first_node("emissive"))){
                 if((tempAttr = tempColor->first_attribute("R"))){
                     model->emissive[0] = atof(tempAttr->value());
-                } else{
-                    model->emissive[0] = 200;
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
                     model->emissive[0] = atof(tempAttr->value());
-                } else{
-                    model->emissive[0] = 200;
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
                     model->emissive[0] = atof(tempAttr->value());
-                } else{
-                    model->emissive[0] = 200;
                 }
             }
 
             if((tempColor = temp->first_node("shininess"))){
                 if((tempAttr = tempColor->first_attribute("value"))){
                     model->shininess = atof(tempAttr->value());
-                } else{
-                    model->shininess = 0;
                 }
             }
         }

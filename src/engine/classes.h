@@ -45,11 +45,11 @@ public:
     // Texture
     GLuint texID;
     // Color
-    float diffuse[3];
-    float ambient[3];
-    float specular[3];
-    float emissive[3];
-    float shininess;
+    float diffuse[4] = {200, 200, 200, 1.0};
+    float ambient[4] = {200, 200, 200, 1.0};
+    float specular[4] = {200, 200, 200, 1.0};
+    float emissive[4] = {200, 200, 200, 1.0};
+    GLfloat shininess = 0;
     Model(unsigned int t) { type = t; }
 };
 
