@@ -452,7 +452,8 @@ void parse_group(xml_node<> *group_node, Group* group, Group* parent, vector<flo
     }
 }
 
-void parser(char* fileName, Window* window, Camera* camera, Lights* lights, Group* group, vector<float>* points, vector<unsigned int>* indices)
+void parser(char* fileName, Window* window, Camera* camera, Lights* lights, Group* group, 
+    vector<float>* points, vector<float>* normals, vector<unsigned int>* indices)
 {  
     
     xml_document<> doc;
@@ -488,6 +489,6 @@ void parser(char* fileName, Window* window, Camera* camera, Lights* lights, Grou
     Group* decoy = new Group();
     group->subGroups.push_back(decoy);
     if((temp = root_node->first_node("group")))
-        parse_group(temp, decoy, group, points, indices, &model_map);
+        parse_group(temp, decoy, group, points, normals, indices, &model_map);
     //percorrer o mapa e pôr nos points os pontos ao mesmo tempo que se põe o índice (ou fazer logo que se coloca)
 }
