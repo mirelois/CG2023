@@ -337,8 +337,8 @@ int main(int argc, char* argv[]) {
 	
 // Read Xml file
 	vector<float>* points = new vector<float>();
-	vector<unsigned int>* indices = new vector<unsigned int>();
 	vector<float>* normals = new vector<float>();
+	vector<unsigned int>* indices = new vector<unsigned int>();
 
 	parser(argv[1], window, camera_global, lights, group_global, points, normals, indices);
 	last_camera_position[0] = camera_global->position[0];
