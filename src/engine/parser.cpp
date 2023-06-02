@@ -440,7 +440,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
 }
 
 
-void parse_group(xml_node<> *group_node, Group* group, Group* parent, vector<float>* points, vector<unsigned int>* indices,
+void parse_group(xml_node<> *group_node, Group* group, Group* parent, vector<float>* points, vector<float>* normals, vector<unsigned int>* indices,
                 unordered_map<string, Model*> *model_map){
     xml_node<>* temp;
     // Transformações
@@ -449,13 +449,13 @@ void parse_group(xml_node<> *group_node, Group* group, Group* parent, vector<flo
 
     // Modelos 
     if((temp = group_node->first_node("models")))
-        parse_group_models(temp, group, points, indices, model_map);
+        parse_group_models(temp, group, points, normals, indices, model_map);
     
     // Grupos
     for(temp = group_node->first_node("group"); temp; temp = temp->next_sibling("group")){
         Group *groupChild = new Group;
         group->subGroups.push_back(groupChild);
-        parse_group(temp, groupChild, group, points, indices, model_map);
+        parse_group(temp, groupChild, group, points, normals, indices, model_map);
     }
 }
 

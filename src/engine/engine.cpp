@@ -35,6 +35,7 @@ void drawGroup(Group* group){
 
 	for(Transformation* transformation: group->transformations)
 		transformation->transform();
+
 	for (Model* groupModel : group->models) {
 		//se texture for null é igual a 0 então o bind não faz nada
 		//glBindTexture(GL_TEXTURE_2D, groupModel->texture);
@@ -52,10 +53,8 @@ void drawGroup(Group* group){
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 		
-	
 	for(Group* groupChild: group->subGroups)
 		drawGroup(groupChild);
-	
 	
 	glPopMatrix();
 }
