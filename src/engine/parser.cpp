@@ -65,11 +65,11 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int number){
+void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int* number){
     xml_node<> *temp;
     xml_attribute<> *attr;
     GLuint numbers[] = {GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7};
-    for(temp = lights_node->first_node("light"); temp; temp = temp->next_sibling("light"), number++){
+    for(temp = lights_node->first_node("light"); temp; temp = temp->next_sibling("light"), (*number)++){
         if((attr = temp->first_attribute("point"))){
             Point* point = new Point();
             if((attr = temp->first_attribute("posX")))
@@ -81,8 +81,8 @@ void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int number){
             if((attr = temp->first_attribute("posZ")))
                 point->point[2] = atof(attr->value());
             
-            lights[number] = point;
-            lights[number]->number = numbers[number];
+            lights[*number] = point;
+            lights[*number]->number = numbers[*number];
         } else if((attr = temp->first_attribute("directional"))){
             Directional* directional = new Directional();
             if((attr = temp->first_attribute("dirX")))
@@ -93,8 +93,8 @@ void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int number){
         
             if((attr = temp->first_attribute("dirZ")))
                 directional->point[2] = atof(attr->value());
-            lights[number] = directional;
-            lights[number]->number = numbers[number];
+            lights[*number] = directional;
+            lights[*number]->number = numbers[*number];
         } else if((attr = temp->first_attribute("spotlight"))){
             Spotlight* spotlight = new Spotlight();
             if((attr = temp->first_attribute("posX")))
@@ -117,8 +117,8 @@ void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int number){
 
             if((attr = temp->first_attribute("cutoff")))
                 spotlight->cutoff = atof(attr->value());
-            lights[number] = spotlight;
-            lights[number]->number = numbers[number];
+            lights[*number] = spotlight;
+            lights[*number]->number = numbers[*number];
         }
     }
 }
@@ -440,7 +440,7 @@ void parse_group(xml_node<> *group_node, Group* group, Group* parent,
     }
 }
 
-void parser(char* fileName, Window* window, Camera* camera, Light** lights, unsigned int number, Group* group, 
+void parser(char* fileName, Window* window, Camera* camera, Light** lights, unsigned int* number, Group* group, 
     vector<float>* points, vector<float>* normals, vector<float>* texCoords, vector<unsigned int>* indices)
 {  
     

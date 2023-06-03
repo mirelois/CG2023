@@ -42,6 +42,7 @@ void drawGroup(Group* group){
 		glMaterialfv(GL_FRONT, GL_SPECULAR, groupModel->specular);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, groupModel->ambient);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, groupModel->diffuse);
+		glMaterialfv(GL_FRONT, GL_EMISSION, groupModel->emissive);
 		glMaterialf(GL_FRONT, GL_SHININESS, groupModel->shininess);
 		//se texture for null é igual a 0 então o bind não faz nada
 		//glBindTexture(GL_TEXTURE_2D, groupModel->texture);
@@ -174,6 +175,7 @@ void renderScene(void) {
 
 	//desenhar as luzes
 	for(unsigned int i=0; i<lights_number;i++){
+		printf("aaaa%d\n", lights[i]);
 		lights[i]->drawLight();
 	}
 
@@ -412,7 +414,7 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_TEXTURE_2D);
 
 	//Parser depois dos inits para se conseguir dar load às texturas e guardar apenas o ID
-	parser(argv[1], window, camera_global, lights, lights_number, group_global, points, normals, texCoords, indices);
+	parser(argv[1], window, camera_global, lights, &lights_number, group_global, points, normals, texCoords, indices);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
