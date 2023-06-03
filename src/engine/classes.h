@@ -23,7 +23,7 @@ public:
 class Light{
 public: // Default settings
     GLuint number;
-    void virtual drawLight();
+    void virtual drawLight()=0;
 };
 
 class Spotlight : public Light{
