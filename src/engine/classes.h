@@ -23,6 +23,7 @@ public:
 class Light{
 public: // Default settings
     void virtual drawLight()=0;
+    virtual GLuint getNumber()=0;
 };
 
 class Spotlight : public virtual Light{
@@ -32,6 +33,7 @@ public:
     float dir[3] = { 1,1,1 };
     float cutoff = 45;
     void drawLight() override;
+    GLuint getNumber() override;
 };
 
 class Point : public virtual Light {
@@ -39,6 +41,7 @@ public:
     GLuint number;
     float point[4] = { 0,10,0,1 };
     void drawLight() override;
+    GLuint getNumber() override;
 };
 
 class Directional : public virtual Light {
@@ -46,6 +49,7 @@ public:
     GLuint number;
     float point[4] = { 1,1,1,0 };
     void drawLight() override;
+    GLuint getNumber() override;
 };
 
 class Window {

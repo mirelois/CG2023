@@ -41,10 +41,6 @@ void drawGroup(Group* group){
 		glMaterialfv(GL_FRONT, GL_SPECULAR, groupModel->specular);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, groupModel->ambient);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, groupModel->diffuse);
-		for(int i=0; i<4; i++){
-			printf("%f ", groupModel->diffuse[i]);
-		}
-		printf("\n");
 		glMaterialfv(GL_FRONT, GL_EMISSION, groupModel->emissive);
 		glMaterialf(GL_FRONT, GL_SHININESS, groupModel->shininess);
 		//se texture for null é igual a 0 então o bind não faz nada
@@ -394,16 +390,26 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_RESCALE_NORMAL);
 
 	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
 
 	float dark[4] = {0.2, 0.2, 0.2, 1.0};
 	float white[4] = {1.0, 1.0, 1.0, 1.0};
 	float black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 
 	// light colors
-	glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+
+	//Parser depois dos inits para se conseguir dar load às texturas e guardar apenas o ID
+	parser(argv[1], window, camera_global, lights, group_global, points, normals, texCoords, indices);
+	last_camera_position[0] = camera_global->position[0];
+	last_camera_position[1] = camera_global->position[1];
+	last_camera_position[2] = camera_global->position[2];
+
+	//
+	for(Light* light: *lights){
+		glEnable(light->getNumber());
+		glLightfv(light->getNumber(), GL_AMBIENT, dark);
+		glLightfv(light->getNumber(), GL_DIFFUSE, white);
+		glLightfv(light->getNumber(), GL_SPECULAR, white);
+	}
 	// controls global ambient light
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, black);
 
@@ -414,12 +420,6 @@ int main(int argc, char* argv[]) {
 	glClearColor(0, 0, 0, 0);
 
 	glEnable(GL_TEXTURE_2D);
-
-	//Parser depois dos inits para se conseguir dar load às texturas e guardar apenas o ID
-	parser(argv[1], window, camera_global, lights, group_global, points, normals, texCoords, indices);
-	last_camera_position[0] = camera_global->position[0];
-	last_camera_position[1] = camera_global->position[1];
-	last_camera_position[2] = camera_global->position[2];
 	// VBO'S
 	glGenBuffers(4, buffer);
 
