@@ -93,13 +93,14 @@ void calculate_normal(float u, float v, vector<int>* patch, vector<vector<float>
     float du[3];
     int p;
 
-    float P[4][4] = {{cpoints->at(patch->at(0))[p], cpoints->at(patch->at(1))[p], cpoints->at(patch->at(2))[p], cpoints->at(patch->at(3))[p]},
+    for(p=0; p<3; p++){
+
+        float P[4][4] = { {cpoints->at(patch->at(0))[p], cpoints->at(patch->at(1))[p], cpoints->at(patch->at(2))[p], cpoints->at(patch->at(3))[p]},
                         {cpoints->at(patch->at(4))[p], cpoints->at(patch->at(5))[p], cpoints->at(patch->at(6))[p], cpoints->at(patch->at(7))[p]},
                         {cpoints->at(patch->at(8))[p], cpoints->at(patch->at(9))[p], cpoints->at(patch->at(10))[p], cpoints->at(patch->at(11))[p]},
                         {cpoints->at(patch->at(12))[p], cpoints->at(patch->at(13))[p], cpoints->at(patch->at(14))[p], cpoints->at(patch->at(15))[p]}
-    };
+        };
 
-    for(p=0; p<3; p++){
         float V[4] = {v*v*v, v*v, v, 1};
         float MV[4];
         multMatrixVector(&M[0][0], V, MV);
@@ -116,6 +117,13 @@ void calculate_normal(float u, float v, vector<int>* patch, vector<vector<float>
 
     float dv[3];
     for(p=0; p<3; p++){
+
+        float P[4][4] = { {cpoints->at(patch->at(0))[p], cpoints->at(patch->at(1))[p], cpoints->at(patch->at(2))[p], cpoints->at(patch->at(3))[p]},
+                        {cpoints->at(patch->at(4))[p], cpoints->at(patch->at(5))[p], cpoints->at(patch->at(6))[p], cpoints->at(patch->at(7))[p]},
+                        {cpoints->at(patch->at(8))[p], cpoints->at(patch->at(9))[p], cpoints->at(patch->at(10))[p], cpoints->at(patch->at(11))[p]},
+                        {cpoints->at(patch->at(12))[p], cpoints->at(patch->at(13))[p], cpoints->at(patch->at(14))[p], cpoints->at(patch->at(15))[p]}
+        };
+
         float V[4] = {3*v*v, 2*v, 1, 0};
         float MV[4];
         multMatrixVector(&M[0][0], V, MV);
