@@ -4,7 +4,7 @@
 Camera* camera_global;
 Group* group_global;
 Light* lights[8];
-char lights_number = 0;
+unsigned int lights_number = 0;
 float  camera_move_delta = 1, look_rotate_delta_up = M_PI / 1024, look_rotate_delta_right = M_PI / 1024;
 float startX = 0.0f, startY = 0.0f, tracking = 0;
 int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_rotate_right = 0;
