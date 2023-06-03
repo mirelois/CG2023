@@ -65,7 +65,7 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-void parse_lights(xml_node<> *lights_node, Lights* lights){
+void parse_lights(xml_node<> *lights_node, Light* lights){
     xml_node<> *temp;
 
     if((temp = lights_node->first_node("light")) && temp->first_attribute("point")){
@@ -434,7 +434,7 @@ void parse_group(xml_node<> *group_node, Group* group, Group* parent,
     }
 }
 
-void parser(char* fileName, Window* window, Camera* camera, Lights* lights, Group* group, 
+void parser(char* fileName, Window* window, Camera* camera, Light* lights, Group* group, 
     vector<float>* points, vector<float>* normals, vector<float>* texCoords, vector<unsigned int>* indices)
 {  
     
