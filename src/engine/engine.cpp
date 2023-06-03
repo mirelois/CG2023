@@ -3,6 +3,8 @@
 
 Camera* camera_global;
 Group* group_global;
+Light* lights[8];
+char lights_number = 0;
 float  camera_move_delta = 1, look_rotate_delta_up = M_PI / 1024, look_rotate_delta_right = M_PI / 1024;
 float startX = 0.0f, startY = 0.0f, tracking = 0;
 int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_rotate_right = 0;
@@ -171,8 +173,8 @@ void renderScene(void) {
 		drawAxis();
 
 	//desenhar as luzes
-	for (Light l : lights) {
-		l.drawLight();
+	for (Light* l : lights) {
+		l->drawLight();
 	}
 
 	//mudar o mundo
@@ -354,7 +356,6 @@ int main(int argc, char* argv[]) {
 	camera_global = new Camera();
 	group_global = new Group();
 	Window* window = new Window();
-	Lights* lights = new Lights();
 	
 // Read Xml file
 	vector<float>* points = new vector<float>();
@@ -410,7 +411,7 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_TEXTURE_2D);
 
 	//Parser depois dos inits para se conseguir dar load às texturas e guardar apenas o ID
-	parser(argv[1], window, camera_global, lights, group_global, points, normals, texCoords, indices);
+	parser(argv[1], window, camera_global, lights, lights_number, group_global, points, normals, texCoords, indices);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
