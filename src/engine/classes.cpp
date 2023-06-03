@@ -173,3 +173,17 @@ void Translate_Catmull_Align::transform() {
     Translate_Catmull::transform();
     align();
 }
+
+void Spotlight::drawLight() {
+    glLightfv(type, GL_POSITION, point);
+    glLightfv(type, GL_SPOT_DIRECTION, dir);
+    glLightfv(type, GL_SPOT_CUTOFF, &cutoff);
+}
+
+void Point::drawLight() {
+    glLightfv(type, GL_POSITION, point);
+}
+
+void Directional::drawLight() {
+    glLightfv(type, GL_POSITION, point);
+}

@@ -20,11 +20,30 @@ public:
     float projection[3] = { 60,1,1000 }; // Valor Padr�o segundo o ficheiro de exemplo
 };
 
-class Lights{
+class Light{
 public: // Default settings
-    float point[3] = {0,10,0};
-    float directional[3] = {1,1,1};
-    float spotlight[7] = {0,10,0,1,1,1,45};
+    GLuint type;
+    virtual void drawLight();
+};
+
+class Spotlight : Light{
+public:
+    float point[4] = { 0,10,0,0 };
+    float dir[3] = { 1,1,1 };
+    float cutoff = 45;
+    void drawLight() override;
+};
+
+class Point : Light {
+public:
+    float point[4] = { 0,10,0,1 };
+    void drawLight() override;
+};
+
+class Directional : Light {
+public:
+    float point[4] = { 1,1,1,0 };
+    void drawLight() override;
 };
 
 class Window {
