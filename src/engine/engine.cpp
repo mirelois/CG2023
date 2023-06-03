@@ -42,7 +42,7 @@ void drawGroup(Group* group){
 		glMaterialfv(GL_FRONT, GL_SPECULAR, groupModel->specular);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, groupModel->ambient);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, groupModel->diffuse);
-		glMaterialfv(GL_FRONT, GL_SHININESS, &groupModel->shininess);
+		glMaterialf(GL_FRONT, GL_SHININESS, groupModel->shininess);
 		//se texture for null é igual a 0 então o bind não faz nada
 		//glBindTexture(GL_TEXTURE_2D, groupModel->texture);
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
@@ -387,6 +387,7 @@ int main(int argc, char* argv[]) {
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_RESCALE_NORMAL);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
