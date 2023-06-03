@@ -65,55 +65,58 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-void parse_lights(xml_node<> *lights_node, Light* lights){
+void parse_lights(xml_node<> *lights_node, Light** lights, char number){
     xml_node<> *temp;
+    xml_attribute<> *attr;
+    GLuint numbers[] = {GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7};
+    for(temp = lights_node->first_node("light"); temp; temp = temp->next_sibling("light"), number++){
+        if((attr = temp->first_attribute("point"))){
+            Point* point = new Point();
+            if((attr = temp->first_attribute("posX")))
+                point->point[0] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("posY")))
+                point->point[1] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("posZ")))
+                point->point[2] = atof(attr->value());
+            
+            lights[number] = point;
+        } else if((attr = temp->first_attribute("directional"))){
+            Directional* directional = new Directional();
+            if((attr = temp->first_attribute("dirX")))
+                directional->point[0] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("dirY")))
+                directional->point[1] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("dirZ")))
+                directional->point[2] = atof(attr->value());
+            lights[number] = directional;
+        } else if((attr = temp->first_attribute("spotlight"))){
+            Spotlight* spotlight = new Spotlight();
+            if((attr = temp->first_attribute("posX")))
+                spotlight->point[0] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("posY")))
+                spotlight->point[1] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("posZ")))
+                spotlight->point[2] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("dirX")))
+                spotlight->dir[0] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("dirY")))
+                spotlight->dir[1] = atof(attr->value());
+        
+            if((attr = temp->first_attribute("dirZ")))
+                spotlight->dir[2] = atof(attr->value());
 
-    if((temp = lights_node->first_node("light")) && temp->first_attribute("point")){
-        xml_attribute<> *attr;
-        if((attr = temp->first_attribute("posX")))
-            lights->point[0] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("posY")))
-            lights->point[1] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("posZ")))
-            lights->point[2] = atof(attr->value());
-    }
-
-    if((temp = lights_node->first_node("light")) && temp->first_attribute("directional")){
-        xml_attribute<> *attr;
-        if((attr = temp->first_attribute("dirX")))
-            lights->directional[0] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("dirY")))
-            lights->directional[1] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("dirZ")))
-            lights->directional[2] = atof(attr->value());
-    }
-
-    if((temp = lights_node->first_node("light")) && temp->first_attribute("spotlight")){
-        xml_attribute<> *attr;
-        if((attr = temp->first_attribute("posX")))
-            lights->spotlight[0] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("posY")))
-            lights->spotlight[1] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("posZ")))
-            lights->spotlight[2] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("dirX")))
-            lights->spotlight[3] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("dirY")))
-            lights->spotlight[4] = atof(attr->value());
-        
-        if((attr = temp->first_attribute("dirZ")))
-            lights->spotlight[5] = atof(attr->value());
-
-        if((attr = temp->first_attribute("cutoff")))
-            lights->spotlight[6] = atof(attr->value());
+            if((attr = temp->first_attribute("cutoff")))
+                spotlight->cutoff = atof(attr->value());
+            lights[number] = spotlight;
+        }
     }
 }
 
@@ -434,7 +437,7 @@ void parse_group(xml_node<> *group_node, Group* group, Group* parent,
     }
 }
 
-void parser(char* fileName, Window* window, Camera* camera, Light* lights, Group* group, 
+void parser(char* fileName, Window* window, Camera* camera, Light** lights, char number, Group* group, 
     vector<float>* points, vector<float>* normals, vector<float>* texCoords, vector<unsigned int>* indices)
 {  
     
@@ -464,7 +467,7 @@ void parser(char* fileName, Window* window, Camera* camera, Light* lights, Group
 
     // Lights
     if((temp = root_node->first_node("lights")))
-        parse_lights(temp, lights);
+        parse_lights(temp, lights, number);
 
     // Grupo
     unordered_map<string, Model*> model_map = {};

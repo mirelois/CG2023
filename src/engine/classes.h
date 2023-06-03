@@ -26,7 +26,7 @@ public: // Default settings
     virtual void drawLight();
 };
 
-class Spotlight : Light{
+class Spotlight : public Light{
 public:
     float point[4] = { 0,10,0,0 };
     float dir[3] = { 1,1,1 };
@@ -34,13 +34,13 @@ public:
     void drawLight() override;
 };
 
-class Point : Light {
+class Point : public Light {
 public:
     float point[4] = { 0,10,0,1 };
     void drawLight() override;
 };
 
-class Directional : Light {
+class Directional : public Light {
 public:
     float point[4] = { 1,1,1,0 };
     void drawLight() override;
