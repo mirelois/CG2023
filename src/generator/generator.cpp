@@ -657,7 +657,7 @@ int main(int argc, char *argv[]) {
         tuple<vector<float> *,vector<float>*, vector<unsigned int> *> bezier =
             generate_bezier(argv[2], atoi(argv[3]));
         write3D(argv[4], get<0>(bezier)->size(), get<0>(bezier)->data(),
-                get<1>(bezier)->size(), get<1>(bezier)->data());
+                get<1>(bezier)->data(), get<2>(bezier)->size(), get<2>(bezier)->data());
                 
     } else {
         printf("Invalid Model\n");
