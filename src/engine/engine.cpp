@@ -9,7 +9,7 @@ float startX = 0.0f, startY = 0.0f, tracking = 0;
 int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_rotate_right = 0;
 float last_camera_position[3];
 char axis = 1;
-char polygon = 1;
+char polygon = 0;
 GLuint buffer[4];
 int timebase = 0;
 float frame = 0;
@@ -56,7 +56,7 @@ void drawGroup(Group* group){
 		//glTexCoordPointer(2, GL_FLOAT, 0, 0);
 
 		glDrawElements(groupModel->type, groupModel->size, GL_UNSIGNED_INT, (void*)(groupModel->index * sizeof(GLuint)));
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 	}
 		
 	for(Group* groupChild: group->subGroups)
@@ -150,6 +150,7 @@ void save_position() {
 void renderScene(void) {
 
 	// clear buffers
+	glClearColor(0.0f,0.0f,0.0f,0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// set the camera
@@ -169,8 +170,11 @@ void renderScene(void) {
 				camera_global->up[0], camera_global->up[1], camera_global->up[2]);
 
 	// Colocar funcoes de desenho aqui
-	if(axis)
+	if(axis){
+		glEnable(GL_COLOR_MATERIAL);
 		drawAxis();
+		glDisable(GL_COLOR_MATERIAL);
+	}
 
 	//desenhar as luzes
 	for(Light* light: *lights){
@@ -393,7 +397,7 @@ int main(int argc, char* argv[]) {
 
 	float dark[4] = {0.2, 0.2, 0.2, 1.0};
 	float white[4] = {1.0, 1.0, 1.0, 1.0};
-	float black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+	//float black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 
 	// light colors
 
@@ -411,13 +415,14 @@ int main(int argc, char* argv[]) {
 		glLightfv(light->getNumber(), GL_SPECULAR, white);
 	}
 	// controls global ambient light
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, black);
+	float amb[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glClearColor(0, 0, 0, 0);
+	//glClearColor(0, 0, 0, 0);
 
 	glEnable(GL_TEXTURE_2D);
 	// VBO'S

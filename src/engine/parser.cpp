@@ -209,57 +209,57 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             xml_attribute<> *tempAttr;
             if((tempColor = temp->first_node("diffuse"))){
                 if((tempAttr = tempColor->first_attribute("R"))){
-                    model->diffuse[0] = atof(tempAttr->value());
+                    model->diffuse[0] = atof(tempAttr->value())/255;
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
-                    model->diffuse[1] = atof(tempAttr->value());
+                    model->diffuse[1] = atof(tempAttr->value())/255;
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
-                    model->diffuse[2] = atof(tempAttr->value());
+                    model->diffuse[2] = atof(tempAttr->value())/255;
                 }
             }
 
             if((tempColor = temp->first_node("ambient"))){
                 if((tempAttr = tempColor->first_attribute("R"))){
-                    model->ambient[0] = atof(tempAttr->value());
+                    model->ambient[0] = atof(tempAttr->value())/255;
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
-                    model->ambient[1] = atof(tempAttr->value());
+                    model->ambient[1] = atof(tempAttr->value())/255;
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
-                    model->ambient[2] = atof(tempAttr->value());
+                    model->ambient[2] = atof(tempAttr->value())/255;
                 }
             }
 
             if((tempColor = temp->first_node("specular"))){
                 if((tempAttr = tempColor->first_attribute("R"))){
-                    model->specular[0] = atof(tempAttr->value());
+                    model->specular[0] = atof(tempAttr->value())/255;
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
-                    model->specular[1] = atof(tempAttr->value());
+                    model->specular[1] = atof(tempAttr->value())/255;
                 } 
 
                 if((tempAttr = tempColor->first_attribute("B"))){
-                    model->specular[2] = atof(tempAttr->value());
+                    model->specular[2] = atof(tempAttr->value())/255;
                 }
             }
 
             if((tempColor = temp->first_node("emissive"))){
                 if((tempAttr = tempColor->first_attribute("R"))){
-                    model->emissive[0] = atof(tempAttr->value());
+                    model->emissive[0] = atof(tempAttr->value())/255;
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
-                    model->emissive[1] = atof(tempAttr->value());
+                    model->emissive[1] = atof(tempAttr->value())/255;
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
-                    model->emissive[2] = atof(tempAttr->value());
+                    model->emissive[2] = atof(tempAttr->value())/255;
                 }
             }
 

@@ -15,11 +15,11 @@
         <models>
             <model file="models/cone.3d">
                 <color>
-                    <diffuse R="255" G="0" B="0" />
+                    <diffuse R="100" G="50" B="0" />
                     <ambient R="50" G="50" B="50" />
-                    <specular R="20" G="0" B="0" />
-                    <emissive R="0" G="0" B="0" />
-                    <shininess value="50" />
+                    <specular R="0" G="0" B="0" />
+                    <emissive R="0" G="10" B="0" />
+                    <shininess value="5" />
                 </color>
             </model>
         </models>
