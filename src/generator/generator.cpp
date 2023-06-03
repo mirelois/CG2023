@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -105,9 +106,9 @@ tuple<float *, float *, unsigned int *>
 generate_cone_index(float bottom_radius, float height, int slices, int stacks,
                     unsigned int *point_total, unsigned int *index_total, unsigned int *normal_total) {
 
-    *point_total = 3 * ((slices + 1) * stacks + 2);
-    *normal_total = 3 * ((slices + 1) * stacks + 2);
-    *index_total = slices * stacks * 6;
+    *point_total  = 3 * (slices + 1  + slices * (stacks + 1));
+    *normal_total = 3 * (slices + 1  + slices * (stacks + 1));
+    *index_total  = slices * stacks * 6;
 
     float *point_array = (float *)malloc(sizeof(float) * *point_total);
     float *normal_array = (float *)malloc(sizeof(float) * *point_total);
@@ -128,14 +129,16 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
     int index = 0;
     int index_normal = 0;
 
-    // top point
-    point_array[index++] = 0;
-    point_array[index++] = height;
-    point_array[index++] = 0;
-    
-    normal_array[index_normal++] = 0;
-    normal_array[index_normal++] = 1;
-    normal_array[index_normal++] = 0;
+    for(int i = 0; i < slices; i++){
+        // top points
+        point_array[index++] = 0;
+        point_array[index++] = height;
+        point_array[index++] = 0;
+
+        normal_array[index_normal++] = 0;
+        normal_array[index_normal++] = 1;
+        normal_array[index_normal++] = 0;
+    }
 
     for (i = 0; i < stacks; i++) {
         double sub_height = height - division_height_step * (i + 1);
@@ -167,34 +170,45 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
 
     // bottom point
     point_array[index++] = 0;
-    point_array[index++] = -1;
     point_array[index++] = 0;
+    point_array[index++] = 0;
+    
+    normal_array[index_normal++] = 0;
+    normal_array[index_normal++] = -1;
+    normal_array[index_normal++] = 0;
 
     index = 0;
 
     for (int i = 0; i < slices; i++) {
-        index_array[index++] = 0;
-        index_array[index++] = i + 1;
-        index_array[index++] = (i + 1) % (slices) + 1;
+        index_array[index++] = i;
+        index_array[index++] = i + slices;
+        index_array[index++] = (i + 1) % (slices) + slices;
     }
 
     for (int j = 0; j < stacks - 1; j++) {
         for (int i = 0; i < slices; i++) {
-            index_array[index++] = slices * j + i + 1;
-            index_array[index++] = slices * (j + 1) + i + 1;
-            index_array[index++] = slices * (j + 1) + ((i + 1) % slices) + 1;
+            index_array[index++] = slices * j + i + slices;
+            index_array[index++] = slices * (j + 1) + i + slices;
+            index_array[index++] = slices * (j + 1) + ((i + 1) % slices) + slices;
 
-            index_array[index++] = slices * j + i + 1;
-            index_array[index++] = slices * (j + 1) + ((i + 1) % slices) + 1;
-            index_array[index++] = slices * j + ((i + 1) % slices) + 1;
+            index_array[index++] = slices * j + i + slices;
+            index_array[index++] = slices * (j + 1) + ((i + 1) % slices) + slices;
+            index_array[index++] = slices * j + ((i + 1) % slices) + slices;
         }
     }
+
+    int bottom_point_index = slices * (stacks + 1) + slices;
 
     for (int i = 0; i < slices; i++) {
         int offset = (slices + 1) * (stacks - 1) + 2;
         index_array[index++] = offset + i;
-        index_array[index++] = slices * (stacks + 1) + 1;
+        index_array[index++] = bottom_point_index;
         index_array[index++] = offset + (i + 1) % slices;
+    }
+
+    for (int i=0; i<*index_total; i++) {
+        printf("%d,", index_array[i]);
+        if((i+1) % 3 == 0) putchar('\n');
     }
 
     return make_tuple(point_array, normal_array, index_array);
@@ -491,9 +505,9 @@ tuple<float *,float *, unsigned int *> generate_plane_index(float length,
 tuple<float *, float *, unsigned int *>
 generate_sphere_index(float radius, int slices, int stacks,
                       unsigned int *points_total, unsigned int *index_total, unsigned int *normal_total) {
-    *index_total = slices * 6 * (stacks - 1);
-    *points_total = 3 * (slices * (stacks - 1) + 2);
-    *normal_total = 3 * (slices * (stacks - 1) + 2);
+    *index_total  = 6 *  slices * (stacks - 1) ;
+    *points_total = 3 * (slices * (stacks + 1));
+    *normal_total = 3 * (slices * (stacks + 1));
     
     int master_line_size = (stacks + 1) * 3;
     float alfa_x = M_PI / stacks;
@@ -525,14 +539,16 @@ generate_sphere_index(float radius, int slices, int stacks,
     int index = 0;
     int index_normal = 0;
 
-    //top point
-    points_array[index++] = master_line[0];
-    points_array[index++] = master_line[1];
-    points_array[index++] = master_line[2];
-    
-    normal_array[index++] = 0;
-    normal_array[index++] = 1;
-    normal_array[index++] = 0;
+    for (int j = 0; j < slices; j++) {
+    //top points
+        points_array[index++] = master_line[0];
+        points_array[index++] = master_line[1];
+        points_array[index++] = master_line[2];
+        
+        normal_array[index_normal++] = 0;
+        normal_array[index_normal++] = 1;
+        normal_array[index_normal++] = 0;
+    }
 
     for (int j = 0; j < slices; j++) {
         for (int i = 1; i <= stacks - 1; i++) {
@@ -550,41 +566,43 @@ generate_sphere_index(float radius, int slices, int stacks,
         }
     }
 
-    //bottom point
-    points_array[*points_total - 3] = master_line[master_line_size - 1];
-    points_array[*points_total - 2] = master_line[master_line_size - 2];
-    points_array[*points_total - 1] = master_line[master_line_size - 3];
-    
-    normal_array[index_normal++] = 0;
-    normal_array[index_normal++] = -1;
-    normal_array[index_normal++] = 0;
+    for (int i = 0; i < slices; i++){
+        //bottom points
+        points_array[index++] = master_line[master_line_size - 1];
+        points_array[index++] = master_line[master_line_size - 2];
+        points_array[index++] = master_line[master_line_size - 3];
+
+        normal_array[index_normal++] = 0;
+        normal_array[index_normal++] = -1;
+        normal_array[index_normal++] = 0;
+    }
 
     index = 0;
 
     for (int j = 0; j < slices; j++) {
 
         // add top triangle
-        index_array[index++] = 0;
-        index_array[index++] = (stacks - 1) * j + 1;
-        index_array[index++] = (stacks - 1) * ((j + 1) % slices) + 1;
+        index_array[index++] = j;
+        index_array[index++] = (stacks - 1) * j + slices;
+        index_array[index++] = (stacks - 1) * ((j + 1) % slices) + slices;
 
         for (int i = 0; i < stacks - 2; i++) {
             // primeiro triangulo da stack
-            index_array[index++] = (stacks - 1) * j + i + 1;
-            index_array[index++] = (stacks - 1) * j + (i + 1) + 1;
+            index_array[index++] = (stacks - 1) * j + i + slices;
+            index_array[index++] = (stacks - 1) * j + (i + 1) + slices;
             index_array[index++] =
-                (stacks - 1) * ((j + 1) % slices) + (i + 1) + 1;
+                (stacks - 1) * ((j + 1) % slices) + (i + 1) + slices;
 
             // segundo triangulo da stack
-            index_array[index++] = (stacks - 1) * j + i + 1;
+            index_array[index++] = (stacks - 1) * j + i + slices;
             index_array[index++] =
-                (stacks - 1) * ((j + 1) % slices) + (i + 1) + 1;
-            index_array[index++] = (stacks - 1) * ((j + 1) % slices) + i + 1;
+                (stacks - 1) * ((j + 1) % slices) + (i + 1) + slices;
+            index_array[index++] = (stacks - 1) * ((j + 1) % slices) + i + slices;
         }
         // add bottom triangle
-        index_array[index++] = (stacks - 1) + (stacks - 1) * (j);
-        index_array[index++] = (stacks - 1) * (slices) + 1; // last
-        index_array[index++] = (stacks - 1) + (stacks - 1) * ((j + 1) % slices);
+        index_array[index++] = (stacks - 1) + (stacks - 1) * j + slices - 1; 
+        index_array[index++] = (stacks - 1) * (slices) + slices + j; // last
+        index_array[index++] = (stacks - 1) + (stacks - 1) * ((j + 1) % slices) + slices - 1;
     }
 
     return make_tuple(points_array, normal_array, index_array);
