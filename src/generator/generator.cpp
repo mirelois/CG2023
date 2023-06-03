@@ -653,12 +653,12 @@ int main(int argc, char *argv[]) {
         write3D(argv[6], points_total, get<0>(cylinder), get<1>(cylinder),index_total,
                 get<2>(cylinder));
     } else if (!strcmp(argv[1], "patch")) {
-        /*
-        tuple<vector<float> *, vector<unsigned int> *> bezier =
+        
+        tuple<vector<float> *,vector<float>*, vector<unsigned int> *> bezier =
             generate_bezier(argv[2], atoi(argv[3]));
         write3D(argv[4], get<0>(bezier)->size(), get<0>(bezier)->data(),
                 get<1>(bezier)->size(), get<1>(bezier)->data());
-                */
+                
     } else {
         printf("Invalid Model\n");
     }
