@@ -22,7 +22,7 @@ public:
 
 class Light{
 public: // Default settings
-    GLuint type;
+    GLuint number;
     virtual void drawLight();
 };
 

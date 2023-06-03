@@ -170,8 +170,12 @@ void renderScene(void) {
 	if(axis)
 		drawAxis();
 
-	//mudar o mundo
+	//desenhar as luzes
+	for (Light l : lights) {
+		l.drawLight();
+	}
 
+	//mudar o mundo
 	draw();
 
 	float fps;

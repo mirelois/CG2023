@@ -175,15 +175,15 @@ void Translate_Catmull_Align::transform() {
 }
 
 void Spotlight::drawLight() {
-    glLightfv(type, GL_POSITION, point);
-    glLightfv(type, GL_SPOT_DIRECTION, dir);
-    glLightfv(type, GL_SPOT_CUTOFF, &cutoff);
+    glLightfv(number, GL_POSITION, point);
+    glLightfv(number, GL_SPOT_DIRECTION, dir);
+    glLightfv(number, GL_SPOT_CUTOFF, &cutoff);
 }
 
 void Point::drawLight() {
-    glLightfv(type, GL_POSITION, point);
+    glLightfv(number, GL_POSITION, point);
 }
 
 void Directional::drawLight() {
-    glLightfv(type, GL_POSITION, point);
+    glLightfv(number, GL_POSITION, point);
 }
