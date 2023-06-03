@@ -65,9 +65,9 @@ public:
     GLuint texID;
     // Color
     float diffuse[4] = {200, 200, 200, 1.0};
-    float ambient[4] = {200, 200, 200, 1.0};
-    float specular[4] = {200, 200, 200, 1.0};
-    float emissive[4] = {200, 200, 200, 1.0};
+    float ambient[4] = {50, 50, 50, 1.0};
+    float specular[4] = {0, 0, 0, 1.0};
+    float emissive[4] = {0, 0, 0, 1.0};
     GLfloat shininess = 0;
     Model(unsigned int t) { type = t; }
 };
