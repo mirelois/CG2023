@@ -173,8 +173,8 @@ void renderScene(void) {
 		drawAxis();
 
 	//desenhar as luzes
-	for (Light* l : lights) {
-		l->drawLight();
+	for(unsigned int i=0; i<lights_number;i++){
+		lights[i]->drawLight();
 	}
 
 	//mudar o mundo
@@ -415,7 +415,6 @@ int main(int argc, char* argv[]) {
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
-	
 	// VBO'S
 	glGenBuffers(4, buffer);
 
