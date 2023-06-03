@@ -83,7 +83,13 @@ void calculate_point(float u, float v, vector<int>* patch, vector<vector<float>>
 }
 
 
-void calculate_normal(float u, float v, vector<int>* patch, vector<vector<float>>* cpoints, float** M, float* n){
+void calculate_normal(float u, float v, vector<int>* patch, vector<vector<float>>* cpoints, float* n){
+    float M[4][4] = { // Matriz de Bezier
+    {-1, 3, -3, 1},
+    {3, -6, 3, 0},
+    {-3, 3, 0, 0},
+    {1, 0, 0, 0}
+    };
     float du[3];
     int p;
 
@@ -130,8 +136,11 @@ void calculate_normal(float u, float v, vector<int>* patch, vector<vector<float>
     n[2] = dv[0]*du[1] - dv[1]*du[0];
 }
 
-unsigned int interact(map<tuple<float,float,float>, unsigned int>* map, float* points, vector<unsigned int>* indices, unsigned int* ind, vector<float>* point_vector){
-    tuple<float, float, float> item = make_tuple(points[0], points[1], points[2]);
+unsigned int interact(map<tuple<float,float,float,float,float,float>, unsigned int>* map, float* points, 
+                        vector<unsigned int>* indices, unsigned int* ind, vector<float>* point_vector,
+                        float* normal, vector<float>* normal_vector){
+    tuple<float, float, float, float, float, float> item = 
+        make_tuple(points[0], points[1], points[2], normal[0], normal[1], normal[2]);
     unsigned int ind_Actual;
     if(map->find(item)==map->end()){
         map->insert(make_pair(item, *ind));
@@ -139,6 +148,7 @@ unsigned int interact(map<tuple<float,float,float>, unsigned int>* map, float* p
         ind_Actual = *ind;
         (*ind)++;
         point_vector->push_back(points[0]);point_vector->push_back(points[1]);point_vector->push_back(points[2]);
+        normal_vector->push_back(normal[0]); normal_vector->push_back(normal[1]); normal_vector->push_back(normal[2]);
     } else{
         ind_Actual = map->at(item);
         indices->push_back(ind_Actual);
@@ -147,42 +157,48 @@ unsigned int interact(map<tuple<float,float,float>, unsigned int>* map, float* p
     return ind_Actual;
 }
 
-tuple<vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, float tessellation_level){
+tuple<vector<float>*,vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, float tessellation_level){
 
     vector<vector<int>*>* patches = new vector<vector<int>*>();
     vector<vector<float>>* cpoints = new vector<vector<float>>();
     vector<unsigned int>* indices = new vector<unsigned int>();
     vector<float>* point_vector = new vector<float>();
+    vector<float>* normal_vector = new vector<float>();
 
     parse_bezier(file_name, patches, cpoints);
 
-    map<tuple<float,float,float>, unsigned int> map;
+    map<tuple<float,float,float,float,float,float>, unsigned int> map;
 
     unsigned int ind = 0;
 
     float points[3];
+    float normal[3];
     unsigned int i1, i2;
     for(vector<int>* patch: *patches){
         for(float u=0; u<tessellation_level; u++){
             for(float v=0; v<tessellation_level; v++){
-                calculate_point(u/tessellation_level,v/tessellation_level, patch, cpoints, points);
-                i1 = interact(&map, points, indices, &ind, point_vector);
+                calculate_point(u / tessellation_level, v / tessellation_level, patch, cpoints, points);
+                calculate_normal(u / tessellation_level, v / tessellation_level, patch, cpoints, normal);
+                i1 = interact(&map, points, indices, &ind, point_vector, normal, normal_vector);
 
-                calculate_point(u/tessellation_level,(v+1)/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind, point_vector);
+                calculate_point(u / tessellation_level, (v + 1) / tessellation_level, patch, cpoints, points);
+                calculate_normal(u / tessellation_level, (v + 1) / tessellation_level, patch, cpoints, normal);
+                interact(&map, points, indices, &ind, point_vector, normal, normal_vector);
 
-                calculate_point((u+1)/tessellation_level,(v+1)/tessellation_level, patch, cpoints, points);
-                i2 = interact(&map, points, indices, &ind, point_vector);
+                calculate_point((u + 1) / tessellation_level, (v + 1) / tessellation_level, patch, cpoints, points);
+                calculate_normal((u + 1) / tessellation_level, (v + 1) / tessellation_level, patch, cpoints, normal);
+                i2 = interact(&map, points, indices, &ind, point_vector, normal, normal_vector);
 
                 indices->push_back(i2);
 
-                calculate_point((u+1)/tessellation_level,v/tessellation_level, patch, cpoints, points);
-                interact(&map, points, indices, &ind, point_vector);
+                calculate_point((u + 1) / tessellation_level, v / tessellation_level, patch, cpoints, points);
+                calculate_normal((u + 1) / tessellation_level, v / tessellation_level, patch, cpoints, normal);
+                interact(&map, points, indices, &ind, point_vector, normal, normal_vector);
 
                 indices->push_back(i1);
             }
         }
     }
     
-    return make_tuple(point_vector, indices);
+    return make_tuple(point_vector, normal_vector, indices);
 }
