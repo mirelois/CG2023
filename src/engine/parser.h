@@ -10,5 +10,5 @@ using namespace std;
 using namespace rapidxml;
 
 
-void parser(char* fileName, Window* window, Camera* camera, Light** lights, char number, Group* group, 
+void parser(char* fileName, Window* window, Camera* camera, Light** lights, unsigned int lights_number, Group* group, 
     vector<float>* points, vector<float>* normals, vector<float>* texCoords, vector<unsigned int>* indices);
