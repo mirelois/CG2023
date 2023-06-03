@@ -8,16 +8,18 @@
     </camera>
     <lights>
         <light type="point" posX="0" posY="10" posZ="0" />
+        <light type="directional" dirX="1" dirY="1" dirZ="1"/>
+        <light type="spotlight" posX="0" posY="10" posZ="0" dirX="1" dirY="1" dirZ="1" cutoff="45" />
     </lights>
     <group>
         <models>
             <model file="models/cone.3d">
                 <color>
-                    <diffuse R="200" G="0" B="0" />
+                    <diffuse R="255" G="0" B="0" />
                     <ambient R="50" G="50" B="50" />
                     <specular R="20" G="0" B="0" />
                     <emissive R="0" G="0" B="0" />
-                    <shininess value="0" />
+                    <shininess value="50" />
                 </color>
             </model>
         </models>
