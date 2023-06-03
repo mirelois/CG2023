@@ -65,12 +65,13 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
 
 }
 
-void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int* number){
+void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
     xml_node<> *temp;
     xml_attribute<> *attr;
     GLuint numbers[] = {GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7};
-    for(temp = lights_node->first_node("light"); temp; temp = temp->next_sibling("light"), (*number)++){
-        if((attr = temp->first_attribute("point"))){
+    int number = 0;
+    for(temp = lights_node->first_node("light"); temp; temp = temp->next_sibling("light"), number++){
+        if((attr = temp->first_attribute("type")) && !strcmp(attr->value(), "point")){
             Point* point = new Point();
             if((attr = temp->first_attribute("posX")))
                 point->point[0] = atof(attr->value());
@@ -80,10 +81,9 @@ void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int* number)
         
             if((attr = temp->first_attribute("posZ")))
                 point->point[2] = atof(attr->value());
-            
-            lights[*number] = point;
-            lights[*number]->number = numbers[*number];
-        } else if((attr = temp->first_attribute("directional"))){
+            point->number = numbers[number];
+            lights->push_back(point);
+        } else if((attr = temp->first_attribute("type")) && !strcmp(attr->value(), "directional")){
             Directional* directional = new Directional();
             if((attr = temp->first_attribute("dirX")))
                 directional->point[0] = atof(attr->value());
@@ -93,9 +93,9 @@ void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int* number)
         
             if((attr = temp->first_attribute("dirZ")))
                 directional->point[2] = atof(attr->value());
-            lights[*number] = directional;
-            lights[*number]->number = numbers[*number];
-        } else if((attr = temp->first_attribute("spotlight"))){
+            directional->number = numbers[number];
+            lights->push_back(directional);
+        } else if((attr = temp->first_attribute("type")) && !strcmp(attr->value(), "spotlight")){
             Spotlight* spotlight = new Spotlight();
             if((attr = temp->first_attribute("posX")))
                 spotlight->point[0] = atof(attr->value());
@@ -117,8 +117,8 @@ void parse_lights(xml_node<> *lights_node, Light** lights, unsigned int* number)
 
             if((attr = temp->first_attribute("cutoff")))
                 spotlight->cutoff = atof(attr->value());
-            lights[*number] = spotlight;
-            lights[*number]->number = numbers[*number];
+            spotlight->number = numbers[number];
+            lights->push_back(spotlight);
         }
     }
 }
@@ -213,11 +213,11 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
-                    model->diffuse[0] = atof(tempAttr->value());
+                    model->diffuse[1] = atof(tempAttr->value());
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
-                    model->diffuse[0] = atof(tempAttr->value());
+                    model->diffuse[2] = atof(tempAttr->value());
                 }
             }
 
@@ -227,11 +227,11 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
-                    model->ambient[0] = atof(tempAttr->value());
+                    model->ambient[1] = atof(tempAttr->value());
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
-                    model->ambient[0] = atof(tempAttr->value());
+                    model->ambient[2] = atof(tempAttr->value());
                 }
             }
 
@@ -241,11 +241,11 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
-                    model->specular[0] = atof(tempAttr->value());
+                    model->specular[1] = atof(tempAttr->value());
                 } 
 
                 if((tempAttr = tempColor->first_attribute("B"))){
-                    model->specular[0] = atof(tempAttr->value());
+                    model->specular[2] = atof(tempAttr->value());
                 }
             }
 
@@ -255,11 +255,11 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
                 }
 
                 if((tempAttr = tempColor->first_attribute("G"))){
-                    model->emissive[0] = atof(tempAttr->value());
+                    model->emissive[1] = atof(tempAttr->value());
                 }
 
                 if((tempAttr = tempColor->first_attribute("B"))){
-                    model->emissive[0] = atof(tempAttr->value());
+                    model->emissive[2] = atof(tempAttr->value());
                 }
             }
 
@@ -440,7 +440,7 @@ void parse_group(xml_node<> *group_node, Group* group, Group* parent,
     }
 }
 
-void parser(char* fileName, Window* window, Camera* camera, Light** lights, unsigned int* number, Group* group, 
+void parser(char* fileName, Window* window, Camera* camera, vector<Light*>* lights, Group* group, 
     vector<float>* points, vector<float>* normals, vector<float>* texCoords, vector<unsigned int>* indices)
 {  
     
@@ -470,7 +470,7 @@ void parser(char* fileName, Window* window, Camera* camera, Light** lights, unsi
 
     // Lights
     if((temp = root_node->first_node("lights")))
-        parse_lights(temp, lights, number);
+        parse_lights(temp, lights);
 
     // Grupo
     unordered_map<string, Model*> model_map = {};

@@ -3,8 +3,7 @@
 
 Camera* camera_global;
 Group* group_global;
-Light* lights[8];
-unsigned int lights_number = 0;
+vector<Light*>* lights = new vector<Light*>();
 float  camera_move_delta = 1, look_rotate_delta_up = M_PI / 1024, look_rotate_delta_right = M_PI / 1024;
 float startX = 0.0f, startY = 0.0f, tracking = 0;
 int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_rotate_right = 0;
@@ -42,6 +41,10 @@ void drawGroup(Group* group){
 		glMaterialfv(GL_FRONT, GL_SPECULAR, groupModel->specular);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, groupModel->ambient);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, groupModel->diffuse);
+		for(int i=0; i<4; i++){
+			printf("%f ", groupModel->diffuse[i]);
+		}
+		printf("\n");
 		glMaterialfv(GL_FRONT, GL_EMISSION, groupModel->emissive);
 		glMaterialf(GL_FRONT, GL_SHININESS, groupModel->shininess);
 		//se texture for null é igual a 0 então o bind não faz nada
@@ -174,9 +177,8 @@ void renderScene(void) {
 		drawAxis();
 
 	//desenhar as luzes
-	for(unsigned int i=0; i<lights_number;i++){
-		printf("aaaa%d\n", lights[i]);
-		lights[i]->drawLight();
+	for(Light* light: *lights){
+		light->drawLight();
 	}
 
 	//mudar o mundo
@@ -414,7 +416,7 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_TEXTURE_2D);
 
 	//Parser depois dos inits para se conseguir dar load às texturas e guardar apenas o ID
-	parser(argv[1], window, camera_global, lights, &lights_number, group_global, points, normals, texCoords, indices);
+	parser(argv[1], window, camera_global, lights, group_global, points, normals, texCoords, indices);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
