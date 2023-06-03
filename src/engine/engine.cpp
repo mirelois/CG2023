@@ -173,8 +173,8 @@ void renderScene(void) {
 		drawAxis();
 
 	//desenhar as luzes
-	for (Light l : lights) {
-		l.drawLight();
+	for (Light* l : lights) {
+		l->drawLight();
 	}
 
 	//mudar o mundo
