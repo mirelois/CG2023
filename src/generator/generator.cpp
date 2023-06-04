@@ -522,6 +522,8 @@ generate_sphere_index(float radius, int slices, int stacks,
     float *master_line_normal = (float *)malloc(sizeof(float) * master_line_size);
     float *points_array = (float *)malloc(sizeof(float) * *points_total);
     float *normal_array = (float *)malloc(sizeof(float) * *points_total);
+    float *texcoords_array = (float*)malloc(sizeof(float) * (*points_total * 2) / 3);
+
     unsigned int *index_array =
         (unsigned int *)malloc(sizeof(unsigned int) * *index_total);
 
@@ -539,6 +541,7 @@ generate_sphere_index(float radius, int slices, int stacks,
 
     int index = 0;
     int index_normal = 0;
+    unsigned int index_tex = 0;
 
     for (int j = 0; j < slices; j++) {
     //top points
@@ -549,6 +552,9 @@ generate_sphere_index(float radius, int slices, int stacks,
         normal_array[index_normal++] = 0;
         normal_array[index_normal++] = 1;
         normal_array[index_normal++] = 0;
+
+        texcoords_array[index_tex++] = j/float(slices);
+        texcoords_array[index_tex++] = 1;
     }
 
     for (int j = 0; j < slices; j++) {
@@ -564,6 +570,9 @@ generate_sphere_index(float radius, int slices, int stacks,
             normal_array[index_normal++] = (master_line_normal[i * 3 + 1]);
             normal_array[index_normal++] = (master_line_normal[i * 3 + 0]) * sin(j * alfa_y) +
                                     (master_line_normal[i * 3 + 2]) * cos(j * alfa_y);
+
+            texcoords_array[index_tex++] = i / float(slices);
+            texcoords_array[index_tex++] = 0;
         }
     }
 
@@ -576,6 +585,9 @@ generate_sphere_index(float radius, int slices, int stacks,
         normal_array[index_normal++] = 0;
         normal_array[index_normal++] = -1;
         normal_array[index_normal++] = 0;
+
+        texcoords_array[index_tex++] = i / float(slices);
+        texcoords_array[index_tex++] = 0;
     }
 
     index = 0;
