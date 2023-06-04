@@ -70,8 +70,8 @@ public:
     // Texture
     GLuint texID;
     // Color
-    float diffuse[4] = {200, 200, 200, 1.0};
-    float ambient[4] = {50, 50, 50, 1.0};
+    float diffuse[4] = {0.78, 0.78, 0.78, 1.0};
+    float ambient[4] = {0.2, 0.2, 0.2, 1.0};
     float specular[4] = {0, 0, 0, 1.0};
     float emissive[4] = {0, 0, 0, 1.0};
     GLfloat shininess = 0;

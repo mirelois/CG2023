@@ -44,18 +44,18 @@ void drawGroup(Group* group){
 		glMaterialfv(GL_FRONT, GL_EMISSION, groupModel->emissive);
 		glMaterialf(GL_FRONT, GL_SHININESS, groupModel->shininess);
 		//se texture for null é igual a 0 então o bind não faz nada
-		//glBindTexture(GL_TEXTURE_2D, groupModel->texture);
+		glBindTexture(GL_TEXTURE_2D, groupModel->texID);
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 		glVertexPointer(3, GL_FLOAT, 0, 0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
 		glNormalPointer(GL_FLOAT, 0, 0);
 
-		//glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
-		//glTexCoordPointer(2, GL_FLOAT, 0, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
+		glTexCoordPointer(2, GL_FLOAT, 0, 0);
 
 		glDrawElements(groupModel->type, groupModel->size, GL_UNSIGNED_INT, (void*)(groupModel->index * sizeof(GLuint)));
-		//glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 		
 	for(Group* groupChild: group->subGroups)
@@ -435,9 +435,9 @@ int main(int argc, char* argv[]) {
 	glBufferData(GL_ARRAY_BUFFER, normals->size() * sizeof(unsigned int), normals->data(), GL_STATIC_DRAW);
 	delete(normals);
 
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, texCoords->size() * sizeof(unsigned int), texCoords->data(), GL_STATIC_DRAW);
-	//delete(texCoords);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, texCoords->size() * sizeof(unsigned int), texCoords->data(), GL_STATIC_DRAW);
+	delete(texCoords);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[3]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size()*sizeof(unsigned int), indices->data(), GL_STATIC_DRAW);

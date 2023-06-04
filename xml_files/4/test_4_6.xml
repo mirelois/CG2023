@@ -6,19 +6,17 @@
 	    <up x="0" y="1" z="0" />
         <projection fov="60" near="1" far="1000" /> 
     </camera>
-	
 	<lights> 
 		<light type="point" posx="0" posy="0.2" posz="0" />
 		<light type="point" posx="-2" posy="2" posz="2" />
 	</lights>
-	
 	<group>
 		<group> 
 			<transform> 
 			</transform>
 			<models> 
 				<model file="models/plane_2_3.3d" > <!-- generator plane 2 3 plane_2_3.3d -->
-				<texture file = "relva.jpg" />
+				<texture file = "textures/relva.jpg" />
 				</model>
 			</models>
 		</group>
@@ -29,7 +27,7 @@
 			</transform>
 			<models> 
 				<model file="models/cone_1_2_4_3.3d" > <!-- generator cone 1 2 4 3 cone_1_2_4_3.3d -->
-					<texture file = "cone.jpg" />
+					<texture file = "texture/cone.jpg" />
 				</model>
 			</models>
 		</group>
@@ -41,7 +39,7 @@
 			</transform>
 			<models> 
 				<model file="models/sphere_1_8_8.3d" > <!-- generator sphere 1 8 8 sphere_1_8_8.3d -->
-					<texture file = "earth.jpg" />
+					<texture file = "texture/earth.jpg" />
 				</model>
 			</models>
 		</group>
@@ -53,7 +51,7 @@
 			</transform>
 			<models> 
 				<model file="models/bezier_10.3d" > <!-- generator patch teapot.patch 10 bezier_10.3d -->
-					<texture file = "teapot.jpg" />
+					<texture file = "texture/teapot.jpg" />
 				</model>
 			</models>
 		</group>
@@ -64,7 +62,7 @@
 			</transform>
 			<models> 
 				<model file="models/box_2_3.3d" > <!-- generator 2 3 box_2_3.3d -->
-					<texture file = "box.jpg" />
+					<texture file = "texture/box.jpg" />
 				</model>
 			</models>
 		</group>
