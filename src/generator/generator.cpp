@@ -410,7 +410,7 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
             point_array[index++] = -i * delta + referential_y;
             
             normal_array[index_normal++] = 0;
-            normal_array[index_normal++] = 1;
+            normal_array[index_normal++] = -1;
             normal_array[index_normal++] = 0;
         }
     }
@@ -423,7 +423,7 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
             point_array[index++] = i * delta - referential_y;
             
             normal_array[index_normal++] = 0;
-            normal_array[index_normal++] = -1;
+            normal_array[index_normal++] = 1;
             normal_array[index_normal++] = 0;
         }
     }
