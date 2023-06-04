@@ -54,7 +54,7 @@ void drawGroup(Group* group){
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
 		glTexCoordPointer(2, GL_FLOAT, 0, 0);
 
-		glDrawElements(groupModel->type, groupModel->size, GL_UNSIGNED_INT, (void*)(groupModel->index * sizeof(GLuint)));
+		glDrawElements(groupModel->type, groupModel->modelInfo->size, GL_UNSIGNED_INT, (void*)(groupModel->modelInfo->index * sizeof(GLuint)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 		

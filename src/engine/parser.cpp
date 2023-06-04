@@ -140,13 +140,15 @@ void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
 }
 
 void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *points, vector<float>* normals, vector<float>* texCoords,
-    vector<unsigned int>* indices, unordered_map<string, Model*> *model_map){
+    vector<unsigned int>* indices, unordered_map<string, ModelInfo*> *model_map){
     string model_name;
     for(xml_node<> *node_models = node_Models->first_node();node_models; node_models = node_models->next_sibling()){
         // Criar fstream e abrir
         model_name = node_models->first_attribute()->value();
         Model* model = new Model(GL_TRIANGLES);
+        ModelInfo* modelInfo;
         if (model_map->find(model_name) == model_map->end()) {
+            modelInfo = new ModelInfo();
             fstream filestream;
             filestream.open(node_models->first_attribute()->value(), ios::in | ios::binary);
             assert( (filestream.rdstate() & std::ifstream::failbit ) == 0 );
@@ -171,8 +173,8 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             
 
             // Guardar os tuplos e o inteiro no model, guardar o model no group
-            model->size = n_indices;
-            model->index = indices->size();
+            modelInfo->size = n_indices;
+            modelInfo->index = indices->size();
 
             for (unsigned int i = 0; i < n_indices;i++) {
                 indices->push_back(indices_buf[i] + before/3);
@@ -183,12 +185,13 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             filestream.close();
             
             //lista dos modelos
-            model_map->insert(make_pair(model_name, model));
-            group->models.push_back(model);
+            model_map->insert(make_pair(model_name, modelInfo));
         }
         else {
-            group->models.push_back(model_map->at(node_models->first_attribute()->value()));
+            modelInfo = model_map->at(node_models->first_attribute()->value());
         }
+
+        model->modelInfo = modelInfo;
 
         xml_node<> *temp;
         if((temp = node_models->first_node("texture"))){
@@ -286,6 +289,8 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
                 }
             }
         }
+
+        group->models.push_back(model);
         
     }
 }
@@ -348,8 +353,10 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
                     unsigned int before = points->size();
                     // draw curve using line segments with GL_LINE_LOOP
                     Model* catmull = new Model(GL_LINE_LOOP);
-                    catmull->index = indices->size();
-                    catmull->size = max;
+                    ModelInfo* modelInfo = new ModelInfo();
+                    modelInfo->index = indices->size();
+                    modelInfo->size = max;
+                    catmull->modelInfo = modelInfo;
 
                     for (unsigned int t = 0; t < max; t += 1) {
                         translation->getGlobalCatmullRomPoint(float(t)/max, p, d);
@@ -439,7 +446,7 @@ void parse_group_transform(xml_node<> *node_transform, Group* group, Group* pare
 
 void parse_group(xml_node<> *group_node, Group* group, Group* parent, 
                 vector<float>* points, vector<float>* normals, vector<float>* texCoords, vector<unsigned int>* indices,
-                unordered_map<string, Model*> *model_map){
+                unordered_map<string, ModelInfo*> *model_map){
     xml_node<>* temp;
     // Transformações
     if((temp = group_node->first_node("transform")))
@@ -490,7 +497,7 @@ void parser(char* fileName, Window* window, Camera* camera, vector<Light*>* ligh
         parse_lights(temp, lights);
 
     // Grupo
-    unordered_map<string, Model*> model_map = {};
+    unordered_map<string, ModelInfo*> model_map = {};
     Group* decoy = new Group();
     group->subGroups.push_back(decoy);
     if((temp = root_node->first_node("group")))

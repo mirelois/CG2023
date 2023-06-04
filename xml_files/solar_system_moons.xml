@@ -1,12 +1,19 @@
 <world>
     <window width="512" height="512" />
     <camera>
-        <position x="-20" y="0" z="0" />
+        <position x="20" y="20" z="20" />
         <lookAt x="0" y="0" z="0" />
         <up x="0" y="1" z="0" />
         <projection fov="60" near="1" far="10000" />
     </camera>
     <lights>
+        <light type="point" posx="0" posy="0" posz="0"/>
+        <light type="point" posx="0" posy="0" posz="0"/>
+        <light type="point" posx="0" posy="0" posz="0"/>
+        <light type="point" posx="0" posy="0" posz="0"/>
+        <light type="point" posx="0" posy="0" posz="0"/>
+        <light type="point" posx="0" posy="0" posz="0"/>
+        <light type="point" posx="0" posy="0" posz="0"/>
         <light type="point" posx="0" posy="0" posz="0"/>
     </lights>
     <group>
@@ -20,6 +27,7 @@
             </transform>
             <models>
                 <model file="./models/sphere.3d">
+                    <texture file = "textures/sun.jpg" />
                     <color>
                         <diffuse R="253" G="184" B="19"/>
                         <ambient R="50" G="50" B="50"/>
@@ -2794,7 +2802,9 @@
             <scale x="0.01" y="0.01" z="0.01" />
         </transform>
         <models>
-            <model file="./models/teapot.3d"><color><diffuse R="131" G="127" B="133"/><ambient R="128" G="128" B="128"/><specular R="0" G="0" B="0"/><emissive R="0" G="0" B="0"/><shininess value="0"/></color></model>
+            <model file="./models/teapot.3d"><color><diffuse R="131" G="127" B="133"/><ambient R="128" G="128" B="128"/><specular R="0" G="0" B="0"/><emissive R="0" G="0" B="0"/><shininess value="0"/></color>
+                <texture file = "textures/missing.jpg" />
+            </model>
         </models>
     </group>
 </group>

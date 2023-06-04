@@ -61,13 +61,16 @@ public:
 };
 
 
+class ModelInfo{
+public:
+    unsigned int size;
+    unsigned int index = 0;
+};
+
 class Model {
 public:
     unsigned int type;
-    unsigned int size;
-    unsigned int index = 0;
-    
-
+    ModelInfo* modelInfo;
     // Texture
     GLuint texID;
     // Color
