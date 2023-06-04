@@ -225,11 +225,6 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         index_array[index++] = offset + (i + 1);
     }
 
-    for (int i=0; i<*point_total; i++) {
-        printf("%f,", point_array[i]);
-        if((i+1) % 3 == 0) putchar('\n');
-    }
-
     return make_tuple(point_array, normal_array, tex_array, index_array);
 }
 
@@ -648,8 +643,6 @@ generate_sphere_index(float radius, int slices, int stacks,
         tex_array[index_tex++] = i * texture_deltaX;
         tex_array[index_tex++] = 0;
     }
-
-    assert(index == *points_total);
 
     index = 0;
 
