@@ -105,7 +105,7 @@ void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
 
             directional->point[3] = 0.0;
 
-            printf("%f %f %f\n", directional->point[0], directional->point[1], directional->point[2]);
+            //printf("%f %f %f\n", directional->point[0], directional->point[1], directional->point[2]);
 
             directional->number = numbers[number];
             lights->push_back(directional);
@@ -167,7 +167,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
 
             unsigned int n_indices;
             filestream.read((char*)&n_indices, sizeof(unsigned int));
-            printf("%d\n", n_indices);
+            //printf("%d\n", n_indices);
             unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
             filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
             
