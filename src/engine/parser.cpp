@@ -160,7 +160,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
             unsigned int before = points->size();
             points->resize(before + n);
             normals->resize(before + n);
-            texCoords->resize(2*before/3 + n);
+            texCoords->resize(2*before/3 + 2*n/3);
             filestream.read((char*)(points->data() + before), sizeof(float) * n);
             filestream.read((char*)(normals->data() + before), sizeof(float) * n);
             filestream.read((char*)(texCoords->data() + 2*before/3), sizeof(float) * 2*n/3);

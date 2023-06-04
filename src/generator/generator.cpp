@@ -699,7 +699,7 @@ void write3D(const char *filename, unsigned int nVertices, float *points, float 
     file.write((char *) normals, sizeof(float) * nVertices);
 
     // TexCoords
-    file.write((char *) texCoords, sizeof(float) * nVertices);
+    file.write((char *) texCoords, sizeof(float) * 2*nVertices/3);
 
     // Indices
     file.write((char *)&nIndices, sizeof(unsigned int));
