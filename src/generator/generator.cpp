@@ -129,8 +129,8 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
     float normaly = bottom_radius/norm;
     float normalz = height/norm;
 
-    float texture_deltaX = 1.0/slices;
-    float texture_deltaY = 1.0/stacks;
+    float texture_deltaX = 1.0f/slices;
+    float texture_deltaY = 1.0f/stacks;
 
     int index = 0;
     int index_normal = 0;
@@ -150,9 +150,9 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         tex_array[index_tex++] = 1;
     }
 
-    for (i = 0; i < stacks; i++) {
-        double sub_height = height - division_height_step * (i + 1);
-        double sub_radius = (i + 1) * division_radius_step;
+    for (i = 1; i <= stacks; i++) {
+        double sub_height = height - division_height_step * i;
+        double sub_radius = i * division_radius_step;
         for (j = 0; j < slices; j++) {
 
             // lados
@@ -165,7 +165,7 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
             normal_array[index_normal++] = normalz * cos(alfa * j);
             
             tex_array[index_tex++] = j * texture_deltaX;
-            tex_array[index_tex++] = i * texture_deltaY;
+            tex_array[index_tex++] = 1 - i *texture_deltaY;
         }
     }
 
@@ -180,7 +180,7 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         normal_array[index_normal++] = -1;
         normal_array[index_normal++] = 0;
         
-        tex_array[index_tex++] = 0;
+        tex_array[index_tex++] = j * texture_deltaX;
         tex_array[index_tex++] = 0;
     }
 
