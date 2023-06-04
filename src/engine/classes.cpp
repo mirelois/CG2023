@@ -181,7 +181,7 @@ void Spotlight::drawLight() {
 }
 
 void Point::drawLight() {
-    glLightfv(GL_LIGHT0, GL_POSITION, point);
+    glLightfv(number, GL_POSITION, point);
 }
 
 void Directional::drawLight() {

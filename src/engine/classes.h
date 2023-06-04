@@ -29,7 +29,7 @@ public: // Default settings
 class Spotlight : public virtual Light{
 public:
     GLuint number;
-    float point[4] = { 0,10,0,0 };
+    float point[4] = { 0,10,0,1 };
     float dir[3] = { 1,1,1 };
     float cutoff = 45;
     void drawLight() override;
