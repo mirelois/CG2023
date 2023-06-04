@@ -392,7 +392,7 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_RESCALE_NORMAL);
 
-	glEnable(GL_LIGHTING);
+	
 
 	float dark[4] = {0.5, 0.5, 0.5, 1.0};
 	float white[4] = {1.0, 1.0, 1.0, 1.0};
@@ -407,6 +407,7 @@ int main(int argc, char* argv[]) {
 	last_camera_position[2] = camera_global->position[2];
 
 	//
+	if (!lights->empty()) glEnable(GL_LIGHTING);
 	for(Light* light: *lights){
 		glEnable(light->getNumber());
 		glLightfv(light->getNumber(), GL_AMBIENT, dark);
