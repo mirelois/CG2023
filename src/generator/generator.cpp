@@ -611,21 +611,20 @@ generate_sphere_index(float radius, int slices, int stacks,
 void write3D(const char *filename, unsigned int nVertices, float *points, float *normals,
              unsigned int nIndices, unsigned int *indices) {
     ofstream file;
+
     file.open(filename, ios::out | ios::binary | ios::trunc);
 
     // Pontos
     file.write((char *)&nVertices, sizeof(unsigned int));
+
     file.write((char *)points, sizeof(float) * nVertices);
-    free(points);
-    
+
     // Normals
     file.write((char *) normals, sizeof(float) * nVertices);
-    free(normals);
 
     // Indices
     file.write((char *)&nIndices, sizeof(unsigned int));
     file.write((char *)indices, sizeof(unsigned int) * nIndices);
-    free(indices);
 
     file.close();
 }
@@ -639,23 +638,36 @@ int main(int argc, char *argv[]) {
         
         write3D(argv[5], points_total, get<0>(sphere), get<1>(sphere), index_total,
                 get<2>(sphere));
+        delete get<0>(sphere);
+        delete get<1>(sphere);
+        delete get<2>(sphere);
     } else if (!strcmp(argv[1], "box")) {
         unsigned int points_total, index_total, normal_total;
         tuple<float *, float *, unsigned int *> box = generate_box_index(
             atof(argv[2]), atoi(argv[3]), &points_total, &index_total, &normal_total);
         write3D(argv[4], points_total, get<0>(box), get<1>(box), index_total, get<2>(box));
+        delete get<0>(box);
+        delete get<1>(box);
+        delete get<2>(box);
     } else if (!strcmp(argv[1], "plane")) {
         unsigned int points_total, index_total, normal_total;
         tuple<float *, float *, unsigned int *> plane = generate_plane_index(
             atof(argv[2]), atoi(argv[3]), &points_total, &index_total, &normal_total);
         write3D(argv[4], points_total, get<0>(plane), get<1>(plane), index_total,
                 get<2>(plane));
+        delete get<0>(plane);
+        delete get<1>(plane);
+        delete get<2>(plane);
     } else if (!strcmp(argv[1], "cone")) {
         unsigned int points_total, index_total, normal_total;
         tuple<float *, float *, unsigned int *> cone =
             generate_cone_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
                                 atoi(argv[5]), &points_total, &index_total, &normal_total);
         write3D(argv[6], points_total, get<0>(cone), get<1>(cone), index_total, get<2>(cone));
+
+        delete get<0>(cone);
+        delete get<1>(cone);
+        delete get<2>(cone);
     } else if (!strcmp(argv[1], "torus")) {
         unsigned int points_total, index_total, normal_total;
         tuple<float *, float *, unsigned int *> torus =
@@ -663,6 +675,10 @@ int main(int argc, char *argv[]) {
                                  atoi(argv[5]), &points_total, &index_total, &normal_total);
         write3D(argv[6], points_total, get<0>(torus), get<1>(torus),index_total,
                 get<2>(torus));
+
+        delete get<0>(torus);
+        delete get<1>(torus);
+        delete get<2>(torus);
     } else if (!strcmp(argv[1], "cylinder")) {
         unsigned int points_total, index_total, normal_total;
         tuple<float *, float *, unsigned int *> cylinder =
@@ -670,12 +686,21 @@ int main(int argc, char *argv[]) {
                                     atoi(argv[5]), &points_total, &index_total, &normal_total);
         write3D(argv[6], points_total, get<0>(cylinder), get<1>(cylinder),index_total,
                 get<2>(cylinder));
+
+        delete get<0>(cylinder);
+        delete get<1>(cylinder);
+        delete get<2>(cylinder);
+
     } else if (!strcmp(argv[1], "patch")) {
         
         tuple<vector<float> *,vector<float>*, vector<unsigned int> *> bezier =
             generate_bezier(argv[2], atoi(argv[3]));
         write3D(argv[4], get<0>(bezier)->size(), get<0>(bezier)->data(),
                 get<1>(bezier)->data(), get<2>(bezier)->size(), get<2>(bezier)->data());
+
+        delete get<0>(bezier);
+        delete get<1>(bezier);
+        delete get<2>(bezier);
                 
     } else {
         printf("Invalid Model\n");

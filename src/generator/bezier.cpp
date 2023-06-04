@@ -192,34 +192,32 @@ tuple<vector<float>*,vector<float>*, vector<unsigned int>*> generate_bezier(char
             for(float v=0; v<tessellation_level; v++){
                 calculate_point(u / tessellation_level, v / tessellation_level, patch, cpoints, points);
                 calculate_normal(u / tessellation_level, v / tessellation_level, patch, cpoints, normal);
-                texcoords[0] = u / tessellation_level;
-                texcoords[1] = v / tessellation_level;
+                texcoords[0] = u / tessellation_level; texcoords[1] = v / tessellation_level;
                 i1 = interact(&map, points, indices, &ind, point_vector, normal, normal_vector, texcoords, texcoords_vector);
 
                 calculate_point(u / tessellation_level, (v + 1) / tessellation_level, patch, cpoints, points);
                 calculate_normal(u / tessellation_level, (v + 1) / tessellation_level, patch, cpoints, normal);
-                texcoords[0] = u / tessellation_level;
-                texcoords[1] = (v+1) / tessellation_level;
+                texcoords[0] = u / tessellation_level; texcoords[1] = (v+1) / tessellation_level;
                 interact(&map, points, indices, &ind, point_vector, normal, normal_vector, texcoords, texcoords_vector);
 
                 calculate_point((u + 1) / tessellation_level, (v + 1) / tessellation_level, patch, cpoints, points);
                 calculate_normal((u + 1) / tessellation_level, (v + 1) / tessellation_level, patch, cpoints, normal);
-                texcoords[0] = (u + 1) / tessellation_level;
-                texcoords[1] = (v + 1) / tessellation_level;
+                texcoords[0] = (u + 1) / tessellation_level; texcoords[1] = (v + 1) / tessellation_level;
                 i2 = interact(&map, points, indices, &ind, point_vector, normal, normal_vector, texcoords, texcoords_vector);
 
                 indices->push_back(i2);
 
                 calculate_point((u + 1) / tessellation_level, v / tessellation_level, patch, cpoints, points);
                 calculate_normal((u + 1) / tessellation_level, v / tessellation_level, patch, cpoints, normal);
-                texcoords[0] = (u + 1) / tessellation_level;
-                texcoords[1] = v / tessellation_level;
+                texcoords[0] = (u + 1) / tessellation_level; texcoords[1] = v / tessellation_level;
                 interact(&map, points, indices, &ind, point_vector, normal, normal_vector, texcoords, texcoords_vector);
 
                 indices->push_back(i1);
             }
         }
     }
-    
+    delete patches;
+    delete cpoints;
+
     return make_tuple(point_vector, normal_vector, indices);
 }
