@@ -27,14 +27,7 @@
             </transform>
             <models>
                 <model file="./models/sphere.3d">
-                    <texture file = "textures/sun.jpg" />
-                    <color>
-                        <diffuse R="253" G="184" B="19"/>
-                        <ambient R="50" G="50" B="50"/>
-                        <specular R="0" G="0" B="0"/>
-                        <emissive R="253" G="184" B="19"/>
-                        <shininess value="0"/>
-                    </color>
+                        <texture file="./textures/sun.jpg"/>
                 </model>
             </models>
         </group>
