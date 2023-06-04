@@ -678,7 +678,7 @@ generate_sphere_index(float radius, int slices, int stacks,
     return make_tuple(points_array, normal_array, tex_array, index_array);
 }
 
-void write3D(const char *filename, unsigned int nVertices, float *points, float *normals,
+void write3D(const char *filename, unsigned int nVertices, float *points, float *normals, float *texCoords,
              unsigned int nIndices, unsigned int *indices) {
     ofstream file;
 
@@ -692,6 +692,9 @@ void write3D(const char *filename, unsigned int nVertices, float *points, float 
     // Normals
     file.write((char *) normals, sizeof(float) * nVertices);
 
+    // TexCoords
+
+
     // Indices
     file.write((char *)&nIndices, sizeof(unsigned int));
     file.write((char *)indices, sizeof(unsigned int) * nIndices);
@@ -701,60 +704,64 @@ void write3D(const char *filename, unsigned int nVertices, float *points, float 
 
 int main(int argc, char *argv[]) {
     if (!strcmp(argv[1], "sphere")) {
-        unsigned int points_total, index_total, normal_total;
-        tuple<float *, float *, unsigned int *> sphere =
+        unsigned int points_total, index_total, normal_total, tex_total;
+        tuple<float *, float *, float *, unsigned int *> sphere =
             generate_sphere_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
-                                  &points_total, &index_total, &normal_total);
+                                  &points_total, &index_total, &normal_total, &tex_total);
         
-        write3D(argv[5], points_total, get<0>(sphere), get<1>(sphere), index_total,
-                get<2>(sphere));
+        write3D(argv[5], points_total, get<0>(sphere), get<1>(sphere), get<2>(sphere), index_total,
+                get<3>(sphere));
         delete get<0>(sphere);
         delete get<1>(sphere);
         delete get<2>(sphere);
+        delete get<3>(sphere);
     } else if (!strcmp(argv[1], "box")) {
-        unsigned int points_total, index_total, normal_total;
-        tuple<float *, float *, unsigned int *> box = generate_box_index(
-            atof(argv[2]), atoi(argv[3]), &points_total, &index_total, &normal_total);
-        write3D(argv[4], points_total, get<0>(box), get<1>(box), index_total, get<2>(box));
+        unsigned int points_total, index_total, normal_total, tex_total;
+        tuple<float *, float *, float *, unsigned int *> box = generate_box_index(
+            atof(argv[2]), atoi(argv[3]), &points_total, &index_total, &normal_total, &tex_total);
+        write3D(argv[4], points_total, get<0>(box), get<1>(box), get<2>(box), index_total, get<3>(box));
         delete get<0>(box);
         delete get<1>(box);
         delete get<2>(box);
+        delete get<3>(box);
     } else if (!strcmp(argv[1], "plane")) {
-        unsigned int points_total, index_total, normal_total;
-        tuple<float *, float *, unsigned int *> plane = generate_plane_index(
-            atof(argv[2]), atoi(argv[3]), &points_total, &index_total, &normal_total);
-        write3D(argv[4], points_total, get<0>(plane), get<1>(plane), index_total,
-                get<2>(plane));
+        unsigned int points_total, index_total, normal_total, tex_total;
+        tuple<float *, float *, float*, unsigned int *> plane = generate_plane_index(
+            atof(argv[2]), atoi(argv[3]), &points_total, &index_total, &normal_total, &tex_total);
+        write3D(argv[4], points_total, get<0>(plane), get<1>(plane), get<2>(plane), index_total,
+                get<3>(plane));
         delete get<0>(plane);
         delete get<1>(plane);
         delete get<2>(plane);
+        delete get<3>(plane);
     } else if (!strcmp(argv[1], "cone")) {
-        unsigned int points_total, index_total, normal_total;
-        tuple<float *, float *, unsigned int *> cone =
+        unsigned int points_total, index_total, normal_total, tex_total;
+        tuple<float *, float *, float*, unsigned int *> cone =
             generate_cone_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
-                                atoi(argv[5]), &points_total, &index_total, &normal_total);
-        write3D(argv[6], points_total, get<0>(cone), get<1>(cone), index_total, get<2>(cone));
+                                atoi(argv[5]), &points_total, &index_total, &normal_total, &tex_total);
+        write3D(argv[6], points_total, get<0>(cone), get<1>(cone), get<2>(cone), index_total, get<3>(cone));
 
         delete get<0>(cone);
         delete get<1>(cone);
         delete get<2>(cone);
+        delete get<3>(cone);
     } else if (!strcmp(argv[1], "torus")) {
-        unsigned int points_total, index_total, normal_total;
+        unsigned int points_total, index_total, normal_total, tex_total;
         tuple<float *, float *, unsigned int *> torus =
             generate_torus_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
                                  atoi(argv[5]), &points_total, &index_total, &normal_total);
-        write3D(argv[6], points_total, get<0>(torus), get<1>(torus),index_total,
+        write3D(argv[6], points_total, get<0>(torus), get<1>(torus), get<1>(torus), index_total,
                 get<2>(torus));
 
         delete get<0>(torus);
         delete get<1>(torus);
         delete get<2>(torus);
     } else if (!strcmp(argv[1], "cylinder")) {
-        unsigned int points_total, index_total, normal_total;
+        unsigned int points_total, index_total, normal_total, tex_total;
         tuple<float *, float *, unsigned int *> cylinder =
             generate_cylinder_index(atof(argv[2]), atoi(argv[3]), atoi(argv[4]),
                                     atoi(argv[5]), &points_total, &index_total, &normal_total);
-        write3D(argv[6], points_total, get<0>(cylinder), get<1>(cylinder),index_total,
+        write3D(argv[6], points_total, get<0>(cylinder), get<1>(cylinder), get<1>(cylinder), index_total,
                 get<2>(cylinder));
 
         delete get<0>(cylinder);
@@ -773,7 +780,7 @@ int main(int argc, char *argv[]) {
         delete get<2>(bezier);
                 
     } else {
-        printf("Invalid Model\n");
+        printf("Invalid Model\nCommands:\nsphere [radius] [slices] [stacks] [file]\nbox [dimension] [number of divisions] [file]\ncone [radius] [height] [slices] [stacks] [file]\nplane [length] [grid slices] [file]\ncylinder [radius] [height] [slices] [stacks] [file]\npatch [filename] [tesselation level] [file]\n");
     }
 
     return 0;
