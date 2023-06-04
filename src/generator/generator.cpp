@@ -558,6 +558,7 @@ tuple<float *,float *, float *, unsigned int *> generate_plane_index(float lengt
 tuple<float *, float *, float *, unsigned int *>
 generate_sphere_index(float radius, int slices, int stacks,
                       unsigned int *points_total, unsigned int *index_total, unsigned int *normal_total, unsigned int *tex_total) {
+
     *index_total  = 6 *  slices * (stacks - 1) ;
     *points_total = 3 * (slices * (stacks + 1));
     *normal_total = 3 * (slices * (stacks + 1));
@@ -594,7 +595,7 @@ generate_sphere_index(float radius, int slices, int stacks,
     }
 
     float texture_deltaX = 1.0/slices;
-    float texture_deltaY = 1.0/slices;
+    float texture_deltaY = 1.0/stacks;
 
     int index = 0;
     int index_normal = 0;
