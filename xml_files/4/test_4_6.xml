@@ -4,7 +4,7 @@
 	    <position x="-0.740200" y="1.182951" z="1.376347" />
 	    <lookAt x="0" y="0" z="0" />
 	    <up x="0" y="1" z="0" />
-        <projection fov="60" near="1" far="1000" /> 
+        <projection fov="60" near="0.0000001" far="10" /> 
     </camera>
 	<lights> 
 		<light type="point" posx="0" posy="0.2" posz="0" />
@@ -27,7 +27,7 @@
 			</transform>
 			<models> 
 				<model file="models/cone_1_2_4_3.3d" > <!-- generator cone 1 2 4 3 cone_1_2_4_3.3d -->
-					<texture file = "texture/cone.jpg" />
+					<texture file = "textures/cone.jpg" />
 				</model>
 			</models>
 		</group>
@@ -35,11 +35,11 @@
 			<transform> 
 				<translate x = "0.5" y = "0.2" z = "0.5" />
 				<scale x="0.2" y="0.2" z="0.2" />
-				<!--rotate angle=-90 x="1" y="0" z="0" /-->
+				<rotate angle="-90" x="1" y="0" z="0">
 			</transform>
 			<models> 
 				<model file="models/sphere_1_8_8.3d" > <!-- generator sphere 1 8 8 sphere_1_8_8.3d -->
-					<texture file = "texture/earth.jpg" />
+					<texture file = "textures/earth.jpg" />
 				</model>
 			</models>
 		</group>
@@ -51,7 +51,7 @@
 			</transform>
 			<models> 
 				<model file="models/bezier_10.3d" > <!-- generator patch teapot.patch 10 bezier_10.3d -->
-					<texture file = "texture/teapot.jpg" />
+					<texture file = "textures/teapot.jpg" />
 				</model>
 			</models>
 		</group>
@@ -62,7 +62,7 @@
 			</transform>
 			<models> 
 				<model file="models/box_2_3.3d" > <!-- generator 2 3 box_2_3.3d -->
-					<texture file = "texture/box.jpg" />
+					<texture file = "textures/box.jpg" />
 				</model>
 			</models>
 		</group>

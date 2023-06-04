@@ -4,7 +4,7 @@
 Camera* camera_global;
 Group* group_global;
 vector<Light*>* lights = new vector<Light*>();
-float  camera_move_delta = 1, look_rotate_delta_up = M_PI / 1024, look_rotate_delta_right = M_PI / 1024;
+float  look_rotate_delta_up = M_PI / 1024, look_rotate_delta_right = M_PI / 1024;
 float startX = 0.0f, startY = 0.0f, tracking = 0;
 int camera_side = 0, camera_up = 0, camera_front = 0, look_rotate_up = 0, look_rotate_right = 0;
 float last_camera_position[3];
@@ -121,9 +121,9 @@ void calculate_displacement(float displacement[3], float distance_to_lookat[3]) 
 
 	//normalize_vector(d);
 
-	displacement[0] = d[0] * camera_move_delta * camera_front + r[0] * camera_move_delta * camera_side,
-	displacement[1] = camera_side * camera_move_delta * r[1] + camera_front * camera_move_delta * d[1] + camera_up * camera_move_delta,
-	displacement[2] = camera_side * camera_move_delta * r[2] + camera_front * camera_move_delta * d[2];
+	displacement[0] = d[0] * camera_global->camera_move_delta * camera_front + r[0] * camera_global->camera_move_delta * camera_side,
+	displacement[1] = camera_side * camera_global->camera_move_delta * r[1] + camera_front * camera_global->camera_move_delta * d[1] + camera_up * camera_global->camera_move_delta,
+	displacement[2] = camera_side * camera_global->camera_move_delta * r[2] + camera_front * camera_global->camera_move_delta * d[2];
 
 	distance_to_lookat[0] = d[0] * norm,
 	distance_to_lookat[1] = d[1] * norm,

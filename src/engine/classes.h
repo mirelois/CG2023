@@ -18,6 +18,7 @@ public:
     float lookAt[3] = { 0,0,0 }; // valor por omiss�o sugerido por n�s
     float up[3] = { 0,1,0 }; // Valor Padr�o segundo o ficheiro de exemplo
     float projection[3] = { 60,1,1000 }; // Valor Padr�o segundo o ficheiro de exemplo
+    float camera_move_delta=0.1;
 };
 
 class Light{
