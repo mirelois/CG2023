@@ -153,12 +153,12 @@ void calculate_normal(float u, float v, vector<int>* patch, vector<vector<float>
     normalize(n);
 }
 
-unsigned int interact(map<tuple<float,float,float,float,float,float>, unsigned int>* map, float* points, 
+unsigned int interact(map<tuple<float,float,float,float,float,float,float,float>, unsigned int>* map, float* points, 
                         vector<unsigned int>* indices, unsigned int* ind, vector<float>* point_vector,
                         float* normal, vector<float>* normal_vector,
                         float* texcoords, vector<float>* texcoords_vector){
-    tuple<float, float, float, float, float, float> item = 
-        make_tuple(points[0], points[1], points[2], normal[0], normal[1], normal[2]);
+    tuple<float, float, float, float, float, float,float,float> item = 
+        make_tuple(points[0], points[1], points[2], normal[0], normal[1], normal[2], texcoords[0], texcoords[1]);
     unsigned int ind_Actual;
     if(map->find(item)==map->end()){
         map->insert(make_pair(item, *ind));
@@ -187,7 +187,7 @@ tuple<vector<float>*,vector<float>*, vector<float>*, vector<unsigned int>*> gene
 
     parse_bezier(file_name, patches, cpoints);
 
-    map<tuple<float,float,float,float,float,float>, unsigned int> map;
+    map<tuple<float,float,float,float,float,float, float, float>, unsigned int> map;
 
     unsigned int ind = 0;
 

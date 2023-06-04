@@ -685,7 +685,6 @@ void write3D(const char *filename, unsigned int nVertices, float *points, float 
 
     file.open(filename, ios::out | ios::binary | ios::trunc);
     // Pontos
-
     file.write((char *)&nVertices, sizeof(unsigned int));
 
     file.write((char *)points, sizeof(float) * nVertices);
