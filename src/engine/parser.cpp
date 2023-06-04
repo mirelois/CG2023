@@ -92,7 +92,7 @@ void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
                 directional->point[0] = atof(attr->value());
         
             if((attr = temp->first_attribute("diry")))
-                directional->point[1] = atof(attr->value());
+                directional->point[1] = -atof(attr->value());
         
             if((attr = temp->first_attribute("dirz")))
                 directional->point[2] = atof(attr->value());
@@ -120,7 +120,7 @@ void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
                 spotlight->dir[0] = atof(attr->value());
         
             if((attr = temp->first_attribute("diry")))
-                spotlight->dir[1] = atof(attr->value());
+                spotlight->dir[1] = -atof(attr->value());
         
             if((attr = temp->first_attribute("dirz")))
                 spotlight->dir[2] = atof(attr->value());
