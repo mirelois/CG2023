@@ -102,16 +102,19 @@ generate_torus_index(float inner_radius, float outer_radius,
     return make_tuple(point_array, normal_array, index_array);
 }
 
-tuple<float *, float *, unsigned int *>
+tuple<float *, float *, float *, unsigned int *>
 generate_cone_index(float bottom_radius, float height, int slices, int stacks,
-                    unsigned int *point_total, unsigned int *index_total, unsigned int *normal_total) {
+                    unsigned int *point_total, unsigned int *index_total, unsigned int *normal_total, unsigned int *tex_total) {
 
     *point_total  = 3 * (slices + 1  + slices * (stacks + 1));
     *normal_total = 3 * (slices + 1  + slices * (stacks + 1));
+    *tex_total    = 2 * (slices + 1  + slices * (stacks + 1));
     *index_total  = slices * stacks * 6;
 
-    float *point_array = (float *)malloc(sizeof(float) * *point_total);
-    float *normal_array = (float *)malloc(sizeof(float) * *point_total);
+    float *point_array  = (float *)malloc(sizeof(float) * *point_total);
+    float *normal_array = (float *)malloc(sizeof(float) * *normal_total);
+    float *tex_array    = (float *)malloc(sizeof(float) * *tex_total);
+    
     unsigned int *index_array =
         (unsigned int *)malloc(sizeof(unsigned int) * *index_total);
 
@@ -126,8 +129,12 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
     float normaly = bottom_radius/norm;
     float normalz = height/norm;
 
+    float texture_deltaX = 1.0/slices;
+    float texture_deltaY = 1.0/stacks;
+
     int index = 0;
     int index_normal = 0;
+    int index_tex = 0;
 
     for(int i = 0; i < slices; i++){
         // top points
@@ -138,6 +145,9 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         normal_array[index_normal++] = 0;
         normal_array[index_normal++] = 1;
         normal_array[index_normal++] = 0;
+
+        tex_array[index_tex++] = i * texture_deltaX;
+        tex_array[index_tex++] = 1;
     }
 
     for (i = 0; i < stacks; i++) {
@@ -153,12 +163,15 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
             normal_array[index_normal++] = normalz * sin(alfa * j);
             normal_array[index_normal++] = normaly;
             normal_array[index_normal++] = normalz * cos(alfa * j);
+            
+            tex_array[index_tex++] = j * texture_deltaX;
+            tex_array[index_tex++] = i * texture_deltaY;
         }
     }
 
     for (j = 0; j < slices; j++) {
 
-        // lados
+        // base border
         point_array[index++] = bottom_radius * sin(alfa * j);
         point_array[index++] = 0;
         point_array[index++] = bottom_radius * cos(alfa * j);
@@ -166,6 +179,9 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         normal_array[index_normal++] = 0;
         normal_array[index_normal++] = -1;
         normal_array[index_normal++] = 0;
+        
+        tex_array[index_tex++] = 0;
+        tex_array[index_tex++] = 0;
     }
 
     // bottom point
@@ -176,6 +192,9 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
     normal_array[index_normal++] = 0;
     normal_array[index_normal++] = -1;
     normal_array[index_normal++] = 0;
+        
+    tex_array[index_tex++] = 0;
+    tex_array[index_tex++] = 0;
 
     index = 0;
 
@@ -211,7 +230,7 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         if((i+1) % 3 == 0) putchar('\n');
     }
 
-    return make_tuple(point_array, normal_array, index_array);
+    return make_tuple(point_array, normal_array, tex_array, index_array);
 }
 
 tuple<float *, float *, unsigned int *>
@@ -321,18 +340,21 @@ generate_cylinder_index(float radius, float height, int slices, int stacks,
     return make_tuple(point_array, normal_array, index_array);
 }
 
-tuple<float *, float *, unsigned int *> generate_box_index(float length, int grid_slices,
+tuple<float *, float *,float *, unsigned int *> generate_box_index(float length, int grid_slices,
                                                   unsigned int *points_total,
                                                   unsigned int *index_total,
-                                                  unsigned int *normal_total) {
+                                                  unsigned int *normal_total,
+                                                  unsigned int *tex_total) {
     // a quantidade de pontos ´e definida pelo grid;
     // agora tem de ser pontos com normais diferentes por isso ´e por face
     *points_total = (grid_slices+1)*(grid_slices+1) * 3 * 6;
     *normal_total = (grid_slices+1)*(grid_slices+1) * 3 * 6;
+    *tex_total    = (grid_slices+1)*(grid_slices+1) * 2 * 6;
     *index_total = grid_slices * grid_slices * 36;
 
-    float *point_array = (float *)malloc(sizeof(float) * *points_total);
-    float *normal_array = (float *)malloc(sizeof(float) * *points_total);
+    float *point_array  = (float *)malloc(sizeof(float) * *points_total);
+    float *normal_array = (float *)malloc(sizeof(float) * *normal_total);
+    float *tex_array    = (float *)malloc(sizeof(float) * *tex_total);
     unsigned int *index_array =
         (unsigned int *)malloc(sizeof(unsigned int) * *index_total);
 
@@ -340,12 +362,15 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
 
     int index = 0;
     int index_normal = 0;
+    int index_tex = 0;
 
     float referential_x = -length / 2;
 
     float referential_y = length / 2;
 
     float referential_z = length / 2;
+
+    float texture_delta = 1.0/grid_slices;
 
     //fromt face is in plane yx all others are relative to this one
     for (int i = 0; i < grid_slices + 1; i++) {
@@ -359,6 +384,9 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = 1;
+
+            tex_array[index_tex++] = j * texture_delta;
+            tex_array[index_tex++] = i * texture_delta;
         }
     }
     for (int i = 0; i < grid_slices + 1; i++) {
@@ -372,6 +400,9 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
             normal_array[index_normal++] = 1;
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = 0;
+
+            tex_array[index_tex++] = j * texture_delta;
+            tex_array[index_tex++] = i * texture_delta;
         }
     }
     for (int i = 0; i < grid_slices + 1; i++) {
@@ -385,6 +416,9 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = -1;
+
+            tex_array[index_tex++] = j * texture_delta;
+            tex_array[index_tex++] = i * texture_delta;
         }
     }
     for (int i = 0; i < grid_slices + 1; i++) {
@@ -398,6 +432,9 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
             normal_array[index_normal++] = -1;
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = 0;
+
+            tex_array[index_tex++] = j * texture_delta;
+            tex_array[index_tex++] = i * texture_delta;
         }
     }
 
@@ -412,6 +449,9 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = -1;
             normal_array[index_normal++] = 0;
+
+            tex_array[index_tex++] = j * texture_delta;
+            tex_array[index_tex++] = i * texture_delta;
         }
     }
     
@@ -426,6 +466,9 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = 1;
             normal_array[index_normal++] = 0;
+
+            tex_array[index_tex++] = j * texture_delta;
+            tex_array[index_tex++] = i * texture_delta;
         }
     }
 
@@ -435,40 +478,46 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
         for (int i = 0; i < grid_slices; i++) {
             for (int j = 0; j < grid_slices; j++) {
 
-                index_array[index++] = (grid_slices + 1) * i + j             + f*((grid_slices + 1) * (grid_slices + 1));
-                index_array[index++] = (grid_slices + 1) * (i + 1) + j       + f*((grid_slices + 1) * (grid_slices + 1));
-                index_array[index++] = (grid_slices + 1) * (i + 1) + (j + 1) + f*((grid_slices + 1) * (grid_slices + 1));
-
-                index_array[index++] = (grid_slices + 1) * i + j             + f*((grid_slices + 1) * (grid_slices + 1));
-                index_array[index++] = (grid_slices + 1) * (i + 1) + (j + 1) + f*((grid_slices + 1) * (grid_slices + 1));
-                index_array[index++] = (grid_slices + 1) * i + (j + 1)       + f*((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * i + j             + f * ((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * (i + 1) + j       + f * ((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * (i + 1) + (j + 1) + f * ((grid_slices + 1) * (grid_slices + 1));
+                                                                                   
+                index_array[index++] = (grid_slices + 1) * i + j             + f * ((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * (i + 1) + (j + 1) + f * ((grid_slices + 1) * (grid_slices + 1));
+                index_array[index++] = (grid_slices + 1) * i + (j + 1)       + f * ((grid_slices + 1) * (grid_slices + 1));
             }
         }
     }
 
-    return make_tuple(point_array, normal_array, index_array);
+    return make_tuple(point_array, normal_array, tex_array, index_array);
 }
 
-tuple<float *,float *, unsigned int *> generate_plane_index(float length,
+tuple<float *,float *, float *, unsigned int *> generate_plane_index(float length,
                                                     int grid_slices,
                                                     unsigned int *points_total,
                                                     unsigned int *index_total,
-                                                    unsigned int *normal_total) {
+                                                    unsigned int *normal_total,
+                                                    unsigned int *tex_total) {
 
-    *index_total = grid_slices * grid_slices * 6;
+    *index_total  =  grid_slices      *  grid_slices      * 6;
     *points_total = (grid_slices + 1) * (grid_slices + 1) * 3;
     *normal_total = (grid_slices + 1) * (grid_slices + 1) * 3;
+    *tex_total    = (grid_slices + 1) * (grid_slices + 1) * 2;
 
     float *point_array = (float *)malloc(sizeof(float) * *points_total);
     float *normal_array = (float *)malloc(sizeof(float) * *points_total);
+    float *tex_array = (float *)malloc(sizeof(float) * *points_total);
     
     unsigned int *index_array =
         (unsigned int *)malloc(sizeof(unsigned int) * *index_total);
 
     float delta = length / grid_slices;
 
+    float texture_delta = 1.0 / grid_slices;
+
     int index = 0;
     int index_normal = 0;
+    int index_tex = 0;
 
     float referential_x = -length / 2;
 
@@ -483,6 +532,9 @@ tuple<float *,float *, unsigned int *> generate_plane_index(float length,
             normal_array[index_normal++] = 0;
             normal_array[index_normal++] = 1.0f;
             normal_array[index_normal++] = 0;
+
+            tex_array[index_tex++] = j * texture_delta;
+            tex_array[index_tex++] = i * texture_delta;
         }
     }
 
@@ -491,24 +543,25 @@ tuple<float *,float *, unsigned int *> generate_plane_index(float length,
     for (int i = 0; i < grid_slices; i++) {
         for (int j = 0; j < grid_slices; j++) {
 
-            index_array[index++] = (grid_slices + 1) * i + j;
-            index_array[index++] = (grid_slices + 1) * (i + 1) + j;
+            index_array[index++] = (grid_slices + 1) *  i      +  j;
+            index_array[index++] = (grid_slices + 1) * (i + 1) +  j;
             index_array[index++] = (grid_slices + 1) * (i + 1) + (j + 1);
 
-            index_array[index++] = (grid_slices + 1) * i + j;
+            index_array[index++] = (grid_slices + 1) *  i      +  j;
             index_array[index++] = (grid_slices + 1) * (i + 1) + (j + 1);
-            index_array[index++] = (grid_slices + 1) * i + (j + 1);
+            index_array[index++] = (grid_slices + 1) *  i      + (j + 1);
         }
     }
-    return make_tuple(point_array, normal_array, index_array);
+    return make_tuple(point_array, normal_array, tex_array, index_array);
 }
 
-tuple<float *, float *, unsigned int *>
+tuple<float *, float *, float *, unsigned int *>
 generate_sphere_index(float radius, int slices, int stacks,
-                      unsigned int *points_total, unsigned int *index_total, unsigned int *normal_total) {
+                      unsigned int *points_total, unsigned int *index_total, unsigned int *normal_total, unsigned int *tex_total) {
     *index_total  = 6 *  slices * (stacks - 1) ;
     *points_total = 3 * (slices * (stacks + 1));
     *normal_total = 3 * (slices * (stacks + 1));
+    *tex_total    = 2 * (slices * (stacks + 1));
     
     int master_line_size = (stacks + 1) * 3;
     float alfa_x = M_PI / stacks;
@@ -518,17 +571,18 @@ generate_sphere_index(float radius, int slices, int stacks,
     float pivot_y = radius;
     // float pivot_z = 0;
 
-    float *master_line = (float *)malloc(sizeof(float) * master_line_size);
+    float *master_line        = (float *)malloc(sizeof(float) * master_line_size);
     float *master_line_normal = (float *)malloc(sizeof(float) * master_line_size);
-    float *points_array = (float *)malloc(sizeof(float) * *points_total);
-    float *normal_array = (float *)malloc(sizeof(float) * *points_total);
-    float *texcoords_array = (float*)malloc(sizeof(float) * (*points_total * 2) / 3);
+    float *points_array       = (float *)malloc(sizeof(float) * *points_total);
+    float *normal_array       = (float *)malloc(sizeof(float) * *normal_total);
+    float *tex_array          = (float *)malloc(sizeof(float) * *tex_total);
 
     unsigned int *index_array =
         (unsigned int *)malloc(sizeof(unsigned int) * *index_total);
 
     int master_line_index = 0;
     int master_line_index_normal = 0;
+    
     for (int i = 0; i < stacks + 1; i++) {
         master_line[master_line_index++] = pivot_x;
         master_line[master_line_index++] = pivot_y * cos(i * alfa_x);
@@ -539,9 +593,12 @@ generate_sphere_index(float radius, int slices, int stacks,
         master_line_normal[master_line_index_normal++] = sin(i * alfa_x);
     }
 
+    float texture_deltaX = 1.0/slices;
+    float texture_deltaY = 1.0/slices;
+
     int index = 0;
     int index_normal = 0;
-    unsigned int index_tex = 0;
+    int index_tex = 0;
 
     for (int j = 0; j < slices; j++) {
     //top points
@@ -552,9 +609,9 @@ generate_sphere_index(float radius, int slices, int stacks,
         normal_array[index_normal++] = 0;
         normal_array[index_normal++] = 1;
         normal_array[index_normal++] = 0;
-
-        texcoords_array[index_tex++] = j/float(slices);
-        texcoords_array[index_tex++] = 1;
+        
+        tex_array[index_tex++] = j * texture_deltaX;
+        tex_array[index_tex++] = 1;
     }
 
     for (int j = 0; j < slices; j++) {
@@ -570,9 +627,9 @@ generate_sphere_index(float radius, int slices, int stacks,
             normal_array[index_normal++] = (master_line_normal[i * 3 + 1]);
             normal_array[index_normal++] = (master_line_normal[i * 3 + 0]) * sin(j * alfa_y) +
                                     (master_line_normal[i * 3 + 2]) * cos(j * alfa_y);
-
-            texcoords_array[index_tex++] = i / float(slices);
-            texcoords_array[index_tex++] = 0;
+        
+            tex_array[index_tex++] = j * texture_deltaX;
+            tex_array[index_tex++] = i * texture_deltaY;
         }
     }
 
@@ -585,9 +642,9 @@ generate_sphere_index(float radius, int slices, int stacks,
         normal_array[index_normal++] = 0;
         normal_array[index_normal++] = -1;
         normal_array[index_normal++] = 0;
-
-        texcoords_array[index_tex++] = i / float(slices);
-        texcoords_array[index_tex++] = 0;
+        
+        tex_array[index_tex++] = i * texture_deltaX;
+        tex_array[index_tex++] = 0;
     }
 
     index = 0;
@@ -618,7 +675,7 @@ generate_sphere_index(float radius, int slices, int stacks,
         index_array[index++] = (stacks - 1) + (stacks - 1) * ((j + 1) % slices) + slices - 1;
     }
 
-    return make_tuple(points_array, normal_array, index_array);
+    return make_tuple(points_array, normal_array, tex_array, index_array);
 }
 
 void write3D(const char *filename, unsigned int nVertices, float *points, float *normals,
