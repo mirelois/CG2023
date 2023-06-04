@@ -142,9 +142,9 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         point_array[index++] = height;
         point_array[index++] = 0;
 
-        normal_array[index_normal++] = 0;
-        normal_array[index_normal++] = 1;
-        normal_array[index_normal++] = 0;
+        normal_array[index_normal++] = normalz * sin(alfa * i);
+        normal_array[index_normal++] = normaly;
+        normal_array[index_normal++] = normalz * cos(alfa * i);
 
         tex_array[index_tex++] = i * texture_deltaX;
         tex_array[index_tex++] = 1;
@@ -165,7 +165,7 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
             normal_array[index_normal++] = normalz * cos(alfa * j);
             
             tex_array[index_tex++] = j * texture_deltaX;
-            tex_array[index_tex++] = 1 - i * texture_deltaY;
+            tex_array[index_tex++] = 1 - (i + 1) * texture_deltaY;
         }
     }
 
