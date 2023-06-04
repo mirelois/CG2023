@@ -193,7 +193,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
 	        ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 	        ilGenImages(1,&t);
 	        ilBindImage(t);
-	        ilLoadImage((ILstring)temp->value());
+	        ilLoadImage((ILstring)temp->first_attribute("file")->value());
 	        tw = ilGetInteger(IL_IMAGE_WIDTH);
 	        th = ilGetInteger(IL_IMAGE_HEIGHT);
 	        ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
