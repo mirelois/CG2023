@@ -106,9 +106,9 @@ tuple<float *, float *, float *, unsigned int *>
 generate_cone_index(float bottom_radius, float height, int slices, int stacks,
                     unsigned int *point_total, unsigned int *index_total, unsigned int *normal_total, unsigned int *tex_total) {
 
-    *point_total  = 3 * (slices + 1  + slices * (stacks + 1));
-    *normal_total = 3 * (slices + 1  + slices * (stacks + 1));
-    *tex_total    = 2 * (slices + 1  + slices * (stacks + 1));
+    *point_total  = 3 * (slices + 1 + slices * (stacks + 1) + stacks);
+    *normal_total = 3 * (slices + 1 + slices * (stacks + 1) + stacks);
+    *tex_total    = 2 * (slices + 1 + slices * (stacks + 1) + stacks);
     *index_total  = slices * stacks * 6;
 
     float *point_array  = (float *)malloc(sizeof(float) * *point_total);
@@ -153,7 +153,7 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
     for (i = 0; i < stacks; i++) {
         double sub_height = height - division_height_step * (i + 1);
         double sub_radius = (i + 1) * division_radius_step;
-        for (j = 0; j < slices; j++) {
+        for (j = 0; j < slices + 1; j++) {
 
             // lados
             point_array[index++] = sub_radius * sin(alfa * j);
@@ -196,37 +196,39 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
     tex_array[index_tex++] = 0;
     tex_array[index_tex++] = 0;
 
+    assert(index == *point_total);
+
     index = 0;
 
     for (int i = 0; i < slices; i++) {
         index_array[index++] = i;
         index_array[index++] = i + slices;
-        index_array[index++] = (i + 1) % (slices) + slices;
+        index_array[index++] = (i + 1) + slices;
     }
 
     for (int j = 0; j < stacks - 1; j++) {
         for (int i = 0; i < slices; i++) {
-            index_array[index++] = slices * j + i + slices;
-            index_array[index++] = slices * (j + 1) + i + slices;
-            index_array[index++] = slices * (j + 1) + ((i + 1) % slices) + slices;
+            index_array[index++] = (slices + 1) *  j + i + slices;
+            index_array[index++] = (slices + 1) * (j + 1) + i + slices;
+            index_array[index++] = (slices + 1) * (j + 1) + ((i + 1)) + slices;
 
-            index_array[index++] = slices * j + i + slices;
-            index_array[index++] = slices * (j + 1) + ((i + 1) % slices) + slices;
-            index_array[index++] = slices * j + ((i + 1) % slices) + slices;
+            index_array[index++] = (slices + 1) * j + i + slices;
+            index_array[index++] = (slices + 1) * (j + 1) + ((i + 1)) + slices;
+            index_array[index++] = (slices + 1) * j + ((i + 1)) + slices;
         }
     }
 
-    int bottom_point_index = slices * (stacks + 1) + slices;
+    int bottom_point_index = slices * (stacks + 1) + slices + stacks + 1;
 
     for (int i = 0; i < slices; i++) {
-        int offset = (slices + 1) * (stacks - 1) + 2;
+        int offset = (slices + 1) * stacks + slices;
         index_array[index++] = offset + i;
         index_array[index++] = bottom_point_index;
-        index_array[index++] = offset + (i + 1) % slices;
+        index_array[index++] = offset + (i + 1);
     }
 
     for (int i=0; i<*index_total; i++) {
-        printf("%d,", index_array[i]);
+        printf("%u,", index_array[i]);
         if((i+1) % 3 == 0) putchar('\n');
     }
 
@@ -560,9 +562,9 @@ generate_sphere_index(float radius, int slices, int stacks,
                       unsigned int *points_total, unsigned int *index_total, unsigned int *normal_total, unsigned int *tex_total) {
 
     *index_total  = 6 *  slices * (stacks - 1) ;
-    *points_total = 3 * (slices * (stacks + 1));
-    *normal_total = 3 * (slices * (stacks + 1));
-    *tex_total    = 2 * (slices * (stacks + 1));
+    *points_total = 3 * ((slices + 1) * (stacks - 1) + slices * 2);
+    *normal_total = 3 * ((slices + 1) * (stacks - 1) + slices * 2);
+    *tex_total    = 2 * ((slices + 1) * (stacks - 1) + slices * 2);
     
     int master_line_size = (stacks + 1) * 3;
     float alfa_x = M_PI / stacks;
@@ -615,7 +617,7 @@ generate_sphere_index(float radius, int slices, int stacks,
         tex_array[index_tex++] = 1;
     }
 
-    for (int j = 0; j < slices; j++) {
+    for (int j = 0; j < slices + 1; j++) {
         for (int i = 1; i <= stacks - 1; i++) {
             points_array[index++] = (master_line[i * 3 + 0]) * cos(j * alfa_y) +
                                     (master_line[i * 3 + 2]) * sin(j * alfa_y);
@@ -630,9 +632,10 @@ generate_sphere_index(float radius, int slices, int stacks,
                                     (master_line_normal[i * 3 + 2]) * cos(j * alfa_y);
         
             tex_array[index_tex++] = j * texture_deltaX;
-            tex_array[index_tex++] = i * texture_deltaY;
+            tex_array[index_tex++] = 1 - i * texture_deltaY;
         }
     }
+
 
     for (int i = 0; i < slices; i++){
         //bottom points
@@ -648,6 +651,8 @@ generate_sphere_index(float radius, int slices, int stacks,
         tex_array[index_tex++] = 0;
     }
 
+    assert(index == *points_total);
+
     index = 0;
 
     for (int j = 0; j < slices; j++) {
@@ -655,25 +660,25 @@ generate_sphere_index(float radius, int slices, int stacks,
         // add top triangle
         index_array[index++] = j;
         index_array[index++] = (stacks - 1) * j + slices;
-        index_array[index++] = (stacks - 1) * ((j + 1) % slices) + slices;
+        index_array[index++] = (stacks - 1) * ((j + 1)) + slices;
 
         for (int i = 0; i < stacks - 2; i++) {
             // primeiro triangulo da stack
             index_array[index++] = (stacks - 1) * j + i + slices;
             index_array[index++] = (stacks - 1) * j + (i + 1) + slices;
             index_array[index++] =
-                (stacks - 1) * ((j + 1) % slices) + (i + 1) + slices;
+                (stacks - 1) * ((j + 1)) + (i + 1) + slices;
 
             // segundo triangulo da stack
             index_array[index++] = (stacks - 1) * j + i + slices;
             index_array[index++] =
-                (stacks - 1) * ((j + 1) % slices) + (i + 1) + slices;
-            index_array[index++] = (stacks - 1) * ((j + 1) % slices) + i + slices;
+                (stacks - 1) * ((j + 1)) + (i + 1) + slices;
+            index_array[index++] = (stacks - 1) * ((j + 1)) + i + slices;
         }
         // add bottom triangle
         index_array[index++] = (stacks - 1) + (stacks - 1) * j + slices - 1; 
-        index_array[index++] = (stacks - 1) * (slices) + slices + j; // last
-        index_array[index++] = (stacks - 1) + (stacks - 1) * ((j + 1) % slices) + slices - 1;
+        index_array[index++] = (stacks - 1) * (slices) + slices + j + stacks - 1; // last
+        index_array[index++] = (stacks - 1) + (stacks - 1) * ((j + 1)) + slices - 1;
     }
 
     return make_tuple(points_array, normal_array, tex_array, index_array);
@@ -684,6 +689,7 @@ void write3D(const char *filename, unsigned int nVertices, float *points, float 
     ofstream file;
 
     file.open(filename, ios::out | ios::binary | ios::trunc);
+
     // Pontos
     file.write((char *)&nVertices, sizeof(unsigned int));
 
@@ -693,7 +699,7 @@ void write3D(const char *filename, unsigned int nVertices, float *points, float 
     file.write((char *) normals, sizeof(float) * nVertices);
 
     // TexCoords
-    file.write((char*)texCoords, sizeof(float) * (nVertices*2)/3);
+    file.write((char *) texCoords, sizeof(float) * nVertices);
 
     // Indices
     file.write((char *)&nIndices, sizeof(unsigned int));
@@ -711,10 +717,10 @@ int main(int argc, char *argv[]) {
         
         write3D(argv[5], points_total, get<0>(sphere), get<1>(sphere), get<2>(sphere), index_total,
                 get<3>(sphere));
-        delete get<0>(sphere);
-        delete get<1>(sphere);
-        delete get<2>(sphere);
-        delete get<3>(sphere);
+        //delete get<0>(sphere);
+        //delete get<1>(sphere);
+        //delete get<2>(sphere);
+        //delete get<3>(sphere);
     } else if (!strcmp(argv[1], "box")) {
         unsigned int points_total, index_total, normal_total, tex_total;
         tuple<float *, float *, float *, unsigned int *> box = generate_box_index(
