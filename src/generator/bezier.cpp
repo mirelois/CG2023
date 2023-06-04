@@ -227,6 +227,5 @@ tuple<vector<float>*,vector<float>*, vector<float>*, vector<unsigned int>*> gene
     }
     delete patches;
     delete cpoints;
-
     return make_tuple(point_vector,normal_vector, texcoords_vector, indices);
 }

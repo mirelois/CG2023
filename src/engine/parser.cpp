@@ -165,6 +165,7 @@ void parse_group_models(xml_node<> *node_Models, Group* group, vector<float> *po
 
             unsigned int n_indices;
             filestream.read((char*)&n_indices, sizeof(unsigned int));
+            printf("%d\n", n_indices);
             unsigned int* indices_buf = (unsigned int*)malloc(sizeof(unsigned int) * n_indices);
             filestream.read((char*)(indices_buf), sizeof(unsigned int) * n_indices);
             
