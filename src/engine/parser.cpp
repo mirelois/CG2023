@@ -63,6 +63,12 @@ void parse_camera(xml_node<> *camera_node, Camera* camera){
             camera->projection[2] = atof(attr->value());
     }
 
+    if((temp = camera_node->first_node("settings"))){
+        xml_attribute<> *attr;
+        if((attr = temp->first_attribute("delta")))
+            camera->camera_move_delta = atof(attr->value());
+    }
+
 }
 
 void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
