@@ -392,16 +392,11 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_RESCALE_NORMAL);
 
-	
-
-	float dark[4] = {0.5, 0.5, 0.5, 1.0};
-	float white[4] = {1.0, 1.0, 1.0, 1.0};
-	//float black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-
 	// light colors
-
+	float amb[4] = { 0.5f, 0.5f, 0.5f, 0.5f };
+	int amb_active = 1;
 	//Parser depois dos inits para se conseguir dar load às texturas e guardar apenas o ID
-	parser(argv[1], window, camera_global, lights, group_global, points, normals, texCoords, indices);
+	parser(argv[1], window, camera_global, lights, amb, &amb_active, group_global, points, normals, texCoords, indices);
 	last_camera_position[0] = camera_global->position[0];
 	last_camera_position[1] = camera_global->position[1];
 	last_camera_position[2] = camera_global->position[2];
@@ -410,13 +405,14 @@ int main(int argc, char* argv[]) {
 	if (!lights->empty()) glEnable(GL_LIGHTING);
 	for(Light* light: *lights){
 		glEnable(light->getNumber());
-		glLightfv(light->getNumber(), GL_AMBIENT, dark);
-		glLightfv(light->getNumber(), GL_DIFFUSE, white);
-		glLightfv(light->getNumber(), GL_SPECULAR, white);
+		glLightfv(light->getNumber(), GL_AMBIENT, light->ambient);
+		glLightfv(light->getNumber(), GL_DIFFUSE, light->diffuse);
+		glLightfv(light->getNumber(), GL_SPECULAR, light->specular);
 	}
 	// controls global ambient light
-	float amb[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, dark);
+	if(amb_active){
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
+	}
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
