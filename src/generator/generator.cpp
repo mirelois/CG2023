@@ -106,9 +106,9 @@ tuple<float *, float *, float *, unsigned int *>
 generate_cone_index(float bottom_radius, float height, int slices, int stacks,
                     unsigned int *point_total, unsigned int *index_total, unsigned int *normal_total, unsigned int *tex_total) {
 
-    *point_total  = 3 * (slices + 1 + slices * (stacks + 1) + stacks);
-    *normal_total = 3 * (slices + 1 + slices * (stacks + 1) + stacks);
-    *tex_total    = 2 * (slices + 1 + slices * (stacks + 1) + stacks);
+    *point_total  = 3 * (slices + (slices + 1) * (stacks + 1) + 1);
+    *normal_total = 3 * (slices + (slices + 1) * (stacks + 1) + 1);
+    *tex_total    = 2 * (slices + (slices + 1) * (stacks + 1) + 1);
     *index_total  = slices * stacks * 6;
 
     float *point_array  = (float *)malloc(sizeof(float) * *point_total);
@@ -169,7 +169,7 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         }
     }
 
-    for (j = 0; j < slices; j++) {
+    for (j = 0; j < slices + 1; j++) {
 
         // base border
         point_array[index++] = bottom_radius * sin(alfa * j);
@@ -195,8 +195,6 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         
     tex_array[index_tex++] = 0;
     tex_array[index_tex++] = 0;
-
-    assert(index == *point_total);
 
     index = 0;
 
@@ -227,8 +225,8 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
         index_array[index++] = offset + (i + 1);
     }
 
-    for (int i=0; i<*index_total; i++) {
-        printf("%u,", index_array[i]);
+    for (int i=0; i<*point_total; i++) {
+        printf("%f,", point_array[i]);
         if((i+1) % 3 == 0) putchar('\n');
     }
 
