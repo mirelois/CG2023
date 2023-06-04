@@ -165,7 +165,7 @@ generate_cone_index(float bottom_radius, float height, int slices, int stacks,
             normal_array[index_normal++] = normalz * cos(alfa * j);
             
             tex_array[index_tex++] = j * texture_deltaX;
-            tex_array[index_tex++] = i * texture_deltaY;
+            tex_array[index_tex++] = 1 - i * texture_deltaY;
         }
     }
 
