@@ -83,6 +83,13 @@ void calculate_point(float u, float v, vector<int>* patch, vector<vector<float>>
 }
 
 
+void normalize(float *v){
+	float norm = sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
+	v[0] = v[0] / norm;
+	v[1] = v[1] / norm;
+	v[2] = v[2] / norm;
+}
+
 void calculate_normal(float u, float v, vector<int>* patch, vector<vector<float>>* cpoints, float* n){
     float M[4][4] = { // Matriz de Bezier
     {-1, 3, -3, 1},
@@ -142,6 +149,8 @@ void calculate_normal(float u, float v, vector<int>* patch, vector<vector<float>
     n[0] = dv[1]*du[2] - dv[2]*du[1];
     n[1] = dv[2]*du[0] - dv[0]*du[2];
     n[2] = dv[0]*du[1] - dv[1]*du[0];
+
+    normalize(n);
 }
 
 unsigned int interact(map<tuple<float,float,float,float,float,float>, unsigned int>* map, float* points, 

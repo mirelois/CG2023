@@ -8,7 +8,7 @@
     </camera>
 	
 	<lights> 
-		<light type="spot" posx="0" posy="2" posz="4" dirx="0" diry="-2" dirz="-4" cutoff="10"/>
+		<light type="spotlight" posx="0" posy="2" posz="4" dirx="0" diry="-2" dirz="-4" cutoff="10"/>
 	</lights>
 	<group>
 		<group> 
