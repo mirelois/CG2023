@@ -7,7 +7,13 @@
         <projection fov="60" near="1" far="1000" />
     </camera>
     <lights>
-        <light type="point" posX="0" posY="10" posZ="0" />
+        <amb active="false" R="0.5" G="0.5" B="0.5"/>
+        <light type="point" posX="0" posY="10" posZ="0">
+            <color>
+                    <diffuse R="100" G="0" B="0" />
+                    <specular R="0" G="0" B="0" />
+            </color>
+        </light>
         <light type="directional" dirX="1" dirY="1" dirZ="1"/>
         <light type="spotlight" posX="0" posY="10" posZ="0" dirX="1" dirY="1" dirZ="1" cutoff="45" />
     </lights>
@@ -19,7 +25,6 @@
             <model file="models/teapot.3d" >
                 <color>
                     <diffuse R="100" G="0" B="0" />
-                    <ambient R="50" G="50" B="50" />
                     <specular R="0" G="0" B="0" />
                     <emissive R="0" G="10" B="0" />
                     <shininess value="5" />

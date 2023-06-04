@@ -23,6 +23,9 @@ public:
 
 class Light{
 public: // Default settings
+    float diffuse[4] = {1.0, 1.0, 1.0, 1.0};
+    float ambient[4] = {0.5, 0.5, 0.5, 1.0};
+    float specular[4] = {1.0, 1.0, 1.0, 1.0};
     void virtual drawLight()=0;
     virtual GLuint getNumber()=0;
 };
