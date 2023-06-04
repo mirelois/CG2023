@@ -167,7 +167,7 @@ unsigned int interact(map<tuple<float,float,float,float,float,float>, unsigned i
     return ind_Actual;
 }
 
-tuple<vector<float>*,vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, float tessellation_level){
+tuple<vector<float>*,vector<float>*, vector<float>*, vector<unsigned int>*> generate_bezier(char *file_name, float tessellation_level){
 
     vector<vector<int>*>* patches = new vector<vector<int>*>();
     vector<vector<float>>* cpoints = new vector<vector<float>>();
@@ -219,5 +219,5 @@ tuple<vector<float>*,vector<float>*, vector<unsigned int>*> generate_bezier(char
     delete patches;
     delete cpoints;
 
-    return make_tuple(point_vector, normal_vector, indices);
+    return make_tuple(point_vector, texcoords_vector, normal_vector, indices);
 }

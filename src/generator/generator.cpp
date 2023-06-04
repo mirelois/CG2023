@@ -693,7 +693,7 @@ void write3D(const char *filename, unsigned int nVertices, float *points, float 
     file.write((char *) normals, sizeof(float) * nVertices);
 
     // TexCoords
-
+    file.write((char *) texCoords, sizeof(float) * nVertices);
 
     // Indices
     file.write((char *)&nIndices, sizeof(unsigned int));
@@ -770,15 +770,15 @@ int main(int argc, char *argv[]) {
 
     } else if (!strcmp(argv[1], "patch")) {
         
-        tuple<vector<float> *,vector<float>*, vector<unsigned int> *> bezier =
+        tuple<vector<float> *,vector<float>*, vector<float>*, vector<unsigned int> *> bezier =
             generate_bezier(argv[2], atoi(argv[3]));
         write3D(argv[4], get<0>(bezier)->size(), get<0>(bezier)->data(),
-                get<1>(bezier)->data(), get<2>(bezier)->size(), get<2>(bezier)->data());
+                get<1>(bezier)->data(), get<2>(bezier)->data(), get<3>(bezier)->size(), get<3>(bezier)->data());
 
         delete get<0>(bezier);
         delete get<1>(bezier);
         delete get<2>(bezier);
-                
+        delete get<3>(bezier);
     } else {
         printf("Invalid Model\nCommands:\nsphere [radius] [slices] [stacks] [file]\nbox [dimension] [number of divisions] [file]\ncone [radius] [height] [slices] [stacks] [file]\nplane [length] [grid slices] [file]\ncylinder [radius] [height] [slices] [stacks] [file]\npatch [filename] [tesselation level] [file]\n");
     }
