@@ -70,7 +70,7 @@ void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
     xml_attribute<> *attr;
     GLuint numbers[] = {GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7};
     int number = 0;
-    for(temp = lights_node->first_node("light"); temp; temp = temp->next_sibling("light"), number++){
+    for(temp = lights_node->first_node("light"); number < 8 && temp; temp = temp->next_sibling("light"), number++){
         if((attr = temp->first_attribute("type")) && !strcmp(attr->value(), "point")){
             Point* point = new Point();
             if((attr = temp->first_attribute("posX")))

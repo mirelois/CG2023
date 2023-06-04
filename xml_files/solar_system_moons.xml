@@ -6,6 +6,9 @@
         <up x="0" y="1" z="0" />
         <projection fov="60" near="1" far="10000" />
     </camera>
+    <lights>
+        <light type="point" posx="0" posy="0" posz="0"/>
+    </lights>
     <group>
         <transform>
             <scale x="10" y="10" z="10" />
