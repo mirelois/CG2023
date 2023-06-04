@@ -780,7 +780,7 @@ int main(int argc, char *argv[]) {
         delete get<2>(bezier);
                 
     } else {
-        printf("Invalid Model\n");
+        printf("Invalid Model\nCommands:\nsphere [radius] [slices] [stacks] [file]\nbox [dimension] [number of divisions] [file]\ncone [radius] [height] [slices] [stacks] [file]\nplane [length] [grid slices] [file]\ncylinder [radius] [height] [slices] [stacks] [file]\npatch [filename] [tesselation level] [file]\n");
     }
 
     return 0;
