@@ -417,6 +417,7 @@ tuple<float *, float *, unsigned int *> generate_box_index(float length, int gri
     
     for (int i = 0; i < grid_slices + 1; i++) {
         for (int j = 0; j < grid_slices + 1; j++) {
+
             // step down now
             point_array[index++] = j * delta + referential_x;
             point_array[index++] = referential_z;
