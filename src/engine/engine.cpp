@@ -415,7 +415,7 @@ int main(int argc, char* argv[]) {
 	}
 	// controls global ambient light
 	float amb[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, dark);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);

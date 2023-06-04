@@ -73,13 +73,13 @@ void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
     for(temp = lights_node->first_node("light"); number < 8 && temp; temp = temp->next_sibling("light"), number++){
         if((attr = temp->first_attribute("type")) && !strcmp(attr->value(), "point")){
             Point* point = new Point();
-            if((attr = temp->first_attribute("posX")))
+            if((attr = temp->first_attribute("posx")))
                 point->point[0] = atof(attr->value());
         
-            if((attr = temp->first_attribute("posY")))
+            if((attr = temp->first_attribute("posy")))
                 point->point[1] = atof(attr->value());
         
-            if((attr = temp->first_attribute("posZ")))
+            if((attr = temp->first_attribute("posz")))
                 point->point[2] = atof(attr->value());
 
             point->point[3] = 1.0;
@@ -88,39 +88,41 @@ void parse_lights(xml_node<> *lights_node, vector<Light*>* lights){
             lights->push_back(point);
         } else if((attr = temp->first_attribute("type")) && !strcmp(attr->value(), "directional")){
             Directional* directional = new Directional();
-            if((attr = temp->first_attribute("dirX")))
+            if((attr = temp->first_attribute("dirx")))
                 directional->point[0] = atof(attr->value());
         
-            if((attr = temp->first_attribute("dirY")))
+            if((attr = temp->first_attribute("diry")))
                 directional->point[1] = atof(attr->value());
         
-            if((attr = temp->first_attribute("dirZ")))
+            if((attr = temp->first_attribute("dirz")))
                 directional->point[2] = atof(attr->value());
 
             directional->point[3] = 0.0;
+
+            printf("%f %f %f\n", directional->point[0], directional->point[1], directional->point[2]);
 
             directional->number = numbers[number];
             lights->push_back(directional);
         } else if((attr = temp->first_attribute("type")) && !strcmp(attr->value(), "spotlight")){
             Spotlight* spotlight = new Spotlight();
-            if((attr = temp->first_attribute("posX")))
+            if((attr = temp->first_attribute("posx")))
                 spotlight->point[0] = atof(attr->value());
         
-            if((attr = temp->first_attribute("posY")))
+            if((attr = temp->first_attribute("posy")))
                 spotlight->point[1] = atof(attr->value());
         
-            if((attr = temp->first_attribute("posZ")))
+            if((attr = temp->first_attribute("posz")))
                 spotlight->point[2] = atof(attr->value());
 
             spotlight->point[3] = 1.0;
         
-            if((attr = temp->first_attribute("dirX")))
+            if((attr = temp->first_attribute("dirx")))
                 spotlight->dir[0] = atof(attr->value());
         
-            if((attr = temp->first_attribute("dirY")))
+            if((attr = temp->first_attribute("diry")))
                 spotlight->dir[1] = atof(attr->value());
         
-            if((attr = temp->first_attribute("dirZ")))
+            if((attr = temp->first_attribute("dirz")))
                 spotlight->dir[2] = atof(attr->value());
 
             if((attr = temp->first_attribute("cutoff")))
